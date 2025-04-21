@@ -16,7 +16,20 @@ namespace Sparta_TextRPG
         도적,
 
     }
+    enum SkillName
+    {
+        None,
+    }
 
+    enum MonsterName
+    {
+        None,
+    }
+
+    enum SceneName
+    {
+        None,
+    }
 
 
 }
