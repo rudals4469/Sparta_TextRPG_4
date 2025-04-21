@@ -8,5 +8,10 @@ namespace Sparta_TextRPG
 {
     internal class Inventory
     {
+        public Weapon Weapon { get; set; }
+        public Armor Armor { get; set; }
+        public Shiled Shiled { get; set; }
+        public Potion Potion { get; set; }
+
     }
 }
