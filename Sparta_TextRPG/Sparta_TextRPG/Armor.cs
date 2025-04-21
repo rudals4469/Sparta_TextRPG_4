@@ -8,5 +8,8 @@ namespace Sparta_TextRPG
 {
     internal class Armor
     {
+        public int ArmorPoint { get; set; }
+        public bool isEquiped { get; set; }
+
     }
 }
