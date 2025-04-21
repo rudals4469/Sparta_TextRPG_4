@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Enums
+    enum ClassName
     {
+        None,
+        전사,
+        마법사,
+        궁수,
+        해적,
+        도적,
+
     }
+
+
+
 }

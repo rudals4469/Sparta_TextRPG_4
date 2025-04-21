@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Player
+    internal class Player : Animal //animal에 상속
+       
     {
+        public int MaxExp {  get; set; } //exp
+
+
+
+
+
     }
+
+    
 }
