@@ -8,5 +8,11 @@ namespace Sparta_TextRPG
 {
     internal class Enums
     {
+        enum MonsterName
+        {
+            Unknown,
+            Slime,
+            MusurMom,
+        }
     }
 }
