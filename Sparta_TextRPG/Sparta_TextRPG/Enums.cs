@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Enums
+    enum ClassName
     {
-        enum MonsterName
-        {
-            Unknown,
-            Slime,
-            MusurMom,
-        }
+        None,
+        전사,
+        마법사,
+        궁수,
+        해적,
+        도적,
+
     }
+
+
+
 }
