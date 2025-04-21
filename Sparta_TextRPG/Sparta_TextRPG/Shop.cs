@@ -8,5 +8,6 @@ namespace Sparta_TextRPG
 {
     internal class Shop
     {
+        public Inventory Inventory { get; set; }
     }
 }
