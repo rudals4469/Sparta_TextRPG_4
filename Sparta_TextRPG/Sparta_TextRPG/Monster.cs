@@ -8,5 +8,11 @@ namespace Sparta_TextRPG
 {
     internal class Monster
     {
+        MonsterName MonsterName;
+
+        public Monster()
+        {
+            MonsterName = MonsterName.MusurMom
+        }
     }
 }
