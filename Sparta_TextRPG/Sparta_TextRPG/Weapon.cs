@@ -6,7 +6,5 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Item
-    {
-    }
+   
 }
