@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Enums
+    internal class Shop
     {
-        enum MonsterName
-        {
-            Unknown,
-            Slime,
-            MusurMom,
-        }
+        public Inventory Inventory { get; set; }
     }
 }

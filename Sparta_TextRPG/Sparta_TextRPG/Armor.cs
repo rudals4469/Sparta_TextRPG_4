@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Enums
+    internal class Armor
     {
-        enum MonsterName
-        {
-            Unknown,
-            Slime,
-            MusurMom,
-        }
+        public int ArmorPoint { get; set; }
+        public bool isEquiped { get; set; }
+
     }
 }

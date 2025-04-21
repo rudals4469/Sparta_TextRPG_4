@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Enums
+    internal class Weapon : Item
     {
-        enum MonsterName
-        {
-            Unknown,
-            Slime,
-            MusurMom,
-        }
+        public int AttackPoint { get; set; }
+        public bool isEquiped { get; set; }
     }
 }
