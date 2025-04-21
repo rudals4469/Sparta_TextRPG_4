@@ -11,7 +11,10 @@ namespace Sparta_TextRPG
     {
         public int MaxExp {  get; set; } //exp
 
-
+        public Weapon Weapon { get; set; }
+        public Armor Armor { get; set; }
+        public Shiled Shiled { get; set; }
+        public Potion Potion { get; set; }
 
 
 
