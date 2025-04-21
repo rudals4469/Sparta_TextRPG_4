@@ -9,10 +9,10 @@ namespace Sparta_TextRPG
     internal class Monster
     {
         MonsterName MonsterName;
-
+        List<Item> Items;
         public Monster()
         {
-            MonsterName = MonsterName.MusurMom
+            MonsterName = MonsterName.MusurMom;
         }
     }
 }

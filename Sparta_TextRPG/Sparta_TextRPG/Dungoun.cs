@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Item
+    internal class Dungoun
     {
-        public string Name { get; set; }
-        public string Text { get; set; }
-        public int Price { get; set; }
-
     }
 }
