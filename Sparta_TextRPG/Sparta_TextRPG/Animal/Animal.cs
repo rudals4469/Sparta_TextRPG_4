@@ -10,8 +10,10 @@ namespace Sparta_TextRPG
     {
         public int Level { get; set; }
         public int Exp { get; set; }
-        public int HP { get; set; }
-        public int MP { get; set; }
+        public int MaxHP { get; set; }
+        public int NowHP { get; set; }
+        public int MaxMP { get; set; }
+        public int NowMP { get; set; }
         public int AttackPoint { get; set; } //공격력
         public int ArmorPoint { get; set; } //방어력
         public Inventory Inventory { get; set; }

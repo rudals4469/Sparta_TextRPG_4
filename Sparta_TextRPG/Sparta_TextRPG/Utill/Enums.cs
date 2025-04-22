@@ -30,6 +30,12 @@ namespace Sparta_TextRPG
     {
         None,
         Start,
+        BattelStart,
+        BattelAttackPhase,
+        BattelAttackMonster,
+        BattelMonsterPhase,
+        BattlePlayerWin,
+        BattlePlayerLose,
     }
 
 
