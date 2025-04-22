@@ -14,12 +14,13 @@ namespace Sparta_TextRPG
             init();
 
             SceneName sceneName = new SceneName();
+
             while (true) {
 
                 switch (sceneName){
-                    case SceneName.None :
+                    case SceneName.Start :
+                        start();
                         break;
-
 
                 }
             }
@@ -27,6 +28,10 @@ namespace Sparta_TextRPG
         public void init()
         {
 
+        }
+        public void start()
+        {
+            Messages.Instance().ShowStart();
         }
     }
 }
