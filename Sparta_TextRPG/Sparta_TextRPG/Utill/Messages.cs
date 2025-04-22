@@ -41,7 +41,7 @@ namespace Sparta_TextRPG
 
                 
                """
-                };
+                );
 
         }
     }
