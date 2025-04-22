@@ -23,5 +23,24 @@ namespace Sparta_TextRPG
         public bool IsDead { get; set; }
         public int EvasionRate { get; set; }//회피율
 
+
+        public Animal(int Level, int Exp, int MaxHp, int NowHp, int MaxMP, int AttacPoint, int ArmorPoint,
+            Inventory inventory, string Name, int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate)
+        {
+            this.Level = Level;
+            this.Exp = Exp;
+            this.MaxHP = MaxHp;
+            this.NowHP = NowHp;
+            this.MaxMP = MaxMP;
+            this.NowHP = NowHP;
+            this.AttackPoint = AttacPoint;
+            this.ArmorPoint = ArmorPoint;
+            this.Inventory = inventory;
+            this.Name = Name;
+            this.Gold = Gold;
+            this.SkillList = SkillList;
+            this.IsDead = IsDead;
+            this.EvasionRate = EvasionRate;
+        }
     }
 }
