@@ -9,7 +9,7 @@ namespace Sparta_TextRPG
     internal class Armor : Item
     {
         public int ArmorPoint { get; set; }
-        public bool isEquiped { get; set; }
+        public bool IsEquipped { get; set; }
 
     }
 }
