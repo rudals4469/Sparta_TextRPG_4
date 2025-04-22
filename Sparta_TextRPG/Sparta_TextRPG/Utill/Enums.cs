@@ -29,6 +29,7 @@ namespace Sparta_TextRPG
     enum SceneName
     {
         None,
+        Start,
     }
 
 
