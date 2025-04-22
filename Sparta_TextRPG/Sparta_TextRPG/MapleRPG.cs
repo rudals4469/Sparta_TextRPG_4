@@ -185,7 +185,7 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-        public void BattelAttackPhase(List<Monster> monsters)
+        public void BattelAttackPhase(List<Monster> monsters)// 던전에 이미 몬스터수가 정해짐
         {
             Messages.Instance().ShowBattelAttackPhase(monsters, Player);
             string input = Console.ReadLine();
@@ -196,8 +196,9 @@ namespace Sparta_TextRPG
                 sceneName = SceneName.BattelStart;
             }
 
-            else if (inputNum == 1) // 입력 시 대상 선택, 구현 몬하겠다 일단 넘기고
+            else if (inputNum <= monsters.Count+1) // 입력 시 대상 선택, 구현 몬하겠다 일단 넘기고
             {
+                //monsters[inputNum-1]
                 sceneName = SceneName.BattelAttackMonster;
             }
             
@@ -205,15 +206,14 @@ namespace Sparta_TextRPG
             {
                  Messages.Instance().ErrorMessage();
             }
+            //전원사망 = t
+            //반복문 모든 몬스터를 순회
 
             if(/*모든 몬스터 사망 시*/)
             {
                 // 승리 씬으로 들어가기
                 sceneName = SceneName.BattlePlayerWin;
             }
-
-
-
         }
         public void BattelAttackMonster(Monster monster, Skill PlayerSkill)
         {
