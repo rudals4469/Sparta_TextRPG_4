@@ -34,5 +34,12 @@ namespace Sparta_TextRPG
         InDungeon,
     }
 
-
+    enum ItemType
+    {
+        None,
+        Weapon,
+        Armor,
+        Shield,
+        Potion,
+    }
 }
