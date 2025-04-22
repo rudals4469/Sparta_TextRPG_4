@@ -84,10 +84,9 @@ namespace Sparta_TextRPG
         //
         public void ShowBattelStart(List<Monster> monsters, Player player)
         {
-            foreach (var item in monsters)            {
 
+            foreach (var item in monsters) {
                 Console.WriteLine($"Lv.{item.Level} {item.MonsterName.ToString()} HP {item.NowHP}");
-
             }
             Console.Write(
                $"""
@@ -367,21 +366,22 @@ namespace Sparta_TextRPG
                >> 
                """, player.Gold);
         }
-        public void ShowDungoun()
+        public void ShowDungoun(List<Dungoun> dungouns)
         {
             Console.Write($$"""
                던전입장
                이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다. 
-               
-               1. {0} 던전     |      던전 레벨 : {1}  
-               2. {2} 던전     |      던전 레벨 : {3}
-               3. {4} 던전     |      던전 레벨 : {5}
-
+               """);
+            foreach (var item in dungouns)
+            {
+                Console.WriteLine($"{item.Name} | 던전 레벨 : {item.Level}");
+            };           
+            Console.Write($$"""
                0. 나가기 
 
                원하시는 행동을 입력해주세요. 
                >>
-               """, Dungoun.Name, Dungoun.Level);
+               """);
         }
 
         public void ShowHealing()
