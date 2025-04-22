@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -223,13 +224,117 @@ namespace Sparta_TextRPG
             Console.WriteLine($"체  력 : {player.HP}");                //원본 가이드에서 띄어쓰기 되어있음
             Console.WriteLine($"Gold : {player.Gold} G");
             Console.WriteLine();                                      //줄 바꿈 처리
-            Console.WriteLine("인벤토리");                             //player 인벤토리로 받을 수 있게 처리
-            foreach (var item in player.Inventory)                    //배열 리스트 순차적으로 꺼내서 처리(var 변수 타입 결정 player인벤토리 안에 있는 아이템 전부 item처리)
-                Console.WriteLine($" - {item.Name} x{item.Quantity}"); //아이템 이름과 수량
+
+            Console.WriteLine("장착 중인 아이템:");                     // 상태창에서 바로 장착중인 아이템이 보여지게 수정
+            if (player.Weapon != null)
+                Console.WriteLine($"- 무기: {player.Weapon.Name}");    // 무기 장착 칸
+            if (player.Armor != null)
+                Console.WriteLine($"- 방어구: {player.Armor.Name}");   // 방어구 장착 칸
+            if (player.Shiled != null)
+                Console.WriteLine($"- 방패: {player.Shiled.Name}");   // 방패 장착 칸
+            if (player.Potion != null)
+                Console.WriteLine($"- 포션: {player.Potion.Name}");   // 포션 장착 칸
+
             Console.WriteLine();                                      //줄 바꿈 처리
-            Console.WriteLine("\n0.나가기");
-            while (Console.ReadLine() != "0") Console.WriteLine("0을 입력해주세요.\n>> ");  //사용자가 "0"을 입력할 때까지 반복문 실행 출력
+            Console.WriteLine("인벤토리:");                            // 상태창에서 바로 인벤토리가 보여지게 설정
+                                                                     // 상태창에 너무 많은 정보가 보일 것 같아서 인벤토리 안으로 넣을 예정입니다 (수정예정이며 현재 임시 작성)
+            Console.WriteLine("[무기]");                              
+            foreach (var weapon in player.Inventory.Weapon)
+            {
+                Console.WriteLine($" - {weapon.Name}");
+            }
+
+            Console.WriteLine("[방어구]");
+            foreach (var armor in player.Inventory.Armors)
+            {
+                Console.WriteLine($" - {armor.Name}");
+            }
+
+            Console.WriteLine("[방패]");
+            foreach (var shield in player.Inventory.Shild)
+            {
+                Console.WriteLine($" - {shield.Name}");
+            }
+
+            Console.WriteLine("[포션]");
+            foreach (var potion in player.Inventory.Potions)
+            {
+                Console.WriteLine($" - {potion.Name}");
+            }
+
+            Console.WriteLine("\n0. 나가기");
+            while (Console.ReadLine() != "0")
+            {
+                Console.WriteLine("0을 입력해주세요.\n>> ");
+            }
         }
+
+
+        public void ShowInventory(Player player)
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("인벤토리");
+                Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
+
+                int totalItemCount = player.Inventory.Weapon.Count
+                                   + player.Inventory.Armors.Count
+                                   + player.Inventory.Shild.Count
+                                   + player.Inventory.Potions.Count;
+
+                if (totalItemCount == 0)
+                {
+                    Console.WriteLine("아이템이 없습니다.");
+                }
+                else
+                {
+                    Console.WriteLine("[무기]");
+                    foreach (var weapon in player.Inventory.Weapon)
+                    {
+                        string prefix = weapon.IsEquipped ? "[E]" : "";
+                        Console.WriteLine($"- {prefix}{weapon.Name} | +{weapon.AttackPoint} | {weapon.Text}");
+                    }
+
+                    Console.WriteLine("\n[방어구]");
+                    foreach (var armor in player.Inventory.Armors)
+                    {
+                        string prefix = armor.IsEquipped ? "[E]" : "";
+                        Console.WriteLine($"- {prefix}{armor.Name} | +{armor.ArmorPoint} | {armor.Text}");
+                    }
+
+                    Console.WriteLine("\n[방패]");
+                    foreach (var shield in player.Inventory.Shild)
+                    {
+                        string prefix = shield.IsEquipped ? "[E]" : "";
+                        Console.WriteLine($"- {prefix}{shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
+                    }
+
+                    Console.WriteLine("\n[포션]");
+                    foreach (var potion in player.Inventory.Potions)
+                    {
+                        Console.WriteLine($"- {potion.Name} | +{potion.HealPoint} | {potion.Text}");
+                    }
+                }
+
+                Console.WriteLine("\n1. 장착 관리");
+                Console.WriteLine("0. 나가기");
+                Console.Write("\n원하시는 행동을 입력해주세요. >> ");
+                string input = Console.ReadLine();
+
+                if (input == "0") break;
+                else if (input == "1") ManageEquipment(player); 
+                else
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                    Console.ReadKey();
+                }
+            }
+        }
+
+
+
+
 
         public void ErrorMessage()
         {
