@@ -9,7 +9,7 @@ namespace Sparta_TextRPG
 {
     internal class Monster : Animal
     {
-        MonsterName MonsterName;
+        public MonsterName MonsterName;
         List<Item> Items;
 
   
