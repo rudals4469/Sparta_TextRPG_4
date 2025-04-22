@@ -218,9 +218,9 @@ namespace Sparta_TextRPG
             Console.WriteLine();                                       //줄 바꿈 처리
             Console.WriteLine($"Lv. {player.Level}");
             Console.WriteLine($"{player.Name} ( {player.Class} )");
-            Console.WriteLine($"공격력 : {player.Attack}");
-            Console.WriteLine($"방어력 : {player.Armor}");
-            Console.WriteLine($"체  력 : {player.HP}");                //원본 가이드에서 띄어쓰기 되어있음
+            Console.WriteLine($"공격력 : {player.AttackPoint}");
+            Console.WriteLine($"방어력 : {player.ArmorPoint}");
+            Console.WriteLine($"체  력 : {player.NowHP}/{player.MaxHP}");                //원본 가이드에서 띄어쓰기 되어있음
             Console.WriteLine($"Gold : {player.Gold} G");
             Console.WriteLine();                                      //줄 바꿈 처리
             Console.WriteLine("인벤토리");                             //player 인벤토리로 받을 수 있게 처리
