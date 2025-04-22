@@ -32,5 +32,12 @@ namespace Sparta_TextRPG
         Start,
     }
 
-
+    enum ItemType
+    {
+        None,
+        Weapon,
+        Armor,
+        Shield,
+        Potion,
+    }
 }
