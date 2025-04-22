@@ -11,6 +11,8 @@ namespace Sparta_TextRPG
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
+            init();
+
             SceneName sceneName = new SceneName();
             while (true) {
 
@@ -21,7 +23,6 @@ namespace Sparta_TextRPG
 
                 }
             }
-
         }
         public void init()
         {
