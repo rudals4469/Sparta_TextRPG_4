@@ -152,6 +152,7 @@ namespace Sparta_TextRPG
             else
             {
                 Console.WriteLine($"HP {monster.NowHP} -> {monster.NowHP - PlayerSkill.Damage}");
+                
             }
 
             Console.Write(

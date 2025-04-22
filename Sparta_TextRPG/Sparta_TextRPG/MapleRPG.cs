@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
@@ -190,55 +191,122 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum == 1)
+            if(inputNum == 0) // 0 입력 시 전 화면으로 돌아가기
+            {
+                sceneName = SceneName.BattelStart;
+            }
+
+            else if (inputNum == 1) // 입력 시 대상 선택, 구현 몬하겠다 일단 넘기고
             {
                 sceneName = SceneName.BattelAttackMonster;
             }
-            else if(inputNum == 2)
+            
+            else
             {
-                sceneName = SceneName.BattelAttackMonster;
+                 Messages.Instance().ErrorMessage();
             }
-            else if (inputNum == 3)
+
+            if(/*모든 몬스터 사망 시*/)
             {
-                sceneName = SceneName.BattelAttackMonster;
+                // 승리 씬으로 들어가기
+                sceneName = SceneName.BattlePlayerWin;
+            }
+
+
+
+        }
+        public void BattelAttackMonster(Monster monster, Skill PlayerSkill)
+        {
+            Messages.Instance().ShowBattelAttackMonster(monster, Player, Player.SkillList[0]);
+            //로직 추가
+
+            Random random = new Random();
+            double Deviation = Math.Ceiling((double)(random.Next(-1, 2) * PlayerSkill.Damage) / 10);
+            // 데미지 편차 (-1~1)까지 랜덤 난수 생성후 데미지에 곱한 뒤 10으로 나눈 걸 올림
+
+            if (monster.IsDead)
+            {
+                Messages.Instance().ErrorMessage(); // 죽어있다면 오류 메세지 출력
+
+            }
+            else if(/* 카운트랑 일치하는 input이 아니라면 오류 출력 */)
+            {
+                Messages.Instance().ErrorMessage();
             }
             else
             {
+                monster.NowHP -= PlayerSkill.Damage + (int)Deviation - monster.ArmorPoint;
+                // 데미지 공식 = 플레이어 데미지 + 편차 - 몬스터 방어력
+            }
 
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0) // 0 입력 시 몬스터 공격 턴으로 이동
+            {
+                sceneName = SceneName.BattelMonsterPhase;
             }
 
 
-            // 카운트랑 일치하는 input이 아니면 오류 출력
-            // 죽은 몬스터 input이면 오류 출력
-            // 아니면 카운트에 맞는 몬스터 hp - player.AttackPoint;
-            // 공격력은 +- 10%  오차
-            // 오차가 소수점이면 올림
 
         }
-        public void BattelAttackMonster()
+        public void BattelMonsterPhase(List<Monster> monsters,Skill PlayerSKill,Player player)
         {
-            //몬스터 받아서 추가
-            Messages.Instance().ShowBattelAttackMonster(new Monster() , Player, Player.SkillList[0]);
-            //로직 추가
+            //몬스터리스트 받아서 추가 = 모든 몬스터가 한 대 씩 때리기 때문.
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                Messages.Instance().ShowBattelMonsterPhase(monsters[i], Player, Player.SkillList[0]);
+                player.NowHP -= (monsters[i].AttackPoint - player.ArmorPoint);
+                // 데미지 공식 = 몬스터 공격력 - 플레이어 방어력
 
+                if (player.IsDead = true)
+                {
+                    // 플레이어 사망 시 패배 씬으로 들어가기
+                    sceneName = SceneName.BattlePlayerLose;
+                }
+            }
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
+            {
+                sceneName = SceneName.BattelAttackPhase;
+            }
 
 
         }
-        public void BattelMonsterPhase()
+        public void BattlePlayerWin(List<Monster> monsters,Player player)
         {
-            //몬스터 받아서 추가
-            Messages.Instance().ShowBattelMonsterPhase(new Monster(), Player, Player.SkillList[0]);
-            //로직 추가
-        }
-        public void BattlePlayerWin()
-        {
-            Messages.Instance().ShowBattlePlayerWin(dungoun.monsters, Player.NowHP, Player);
-            //로직 추가
+            Messages.Instance().ShowBattlePlayerWin(monsters, Player.NowHP, Player);
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                player.Exp += monsters[i].Exp; // 경험치
+                player.Gold += monsters[i].Gold; // 돈
+                // 아이템 습득 로직
+            }
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0) // 0번 입력 시 시작 메뉴로 돌아가기
+            {
+                sceneName= SceneName.StartSetName;
+            }
+
         }
         public void BattlePlayerLose()
         {
             Messages.Instance().ShowBattlePlayerLose(Player.NowHP, Player);
             //로직 추가
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0) // 0번 입력 시 시작 메뉴로 돌아가기
+            {
+                sceneName = SceneName.StartSetName;
+            }
         }
         
 
