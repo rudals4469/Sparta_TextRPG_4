@@ -11,7 +11,20 @@ namespace Sparta_TextRPG
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
-            while (true) { }
+            SceneName sceneName = new SceneName();
+            while (true) {
+
+                switch (sceneName){
+                    case SceneName.None :
+                        break;
+
+
+                }
+            }
+
+        }
+        public void init()
+        {
 
         }
     }
