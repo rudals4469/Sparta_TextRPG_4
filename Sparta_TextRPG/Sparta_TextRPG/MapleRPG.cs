@@ -68,18 +68,57 @@ namespace Sparta_TextRPG
         public void BattelStart()
         {
             Messages.Instance().ShowBattelStart(dungoun.monsters, Player);
-            //로직 추가
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if(inputNum ==1)
+            {
+                sceneName = SceneName.BattelAttackPhase;
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
         }
-        public void BattelAttackPhase()
+        public void BattelAttackPhase(List<Monster> monsters)
         {
             Messages.Instance().ShowBattelAttackPhase(dungoun.monsters, Player);
-            //로직 추가
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 1)
+            {
+                sceneName = SceneName.BattelAttackMonster;
+            }
+            else if(inputNum == 2)
+            {
+                sceneName = SceneName.BattelAttackMonster;
+            }
+            else if (inputNum == 3)
+            {
+                sceneName = SceneName.BattelAttackMonster;
+            }
+            else
+            {
+
+            }
+
+
+            // 카운트랑 일치하는 input이 아니면 오류 출력
+            // 죽은 몬스터 input이면 오류 출력
+            // 아니면 카운트에 맞는 몬스터 hp - player.AttackPoint;
+            // 공격력은 +- 10%  오차
+            // 오차가 소수점이면 올림
+
         }
         public void BattelAttackMonster()
         {
             //몬스터 받아서 추가
             Messages.Instance().ShowBattelAttackMonster(new Monster() , Player, Player.SkillList[0]);
             //로직 추가
+
+
+
         }
         public void BattelMonsterPhase()
         {
