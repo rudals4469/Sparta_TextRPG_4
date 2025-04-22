@@ -21,7 +21,7 @@ namespace Sparta_TextRPG
 
         public void show() 
         {
-            Console.WriteLine("상점에 오신 것을 환영합니다");   
+               
         
         }
         public void main()
@@ -44,21 +44,7 @@ namespace Sparta_TextRPG
             // Inventory.Add(item);
 
 
-            Console.WriteLine("구매 가능한 아이템 목록");
-            Inventory.Add(item);
-            for (int i = 0; i < Inventory.Count; i++);
-            {
-                Item itemmm = ShopItems[i];
-                Console.WriteLine($"{i + 1}. {item.Name} - {item.Price}골드");
-
-            }
-
-            Console.Write("구매할 아이템 번호를 입력하세요: ");
-            string input = Console.ReadLine();
-
-
-            if (int.TryParse(input, out int choice) && choice > 0 && choice <= shopItems.Count)
-            { }
+           
                   
 
             // item 을 받고 
@@ -73,7 +59,6 @@ namespace Sparta_TextRPG
 
 
 
-        
 
 
 
@@ -82,26 +67,19 @@ namespace Sparta_TextRPG
 
 
 
-        
-     public void SellItem(Player player, int selectedIndex)
-
-        { 
-            List<Item> shopItems = Inventory.GetAllItems();
+        // count : 전체의 수를 알려주는 int 리턴
 
 
-        if (selectedIndex < 0 || selectedIndex >= shopItems.Count)
-                return;
 
-            Item selectedItem = shopItems[selectedIndex];
+        //숫자가 들어오면 
+        // 예를들면 다 4개
+        // 10
+        //무기 4개 방어구 4 실드에 2번째걸 리턴 item
 
-            if (player.Gold < selectedItem.Price)
-                return;
+        public void SellItem(Player player, int selectedIndex)
 
-
-            player.Gold -= selectedItem.Price;
-
-
-            player.Inventory.Add(selectedItem); 
+        {
+           
         
         
 
