@@ -31,6 +31,7 @@ namespace Sparta_TextRPG
         None,
         Start,
 
+
         StartSetName,
         StartChackName,
         StartSetClass,
@@ -46,9 +47,19 @@ namespace Sparta_TextRPG
         BattelMonsterPhase,
         BattlePlayerWin,
         BattlePlayerLose,
+        NPC,
+        InDungeon,
 
         GameOver,//게임종료
+
     }
 
-
+    enum ItemType
+    {
+        None,
+        Weapon,
+        Armor,
+        Shield,
+        Potion,
+    }
 }

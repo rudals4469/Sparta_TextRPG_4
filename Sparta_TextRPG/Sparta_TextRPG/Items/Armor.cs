@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Armor
+    internal class Armor : Item
     {
         public int ArmorPoint { get; set; }
         public bool isEquiped { get; set; }
