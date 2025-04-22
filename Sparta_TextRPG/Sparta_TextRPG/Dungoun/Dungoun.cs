@@ -11,5 +11,15 @@ namespace Sparta_TextRPG
         public string Name;
         public int Level;
         public List<Monster> monsters;
+
+        //생성자
+        public Dungoun(string name, int level, List monsters)
+        {
+            Name = name;
+            Level = level;
+            monsters = monsters;
+
+              
+        }
     }
 }
