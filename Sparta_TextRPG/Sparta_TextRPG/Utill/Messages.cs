@@ -44,5 +44,26 @@ namespace Sparta_TextRPG
                 );
 
         }
+
+        public void ShowStatus()         //$""" 사용해보려 하였으나 익숙치 않아 익숙한 것으로 진행
+        {
+            Console.WriteLine("상태 보기");
+            Console.WriteLine();                                       //줄 바꿈 처리
+            Console.WriteLine($"Lv. {Player.Level}");
+            Console.WriteLine($"{Player.Name} ( {Player.Job} )");
+            Console.WriteLine($"공격력 : {Player.Attack}");
+            Console.WriteLine($"방어력 : {Player.Defense}");
+            Console.WriteLine($"체  력 : {Player.HP}");                //원본 가이드에서 띄어쓰기 되어있음
+            Console.WriteLine($"Gold : {Player.Gold} G");
+            Console.WriteLine();                                      //줄 바꿈 처리
+            Console.WriteLine("1");
+            Console.WriteLine("0.나가기");
+            Console.WriteLine();
+            Console.WriteLine("원하시는 행동을 입력해주세요. \n>> ");    //입력 대기 형식 유지하기 위해 \n>> 작성
+
+
+        }
     }
+
 }
+
