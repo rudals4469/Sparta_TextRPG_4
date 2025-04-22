@@ -8,6 +8,11 @@ namespace Sparta_TextRPG
 {
     internal class MapleRPG
     {
+        public Shop Shop { get; set; }
+        public Player Player { get; set; }
+        public NPC NPC { get; set; }
+        public Dungoun dungoun { get; set; }
+
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
@@ -21,7 +26,6 @@ namespace Sparta_TextRPG
                     case SceneName.Start :
                         start();
                         break;
-
                 }
             }
         }
