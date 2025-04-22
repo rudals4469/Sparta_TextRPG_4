@@ -12,7 +12,7 @@ namespace Sparta_TextRPG
         List<Item> Items;
         public Monster()
         {
-            MonsterName = MonsterName.MusurMom;
+            
         }
     }
 }

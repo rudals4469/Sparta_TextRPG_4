@@ -39,7 +39,6 @@ namespace Sparta_TextRPG
                     case SceneName.Start :
                         start();
                         break;
-
                     case SceneName.StartSetName:
                         inputName = StartSetName();                        
                         break;
