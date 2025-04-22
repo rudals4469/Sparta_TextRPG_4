@@ -30,13 +30,24 @@ namespace Sparta_TextRPG
     {
         None,
         Start,
+
         StartSetName,
+        StartChackName,
+        StartSetClass,
+        Staters,
+        Inventory,
+        Shop,
+        DungeonSelection,
+        //힐링
+
         BattelStart,
         BattelAttackPhase,
         BattelAttackMonster,
         BattelMonsterPhase,
         BattlePlayerWin,
         BattlePlayerLose,
+
+        GameOver,//게임종료
     }
 
 
