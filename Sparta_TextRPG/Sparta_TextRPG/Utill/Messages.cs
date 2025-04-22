@@ -224,6 +224,7 @@ namespace Sparta_TextRPG
             Console.WriteLine($"Gold : {player.Gold} G");
             Console.WriteLine();                                      //줄 바꿈 처리
             Console.WriteLine("인벤토리");                             //player 인벤토리로 받을 수 있게 처리
+            //인벤토리 출력은 4단계를 거쳐서 작성해야함
             foreach (var item in player.Inventory)                    //배열 리스트 순차적으로 꺼내서 처리(var 변수 타입 결정 player인벤토리 안에 있는 아이템 전부 item처리)
                 Console.WriteLine($" - {item.Name} x{item.Quantity}"); //아이템 이름과 수량
             Console.WriteLine();                                      //줄 바꿈 처리

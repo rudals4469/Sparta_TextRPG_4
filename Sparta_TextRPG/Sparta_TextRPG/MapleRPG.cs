@@ -19,6 +19,11 @@ namespace Sparta_TextRPG
         public string inputName;
         public ClassName inputClassName;
         public int floor = 0;
+
+        public MapleRPG()
+        {
+            init();
+        }
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
