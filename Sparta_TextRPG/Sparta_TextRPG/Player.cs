@@ -11,7 +11,7 @@ namespace Sparta_TextRPG
     {
         public int MaxExp {  get; set; } //exp
 
-        public List<Quest> Quests { get; set; } 
+       
 
         public Weapon Weapon { get; set; }
         public Armor Armor { get; set; }
