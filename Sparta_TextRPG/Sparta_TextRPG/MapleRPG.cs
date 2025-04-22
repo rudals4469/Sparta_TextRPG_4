@@ -15,6 +15,9 @@ namespace Sparta_TextRPG
         public List<Dungoun> Dungouns { get; set; }
 
         SceneName sceneName = new SceneName();
+        public string inputName;
+        public ClassName inputClassName;
+
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
@@ -22,9 +25,21 @@ namespace Sparta_TextRPG
 
             while (true) {
 
+                Console.Clear();//새로운 문구를 출력전 이전문구 삭제
+
                 switch (sceneName){
                     case SceneName.Start :
                         start();
+                        break;
+
+                    case SceneName.StartSetName:
+                        inputName = StartSetName();                        
+                        break;
+                    case SceneName.StartChackName:
+                        StartChackName();
+                        break;
+                    case SceneName.StartSetClass:
+                        StartSetClass();
                         break;
                     case SceneName.BattelStart:
                         BattelStart();
@@ -66,6 +81,78 @@ namespace Sparta_TextRPG
             
         }
         public void BattelStart()
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 1) sceneName = SceneName.Staters;
+            else if (inputNum == 2) sceneName = SceneName.Inventory;
+            else if (inputNum == 3) sceneName = SceneName.Shop;
+            else if (inputNum == 4) sceneName = SceneName.DungeonSelection;
+            else if (inputNum == 5) return; //휴식
+            else if (inputNum == 6) sceneName = SceneName.GameOver;
+        }
+        public string StartSetName()
+        {
+            Messages.Instance().ShowStartSetName();
+            string Name = Console.ReadLine();
+
+            sceneName = SceneName.StartChackName;
+
+            return Name;
+        }
+        public void StartChackName()
+        {
+            Messages.Instance().ShowStartChackName(inputName);
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+            if(inputNum == 1)
+            {
+                sceneName = SceneName.StartSetClass;
+            }
+            else if(inputNum == 2)
+            {
+                sceneName = SceneName.StartSetName;
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
+        }
+        public void StartSetClass()
+        {
+            Messages.Instance().ShowStartSetClass();
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+            if (inputNum == 1)
+            {
+                inputClassName = ClassName.전사;
+            }
+            else if (inputNum == 2)
+            {
+                inputClassName = ClassName.마법사;
+            }
+            else if (inputNum == 3)
+            {
+                inputClassName = ClassName.궁수;
+            }
+            else if (inputNum == 4)
+            {
+                inputClassName = ClassName.도적;
+            }
+            else if (inputNum == 5)
+            {
+                inputClassName = ClassName.해적;
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
+            // 플레이어 생성
+
+            sceneName = SceneName.Start;
+
+        }
+        public void BattelStart(Dungoun dungoun)
         {
             Messages.Instance().ShowBattelStart(dungoun.monsters, Player);
             string input = Console.ReadLine();
@@ -136,5 +223,6 @@ namespace Sparta_TextRPG
             Messages.Instance().ShowBattlePlayerLose(Player.NowHP, Player);
             //로직 추가
         }
+        
     }
 }

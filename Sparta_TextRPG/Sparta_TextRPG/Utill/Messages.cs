@@ -19,7 +19,20 @@ namespace Sparta_TextRPG
         }
         public void ShowStart()
         {
+            Console.Write(
+                """     
+                스파르타 마을에 오신 여러분 환영합니다.
+                이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.
 
+                1. 상태 보기
+                2. 인벤토리
+                3. 상점
+                4. 던전입장
+                5. 휴식하기
+                6. 게임종료
+                원하시는 행동을 입력해주세요.
+                >>
+                """);
         }
 
         public void ShowStartSetName()
@@ -70,8 +83,7 @@ namespace Sparta_TextRPG
         //
         public void ShowBattelStart(List<Monster> monsters, Player player)
         {
-            foreach (var item in monsters)
-            {
+            foreach (var item in monsters)            {
 
                 Console.WriteLine($"Lv.{item.Level} {item.MonsterName.ToString()} HP {item.NowHP}");
 
@@ -218,7 +230,10 @@ namespace Sparta_TextRPG
             while (Console.ReadLine() != "0") Console.WriteLine("0을 입력해주세요.\n>> ");  //사용자가 "0"을 입력할 때까지 반복문 실행 출력
         }
 
-        
+        public void ErrorMessage()
+        {
+            Console.WriteLine("잘못된 입력입니다 ");
+        }
     }
 
 }
