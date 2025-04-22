@@ -11,7 +11,7 @@ namespace Sparta_TextRPG
         public Shop Shop { get; set; }
         public Player Player { get; set; }
         public NPC NPC { get; set; }
-        public Dungoun dungoun { get; set; }
+        public List<Dungoun> Dungouns { get; set; }
 
         SceneName sceneName = new SceneName();
         //가장 메인으로 돌아가는 함수
@@ -48,7 +48,7 @@ namespace Sparta_TextRPG
         }
         public void init()
         {
-
+            Dungouns.Add(new Dungoun("kim", 10, new List<Monster>()); // new List<Monster>() : 몬스터 배열을 받아야함
         }
         public void start()
         {

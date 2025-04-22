@@ -33,7 +33,7 @@ namespace Sparta_TextRPG
         BattelStart,
         BattelAttackPhase,
         BattelAttackMonster,
-        BattelEnemyPhase,
+        BattelMonsterPhase,
         BattlePlayerWin,
         BattlePlayerLose,
     }

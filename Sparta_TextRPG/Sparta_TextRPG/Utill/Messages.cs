@@ -145,7 +145,7 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-        public void ShowBattlePlayerLose(List<Monster> monsters, int HP, Player player)
+        public void ShowBattlePlayerLose(int HP, Player player)
         {
             Console.Write(
                $"""
