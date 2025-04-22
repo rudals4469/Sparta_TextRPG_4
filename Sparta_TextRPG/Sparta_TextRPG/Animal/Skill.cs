@@ -26,6 +26,5 @@ namespace Sparta_TextRPG
             Level = level;
             CoolTime = coolTime;
         }
-    }
-    
+    }    
 }

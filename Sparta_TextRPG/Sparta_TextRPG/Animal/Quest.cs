@@ -17,6 +17,5 @@ namespace Sparta_TextRPG
         public int RequestLevel { get; set; }   // 퀘스트 요구 레벨
 
         // public void show() { }   //
-
     }
 }
