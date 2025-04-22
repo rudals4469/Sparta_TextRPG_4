@@ -69,7 +69,6 @@ namespace Sparta_TextRPG
                 {
                     Console.Write($"{count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}");
                 }
-                    
 
             }
             Console.Write(
@@ -83,8 +82,83 @@ namespace Sparta_TextRPG
                대상을 선택해주세요
                >>
                """
-                );
+             );
+        }
+        public void ShowBattelAttackMonster(Monster monster, Player player, Skill PlayerSkill)
+        {
+            Console.Write(
+               $"""
+               player{player.Name} 의 공격!
+               Lv.{monster.Level} {monster.MonsterName.ToString()}을(를) 맞췄습니다. [데미지 : {PlayerSkill.Damage}]
 
+               {monster.Level} {monster.MonsterName.ToString()}
+               """);
+
+            if ((monster.NowHP - PlayerSkill.Damage) < 0)
+            {
+                Console.WriteLine($"HP {monster.NowHP} -> Dead");
+            }
+            else
+            {
+                Console.WriteLine($"HP {monster.NowHP} -> {monster.NowHP - PlayerSkill.Damage}");
+            }
+
+            Console.Write(
+                $"""
+
+                0. 다음
+               """);
+
+        }
+        public void ShowBattelMonsterPhase(Monster monster, Player player, Skill MonsterSkill)
+        {
+            Console.Write(
+               $"""
+               Battle!!
+
+               Lv.{monster.Level} {monster.MonsterName.ToString()} 의 공격!
+               {player.Name} 을(를) 맞췄습니다.  [데미지 : {MonsterSkill.Damage}]
+
+               Lv.{player.Level} {player.Name}
+               HP {player.NowHP} -> {player.NowHP- MonsterSkill.Damage};
+
+               0. 다음
+
+               대상을 선택해주세요.
+               >>
+               """);
+        }
+        public void ShowBattlePlayerWin(List<Monster> monsters,int HP ,Player player)
+        {
+            Console.Write(
+               $"""
+               Battle!! - Result
+
+               Victory
+
+               던전에서 몬스터 {monsters.Count}마리를 잡았습니다.
+
+               Lv.{player.Level} {player.Name}
+               HP {HP} -> {player.NowHP}
+
+               0. 다음
+               >>
+               """);
+        }
+        public void ShowBattlePlayerLose(List<Monster> monsters, int HP, Player player)
+        {
+            Console.Write(
+               $"""
+               Battle!! - Result
+
+               You Lose
+
+               Lv.{player.Level} {player.Name}
+               HP HP -> {player.NowHP}
+
+               0. 다음
+               >>
+               """);
         }
     }
 }

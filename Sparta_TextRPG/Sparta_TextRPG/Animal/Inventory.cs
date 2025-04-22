@@ -14,6 +14,5 @@ namespace Sparta_TextRPG
         public List<Shiled> Shild { get; set; }
         public List<Potion> Potions { get; set; }
 
-
     }
 }
