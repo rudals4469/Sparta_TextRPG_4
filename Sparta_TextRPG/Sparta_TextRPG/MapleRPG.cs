@@ -12,12 +12,17 @@ namespace Sparta_TextRPG
         public Player Player { get; set; }
         public NPC NPC { get; set; }
         public List<Dungoun> Dungouns { get; set; }
+        public int DungounFloor = 0;
 
         SceneName sceneName = new SceneName();
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
             init();
+
+            //몇층 던전인지 저장
+            
+
             if(Player == null)
             {
                 sceneName = SceneName.StartSetName;
@@ -32,7 +37,7 @@ namespace Sparta_TextRPG
                         StartSetName();
                         break;
                     case SceneName.BattelStart:
-                        BattelStart();
+                        BattelStart(Dungouns[DungounFloor]);
                         break;
                     case SceneName.BattelAttackPhase:
                         BattelAttackPhase();
@@ -45,6 +50,7 @@ namespace Sparta_TextRPG
                         break;
                     case SceneName.BattlePlayerWin:
                         BattlePlayerWin();
+
                         break;
                     case SceneName.BattlePlayerLose:
                         BattlePlayerLose();
@@ -67,10 +73,11 @@ namespace Sparta_TextRPG
             return Name;
 
         }
-        public void BattelStart()
+        public void BattelStart(Dungoun dungoun)
         {
             Messages.Instance().ShowBattelStart(dungoun.monsters, Player);
             //로직 추가
+            //키를 누를때 작동하는 부분을 추개해야 합니다.
         }
         public void BattelAttackPhase()
         {
@@ -92,6 +99,7 @@ namespace Sparta_TextRPG
         public void BattlePlayerWin()
         {
             Messages.Instance().ShowBattlePlayerWin(dungoun.monsters, Player.NowHP, Player);
+            DungounFloor++;
             //로직 추가
         }
         public void BattlePlayerLose()
