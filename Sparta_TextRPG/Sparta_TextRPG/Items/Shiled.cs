@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Shiled
+    internal class Shiled : Item
     {
         public int AttackPoint { get; set; }
         public int ArmorPoint { get; set; }
