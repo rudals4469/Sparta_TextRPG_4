@@ -9,6 +9,7 @@ namespace Sparta_TextRPG
 {
     internal class MapleRPG
     {
+
         public Shop Shop { get; set; }
         public Player Player { get; set; }
         public NPC NPC { get; set; }
@@ -18,7 +19,7 @@ namespace Sparta_TextRPG
         SceneName sceneName = new SceneName();
         public string inputName;
         public ClassName inputClassName;
-
+        public int floor = 0;
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
@@ -32,7 +33,6 @@ namespace Sparta_TextRPG
                     case SceneName.Start :
                         start();
                         break;
-
                     case SceneName.StartSetName:
                         inputName = StartSetName();                        
                         break;
@@ -46,7 +46,7 @@ namespace Sparta_TextRPG
                         BattelStart();
                         break;
                     case SceneName.BattelAttackPhase:
-                        BattelAttackPhase();
+                        BattelAttackPhase(Dungouns[floor].monsters);
                         break;
                     case SceneName.BattelAttackMonster:
                         BattelAttackMonster();
@@ -60,6 +60,12 @@ namespace Sparta_TextRPG
                     case SceneName.BattlePlayerLose:
                         BattlePlayerLose();
                         break;
+
+                    case SceneName.NPC :
+
+                        break;
+
+
                 }
             }
         }
@@ -92,6 +98,7 @@ namespace Sparta_TextRPG
             else if (inputNum == 5) return; //휴식
             else if (inputNum == 6) sceneName = SceneName.GameOver;
         }
+
         public string StartSetName()
         {
             Messages.Instance().ShowStartSetName();
@@ -292,5 +299,39 @@ namespace Sparta_TextRPG
             }
         }
         
+
+
+        public void NPC()//이름 수정
+        {
+            Messages.Instance().ShowNPC();
+        }
+
+        public void EnterDungoun()
+        {
+            Messages.Instance().ShowDungoun();
+            
+            string choice = Console.ReadLine();
+
+            //
+            //
+
+            if (choice.CompareTo("1") == 0 )
+            {
+                // 던전 생성은 여기서x
+                // 1누르면 1번저 던전과 입장하는 플레이어 정보
+                Dungoun = new dungoun("쉬운 던전", 1);
+            }
+            else if (choice == "2")
+            {
+                Dungoun = new dungoun("일반 던전", 2);
+            }
+            else if (choice == "3")
+            {
+                Dungoun = new dungoun("어려운 던전", 3);
+            }
+                
+
+        }
+
     }
 }

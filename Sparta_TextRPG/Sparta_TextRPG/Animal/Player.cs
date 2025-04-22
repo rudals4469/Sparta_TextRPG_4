@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Player : Animal //animal에 상속
-       
+    internal class Player : Animal //animal에 상속       
     {
         public int MaxExp {  get; set; } //exp
 
@@ -16,9 +15,6 @@ namespace Sparta_TextRPG
         public Shiled Shiled { get; set; }
         public Potion Potion { get; set; }
 
-
-
     }
-
     
 }

@@ -102,6 +102,7 @@ namespace Sparta_TextRPG
                 );
 
         }
+
         public void ShowBattelAttackPhase(List<Monster> monsters, Player player)
         {
             int count = 0;
@@ -234,6 +235,48 @@ namespace Sparta_TextRPG
         public void ErrorMessage()
         {
             Console.WriteLine("잘못된 입력입니다 ");
+        }
+        
+        public void ShowNPC()
+        {
+
+            Console.Write($"""
+               NPC에게 왔습니다. 
+               1. 퀘스트 받기
+               2. 휴식하기
+
+               원하시는 행동을 입력해주세요. 
+               >>
+               """);
+               
+        }
+
+        public void ShowRest(Player player)
+        {
+            Console.Write($"""
+               500 G 를 내면 체력을 회복할 수 있습니다. (보유 골드 : {0} G)
+
+               1. 휴식하기
+               2. 나가기
+
+               원하시는 행동을 입력해주세요. 
+               >> 
+               """, player.Gold);
+        }
+        public void ShowDungoun()
+        {
+            Console.Write($"""
+               던전입장
+               이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다. 
+               
+               1. 쉬운 던전     | 방어력 5 이상 권장
+               2. 일반 던전     | 방어력 11 이상 권장
+               3. 어려운 던전   | 방어력 17 이상 권장
+               0. 나가기 
+
+               원하시는 행동을 입력해주세요. 
+               >>
+               """);
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,28 @@ namespace Sparta_TextRPG
         public List<Armor> Armors { get; set; }
         public List<Shiled> Shild { get; set; }
         public List<Potion> Potions { get; set; }
+
+        public void Add(Item item)
+        {
+        if (item.Type == ItemType.Weapon)
+            {
+                Weapon.Add((Weapon)item);
+            }
+        if (item.Type == ItemType.Armor)
+            {
+                Armors.Add((Armor)item);
+            }
+        if (item.Type == ItemType.Shield)
+            {
+                Shild.Add((Shiled)item);
+            }
+        if (item.Type == ItemType.Potion)
+            {
+                Potions.Add((Potion)item);
+            }
+        }
+        
+        
 
     }
 }
