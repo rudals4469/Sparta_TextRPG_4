@@ -23,7 +23,7 @@ namespace Sparta_TextRPG
 
     enum MonsterName
     {
-        None,
+        None,Snail,RibbonPig, OrangeMushroom, EvilEye, ironHog, StoneGolem, Drake, JuniorBalrog
     }
 
     enum SceneName
