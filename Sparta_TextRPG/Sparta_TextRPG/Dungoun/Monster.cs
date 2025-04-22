@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Monster
+    internal class Monster : Animal
     {
         MonsterName MonsterName;
         List<Item> Items;
