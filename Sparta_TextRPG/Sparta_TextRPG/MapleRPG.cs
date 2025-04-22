@@ -21,6 +21,7 @@ namespace Sparta_TextRPG
         public ClassName inputClassName;
         public int floor = 0;
 
+
         public MapleRPG()
         {
             init();
@@ -199,17 +200,39 @@ namespace Sparta_TextRPG
             else if (inputNum <= monsters.Count+1) // 입력 시 대상 선택, 구현 몬하겠다 일단 넘기고
             {
                 //monsters[inputNum-1]
-                sceneName = SceneName.BattelAttackMonster;
+                if (inputNum == 1)
+                {
+                    sceneName = SceneName.BattelAttackMonster;
+                }
+                else if (inputNum == 2)
+                {
+                    sceneName = SceneName.BattelAttackMonster;
+                }
+                else if (inputNum == 3)
+                {
+                    sceneName = SceneName.BattelAttackMonster;
+                }
+                else
+                {
+                    sceneName = SceneName.BattelAttackMonster;
+                }
             }
-            
             else
             {
                  Messages.Instance().ErrorMessage();
             }
-            //전원사망 = t
-            //반복문 모든 몬스터를 순회
 
-            if(/*모든 몬스터 사망 시*/)
+            bool isAllDeath = false; // 한 마리라도 살아있으면 true로 변경
+
+            for (int i = 0; i < monsters.Count; i++) 
+            {
+                if (monsters[i].IsDead == false)
+                {
+                    isAllDeath = true;
+                }
+            }
+
+            if(isAllDeath = true)
             {
                 // 승리 씬으로 들어가기
                 sceneName = SceneName.BattlePlayerWin;
@@ -219,6 +242,8 @@ namespace Sparta_TextRPG
         {
             Messages.Instance().ShowBattelAttackMonster(monster, Player, Player.SkillList[0]);
             //로직 추가
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
 
             Random random = new Random();
             double Deviation = Math.Ceiling((double)(random.Next(-1, 2) * PlayerSkill.Damage) / 10);
@@ -229,7 +254,11 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage(); // 죽어있다면 오류 메세지 출력
 
             }
-            else if(/* 카운트랑 일치하는 input이 아니라면 오류 출력 */)
+            if (inputNum == 0) // 0 입력 시 몬스터 공격 턴으로 이동
+            {
+                sceneName = SceneName.BattelMonsterPhase;
+            }
+            else if(inputNum <= monsters.Count + 1)
             {
                 Messages.Instance().ErrorMessage();
             }
@@ -239,13 +268,6 @@ namespace Sparta_TextRPG
                 // 데미지 공식 = 플레이어 데미지 + 편차 - 몬스터 방어력
             }
 
-            string input = Console.ReadLine();
-            int inputNum = int.Parse(input);
-
-            if (inputNum == 0) // 0 입력 시 몬스터 공격 턴으로 이동
-            {
-                sceneName = SceneName.BattelMonsterPhase;
-            }
 
 
 
@@ -305,12 +327,18 @@ namespace Sparta_TextRPG
             {
                 sceneName= SceneName.StartSetName;
             }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
 
         }
-        public void BattlePlayerLose()
+        public void BattlePlayerLose(Player player)
         {
             Messages.Instance().ShowBattlePlayerLose(Player.NowHP, Player);
             //로직 추가
+
+            player.NowHP = 0;
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
@@ -318,6 +346,10 @@ namespace Sparta_TextRPG
             if (inputNum == 0) // 0번 입력 시 시작 메뉴로 돌아가기
             {
                 sceneName = SceneName.StartSetName;
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
             }
         }
         
