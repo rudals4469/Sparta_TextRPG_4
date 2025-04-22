@@ -75,6 +75,11 @@ namespace Sparta_TextRPG
         }
         public void init()
         {
+            Skill nomalAttack = new Skill("nomalAttck", 50, "일반공격입니다.", 50, 5, 1, 10);
+            Skill HeavyAttack = new Skill("nomalAttck", 50, "강공격입니다.", 150, 50, 5, 10);
+            Skill doubleAttack = new Skill("nomalAttck", 50, "더블공격입니다.", 100, 10, 10, 20);
+
+
             monsters.Add(new Monster(1, 5, 10, 10, 10, 5, 1, new Inventory(), 100, new List<Skill>(), true, 100, MonsterName.Snail, new List<Item>()));
             monsters.Add(new Monster(2, 8, 15, 15, 10, 8, 2, new Inventory(), 150, new List<Skill>(), true, 10, MonsterName.OrangeMushroom, new List<Item>()));
             monsters.Add(new Monster(3, 10, 20, 20, 10, 10, 2, new Inventory(), 200, new List<Skill>(), true, 10, MonsterName.RibbonPig, new List<Item>()));
