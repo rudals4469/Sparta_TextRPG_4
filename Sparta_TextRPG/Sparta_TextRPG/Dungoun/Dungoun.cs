@@ -11,14 +11,13 @@ namespace Sparta_TextRPG
         public string Name;
         public int Level;
         public List<Monster> monsters;
-
         public Dungoun(string name, int level, List monsters)
         {
             Name = name;
             Level = level;
             monsters = monsters;
 
-
+        }
         public void SpawnMonster() // 몬스터 랜덤 생성
         {
             Random rand = new Random();

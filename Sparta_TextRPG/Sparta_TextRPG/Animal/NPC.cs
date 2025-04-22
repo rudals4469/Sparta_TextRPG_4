@@ -17,7 +17,7 @@ namespace Sparta_TextRPG
             {
                 player.Gold -= 500;
                 Console.WriteLine("휴식을 완료했습니다.");
-                player.HP = 100;
+                player.NowHP = player.MaxHP;
             }
             else if (player.Gold < 500)
             {

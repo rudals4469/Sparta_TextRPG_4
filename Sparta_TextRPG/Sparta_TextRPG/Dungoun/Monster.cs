@@ -27,6 +27,7 @@ namespace Sparta_TextRPG
                Lv.{monster.Level} {monster.MonsterName}) HP {monster.NowHP}
                 
             """);
+
         }
     }
 }
