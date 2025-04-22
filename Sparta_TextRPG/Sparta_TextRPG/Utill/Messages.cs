@@ -236,10 +236,7 @@ namespace Sparta_TextRPG
             if (player.Potion != null)
                 Console.WriteLine($"- 포션: {player.Potion.Name}");   // 포션 장착 칸
 
-            Console.WriteLine("인벤토리");                             //player 인벤토리로 받을 수 있게 처리
-            //인벤토리 출력은 4단계를 거쳐서 작성해야함
-            foreach (var item in player.Inventory)                    //배열 리스트 순차적으로 꺼내서 처리(var 변수 타입 결정 player인벤토리 안에 있는 아이템 전부 item처리)
-                Console.WriteLine($" - {item.Name} x{item.Quantity}"); //아이템 이름과 수량
+           
             Console.WriteLine();                                      //줄 바꿈 처리
             Console.WriteLine("인벤토리:");                            // 상태창에서 바로 인벤토리가 보여지게 설정
                                                                      // 상태창에 너무 많은 정보가 보일 것 같아서 인벤토리 안으로 넣을 예정입니다 (수정예정이며 현재 임시 작성)
