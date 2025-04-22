@@ -26,8 +26,5 @@ namespace Sparta_TextRPG
             }
         }
 
-
-
-
     }
 }
