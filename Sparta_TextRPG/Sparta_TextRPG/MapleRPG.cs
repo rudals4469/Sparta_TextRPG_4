@@ -12,8 +12,8 @@ namespace Sparta_TextRPG
         public Shop Shop { get; set; }
         public Player Player { get; set; }
         public NPC NPC { get; set; }
+        public List<Monster> monsters { get; set; }
         public List<Dungoun> Dungouns { get; set; }
-        public int DungounFloor = 0;
 
         SceneName sceneName = new SceneName();
         public string inputName;
@@ -24,13 +24,6 @@ namespace Sparta_TextRPG
         {
             init();
 
-            //몇층 던전인지 저장
-            
-
-            if(Player == null)
-            {
-                sceneName = SceneName.StartSetName;
-            }
             while (true) {
 
                 Console.Clear();//새로운 문구를 출력전 이전문구 삭제
@@ -50,7 +43,7 @@ namespace Sparta_TextRPG
                         StartSetClass();
                         break;
                     case SceneName.BattelStart:
-                        BattelStart(Dungouns[DungounFloor]);
+                        BattelStart();
                         break;
                     case SceneName.BattelAttackPhase:
                         BattelAttackPhase();
@@ -63,7 +56,6 @@ namespace Sparta_TextRPG
                         break;
                     case SceneName.BattlePlayerWin:
                         BattlePlayerWin();
-
                         break;
                     case SceneName.BattlePlayerLose:
                         BattlePlayerLose();
@@ -80,12 +72,26 @@ namespace Sparta_TextRPG
         public void init()
         {
 
+
             Dungoun.Add(new Dungoun("kim", 10, new List<Monster>()));   // new Linse<Monster>() : 몬스터 배열을 받아야 함
+
+            monsters.Add(new Monster(1, 5, 10, 10, 10, 5, 1, new Inventory(), 100, new List<Skill>(), true, 100, MonsterName.Snail, new List<Item>()));
+            monsters.Add(new Monster(2, 8, 15, 15, 10, 8, 2, new Inventory(), 150, new List<Skill>(), true, 10, MonsterName.OrangeMushroom, new List<Item>()));
+            monsters.Add(new Monster(3, 10, 20, 20, 10, 10, 2, new Inventory(), 200, new List<Skill>(), true, 10, MonsterName.RibbonPig, new List<Item>()));
+            monsters.Add(new Monster(4, 12, 23, 23, 10, 12, 3, new Inventory(), 230, new List<Skill>(), true, 15, MonsterName.EvilEye, new List<Item>()));
+            monsters.Add(new Monster(5, 15, 30, 30, 10, 15, 5, new Inventory(), 250, new List<Skill>(), true, 25, MonsterName.ironHog, new List<Item>()));
+            monsters.Add(new Monster(6, 20, 35, 35, 10, 20, 7, new Inventory(), 280, new List<Skill>(), true, 15, MonsterName.Drake, new List<Item>()));
+            monsters.Add(new Monster(7, 30, 50, 50, 10, 15, 12, new Inventory(), 350, new List<Skill>(), true, 5, MonsterName.StoneGolem, new List<Item>()));
+            monsters.Add(new Monster(8, 50, 80, 80, 10, 15, 20, new Inventory(), 500, new List<Skill>(), true, 15, MonsterName.JuniorBalrog, new List<Item>()));
+            monsters.Add(new Monster(9, 10000, 1, 1, 1, 10000, 10000, new Inventory(), 10000, new List<Skill>(), true, 100, MonsterName.AnUnnamedPigeon, new List<Item>()));
 
         }
         public void start()
         {
             Messages.Instance().ShowStart();
+            
+        }
+        public void BattelStart()
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
@@ -161,19 +167,57 @@ namespace Sparta_TextRPG
         public void BattelStart(Dungoun dungoun)
         {
             Messages.Instance().ShowBattelStart(dungoun.monsters, Player);
-            //로직 추가
-            //키를 누를때 작동하는 부분을 추개해야 합니다.
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if(inputNum ==1)
+            {
+                sceneName = SceneName.BattelAttackPhase;
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
         }
-        public void BattelAttackPhase()
+        public void BattelAttackPhase(List<Monster> monsters)
         {
             Messages.Instance().ShowBattelAttackPhase(dungoun.monsters, Player);
-            //로직 추가
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 1)
+            {
+                sceneName = SceneName.BattelAttackMonster;
+            }
+            else if(inputNum == 2)
+            {
+                sceneName = SceneName.BattelAttackMonster;
+            }
+            else if (inputNum == 3)
+            {
+                sceneName = SceneName.BattelAttackMonster;
+            }
+            else
+            {
+
+            }
+
+
+            // 카운트랑 일치하는 input이 아니면 오류 출력
+            // 죽은 몬스터 input이면 오류 출력
+            // 아니면 카운트에 맞는 몬스터 hp - player.AttackPoint;
+            // 공격력은 +- 10%  오차
+            // 오차가 소수점이면 올림
+
         }
         public void BattelAttackMonster()
         {
             //몬스터 받아서 추가
             Messages.Instance().ShowBattelAttackMonster(new Monster() , Player, Player.SkillList[0]);
             //로직 추가
+
+
+
         }
         public void BattelMonsterPhase()
         {
@@ -184,7 +228,6 @@ namespace Sparta_TextRPG
         public void BattlePlayerWin()
         {
             Messages.Instance().ShowBattlePlayerWin(dungoun.monsters, Player.NowHP, Player);
-            DungounFloor++;
             //로직 추가
         }
         public void BattlePlayerLose()
