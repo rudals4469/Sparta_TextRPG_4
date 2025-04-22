@@ -8,5 +8,8 @@ namespace Sparta_TextRPG
 {
     internal class Dungoun
     {
+        public string Name;
+        public int Level;
+        public List<Monster> monsters;
     }
 }
