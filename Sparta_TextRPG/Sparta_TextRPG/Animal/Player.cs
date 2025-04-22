@@ -37,6 +37,7 @@ namespace Sparta_TextRPG
         public void AddExp(int exp)
         {
             this.Exp += exp;
+            // 레벨업
         }
         public Skill UseSkill(string SkillName)
         {

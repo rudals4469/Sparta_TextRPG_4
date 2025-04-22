@@ -84,10 +84,9 @@ namespace Sparta_TextRPG
         //
         public void ShowBattelStart(List<Monster> monsters, Player player)
         {
-            foreach (var item in monsters)            {
 
+            foreach (var item in monsters) {
                 Console.WriteLine($"Lv.{item.Level} {item.MonsterName.ToString()} HP {item.NowHP}");
-
             }
             Console.Write(
                $"""
@@ -233,10 +232,8 @@ namespace Sparta_TextRPG
                 Console.WriteLine($"- 방어구: {player.Armor.Name}");   // 방어구 장착 칸
             if (player.Shiled != null)
                 Console.WriteLine($"- 방패: {player.Shiled.Name}");   // 방패 장착 칸
-            if (player.Potion != null)
-                Console.WriteLine($"- 포션: {player.Potion.Name}");   // 포션 장착 칸
 
-           
+            
             Console.WriteLine();                                      //줄 바꿈 처리
             Console.WriteLine("인벤토리:");                            // 상태창에서 바로 인벤토리가 보여지게 설정
                                                                      // 상태창에 너무 많은 정보가 보일 것 같아서 인벤토리 안으로 넣을 예정입니다 (수정예정이며 현재 임시 작성)
@@ -369,21 +366,22 @@ namespace Sparta_TextRPG
                >> 
                """, player.Gold);
         }
-        public void ShowDungoun()
+        public void ShowDungoun(List<Dungoun> dungouns)
         {
             Console.Write($$"""
                던전입장
                이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다. 
-               
-               1. {0} 던전     |      던전 레벨 : {1}  
-               2. {2} 던전     |      던전 레벨 : {3}
-               3. {4} 던전     |      던전 레벨 : {5}
-
+               """);
+            foreach (var item in dungouns)
+            {
+                Console.WriteLine($"{item.Name} | 던전 레벨 : {item.Level}");
+            };           
+            Console.Write($$"""
                0. 나가기 
 
                원하시는 행동을 입력해주세요. 
                >>
-               """, Dungoun.Name, Dungoun.Level);
+               """);
         }
 
         public void ShowHealing()
