@@ -355,7 +355,7 @@ namespace Sparta_TextRPG
         
 
 
-        public void NPC()//이름 수정
+        public void NPCText()//이름 수정
         {
             Messages.Instance().ShowNPC();
         }
