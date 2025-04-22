@@ -40,20 +40,7 @@ namespace Sparta_TextRPG
             // 유무 확인
             // Inventory.Add(item);
 
-            Console.WriteLine("구매 가능한 아이템 목록");
-            Inventory.Add(item);
-            for (int i = 0; i < Inventory.Count; i++);
-            {
-                Item itemmm = ShopItems[i];
-                Console.WriteLine($"{i + 1}. {item.Name} - {item.Price}골드");
-
-            }
-
-            Console.Write("구매할 아이템 번호를 입력하세요: ");
-            string input = Console.ReadLine();
-
-
-            if (int.TryParse(input, out int choice) && choice > 0 && choice <= shopItems.Count)
+            
             { }
                   
         }
