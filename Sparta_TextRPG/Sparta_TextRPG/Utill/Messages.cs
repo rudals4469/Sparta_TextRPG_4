@@ -17,10 +17,13 @@ namespace Sparta_TextRPG
             }
             return instance;
         }
-
         public void ShowStart()
         {
 
+        }
+
+        public void ShowStartSetName()
+        {
 
             Console.Write($"""
                 스파르타 던전에 오신여러분 환영합니다.
@@ -29,6 +32,41 @@ namespace Sparta_TextRPG
                 >>
                 """);
         }
+        public void ShowStartChackName(string Name)
+        {
+            Console.Write($"""
+                스파르타 던전에 오신여러분 환영합니다.
+                원하시는 이름을 설정해주세요
+                {Name}
+
+                입력하신 이름은 {Name}입니다.
+
+                1.저장
+                2.취소
+                
+                원하시는 행동을 입력해주세요
+                >>
+                """);
+        }
+        public void ShowStartSetClass()
+        {
+
+            Console.Write($"""
+                스파르타 던전에 오신여러분 환영합니다.
+                원하시는 직업을 설정해주세요
+
+                1.{ClassName.전사.ToString()}
+                2.{ClassName.마법사.ToString()}
+                3.{ClassName.궁수.ToString()}
+                4.{ClassName.도적.ToString()}
+                5.{ClassName.해적.ToString()}
+
+                원하시는 행동을 입력해주세요
+                >>
+                """);
+
+        }
+
         //
         public void ShowBattelStart(List<Monster> monsters, Player player)
         {

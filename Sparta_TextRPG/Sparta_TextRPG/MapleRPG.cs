@@ -18,12 +18,18 @@ namespace Sparta_TextRPG
         public void Program()
         {
             init();
-
+            if(Player == null)
+            {
+                sceneName = SceneName.StartSetName;
+            }
             while (true) {
 
                 switch (sceneName){
                     case SceneName.Start :
                         start();
+                        break;
+                    case SceneName.StartSetName:
+                        StartSetName();
                         break;
                     case SceneName.BattelStart:
                         BattelStart();
@@ -48,11 +54,18 @@ namespace Sparta_TextRPG
         }
         public void init()
         {
-            Dungouns.Add(new Dungoun("kim", 10, new List<Monster>()); // new List<Monster>() : 몬스터 배열을 받아야함
+           
         }
         public void start()
         {
             Messages.Instance().ShowStart();
+        }
+        public string StartSetName()
+        {
+            Messages.Instance().ShowStartSetName();
+            string Name = Console.ReadLine();
+            return Name;
+
         }
         public void BattelStart()
         {
