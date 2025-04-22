@@ -16,12 +16,13 @@ namespace Sparta_TextRPG
             if (player.Gold >= 500)
             {
                 player.Gold -= 500;
-                Console.WriteLine("휴식을 완료했습니다.");
                 player.NowHP = player.MaxHP;
+                Messages.Instance().ShowHealing();
             }
             else if (player.Gold < 500)
             {
-                Console.WriteLine("Gold가 부족합니다.");
+                Messages.Instance().ShowNoHealing();
+           
             }
         }
 

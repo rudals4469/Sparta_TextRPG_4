@@ -274,7 +274,7 @@ namespace Sparta_TextRPG
         public void ShowRest(Player player)
         {
             Console.Write($"""
-               500 G 를 내면 체력을 회복할 수 있습니다. (보유 골드 : {0} G)
+               500 G 를 소모하여 체력을 회복할 수 있습니다. (보유 골드 : {0} G)
 
                1. 휴식하기
                2. 나가기
@@ -285,16 +285,40 @@ namespace Sparta_TextRPG
         }
         public void ShowDungoun()
         {
-            Console.Write($"""
+            Console.Write($$"""
                던전입장
                이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다. 
                
-               1. 쉬운 던전     | 방어력 5 이상 권장
-               2. 일반 던전     | 방어력 11 이상 권장
-               3. 어려운 던전   | 방어력 17 이상 권장
+               1. {0} 던전     |      던전 레벨 : {1}  
+               2. {2} 던전     |      던전 레벨 : {3}
+               3. {4} 던전     |      던전 레벨 : {5}
+
                0. 나가기 
 
                원하시는 행동을 입력해주세요. 
+               >>
+               """, Dungoun.Name, Dungoun.Level);
+        }
+
+        public void ShowHealing()
+        {
+            Console.Write($"""
+               [휴식 완료] 체력이 모두 회복되었습니다. (골드 -500)
+
+               0.돌아가기
+
+               >>
+               """);
+
+        }
+
+        public void ShowNoHealing()
+        {
+            Console.Write($"""
+               [실패] 골드가 부족합니다.
+
+               0.돌아가기
+
                >>
                """);
         }
