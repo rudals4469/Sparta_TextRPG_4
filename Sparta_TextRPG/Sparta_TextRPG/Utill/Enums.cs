@@ -14,7 +14,6 @@ namespace Sparta_TextRPG
         궁수,
         해적,
         도적,
-
     }
     enum SkillName
     {

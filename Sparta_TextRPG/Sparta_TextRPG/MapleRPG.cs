@@ -9,7 +9,6 @@ namespace Sparta_TextRPG
 {
     internal class MapleRPG
     {
-
         public Shop Shop { get; set; }
         public Player Player { get; set; }
         public NPC NPC { get; set; }
@@ -91,14 +90,11 @@ namespace Sparta_TextRPG
             monsters.Add(new Monster(7, 30, 50, 50, 10, 15, 12, new Inventory(), 350, new List<Skill>(), true, 5, MonsterName.StoneGolem, new List<Item>()));
             monsters.Add(new Monster(8, 50, 80, 80, 10, 15, 20, new Inventory(), 500, new List<Skill>(), true, 15, MonsterName.JuniorBalrog, new List<Item>()));
             monsters.Add(new Monster(9, 10000, 1, 1, 1, 10000, 10000, new Inventory(), 10000, new List<Skill>(), true, 100, MonsterName.AnUnnamedPigeon, new List<Item>()));
-
         }
         public void start()
         {
             Messages.Instance().ShowStart();
-            
-        }
-        public void BattelStart() { 
+
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
@@ -108,6 +104,9 @@ namespace Sparta_TextRPG
             else if (inputNum == 4) sceneName = SceneName.DungeonSelection;
             else if (inputNum == 5) return; //휴식
             else if (inputNum == 6) sceneName = SceneName.GameOver;
+        }
+        public void BattelStart() {
+            Messages.Instance().ShowStart();
         }
 
         public string StartSetName()

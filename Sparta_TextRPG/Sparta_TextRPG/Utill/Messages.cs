@@ -233,10 +233,8 @@ namespace Sparta_TextRPG
                 Console.WriteLine($"- 방어구: {player.Armor.Name}");   // 방어구 장착 칸
             if (player.Shiled != null)
                 Console.WriteLine($"- 방패: {player.Shiled.Name}");   // 방패 장착 칸
-            if (player.Potion != null)
-                Console.WriteLine($"- 포션: {player.Potion.Name}");   // 포션 장착 칸
 
-           
+            
             Console.WriteLine();                                      //줄 바꿈 처리
             Console.WriteLine("인벤토리:");                            // 상태창에서 바로 인벤토리가 보여지게 설정
                                                                      // 상태창에 너무 많은 정보가 보일 것 같아서 인벤토리 안으로 넣을 예정입니다 (수정예정이며 현재 임시 작성)
