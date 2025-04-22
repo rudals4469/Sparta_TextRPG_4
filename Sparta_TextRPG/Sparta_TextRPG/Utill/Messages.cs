@@ -29,17 +29,23 @@ namespace Sparta_TextRPG
                 >>
                 """);
         }
+        //
         public void ShowBattelStart(List<Monster> monsters, Player player)
         {
             foreach (var item in monsters)
             {
-                Console.WriteLine($"Lv.{item.Level} {Monster.MonsterName.ToString()} HP {Monster.HP}");
+                Console.WriteLine($"Lv.{item.Level} {item.MonsterName.ToString()}  {item.IsDead? : HP {Monster.HP}");
             }
-            Console.WriteLine(
+            Console.Write(
                $"""
-               
-
+               [내정보]
+               Lv.{player.Level} {player.Name} ({player.Class.ToString()})
+               HP {player.NowHP}/{player.MaxHP}
                 
+               1.공격
+
+               원하시는 행동을 입력해주세요.
+               >>
                """
                 );
 
