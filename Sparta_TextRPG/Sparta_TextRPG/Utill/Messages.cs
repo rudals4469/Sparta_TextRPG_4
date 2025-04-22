@@ -62,10 +62,9 @@ namespace Sparta_TextRPG
             Console.WriteLine();                                      //줄 바꿈 처리
             Console.WriteLine("\n0.나가기");
             while (Console.ReadLine() != "0") Console.WriteLine("0을 입력해주세요.\n>> ");  //사용자가 "0"을 입력할 때까지 반복문 실행 출력
-            
-
-
         }
+
+        
     }
 
 }
