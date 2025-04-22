@@ -16,9 +16,6 @@ namespace Sparta_TextRPG
         public Shiled Shiled { get; set; }
         public Potion Potion { get; set; }
 
-
-
     }
-
     
 }

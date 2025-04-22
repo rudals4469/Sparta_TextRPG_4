@@ -18,7 +18,7 @@ namespace Sparta_TextRPG
         SceneName sceneName = new SceneName();
         public string inputName;
         public ClassName inputClassName;
-
+        public int floor = 0;
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
@@ -45,7 +45,7 @@ namespace Sparta_TextRPG
                         BattelStart();
                         break;
                     case SceneName.BattelAttackPhase:
-                        BattelAttackPhase();
+                        BattelAttackPhase(Dungouns[floor].monsters);
                         break;
                     case SceneName.BattelAttackMonster:
                         BattelAttackMonster();
@@ -70,10 +70,6 @@ namespace Sparta_TextRPG
         }
         public void init()
         {
-
-
-            Dungoun.Add(new Dungoun("kim", 10, new List<Monster>()));   // new Linse<Monster>() : 몬스터 배열을 받아야 함
-
             monsters.Add(new Monster(1, 5, 10, 10, 10, 5, 1, new Inventory(), 100, new List<Skill>(), true, 100, MonsterName.Snail, new List<Item>()));
             monsters.Add(new Monster(2, 8, 15, 15, 10, 8, 2, new Inventory(), 150, new List<Skill>(), true, 10, MonsterName.OrangeMushroom, new List<Item>()));
             monsters.Add(new Monster(3, 10, 20, 20, 10, 10, 2, new Inventory(), 200, new List<Skill>(), true, 10, MonsterName.RibbonPig, new List<Item>()));
@@ -90,7 +86,7 @@ namespace Sparta_TextRPG
             Messages.Instance().ShowStart();
             
         }
-        public void BattelStart()
+        public void BattelStart() { 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
@@ -180,7 +176,7 @@ namespace Sparta_TextRPG
         }
         public void BattelAttackPhase(List<Monster> monsters)
         {
-            Messages.Instance().ShowBattelAttackPhase(dungoun.monsters, Player);
+            Messages.Instance().ShowBattelAttackPhase(monsters, Player);
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
@@ -237,7 +233,7 @@ namespace Sparta_TextRPG
         
 
 
-        public void NPC()
+        public void NPC()//이름 수정
         {
             Messages.Instance().ShowNPC();
         }
@@ -248,8 +244,13 @@ namespace Sparta_TextRPG
             
             string choice = Console.ReadLine();
 
-            if (choice == "1")
+            //
+            //
+
+            if (choice.CompareTo("1") == 0 )
             {
+                // 던전 생성은 여기서x
+                // 1누르면 1번저 던전과 입장하는 플레이어 정보
                 Dungoun = new dungoun("쉬운 던전", 1);
             }
             else if (choice == "2")

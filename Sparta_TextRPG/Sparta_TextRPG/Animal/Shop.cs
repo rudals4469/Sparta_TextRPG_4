@@ -27,17 +27,22 @@ namespace Sparta_TextRPG
         {
             show();
         }
-        public   ShopItems;
+        
         public void AddItem(Item item)
         {
             Inventory.Add(item);
         }
 
+        //상점이 유저의 아이템을 산다. 유저입장에서는 파는것
         public void BuyItem(Item item)
         {
+            // item 을 받고 
+            // 유무 확인
+            // Inventory.Add(item);
+
             Console.WriteLine("구매 가능한 아이템 목록");
             Inventory.Add(item);
-            for (int i = 0; i < ShopItems.Count; i++);
+            for (int i = 0; i < Inventory.Count; i++);
             {
                 Item itemmm = ShopItems[i];
                 Console.WriteLine($"{i + 1}. {item.Name} - {item.Price}골드");
