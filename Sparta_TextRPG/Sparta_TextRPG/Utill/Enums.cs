@@ -30,6 +30,8 @@ namespace Sparta_TextRPG
     {
         None,
         Start,
+        NPC,
+        InDungeon,
     }
 
 
