@@ -252,6 +252,9 @@ namespace Sparta_TextRPG
         }
         public void BattelMonsterPhase(List<Monster> monsters,Skill PlayerSKill,Player player)
         {
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
             //몬스터리스트 받아서 추가 = 모든 몬스터가 한 대 씩 때리기 때문.
             for (int i = 0; i < monsters.Count; i++)
             {
@@ -264,10 +267,19 @@ namespace Sparta_TextRPG
                     // 플레이어 사망 시 패배 씬으로 들어가기
                     sceneName = SceneName.BattlePlayerLose;
                 }
+
+                if(inputNum == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    Messages.Instance().ErrorMessage();
+                }
+
             }
 
-            string input = Console.ReadLine();
-            int inputNum = int.Parse(input);
+
 
             if (inputNum == 0) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
             {
