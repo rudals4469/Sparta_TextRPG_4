@@ -4,7 +4,9 @@
     {
         static void Main(string[] args)
         {
-                
+            MapleRPG mapleRPG = new MapleRPG();
+            mapleRPG.Program();
         }
     }
 }
+

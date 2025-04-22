@@ -19,23 +19,30 @@ namespace Sparta_TextRPG
         {
         if (item.Type == ItemType.Weapon)
             {
-                Weapon.Add(item);
+                Weapon.Add((Weapon)item);
             }
         if (item.Type == ItemType.Armor)
             {
-                Armors.Add(item);
+                Armors.Add((Armor)item);
             }
         if (item.Type == ItemType.Shield)
             {
-                Shild.Add(item);
+                Shild.Add((Shiled)item);
             }
         if (item.Type == ItemType.Potion)
             {
-                Potions.Add(item);
+                Potions.Add((Potion)item);
             }
         }
-        
-        
+
+        // count : 전체의 수를 알려주는 int 리턴
+
+
+
+        //숫자가 들어오면 
+        // 예를들면 다 4개
+        // 10
+        //무기 4개 방어구 4 실드에 2번째걸 리턴 item
 
     }
 }
