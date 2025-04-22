@@ -284,7 +284,7 @@ namespace Sparta_TextRPG
                 player.NowHP -= (monsters[i].AttackPoint - player.ArmorPoint);
                 // 데미지 공식 = 몬스터 공격력 - 플레이어 방어력
 
-                if (player.IsDead = true)
+                if (player.IsDead == true)
                 {
                     // 플레이어 사망 시 패배 씬으로 들어가기
                     sceneName = SceneName.BattlePlayerLose;
