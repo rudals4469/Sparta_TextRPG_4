@@ -9,13 +9,25 @@ namespace Sparta_TextRPG
     internal class Messages
     {
         static Messages instance;
-        static Messages Instance()
+        public static Messages Instance()
         {
             if(instance == null)
             {
                 instance = new Messages();
             }
             return instance;
+        }
+
+        public void ShowStart()
+        {
+            
+
+            Console.Write($"""
+                스파르타 던전에 오신여러분 환영합니다.
+                원하시는 이름을 설정해주세요
+
+                >>
+                """);
         }
         
     }
