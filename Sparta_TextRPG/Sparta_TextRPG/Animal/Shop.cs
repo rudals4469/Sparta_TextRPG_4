@@ -72,17 +72,18 @@ namespace Sparta_TextRPG
 
 
 
-        public void SellItem(Player player, int selectedIndex)
+        public bool SellItem(Player player, int selectedIndex)
 
             {
                 Item item = GetItemByIndex(selectedIndex);
                
                 if (player.Gold < item.Price)
-                    return;
+                    return false;
 
                 player.Gold -= item.Price;
                 player.Inventory.Add(item);
                 
+                return true;
             }
 
 
