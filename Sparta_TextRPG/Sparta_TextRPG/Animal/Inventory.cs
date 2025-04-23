@@ -13,7 +13,7 @@ namespace Sparta_TextRPG
         public List<Weapon> Weapon { get; set; }
         public List<Armor> Armors { get; set; }
         public List<Shiled> Shild { get; set; }
-        public List<Potion> Potions { get; set; }
+        public List<Potion> Potions { get; set; } // 0 hp  , 1 mp
 
         public void Add(Item item)
         {
