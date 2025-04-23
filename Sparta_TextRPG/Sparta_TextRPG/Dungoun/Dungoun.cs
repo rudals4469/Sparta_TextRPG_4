@@ -16,7 +16,7 @@ namespace Sparta_TextRPG
         {
             Name = name;
             Level = level;
-            monsters = monsters;
+            this.monsters = monsters;
         }
         public void SpawnMonster() // 몬스터 랜덤 생성
         {

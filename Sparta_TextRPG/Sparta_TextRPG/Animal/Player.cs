@@ -18,10 +18,8 @@ namespace Sparta_TextRPG
 
         // Animal에 있는 inventory를 Player로 옮기기
 
-        public Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(1, 0, MaxHp, MaxMP, AttacPoint, ArmorPoint, Name, Gold, SkillList, EvasionRate)
+        public Player(int Hp,int MP, int AttacPoint, int ArmorPoint, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(1, 0, Hp, MP, AttacPoint, ArmorPoint, Name, Gold, SkillList, EvasionRate)
         {
-            
-
             this.MaxExp = MaxExp;
             this.Class = className;
             this.Inventory = new Inventory();
@@ -51,10 +49,10 @@ namespace Sparta_TextRPG
                 this.ArmorPoint += 1; // 아머는 원래 0.5긴 함
             }
         }
-        public Skill UseSkill(string SkillName)
+        public void UseSkill(Skill skill)
         {
+            this.NowMP -= skill.Mana;
             // 스킬사용시 마나 등 사용
-            return SkillList.Find(n => n.Name.CompareTo(SkillName) == 0);
         }
         public void Buy(Item item)
         {
