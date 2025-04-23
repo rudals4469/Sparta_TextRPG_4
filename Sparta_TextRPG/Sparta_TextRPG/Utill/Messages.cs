@@ -80,6 +80,26 @@ namespace Sparta_TextRPG
 
         }
         //
+
+        public void ShowDungeonSelection(List<Dungoun> dungouns)
+        {
+            int count = 0;
+            Console.WriteLine("던전 선택");
+            foreach (var item in dungouns)
+            {
+                Console.Write($"{++count}. {item.Name} | 권장 레벨 : {item.Level} 등장 몬스터 :");
+                foreach (var item1 in item.monsters)
+                {
+                    Console.Write($" {item1.Name} |");
+                }
+                Console.WriteLine("");
+            }
+            Console.Write("""
+
+                입장할 던전을 선택해 주세요
+                >>
+                """);
+        }
         public void ShowBattelStart(List<Monster> monsters, Player player)
         {
 
@@ -89,17 +109,43 @@ namespace Sparta_TextRPG
             }
             Console.Write(
                $"""
+
                [내정보]
                Lv.{player.Level} {player.Name} ({player.Class.ToString()})
                HP {player.NowHP}/{player.MaxHP}
                 
-               1.공격
+               1.스킬 선택
 
                원하시는 행동을 입력해주세요.
                >>
                """
                 );
 
+        }
+        public void ShowSellectSkill(List<Monster> monsters, Player player)
+        {
+            foreach (var item in monsters)
+            {
+                Console.WriteLine($"Lv.{item.Level} {item.MonsterName.ToString()} HP {item.NowHP}");
+            }
+            Console.WriteLine(
+               $"""
+
+               [내정보]
+               Lv.{player.Level} {player.Name} ({player.Class.ToString()})
+               HP {player.NowHP}/{player.MaxHP}
+               
+               """);
+            int count = 0;
+            foreach (var item in player.SkillList)
+            {
+                Console.WriteLine($"{++count} {item.Name} | {item.Text}");
+            }
+            Console.WriteLine("""
+
+                원하시는 행동을 입력해주세요.
+                >>
+                """);
         }
         public void ShowBattelAttackPhase(List<Monster> monsters, Player player)
         {

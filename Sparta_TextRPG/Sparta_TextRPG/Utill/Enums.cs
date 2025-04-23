@@ -59,6 +59,7 @@ namespace Sparta_TextRPG
 
         BattelStart,
         BattelAttackPhase,
+        SellectSkill,
         BattelAttackMonster,
         BattelMonsterPhase,
         BattlePlayerWin,
