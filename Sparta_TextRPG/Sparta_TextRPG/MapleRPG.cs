@@ -359,15 +359,13 @@ namespace Sparta_TextRPG
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
-            if(inputNum <= player.Inventory.Count())
+            if(inputNum <= player.Inventory.Count() && inputNum > 0)
             {
                 //장착 매커니즘
                 player.Equiped(player.Inventory.GetItemByIndex(inputNum-1),player);
-                // 이럼 무기만 되는 거잖아
-                // 우리가 지금 인벤토리에는 무기, 아머, 방패를 각 각 따로 받아 놓잖아
 
                 // 하고 화면 다시 출력
-                sceneName = SceneName.ManageEquipment;
+                //sceneName = SceneName.ManageEquipment;
             }
             else if (inputNum == 0)
             {

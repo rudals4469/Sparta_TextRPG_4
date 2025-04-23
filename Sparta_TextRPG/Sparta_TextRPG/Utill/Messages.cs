@@ -344,7 +344,7 @@ namespace Sparta_TextRPG
                                    + player.Inventory.Shild.Count
                                    + player.Inventory.Potions.Count;
 
-            int Count = 0;
+            int Count = 1;
 
 
             if (totalItemCount == 0)

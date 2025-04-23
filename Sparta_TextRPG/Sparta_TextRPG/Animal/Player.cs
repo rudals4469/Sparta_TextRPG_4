@@ -86,18 +86,34 @@ namespace Sparta_TextRPG
             // 아이템 종류 확인후 현채 작용중인 아이템과 교체
             if (item.Type == ItemType.Weapon)
             {
-                player.Weapon.IsEquipped = false;
+                
+                if(Weapon != null)
+                {
+                    Weapon.IsEquipped = false;
+                    if (Weapon == (Weapon)item) return;
+                }
+                Weapon = (Weapon)item;
                 Weapon.IsEquipped = true;
-                // 검수 받기
+
             }
             else if (item.Type == ItemType.Armor)
             {
-                player.Armor.IsEquipped = false;
+                if (Armor != null)
+                {
+                    Armor.IsEquipped = false;
+                    if (Armor == (Armor)item) return;
+                }
+                Armor = (Armor)item;
                 Armor.IsEquipped = true;
             }
             else if(item.Type == ItemType.Shield)
             {
-                player.Shield.IsEquipped = false;
+                if (Shield != null)
+                {
+                    Shield.IsEquipped = false;
+                    if (Shield == (Shiled)item) return;
+                }
+                Shield = (Shiled)item;
                 Shield.IsEquipped = true;
             }
         }
