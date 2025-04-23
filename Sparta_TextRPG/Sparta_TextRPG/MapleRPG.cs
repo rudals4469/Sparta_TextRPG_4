@@ -82,9 +82,16 @@ namespace Sparta_TextRPG
                         NPCText();
                         break;
                     case SceneName.Quest:
+                        QuestText();
                         break;
                     case SceneName.Rest:
                         Rest();
+                        break;
+                    case SceneName.RestSuccess:
+                        RestSuccess();
+                        break;
+                    case SceneName.RestFail:
+                        RestFail();
                         break;
                 }
             }
@@ -206,7 +213,7 @@ namespace Sparta_TextRPG
             else if (inputNum == 2) sceneName = SceneName.Inventory;
             else if (inputNum == 3) sceneName = SceneName.Shop;
             else if (inputNum == 4) sceneName = SceneName.DungeonSelection;
-            else if (inputNum == 5) return; //휴식
+            else if (inputNum == 5) sceneName = SceneName.NPC;
             else if (inputNum == 6) sceneName = SceneName.GameOver;
         }
         public void BattelStart() {
@@ -534,10 +541,21 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 2) 
             {
-                sceneName = SceneName.Rest; // 힐 씬으로 이동
+                sceneName = SceneName.Rest; // 휴식 하기 씬으로 이동
             }
         }
 
+        public void QuestText()
+        {
+            Messages.Instance().ShowQuest();
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)  // 0번 입력 시 여관(NPC) 메뉴로 돌아가기
+            {
+                sceneName = SceneName.NPC;
+            }
+        }
 
         public void Rest()
         {
@@ -545,9 +563,9 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum == 0)  // 0번 입력 시 시작 메뉴로 돌아가기
+            if (inputNum == 0)  // 0번 입력 시 메인 메뉴로 돌아가기
             {
-                sceneName = SceneName.StartSetName;
+                sceneName = SceneName.Start;
             }
             else if (inputNum == 1) // 휴식 시도
             {
@@ -555,39 +573,43 @@ namespace Sparta_TextRPG
 
                 if (healSuccess)
                 {
-                    Messages.Instance().ShowHeal();  // 휴식 성공 메시지 출력
-                    input = Console.ReadLine();
-                    inputNum = int.Parse(input);
-
-                    if (inputNum == 0)  // 0번 입력 시 시작 메뉴로 돌아가기
-                    {
-                        sceneName = SceneName.StartSetName;
-                    }
-                    else
-                    {
-                        Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
-                    }
+                    RestSuccess();  // 휴식 성공 메서드 실행
                 }
                 else
                 {
-                    Messages.Instance().ShowNoHeal();   // 휴식 실패 메시지 출력
-                    input = Console.ReadLine();
-                    inputNum = int.Parse(input);
-
-                    if (inputNum == 0)  // 0번 입력 시 시작 메뉴로 돌아가기
-                    {
-                        sceneName = SceneName.StartSetName;
-                    }
-                    else
-                    {
-                        Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
-                    }
+                    RestFail(); // 휴식 실패 메서드 실행
                 }
             }                                                                   
             else
             {
                 Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
             }
+        }
+
+        public void RestSuccess()
+        {
+            Messages.Instance().ShowRestSuccess();  // 휴식 성공 메시지 출력
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)  // 0번 입력 시 여관(NPC) 메뉴로 돌아가기
+            {
+                sceneName = SceneName.NPC;
+            }
+
+        }
+
+        public void RestFail()
+        {
+            Messages.Instance().ShowRestFail();  // 휴식 성공 메시지 출력
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)  // 0번 입력 시 여관(NPC) 메뉴로 돌아가기
+            {
+                sceneName = SceneName.NPC;
+            }
+
         }
     }
 }
