@@ -76,11 +76,9 @@ namespace Sparta_TextRPG
         }
         public void usePotion(Potion potion,Player player)
         {
-            //인벤토리에서 포션찾고 포션 사용하기
-            if(player.Inventory.Potions. > 0)
-            {
-                
-            }
+            // 포션의 타입이 맞으면
+            // 인벤토리에서 포션이 있으면
+            // 포션 사용
         }
         public void Equiped(Item item, Player player)
         {

@@ -236,8 +236,8 @@ namespace Sparta_TextRPG
                 Console.WriteLine($"{player.Armor.Name}");   // 방어구 장착 칸
             else Console.WriteLine();
             Console.Write("- 방패 : ");
-            if (player.Shiled != null)
-                Console.WriteLine($"{player.Shiled.Name}");   // 방패 장착 칸
+            if (player.Shield != null)
+                Console.WriteLine($"{player.Shield.Name}");   // 방패 장착 칸
             else Console.WriteLine();
             
             Console.WriteLine();                                      //줄 바꿈 처리

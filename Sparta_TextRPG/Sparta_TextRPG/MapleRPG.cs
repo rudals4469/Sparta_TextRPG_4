@@ -310,16 +310,22 @@ namespace Sparta_TextRPG
             }
 
         }
-
         public void ManageEquipment(Player player, Item item)
         {
             Messages.Instance().ManageEquipment(Player);
 
-            // 장착 매커니즘 
-            player.Equiped(item, player);
-
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
+
+            int totalItemCount = player.Inventory.Weapon.Count
+                + player.Inventory.Armors.Count
+                + player.Inventory.Shild.Count;
+
+            if (inputNum <=  totalItemCount)
+            {
+                // 장착 매커니즘 
+                player.Equiped(item, player);
+            }
 
             if (inputNum == 0)
             {
@@ -510,17 +516,11 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-        
-
-
         public void NPCText()//이름 수정
         {
             Messages.Instance().ShowNPC();
 
         }
-
-        //pulbic 
-
         public void EnterDungoun()
         {
             Messages.Instance().ShowDungoun();
