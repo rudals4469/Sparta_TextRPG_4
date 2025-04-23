@@ -556,46 +556,38 @@ namespace Sparta_TextRPG
                 if (healSuccess)
                 {
                     Messages.Instance().ShowHeal();  // 휴식 성공 메시지 출력
+                    input = Console.ReadLine();
+                    inputNum = int.Parse(input);
+
+                    if (inputNum == 0)  // 0번 입력 시 시작 메뉴로 돌아가기
+                    {
+                        sceneName = SceneName.StartSetName;
+                    }
+                    else
+                    {
+                        Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
+                    }
                 }
                 else
                 {
                     Messages.Instance().ShowNoHeal();   // 휴식 실패 메시지 출력
+                    input = Console.ReadLine();
+                    inputNum = int.Parse(input);
+
+                    if (inputNum == 0)  // 0번 입력 시 시작 메뉴로 돌아가기
+                    {
+                        sceneName = SceneName.StartSetName;
+                    }
+                    else
+                    {
+                        Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
+                    }
                 }
-            }
+            }                                                                   
             else
             {
                 Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
             }
         }
-
-
-        public void EnterDungoun()
-        {
-            Messages.Instance().ShowDungoun();
-            
-            string choice = Console.ReadLine();
-
-            //
-            //
-
-            if (choice.CompareTo("1") == 0 )
-            {
-                // 던전 생성은 여기서x
-                // 1누르면 1번저 던전과 입장하는 플레이어 정보
-                Dungoun = new dungoun("쉬운 던전", 1);
-            }
-            else if (choice == "2")
-            {
-                Dungoun = new dungoun("일반 던전", 2);
-            }
-            else if (choice == "3")
-            {
-                Dungoun = new dungoun("어려운 던전", 3);
-            }
-                
-
-        }
-
-
     }
 }
