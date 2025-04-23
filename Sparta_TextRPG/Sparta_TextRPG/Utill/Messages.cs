@@ -31,6 +31,7 @@ namespace Sparta_TextRPG
                 4. 던전입장
                 5. 휴식하기
                 6. 게임종료
+
                 원하시는 행동을 입력해주세요.
                 >>
                 """);
@@ -85,7 +86,8 @@ namespace Sparta_TextRPG
         public void ShowBattelStart(List<Monster> monsters, Player player)
         {
 
-            foreach (var item in monsters) {
+            foreach (var item in monsters)
+            {
                 Console.WriteLine($"Lv.{item.Level} {item.MonsterName.ToString()} HP {item.NowHP}");
             }
             Console.Write(
@@ -113,12 +115,12 @@ namespace Sparta_TextRPG
                 if (item.IsDead)
                 {
                     Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.Write($"{count} Lv.{item.Level} {item.MonsterName.ToString()} Dead");
+                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} Dead");
                     Console.ResetColor();
                 }
                 else
                 {
-                    Console.Write($"{count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}");
+                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}");
                 }
 
             }
@@ -152,7 +154,7 @@ namespace Sparta_TextRPG
             else
             {
                 Console.WriteLine($"HP {monster.NowHP} -> {monster.NowHP - PlayerSkill.Damage}");
-                
+
             }
 
             Console.Write(
@@ -172,7 +174,7 @@ namespace Sparta_TextRPG
                {player.Name} 을(를) 맞췄습니다.  [데미지 : {MonsterSkill.Damage}]
 
                Lv.{player.Level} {player.Name}
-               HP {player.NowHP} -> {player.NowHP- MonsterSkill.Damage};
+               HP {player.NowHP} -> {player.NowHP - MonsterSkill.Damage};
 
                0. 다음
 
@@ -180,7 +182,7 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-        public void ShowBattlePlayerWin(List<Monster> monsters,int HP ,Player player)
+        public void ShowBattlePlayerWin(List<Monster> monsters, int HP, Player player)
         {
             Console.Write(
                $"""
@@ -227,9 +229,9 @@ namespace Sparta_TextRPG
             Console.WriteLine();                                      //줄 바꿈 처리
 
             Console.WriteLine("인벤토리");                             //player 인벤토리로 받을 수 있게 처리
-            //인벤토리 출력은 4단계를 거쳐서 작성해야함
-            foreach (var item in player.Inventory)                    //배열 리스트 순차적으로 꺼내서 처리(var 변수 타입 결정 player인벤토리 안에 있는 아이템 전부 item처리)
-                Console.WriteLine($" - {item.Name} x{item.Quantity}"); //아이템 이름과 수량
+                                                                   //인벤토리 출력은 4단계를 거쳐서 작성해야함
+                                                                   //foreach (var item in player.Inventory)                    //배열 리스트 순차적으로 꺼내서 처리(var 변수 타입 결정 player인벤토리 안에 있는 아이템 전부 item처리)
+                                                                   //Console.WriteLine($" - {item.Name} x{item.Quantity}"); //아이템 이름과 수량
 
 
             Console.WriteLine("장착 중인 아이템:");                     // 상태창에서 바로 장착중인 아이템이 보여지게 수정
@@ -242,10 +244,10 @@ namespace Sparta_TextRPG
                 Console.WriteLine($"{player.Armor.Name}");   // 방어구 장착 칸
             else Console.WriteLine();
             Console.Write("- 방패 : ");
-            if (player.Shiled != null)
-                Console.WriteLine($"{player.Shiled.Name}");   // 방패 장착 칸
+            if (player.Shield != null)
+                Console.WriteLine($"{player.Shield.Name}");   // 방패 장착 칸
             else Console.WriteLine();
-            
+
             Console.WriteLine();                                      //줄 바꿈 처리
             /*Console.WriteLine("인벤토리:");                         // 상태창에서 바로 인벤토리가 보여지게 설정
                                                                      // 상태창에 너무 많은 정보가 보일 것 같아서 인벤토리 안으로 넣을 예정입니다 (수정예정이며 현재 임시 작성)
@@ -275,69 +277,66 @@ namespace Sparta_TextRPG
             */
             Console.WriteLine("\n1. 인벤토리 보기");
             Console.WriteLine("0. 나가기");
-            Console.WriteLine("원하시는 행동을 입력해주세요.\r\n>>");
+            Console.WriteLine("원하시는 행동을 입력해주세요.\n>> ");
         }
 
 
         public void ShowInventory(Player player)
         {
-            while (true)
+            Console.WriteLine("인벤토리");
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
+
+            int totalItemCount = player.Inventory.Weapon.Count
+                                + player.Inventory.Armors.Count
+                                + player.Inventory.Shild.Count
+                                + player.Inventory.Potions.Count;
+
+            if (totalItemCount == 0)
             {
-                Console.WriteLine("인벤토리");
-                Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
-
-                int totalItemCount = player.Inventory.Weapon.Count
-                                   + player.Inventory.Armors.Count
-                                   + player.Inventory.Shild.Count
-                                   + player.Inventory.Potions.Count;
-
-                if (totalItemCount == 0)
-                {
-                    Console.WriteLine("아이템이 없습니다.");
-                }
-                else
-                {
-                    Console.WriteLine("[무기]");
-                    foreach (var weapon in player.Inventory.Weapon)
-                    {
-                        string prefix = weapon.IsEquipped ? "[E]" : "";
-                        Console.WriteLine($"- {prefix}{weapon.Name} | +{weapon.AttackPoint} | {weapon.Text}");
-                    }
-
-                    Console.WriteLine("\n[방어구]");
-                    foreach (var armor in player.Inventory.Armors)
-                    {
-                        string prefix = armor.IsEquipped ? "[E]" : "";
-                        Console.WriteLine($"- {prefix}{armor.Name} | +{armor.ArmorPoint} | {armor.Text}");
-                    }
-
-                    Console.WriteLine("\n[방패]");
-                    foreach (var shield in player.Inventory.Shild)
-                    {
-                        string prefix = shield.IsEquipped ? "[E]" : "";
-                        Console.WriteLine($"- {prefix}{shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
-                    }
-
-                    Console.WriteLine("\n[포션]");
-                    foreach (var potion in player.Inventory.Potions)
-                    {
-                        Console.WriteLine($"- {potion.Name} | +{potion.HealPoint} | {potion.Text}");
-                    }
-                }
-
-                Console.WriteLine("\n1. 장착 관리");
-                Console.WriteLine("0. 나가기");
-                Console.Write("\n원하시는 행동을 입력해주세요. >> ");
-                string input = Console.ReadLine();
-
-                /*if (input == "0") break;
-                else if (input == "1") ManageEquipment(player); 
-                else
-                {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.ReadKey();
-                } 메세지 파일에서는 출력만 담당합니다. 기능들은 메이플알피지 파일에서 */
+                Console.WriteLine("아이템이 없습니다.");
             }
+            else
+            {
+                Console.WriteLine("[무기]");
+                foreach (var weapon in player.Inventory.Weapon)
+                {
+                    string prefix = weapon.IsEquipped ? "[E]" : "";
+                    Console.WriteLine($"- {prefix}{weapon.Name} | +{weapon.AttackPoint} | {weapon.Text}");
+                }
+
+                Console.WriteLine("\n[방어구]");
+                foreach (var armor in player.Inventory.Armors)
+                {
+                    string prefix = armor.IsEquipped ? "[E]" : "";
+                    Console.WriteLine($"- {prefix}{armor.Name} | +{armor.ArmorPoint} | {armor.Text}");
+                }
+
+                Console.WriteLine("\n[방패]");
+                foreach (var shield in player.Inventory.Shild)
+                {
+                    string prefix = shield.IsEquipped ? "[E]" : "";
+                    Console.WriteLine($"- {prefix}{shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
+                }
+
+                Console.WriteLine("\n[포션]");
+                foreach (var potion in player.Inventory.Potions)
+                {
+                    Console.WriteLine($"- {potion.Name} | +{potion.HealPoint} | {potion.Text}");
+                }
+            }
+
+            Console.WriteLine("\n1. 장착 관리");
+            Console.WriteLine("0. 나가기");
+            Console.Write("\n원하시는 행동을 입력해주세요. >> ");
+
+            /*if (input == "0") break;
+            else if (input == "1") ManageEquipment(player); 
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다.");
+                Console.ReadKey();
+            } 메세지 파일에서는 출력만 담당합니다. 기능들은 메이플알피지 파일에서 */
+
         }
 
         public void ManageEquipment(Player player)
@@ -392,6 +391,9 @@ namespace Sparta_TextRPG
                     Console.WriteLine($"- {potion} {potion.Name} | +{potion.HealPoint} | {potion.Text}");
                 }
             }
+
+            Console.WriteLine("\n0. 나가기");
+            Console.Write("\n원하시는 행동을 입력해주세요. >> ");
         }
 
 
@@ -400,7 +402,7 @@ namespace Sparta_TextRPG
         {
             Console.WriteLine("잘못된 입력입니다 ");
         }
-        
+
         public void ShowNPC()
         {
 
@@ -414,7 +416,7 @@ namespace Sparta_TextRPG
                원하시는 행동을 입력해주세요. 
                >>
                """);
-               
+
         }
 
         public void ShowQuest()
@@ -435,14 +437,14 @@ namespace Sparta_TextRPG
         public void ShowRest(Player player)
         {
             Console.Write($"""
-               500 G 를 소모하여 체력을 회복할 수 있습니다. (보유 골드 : {0} G)
+               500 G 를 소모하여 체력을 회복할 수 있습니다. (보유 골드 : {player.Gold} G)
                1. 휴식하기
                
                0. 나가기
 
                원하시는 행동을 입력해주세요. 
                >> 
-               """, player.Gold);
+               """);
         }
 
         public void ShowHeal()
@@ -477,7 +479,7 @@ namespace Sparta_TextRPG
             foreach (var item in dungouns)
             {
                 Console.WriteLine($"{item.Name} | 던전 레벨 : {item.Level}");
-            };           
+            };
             Console.Write($$"""
                0. 나가기 
 
@@ -486,7 +488,7 @@ namespace Sparta_TextRPG
                """);
         }
 
-    
+
     }
 
 }
