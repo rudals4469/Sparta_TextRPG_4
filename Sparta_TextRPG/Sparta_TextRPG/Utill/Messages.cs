@@ -36,7 +36,6 @@ namespace Sparta_TextRPG
                 >>
                 """);
         }
-
         public void ShowStartSetName()
         {
 
@@ -81,7 +80,6 @@ namespace Sparta_TextRPG
                 """);
 
         }
-
         //
         public void ShowBattelStart(List<Monster> monsters, Player player)
         {
@@ -104,7 +102,6 @@ namespace Sparta_TextRPG
                 );
 
         }
-
         public void ShowBattelAttackPhase(List<Monster> monsters, Player player)
         {
             int count = 0;
@@ -214,7 +211,6 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-
         public void ShowStatus(Player player)         //$""" 사용해보려 하였으나 익숙치 않아 익숙한 것으로 진행
         {
             Console.WriteLine("상태 보기");
@@ -280,7 +276,6 @@ namespace Sparta_TextRPG
             Console.WriteLine("원하시는 행동을 입력해주세요.\n>> ");
         }
 
-
         public void ShowInventory(Player player)
         {
             Console.WriteLine("인벤토리");
@@ -338,7 +333,6 @@ namespace Sparta_TextRPG
             } 메세지 파일에서는 출력만 담당합니다. 기능들은 메이플알피지 파일에서 */
 
         }
-
         public void ManageEquipment(Player player)
         {
             // 장착 관리
@@ -395,14 +389,10 @@ namespace Sparta_TextRPG
             Console.WriteLine("\n0. 나가기");
             Console.Write("\n원하시는 행동을 입력해주세요. >> ");
         }
-
-
-
         public void ErrorMessage()
         {
             Console.WriteLine("잘못된 입력입니다 ");
         }
-
         public void ShowNPC()
         {
 
@@ -418,7 +408,6 @@ namespace Sparta_TextRPG
                """);
 
         }
-
         public void ShowQuest()
         {
 
@@ -433,7 +422,6 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-
         public void ShowRest(Player player)
         {
             Console.Write($"""
@@ -446,7 +434,6 @@ namespace Sparta_TextRPG
                >> 
                """);
         }
-
         public void ShowHeal()
         {
             Console.Write($"""
@@ -458,7 +445,6 @@ namespace Sparta_TextRPG
                """);
 
         }
-
         public void ShowNoHeal()
         {
             Console.Write($"""
@@ -469,7 +455,6 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-
         public void ShowDungoun(List<Dungoun> dungouns)
         {
             Console.Write($$"""
@@ -487,7 +472,6 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-
 
     }
 

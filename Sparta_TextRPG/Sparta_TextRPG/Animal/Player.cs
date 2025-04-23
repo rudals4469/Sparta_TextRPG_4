@@ -18,8 +18,7 @@ namespace Sparta_TextRPG
 
         // Animal에 있는 inventory를 Player로 옮기기
 
-        public Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint,
-            Inventory inventory, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(1, 0, MaxHp, MaxMP, AttacPoint, ArmorPoint, inventory, Name, Gold, SkillList, IsDead, EvasionRate)
+        public Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(1, 0, MaxHp, MaxMP, AttacPoint, ArmorPoint, Name, Gold, SkillList, EvasionRate)
         {
             this.Level = 1;
             this.Exp = 0;
@@ -30,7 +29,6 @@ namespace Sparta_TextRPG
             this.Gold = 1500;
             this.IsDead = false;
             this.EvasionRate = 10;
-            this.Inventory = inventory;
 
             this.MaxExp = MaxExp;
             this.Class = className;
@@ -75,21 +73,21 @@ namespace Sparta_TextRPG
         {            
             return null;
         }
-        public void usePotion(Potion potion,Player player)
+        public void usePotion(Potion potion, Player player)
         {
-<<<<<<< HEAD
-            Potion potion = Inventory.Potions.Find(n => n.Name.CompareTo(PotionName) == 0);
+
+            //Potion potion = Inventory.Potions.Find(n => n.Name.CompareTo(potion.Name) == 0);
             potion.Count--;
             //인벤토리에서 포션찾고 포션 사용하기
-            if(player.Inventory.Potions. > 0)
+            if(player.Inventory.Potions.Count > 0)
             {
                 
             }
-=======
+
             // 포션의 타입이 맞으면
             // 인벤토리에서 포션이 있으면
             // 포션 사용
->>>>>>> MonsterCreate_GM
+
         }
         public void Equiped(Item item, Player player)
         {

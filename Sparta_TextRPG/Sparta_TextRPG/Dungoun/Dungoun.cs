@@ -31,33 +31,7 @@ namespace Sparta_TextRPG
 
                 // 몬스터 정보 출력
             }
-        }
-
-        public void EnterDungoun()
-        {
-            Messages.Instance().ShowDungoun();
-
-            string choice = Console.ReadLine();
-            int level = 1;
-
-            if (choice == "1")
-            {
-                level = 1;
-            }
-            else if (choice == "2")
-            {
-                level = 2;
-            }
-            else if (choice == "3")
-            {
-                level = 3;
-            }
-            else
-            {
-                Messages.Instance().ErrorMessage();
-            }
-        }
-            
+        }          
 
 
     }

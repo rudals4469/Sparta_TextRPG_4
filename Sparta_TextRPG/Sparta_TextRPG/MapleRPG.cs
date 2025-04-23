@@ -34,12 +34,8 @@ namespace Sparta_TextRPG
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
-<<<<<<< HEAD
-=======
+            sceneName = SceneName.Start;
 
-            sceneName = SceneName.ShowInventory;
-
->>>>>>> MonsterCreate_GM
             while (true)
             {
 
@@ -191,7 +187,7 @@ namespace Sparta_TextRPG
 
             List<Item> MonsterDorpItems = new List<Item>() { WoodSword, WoodBow, WoodStaff, WoodClaw, Woodknuckles };
             List<Item> BossDorpItems = new List<Item>() { zakumHelmet, horntailNecklace };
-<<<<<<< HEAD
+
             monsters.Add(new Monster(1, 5, 10, 10, 5, 1, 100, MonsterSkillset, 100, MonsterName.Snail, MonsterDorpItems));
             monsters.Add(new Monster(2, 8, 15,  10, 8, 2, 150, MonsterSkillset, 10, MonsterName.OrangeMushroom, MonsterDorpItems));
             monsters.Add(new Monster(3, 10, 20, 10, 10, 2, 200, MonsterSkillset, 10, MonsterName.RibbonPig, MonsterDorpItems));
@@ -200,17 +196,7 @@ namespace Sparta_TextRPG
             monsters.Add(new Monster(6, 20, 35, 10, 20, 7, 280, MonsterSkillset, 15, MonsterName.Drake, MonsterDorpItems));
             monsters.Add(new Monster(7, 30, 50, 10, 15, 12, 350, MonsterSkillset, 5, MonsterName.StoneGolem, MonsterDorpItems));
             monsters.Add(new Monster(8, 50, 80, 10, 15, 20, 500, MonsterSkillset, 15, MonsterName.JuniorBalrog, MonsterDorpItems));
-=======
 
-            monsters.Add(new Monster(1, 5, 10, 10, 10, 5, 1, new Inventory(), 100, MonsterSkillset, true, 100, MonsterName.Snail, MonsterDorpItems));
-            monsters.Add(new Monster(2, 8, 15, 15, 10, 8, 2, new Inventory(), 150, MonsterSkillset, true, 10, MonsterName.OrangeMushroom, MonsterDorpItems));
-            monsters.Add(new Monster(3, 10, 20, 20, 10, 10, 2, new Inventory(), 200, MonsterSkillset, true, 10, MonsterName.RibbonPig, MonsterDorpItems));
-            monsters.Add(new Monster(4, 12, 23, 23, 10, 12, 3, new Inventory(), 230, MonsterSkillset, true, 15, MonsterName.EvilEye, MonsterDorpItems));
-            monsters.Add(new Monster(5, 15, 30, 30, 10, 15, 5, new Inventory(), 250, MonsterSkillset, true, 25, MonsterName.ironHog, MonsterDorpItems));
-            monsters.Add(new Monster(6, 20, 35, 35, 10, 20, 7, new Inventory(), 280, MonsterSkillset, true, 15, MonsterName.Drake, MonsterDorpItems));
-            monsters.Add(new Monster(7, 30, 50, 50, 10, 15, 12, new Inventory(), 350, MonsterSkillset, true, 5, MonsterName.StoneGolem, MonsterDorpItems));
-            monsters.Add(new Monster(8, 50, 80, 80, 10, 15, 20, new Inventory(), 500, MonsterSkillset, true, 15, MonsterName.JuniorBalrog, MonsterDorpItems));
->>>>>>> MonsterCreate_GM
 
             monsters.Add(new Monster(9, 10000, 1, 1, 10000, 10000, 10000, MonsterSkillset, 100, MonsterName.AnUnnamedPigeon, BossDorpItems));
 
@@ -357,7 +343,6 @@ namespace Sparta_TextRPG
             }
 
         }
-
         public void ManageEquipment(Player player)
         {
             Messages.Instance().ManageEquipment(Player);
@@ -378,7 +363,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
         public void ShowShop()
         {
             Messages.Instance().ShowShop(Player);
@@ -403,7 +387,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
         public void BuyItem()
         {
             Messages.Instance().SellItem(Player);
@@ -429,7 +412,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
         public void SellItem()
         {
             Messages.Instance().SellItem(Player);
@@ -446,8 +428,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
-
         public void BattelStart(Dungoun dungoun)
         {
             Messages.Instance().ShowBattelStart(dungoun.monsters, Player);
@@ -627,9 +607,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
-
-
         public void NPCText() //이름 수정
         {
 
@@ -650,8 +627,6 @@ namespace Sparta_TextRPG
                 sceneName = SceneName.Rest; // 힐 씬으로 이동
             }
         }
-
-
         public void Rest()
         {
             Messages.Instance().ShowRest(Player);
