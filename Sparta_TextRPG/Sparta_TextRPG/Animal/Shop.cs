@@ -19,6 +19,10 @@ namespace Sparta_TextRPG
         //sellitem 에서는 사람이 판매를 누르고 장비에 따라 번호를 누르면 그 장비가 팔리게 됨
         //판매를 하면 장비는 인벤토리에서 없어져야 하고상점에는 다시 값어치로 뜨게 됨
 
+        public Shop() 
+        {
+            Inventory = new Inventory();
+        }   
         public void show() 
         {
                

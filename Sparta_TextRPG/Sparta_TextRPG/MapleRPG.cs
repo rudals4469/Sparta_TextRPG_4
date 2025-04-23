@@ -34,7 +34,7 @@ namespace Sparta_TextRPG
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
-            sceneName = SceneName.Start;
+            sceneName = SceneName.MainScene;
 
             while (true)
             {
@@ -43,7 +43,7 @@ namespace Sparta_TextRPG
 
                 switch (sceneName)
                 {
-                    case SceneName.Start:
+                    case SceneName.MainScene:
                         start();
                         break;
                     case SceneName.StartSetName:
@@ -91,19 +91,19 @@ namespace Sparta_TextRPG
                     case SceneName.Rest:
                         Rest();
                         break;
-                    case SceneName.SellItem:
-                        SellItem();
-                        break;
-                    case SceneName.BuyItem:
-                        BuyItem();
-                        break;
-                        
                     case SceneName.RestSuccess:
                         RestSuccess();
                         break;
                     case SceneName.RestFail:
                         RestFail();
                         break;
+                    case SceneName.SellItem:
+                        SellItem();
+                        break;
+                    case SceneName.BuyItem:
+                        BuyItem();
+                        break;
+
                 }
             }
         }
@@ -135,7 +135,8 @@ namespace Sparta_TextRPG
             // 메이플 아이템들
             // 엘릭서 , hp , mp
 
-            Player = new Player(100, 200, 100, 200, new Inventory(), "kim", 500, MonsterSkillset, false, 50, 500, ClassName.전사);
+            //Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className)
+            Player = new Player(100, 200, 100, 200, "kim", 500, MonsterSkillset, false, 50, 500, ClassName.전사);
 
             //Armor(string name, string text, int price, ItemType type,int armorPoint , bool isEquipped)
             Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구", 10000, ItemType.Armor, 100);
@@ -238,11 +239,10 @@ namespace Sparta_TextRPG
             int inputNum = int.Parse(input);
 
             if (inputNum == 1) sceneName = SceneName.ShowStatus;
-            else if (inputNum == 2) sceneName = SceneName.Inventory; // 사실 필요없을 듯 합니다
-            else if (inputNum == 3) sceneName = SceneName.Shop;
-            else if (inputNum == 4) sceneName = SceneName.DungeonSelection;
-            else if (inputNum == 5) sceneName = SceneName.NPC;
-            else if (inputNum == 6) sceneName = SceneName.GameOver;
+            else if (inputNum == 2) sceneName = SceneName.Shop;
+            else if (inputNum == 3) sceneName = SceneName.DungeonSelection;
+            else if (inputNum == 4) sceneName = SceneName.NPC;
+            else if (inputNum == 5) sceneName = SceneName.GameOver;
         }
         public void BattelStart()
         {
@@ -306,7 +306,7 @@ namespace Sparta_TextRPG
             }
             // 플레이어 생성
 
-            sceneName = SceneName.Start;
+            sceneName = SceneName.MainScene;
 
         }
         public void ShowStatus()
@@ -322,7 +322,7 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 0)
             {
-                sceneName = SceneName.Start;
+                sceneName = SceneName.MainScene;
             }
             else
             {
@@ -387,7 +387,7 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 0)
             {
-                sceneName = SceneName.Start;
+                sceneName = SceneName.MainScene;
             }
             else
             {
@@ -401,7 +401,7 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if(inputNum <= Player.Inventory.Count)
+            if(inputNum <= Player.Inventory.Count())
             {
                 if(Shop.SellItem(Player, inputNum))
                 {
@@ -655,7 +655,7 @@ namespace Sparta_TextRPG
 
             if (inputNum == 0)  // 0번 입력 시 메인 메뉴로 돌아가기
             {
-                sceneName = SceneName.Start;
+                sceneName = SceneName.MainScene;
             }
             else if (inputNum == 1) // 휴식 시도
             {
@@ -663,11 +663,13 @@ namespace Sparta_TextRPG
 
                 if (healSuccess)
                 {
-                    RestSuccess();  // 휴식 성공 메서드 실행
+                    sceneName = SceneName.RestSuccess;
+                    //RestSuccess();  // 휴식 성공 메서드 실행
                 }
                 else
                 {
-                    RestFail(); // 휴식 실패 메서드 실행
+                    sceneName = SceneName.RestFail;
+                    //RestFail(); // 휴식 실패 메서드 실행
                 }
             }                                                                   
             else

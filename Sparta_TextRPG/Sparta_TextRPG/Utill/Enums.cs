@@ -37,7 +37,7 @@ namespace Sparta_TextRPG
     enum SceneName
     {
         None,
-        Start,
+        MainScene,
 
         ShowStatus,
         ShowInventory,
@@ -65,6 +65,8 @@ namespace Sparta_TextRPG
         BattlePlayerLose,
         
         InDungeon,
+
+        ShowShop,
         SellItem,
         BuyItem,
 

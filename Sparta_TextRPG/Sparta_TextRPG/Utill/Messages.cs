@@ -26,11 +26,10 @@ namespace Sparta_TextRPG
                 이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.
 
                 1. 상태 보기
-                2. 인벤토리
-                3. 상점
-                4. 던전입장
-                5. 여관으로 가기(NPC)
-                6. 게임종료
+                2. 상점
+                3. 던전입장
+                4. 여관으로 가기(NPC)
+                5. 게임종료
 
                 원하시는 행동을 입력해주세요.
                 >>
@@ -477,6 +476,19 @@ namespace Sparta_TextRPG
                """);
         }
 
+
+        public void ShowShop(Player player)
+        {
+
+        }
+        public void SellItem(Player player)
+        {
+
+        }
+        public void NotEnoughMoney()
+        {
+
+        }
     }
 
 }

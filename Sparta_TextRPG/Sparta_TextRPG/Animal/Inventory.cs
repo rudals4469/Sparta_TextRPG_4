@@ -10,12 +10,19 @@ namespace Sparta_TextRPG
     internal class Inventory
     {
         //public List<Item> Reward { get; set; }  // 퀘스트 아이템 보상
-        public List<Weapon> Weapon { get; set; }
-        public List<Armor> Armors { get; set; }
-        public List<Shiled> Shild { get; set; }
-        public List<Potion> Potions { get; set; } // 0 hp  , 1 mp
+        public List<Weapon>? Weapon { get; set; }
+        public List<Armor>? Armors { get; set; }
+        public List<Shiled>? Shild { get; set; }
+        public List<Potion>? Potions { get; set; } // 0 hp  , 1 mp
 
-        public Item GetItemByIndex(int index)
+        public Inventory()
+        {
+            Weapon = new List<Weapon>();
+            Armors = new List<Armor>();
+            Shild = new List<Shiled>();
+            Potions = new List<Potion>();
+        }
+        public Item? GetItemByIndex(int index)
         {
             if (index < Weapon.Count)
                 return Weapon[index];
