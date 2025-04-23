@@ -17,7 +17,6 @@ namespace Sparta_TextRPG
             Name = name;
             Level = level;
             monsters = monsters;
-
         }
         public void SpawnMonster() // 몬스터 랜덤 생성
         {
