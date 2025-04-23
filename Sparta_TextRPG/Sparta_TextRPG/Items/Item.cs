@@ -14,5 +14,12 @@ namespace Sparta_TextRPG
 
         public ItemType Type { get; set; }
 
+        public Item(string name, string text , int price , ItemType type)
+        {
+            this.Name = name;
+            this.Text = text;
+            this.Price = price;
+            this.Type = type;
+        }
     }
 }
