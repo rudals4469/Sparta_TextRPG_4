@@ -521,7 +521,6 @@ namespace Sparta_TextRPG
             sceneName = SceneName.BuyItem;
             
         }
-        public void BattelStart(Dungoun dungoun)
         public void DungeonSelection()
         {
             Messages.Instance().ShowDungeonSelection(Dungouns);
