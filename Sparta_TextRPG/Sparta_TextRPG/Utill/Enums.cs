@@ -63,6 +63,8 @@ namespace Sparta_TextRPG
         BattlePlayerLose,
         
         InDungeon,
+        SellItem,
+        BuyItem,
 
 
         GameOver,//게임종료

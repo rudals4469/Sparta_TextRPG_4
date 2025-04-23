@@ -86,6 +86,13 @@ namespace Sparta_TextRPG
                     case SceneName.Rest:
                         Rest();
                         break;
+                    case SceneName.SellItem:
+                        SellItem();
+                        break;
+                    case SceneName.BuyItem:
+                        BuyItem();
+                        break;
+                        
                 }
             }
         }
@@ -335,6 +342,76 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
+
+        public void ShowShop()
+        {
+            Messages.Instance().ShowShop(Player);
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 1)
+            {
+                sceneName = SceneName.SellItem;
+            }
+            else if (inputNum == 2)
+            {
+                sceneName = SceneName.BuyItem;
+            }
+            else if (inputNum == 0)
+            {
+                sceneName = SceneName.Start;
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
+        }
+
+        public void BuyItem()
+        {
+            Messages.Instance().SellItem(Player);
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if(inputNum <= Player.Inventory.Count)
+            {
+                if(Shop.SellItem(Player, inputNum))
+                {
+                    sceneName = SceneName.ShowShop;
+                }
+                else
+                {
+                    Messages.Instance().NotEnoughMoney();
+                }
+
+            }
+            
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
+        }
+
+        public void SellItem()
+        {
+            Messages.Instance().SellItem(Player);
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum <= Player.Inventory.Count)
+            {
+                Shop.BuyItem(Player, inputNum);
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
+        }
+
+
         public void BattelStart(Dungoun dungoun)
         {
             Messages.Instance().ShowBattelStart(dungoun.monsters, Player);
