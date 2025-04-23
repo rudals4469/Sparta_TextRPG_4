@@ -34,10 +34,11 @@ namespace Sparta_TextRPG
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
+            sceneName = SceneName.ManageEquipment;
             while (true) {
 
                 Console.Clear();//새로운 문구를 출력전 이전문구 삭제
-                sceneName = SceneName.ShowInventory;
+                
                 switch (sceneName){
                     case SceneName.Start :
                         start();
@@ -58,7 +59,7 @@ namespace Sparta_TextRPG
                         ShowInventory();
                         break;
                     case SceneName.ManageEquipment:
-                        //ManageEquipment();
+                        ManageEquipment(Player);
                         break;
                     case SceneName.BattelStart:
                         BattelStart();
@@ -219,7 +220,7 @@ namespace Sparta_TextRPG
             int inputNum = int.Parse(input);
 
             if (inputNum == 1) sceneName = SceneName.ShowStatus;
-            else if (inputNum == 2) sceneName = SceneName.Inventory;
+            else if (inputNum == 2) sceneName = SceneName.Inventory; // 사실 필요없을 듯 합니다
             else if (inputNum == 3) sceneName = SceneName.Shop;
             else if (inputNum == 4) sceneName = SceneName.DungeonSelection;
             else if (inputNum == 5) return; //휴식
@@ -302,7 +303,7 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 0)
             {
-                sceneName = SceneName.BattelStart;
+                sceneName = SceneName.Start;
             }
             else
             {
@@ -322,7 +323,7 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 0)
             {
-                sceneName = SceneName.Start;
+                sceneName = SceneName.ShowStatus;
             }
             else
             {
@@ -331,12 +332,12 @@ namespace Sparta_TextRPG
 
         }
 
-        public void ManageEquipment(Player player, Item item)
+        public void ManageEquipment(Player player)
         {
             Messages.Instance().ManageEquipment(Player);
 
             // 장착 매커니즘 
-            player.Equiped(item, player);
+            //player.Equiped(player);
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);

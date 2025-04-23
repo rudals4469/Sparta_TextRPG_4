@@ -31,6 +31,7 @@ namespace Sparta_TextRPG
                 4. 던전입장
                 5. 휴식하기
                 6. 게임종료
+
                 원하시는 행동을 입력해주세요.
                 >>
                 """);
@@ -275,69 +276,66 @@ namespace Sparta_TextRPG
             */
             Console.WriteLine("\n1. 인벤토리 보기");
             Console.WriteLine("0. 나가기");
-            Console.WriteLine("원하시는 행동을 입력해주세요.\r\n>>");
+            Console.WriteLine("원하시는 행동을 입력해주세요.\n>> ");
         }
 
 
         public void ShowInventory(Player player)
         {
-            while (true)
+            Console.WriteLine("인벤토리");
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
+
+            int totalItemCount = player.Inventory.Weapon.Count
+                                + player.Inventory.Armors.Count
+                                + player.Inventory.Shild.Count
+                                + player.Inventory.Potions.Count;
+
+            if (totalItemCount == 0)
             {
-                Console.WriteLine("인벤토리");
-                Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
-
-                int totalItemCount = player.Inventory.Weapon.Count
-                                   + player.Inventory.Armors.Count
-                                   + player.Inventory.Shild.Count
-                                   + player.Inventory.Potions.Count;
-
-                if (totalItemCount == 0)
-                {
-                    Console.WriteLine("아이템이 없습니다.");
-                }
-                else
-                {
-                    Console.WriteLine("[무기]");
-                    foreach (var weapon in player.Inventory.Weapon)
-                    {
-                        string prefix = weapon.IsEquipped ? "[E]" : "";
-                        Console.WriteLine($"- {prefix}{weapon.Name} | +{weapon.AttackPoint} | {weapon.Text}");
-                    }
-
-                    Console.WriteLine("\n[방어구]");
-                    foreach (var armor in player.Inventory.Armors)
-                    {
-                        string prefix = armor.IsEquipped ? "[E]" : "";
-                        Console.WriteLine($"- {prefix}{armor.Name} | +{armor.ArmorPoint} | {armor.Text}");
-                    }
-
-                    Console.WriteLine("\n[방패]");
-                    foreach (var shield in player.Inventory.Shild)
-                    {
-                        string prefix = shield.IsEquipped ? "[E]" : "";
-                        Console.WriteLine($"- {prefix}{shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
-                    }
-
-                    Console.WriteLine("\n[포션]");
-                    foreach (var potion in player.Inventory.Potions)
-                    {
-                        Console.WriteLine($"- {potion.Name} | +{potion.HealPoint} | {potion.Text}");
-                    }
-                }
-
-                Console.WriteLine("\n1. 장착 관리");
-                Console.WriteLine("0. 나가기");
-                Console.Write("\n원하시는 행동을 입력해주세요. >> ");
-                string input = Console.ReadLine();
-
-                /*if (input == "0") break;
-                else if (input == "1") ManageEquipment(player); 
-                else
-                {
-                    Console.WriteLine("잘못된 입력입니다.");
-                    Console.ReadKey();
-                } 메세지 파일에서는 출력만 담당합니다. 기능들은 메이플알피지 파일에서 */
+                Console.WriteLine("아이템이 없습니다.");
             }
+            else
+            {
+                Console.WriteLine("[무기]");
+                foreach (var weapon in player.Inventory.Weapon)
+                {
+                    string prefix = weapon.IsEquipped ? "[E]" : "";
+                    Console.WriteLine($"- {prefix}{weapon.Name} | +{weapon.AttackPoint} | {weapon.Text}");
+                }
+
+                Console.WriteLine("\n[방어구]");
+                foreach (var armor in player.Inventory.Armors)
+                {
+                    string prefix = armor.IsEquipped ? "[E]" : "";
+                    Console.WriteLine($"- {prefix}{armor.Name} | +{armor.ArmorPoint} | {armor.Text}");
+                }
+
+                Console.WriteLine("\n[방패]");
+                foreach (var shield in player.Inventory.Shild)
+                {
+                    string prefix = shield.IsEquipped ? "[E]" : "";
+                    Console.WriteLine($"- {prefix}{shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
+                }
+
+                Console.WriteLine("\n[포션]");
+                foreach (var potion in player.Inventory.Potions)
+                {
+                    Console.WriteLine($"- {potion.Name} | +{potion.HealPoint} | {potion.Text}");
+                }
+            }
+
+            Console.WriteLine("\n1. 장착 관리");
+            Console.WriteLine("0. 나가기");
+            Console.Write("\n원하시는 행동을 입력해주세요. >> ");
+
+            /*if (input == "0") break;
+            else if (input == "1") ManageEquipment(player); 
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다.");
+                Console.ReadKey();
+            } 메세지 파일에서는 출력만 담당합니다. 기능들은 메이플알피지 파일에서 */
+            
         }
 
         public void ManageEquipment(Player player)
@@ -392,6 +390,9 @@ namespace Sparta_TextRPG
                     Console.WriteLine($"- {potion} {potion.Name} | +{potion.HealPoint} | {potion.Text}");
                 }
             }
+
+            Console.WriteLine("\n0. 나가기");
+            Console.Write("\n원하시는 행동을 입력해주세요. >> ");
         }
 
 
