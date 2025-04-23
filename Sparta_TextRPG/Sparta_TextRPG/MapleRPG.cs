@@ -404,7 +404,7 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum <= Player.Inventory.Count)
+            if (inputNum <= Player.Inventory.Count())
             {
                 Shop.BuyItem(Player, inputNum);
             }
