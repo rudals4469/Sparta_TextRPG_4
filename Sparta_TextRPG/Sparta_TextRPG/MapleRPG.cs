@@ -91,6 +91,8 @@ namespace Sparta_TextRPG
         }
         public void init()
         {
+            //Player(int Level, int Exp, int MaxHp, int NowHp, int MaxMP, int AttacPoint, int ArmorPoint, Inventory inventory,string Name,int Gold, List< Skill > SkillList, bool IsDead, int EvasionRate, int MaxExp, ClassName className)
+
             // public Skill(string name, int criticalRate, string text, int damage, int mana, int level, int coolTime,int targetCount)
             Skill normalAttack = new Skill("NormalAttck", 50, "일반공격입니다.", 50, 5, 1, 10,1);
             Skill HeavyAttack = new Skill("HeavyAttack", 50, "강공격입니다.", 150, 50, 5, 10,1);
