@@ -15,8 +15,8 @@ namespace Sparta_TextRPG
         public Armor Armor { get; set; }
         public Shiled Shiled { get; set; }
 
-        public Player(int Level, int Exp, int MaxHp, int NowHp, int MaxMP, int AttacPoint, int ArmorPoint,
-            Inventory inventory,string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(Level, Exp, MaxHp, NowHp, MaxHp, AttacPoint, ArmorPoint, inventory, Name, Gold, SkillList, IsDead, EvasionRate)
+        public Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint,
+            Inventory inventory, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(1, 0, MaxHp, MaxMP, AttacPoint, ArmorPoint, inventory, Name, Gold, SkillList, IsDead, EvasionRate)
         {
             this.MaxExp = MaxExp;
             this.Class = className;
