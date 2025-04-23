@@ -53,12 +53,13 @@ namespace Sparta_TextRPG
                 Potions.Remove((Potion)item);
         }
 
-
+        
         public void Add(Item item)
         {
         if (item.Type == ItemType.Weapon)
             {
                 Weapon.Add((Weapon)item);
+                
             }
         if (item.Type == ItemType.Armor)
             {
