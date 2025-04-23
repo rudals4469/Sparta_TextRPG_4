@@ -575,12 +575,34 @@ namespace Sparta_TextRPG
                 if (healSuccess)
                 {
                     Messages.Instance().ShowHeal();  // 휴식 성공 메시지 출력
+                    input = Console.ReadLine();
+                    inputNum = int.Parse(input);
+
+                    if (inputNum == 0)  // 0번 입력 시 시작 메뉴로 돌아가기
+                    {
+                        sceneName = SceneName.StartSetName;
+                    }
+                    else
+                    {
+                        Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
+                    }
                 }
                 else
                 {
                     Messages.Instance().ShowNoHeal();   // 휴식 실패 메시지 출력
+                    input = Console.ReadLine();
+                    inputNum = int.Parse(input);
+
+                    if (inputNum == 0)  // 0번 입력 시 시작 메뉴로 돌아가기
+                    {
+                        sceneName = SceneName.StartSetName;
+                    }
+                    else
+                    {
+                        Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
+                    }
                 }
-            }
+            }                                                                   
             else
             {
                 Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
