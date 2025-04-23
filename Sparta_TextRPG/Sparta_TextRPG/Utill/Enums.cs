@@ -39,7 +39,9 @@ namespace Sparta_TextRPG
         Inventory,
         Shop,
         DungeonSelection,
-        //힐링
+        NPC,
+        Quest,
+        Rest,
 
         BattelStart,
         BattelAttackPhase,
@@ -47,7 +49,7 @@ namespace Sparta_TextRPG
         BattelMonsterPhase,
         BattlePlayerWin,
         BattlePlayerLose,
-        NPC,
+        
         InDungeon,
 
         GameOver,//게임종료
