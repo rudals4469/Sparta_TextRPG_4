@@ -495,7 +495,7 @@ namespace Sparta_TextRPG
 
             foreach (var weapon in shop.Inventory.Weapon)
             { 
-                Console.WriteLine($"- {Count} {weapon.Name} | +{weapon.AttackPoint} | {weapon.Text}");
+                Console.WriteLine($"- {Count} {weapon.Name} | +{weapon.AttackPoint} | {weapon.Text} | {weapon.Price}");
                 Count++;
             }
 
@@ -503,7 +503,7 @@ namespace Sparta_TextRPG
             foreach (var armor in shop.Inventory.Armors)
             {
                 
-                Console.WriteLine($"- {Count} {armor.Name} | +{armor.ArmorPoint} | {armor.Text}");
+                Console.WriteLine($"- {Count} {armor.Name} | +{armor.ArmorPoint} | {armor.Text} | {armor.Price}");
                 Count++;
             }
 
@@ -511,7 +511,7 @@ namespace Sparta_TextRPG
             foreach (var shield in shop.Inventory.Shild)
             {
                 
-                Console.WriteLine($"- {Count} {shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
+                Console.WriteLine($"- {Count} {shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text} | {shield.Price}");
                 Count++;
             }
             
@@ -618,8 +618,9 @@ namespace Sparta_TextRPG
 
         public void NotEnoughMoney()
         {
-            Console.WriteLine("[실패] 골드가 부족합니다. 다음에 다시 이용해 주세요");
+            Console.WriteLine("[실패] 골드가 부족합니다. 아무 숫자를 눌러 상점으로 돌아가세용");
         }
+
 
     }
 

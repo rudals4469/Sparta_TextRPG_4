@@ -69,7 +69,7 @@ namespace Sparta_TextRPG
         ShowShop,
         SellItem,
         BuyItem,
-
+        NotEnoughMoney,
 
         GameOver,//게임종료
 
