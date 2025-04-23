@@ -410,12 +410,12 @@ namespace Sparta_TextRPG
         }
         public void ShowQuest()
         {
-
             Console.Write($"""
-               퀘스트를 선택하세요. 
+               퀘스트를 선택하세요.
 
-               1. 퀘스트 이름1
-               2. 퀘스트 이름2
+               1. 퀘스트1 
+               2. 퀘스트2 
+               3. 퀘스트2 
 
                0. 나가기
 
@@ -423,10 +423,110 @@ namespace Sparta_TextRPG
                >> 
                """);
         }
+
+
+        public void ShowQuest1Info()
+        {
+            Console.Write($"""
+               퀘스트 1
+               퀘스트 설명
+               잡을 몬스터 : 이름, 마릿수
+               보상 : 
+
+               퀘스트를 받으시겠습니까?
+
+               1. 퀘스트 받기
+               
+
+               0. 나가기
+
+               원하시는 행동을 입력해주세요. 
+               >> 
+               """);
+        }
+
+        public void ShowQuest2Info()
+        {
+            Console.Write($"""
+               퀘스트 2 
+               퀘스트 설명
+               잡을 몬스터 : 이름, 마릿수
+               보상 : 골드
+
+               퀘스트를 받으시겠습니까?
+
+               1. 퀘스트 받기
+               
+
+               0. 나가기
+
+               원하시는 행동을 입력해주세요. 
+               >> 
+               """);
+        }
+
+        public void ShowQuest3Info()
+        {
+            Console.Write($"""
+               퀘스트 3 
+               퀘스트 설명
+               잡을 몬스터 : 이름, 마릿수
+               보상 : 골드
+
+               퀘스트를 받으시겠습니까?
+
+               1. 퀘스트 받기
+               
+
+               0. 나가기
+
+               원하시는 행동을 입력해주세요. 
+               >> 
+               """);
+        }
+
+        public void ShowReceiveQuest1()
+        {
+            Console.Write($"""
+               (퀘스트 이름1) 퀘스트를 받았습니다.
+
+               0. 나가기
+
+               원하시는 행동을 입력해주세요. 
+               >> 
+               """);
+
+        }
+        public void ShowReceiveQuest2()
+        {
+            Console.Write($"""
+               (퀘스트 이름2) 퀘스트를 받았습니다.
+
+               0. 나가기
+
+               원하시는 행동을 입력해주세요. 
+               >> 
+               """);
+
+        }
+        public void ShowReceiveQuest3()
+        {
+            Console.Write($"""
+               (퀘스트 이름3) 퀘스트를 받았습니다.
+
+               0. 나가기
+
+               원하시는 행동을 입력해주세요. 
+               >> 
+               """);
+
+        }
+
         public void ShowRest(Player player)
         {
             Console.Write($"""
                500 G 를 소모하여 체력을 회복할 수 있습니다. (보유 골드 : {player.Gold} G)
+
                1. 휴식하기
                
                0. 나가기
@@ -436,10 +536,10 @@ namespace Sparta_TextRPG
                """);
         }
 
-        public void ShowRestSuccess()
+        public void ShowRestSuccess(Player player)
         {
             Console.Write($"""
-               [휴식 완료] 체력이 모두 회복되었습니다. (골드 -500)
+               [휴식 완료] 체력이 모두 회복되었습니다. (남은 골드 : {player.Gold} G)
 
                0. 나가기
 
@@ -458,6 +558,7 @@ namespace Sparta_TextRPG
                >> 
                """);
         }
+
         public void ShowDungoun(List<Dungoun> dungouns)
         {
             Console.Write($"""

@@ -8,10 +8,8 @@ namespace Sparta_TextRPG
 {
     internal class NPC
     {
-        public Quest Quest { get; set; }
 
-
-        public bool Rest(Player player)  // 휴식 동작 기능
+        public bool Rest(Player player)  // 휴식하기 기능
         {
             if (player.Gold >= 500)
             {

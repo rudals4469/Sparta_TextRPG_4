@@ -20,6 +20,8 @@ namespace Sparta_TextRPG
         public NPC NPC { get; set; }
         public List<Monster> monsters { get; set; }
         public List<Dungoun> Dungouns { get; set; }
+        public List<Quest> Quests { get; set; }
+        private int selectedQuestIndex = 0;
 
         SceneName sceneName = new SceneName();
         public string inputName;
@@ -87,6 +89,24 @@ namespace Sparta_TextRPG
                         break;
                     case SceneName.Quest:
                         QuestText();
+                        break;
+                    case SceneName.Quest1:
+                        Quest1Info();
+                        break;
+                    case SceneName.Quest2:
+                        Quest2Info();
+                        break;
+                    case SceneName.Quest3:
+                        Quest3Info();
+                        break;
+                    case SceneName.receiveQuest1:
+                        ReceiveQuest1();
+                        break;
+                    case SceneName.receiveQuest2:
+                        ReceiveQuest2();
+                        break;
+                    case SceneName.receiveQuest3:
+                        ReceiveQuest3();
                         break;
                     case SceneName.Rest:
                         Rest();
@@ -229,11 +249,40 @@ namespace Sparta_TextRPG
             Dungouns.Add(dungounLevel3);
 
 
-
             //Quest(string name , string text , List<Item> reward , int gold , MonsterName target , int requestLevel)
-            Quest quest1 = new Quest("기초퀘스트", "시작할때 받는 달팽이 사냥 퀘스트입니다.", MonsterDorpItems, 500, MonsterName.Snail, 3, 10);
-            Quest quest2 = new Quest("중간퀘스트", "아이언호그 사냥 퀘스트입니다.", MonsterDorpItems, 500, MonsterName.ironHog, 3, 10);
-            Quest quest3 = new Quest("최종퀘스트", "정체 불명의 비둘기 사냥 퀘스트입니다.", BossDorpItems, 500, MonsterName.AnUnnamedPigeon, 3, 10);
+
+            Quests = new List<Quest>
+            {
+                new Quest(
+                    "기초퀘스트",
+                    "시작할 때 받는 달팽이 사냥 퀘스트입니다.",
+                    new List<Item>(), // 빈 리스트
+                    300,
+                    MonsterName.Snail,
+                    3,
+                    1
+                ),
+                new Quest(
+                    "중간퀘스트",
+                    "아이언호그를 사냥하는 퀘스트입니다.",
+                    new List<Item>(),
+                    600,
+                    MonsterName.ironHog,
+                    3,
+                    5
+                ),
+                new Quest(
+                    "최종퀘스트",
+                    "정체 불명의 비둘기를 처치하는 퀘스트입니다.",
+                    new List<Item>(),
+                    1000,
+                    MonsterName.AnUnnamedPigeon,
+                    1,
+                    10
+                )
+            };
+
+
 
             this.NPC = new NPC();
         }
@@ -641,7 +690,7 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-        public void NPCText() //이름 수정
+        public void NPCText() 
         {
 
             Messages.Instance().ShowNPC();
@@ -672,6 +721,101 @@ namespace Sparta_TextRPG
             {
                 sceneName = SceneName.NPC;
             }
+            else if(inputNum == 1)
+            {
+                sceneName = SceneName.Quest1;
+            }
+            else if(inputNum == 2)
+            {
+                sceneName = SceneName.Quest2;
+            }
+            else if (inputNum == 3)
+            {
+                sceneName = SceneName.Quest3;
+            }
+        }
+
+        public void Quest1Info()
+        {
+            Messages.Instance().ShowQuest1Info();
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
+            {
+                sceneName = SceneName.Quest;
+            }
+            else if (inputNum == 1)
+            {
+                sceneName = SceneName.receiveQuest1;
+            }
+        }
+
+        public void Quest2Info()
+        {
+            Messages.Instance().ShowQuest2Info();
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
+            {
+                sceneName = SceneName.Quest;
+            }
+            else if (inputNum == 1)
+            {
+                sceneName = SceneName.receiveQuest2;
+            }
+        }
+        public void Quest3Info()
+        {
+            Messages.Instance().ShowQuest3Info();
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
+            {
+                sceneName = SceneName.Quest;
+            }
+            else if (inputNum == 1)
+            {
+                sceneName = SceneName.receiveQuest3;
+            }
+        }
+
+        public void ReceiveQuest1()
+        {
+            Messages.Instance().ShowReceiveQuest1();
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
+            {
+                sceneName = SceneName.Quest;
+            }
+        }
+
+        public void ReceiveQuest2()
+        {
+            Messages.Instance().ShowReceiveQuest2();
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
+            {
+                sceneName = SceneName.Quest;
+            }
+        }
+
+        public void ReceiveQuest3()
+        {
+            Messages.Instance().ShowReceiveQuest3();
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
+            {
+                sceneName = SceneName.Quest;
+            }
         }
 
         public void Rest()
@@ -690,13 +834,11 @@ namespace Sparta_TextRPG
 
                 if (healSuccess)
                 {
-                    sceneName = SceneName.RestSuccess;
-                    //RestSuccess();  // 휴식 성공 메서드 실행
+                    sceneName = SceneName.RestSuccess;  // 휴식 성공
                 }
                 else
                 {
-                    sceneName = SceneName.RestFail;
-                    //RestFail(); // 휴식 실패 메서드 실행
+                    sceneName = SceneName.RestFail; // 휴식 실패
                 }
             }                                                                   
             else
@@ -705,39 +847,9 @@ namespace Sparta_TextRPG
             }
         }
 
-        /*
-
-        public void EnterDungoun()
-        {
-            Messages.Instance().ShowDungoun();
-
-            string choice = Console.ReadLine();
-
-            //
-            //
-
-            if (choice.CompareTo("1") == 0)
-            {
-                // 던전 생성은 여기서x
-                // 1누르면 1번저 던전과 입장하는 플레이어 정보
-                Dungoun = new dungoun("쉬운 던전", 1);
-            }
-            else if (choice == "2")
-            {
-                Dungoun = new dungoun("일반 던전", 2);
-            }
-            else if (choice == "3")
-            {
-                Dungoun = new dungoun("어려운 던전", 3);
-            }
-
-
-        }
-
-        */
         public void RestSuccess()
         {
-            Messages.Instance().ShowRestSuccess();  // 휴식 성공 메시지 출력
+            Messages.Instance().ShowRestSuccess(Player);  // 휴식 성공 메시지 출력
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
