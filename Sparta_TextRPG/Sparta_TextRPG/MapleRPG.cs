@@ -34,10 +34,12 @@ namespace Sparta_TextRPG
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
+            sceneName = SceneName.ShowInventory;
+
             while (true) {
 
                 Console.Clear();//새로운 문구를 출력전 이전문구 삭제
-                sceneName = SceneName.ShowInventory;
+                
                 switch (sceneName){
                     case SceneName.Start :
                         start();
