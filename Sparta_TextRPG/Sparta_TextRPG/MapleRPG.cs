@@ -19,7 +19,7 @@ namespace Sparta_TextRPG
         public Player Player { get; set; }
         public NPC NPC { get; set; }
         public List<Monster> monsters { get; set; }
-        public List<Dungeoun> Dungouns { get; set; }
+        public List<Dungeon> Dungouns { get; set; }
         public List<Quest> Quests { get; set; }
         private int selectedQuestIndex = 0;
         public int floor = 0;
@@ -72,7 +72,7 @@ namespace Sparta_TextRPG
                     case SceneName.BattleStart:
                         BattleStart();
                         break;
-                    case SceneName.SellectSkill:
+                    case SceneName.SelectSkill:
                         SellectSkill();
                         break;
                     case SceneName.BattleAttackPhase:
@@ -143,7 +143,7 @@ namespace Sparta_TextRPG
         {
             Shop = new Shop();
             monsters = new List<Monster>();
-            Dungouns = new List<Dungeoun>();
+            Dungouns = new List<Dungeon>();
             //Player(int Level, int Exp, int MaxHp, int NowHp, int MaxMP, int AttacPoint, int ArmorPoint, Inventory inventory,string Name,int Gold, List< Skill > SkillList, bool IsDead, int EvasionRate, int MaxExp, ClassName className)
 
             // public Skill(string name, int criticalRate, string text, int damage, int mana, int level, int coolTime,int targetCount)
@@ -245,14 +245,14 @@ namespace Sparta_TextRPG
 
 
             // Dungoun(string name, int level, List<Monster> monsters)
-            Dungeoun dungounLevel1 = new Dungeoun("1층", 1, monsters.Skip(0).Take(3).ToList());
-            Dungeoun dungounLevel2 = new Dungeoun("2층", 2, monsters.Skip(1).Take(3).ToList());
-            Dungeoun dungounLevel3 = new Dungeoun("3층", 3, monsters.Skip(2).Take(3).ToList());
-            Dungeoun dungounLevel4 = new Dungeoun("4층", 4, monsters.Skip(3).Take(3).ToList());
-            Dungeoun dungounLevel5 = new Dungeoun("5층", 5, monsters.Skip(4).Take(3).ToList());
-            Dungeoun dungounLevel6 = new Dungeoun("6층", 6, monsters.Skip(5).Take(3).ToList());
-            Dungeoun dungounLevel7 = new Dungeoun("7층", 7, monsters.Skip(6).Take(2).ToList());
-            Dungeoun dungounLevel8 = new Dungeoun("Boss", 8, monsters.Skip(8).ToList());
+            Dungeon dungounLevel1 = new Dungeon("1층", 1, monsters.Skip(0).Take(3).ToList());
+            Dungeon dungounLevel2 = new Dungeon("2층", 2, monsters.Skip(1).Take(3).ToList());
+            Dungeon dungounLevel3 = new Dungeon("3층", 3, monsters.Skip(2).Take(3).ToList());
+            Dungeon dungounLevel4 = new Dungeon("4층", 4, monsters.Skip(3).Take(3).ToList());
+            Dungeon dungounLevel5 = new Dungeon("5층", 5, monsters.Skip(4).Take(3).ToList());
+            Dungeon dungounLevel6 = new Dungeon("6층", 6, monsters.Skip(5).Take(3).ToList());
+            Dungeon dungounLevel7 = new Dungeon("7층", 7, monsters.Skip(6).Take(2).ToList());
+            Dungeon dungounLevel8 = new Dungeon("Boss", 8, monsters.Skip(8).ToList());
             //
             Dungouns.Add(dungounLevel1);
             Dungouns.Add(dungounLevel2);
@@ -536,7 +536,7 @@ namespace Sparta_TextRPG
             int num = int.Parse(str);
             if (num == 1)
             {
-                sceneName = SceneName.SellectSkill;
+                sceneName = SceneName.SelectSkill;
             }
         }
         public void SellectSkill()

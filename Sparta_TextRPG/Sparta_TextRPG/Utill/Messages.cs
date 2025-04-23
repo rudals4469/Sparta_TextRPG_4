@@ -81,7 +81,7 @@ namespace Sparta_TextRPG
         }
         //
 
-        public void ShowDungeonSelection(List<Dungeoun> dungouns)
+        public void ShowDungeonSelection(List<Dungeon> dungouns)
         {
             int count = 0;
             Console.WriteLine("던전 선택");
@@ -618,7 +618,7 @@ namespace Sparta_TextRPG
                """);
         }
 
-        public void ShowDungoun(List<Dungeoun> dungouns)
+        public void ShowDungoun(List<Dungeon> dungouns)
         {
             Console.Write($"""
                던전입장
