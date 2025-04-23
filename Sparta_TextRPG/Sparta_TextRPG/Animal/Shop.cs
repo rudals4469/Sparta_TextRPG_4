@@ -43,8 +43,8 @@ namespace Sparta_TextRPG
             // 유무 확인
             // Inventory.Add(item);
 
-
-           
+            
+            { }
                   
 
             // item 을 받고 

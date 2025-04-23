@@ -13,11 +13,24 @@ namespace Sparta_TextRPG
         public Quest Quest { get; set; }
         public Weapon Weapon { get; set; }
         public Armor Armor { get; set; }
-        public Shiled Shiled { get; set; }
+        public Shiled Shield { get; set; }
 
-        public Player(int Level, int Exp, int MaxHp, int NowHp, int MaxMP, int AttacPoint, int ArmorPoint,
-            Inventory inventory,string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(Level, Exp, MaxHp, NowHp, MaxHp, AttacPoint, ArmorPoint, inventory, Name, Gold, SkillList, IsDead, EvasionRate)
+        // Animal에 있는 inventory를 Player로 옮기기
+
+        public Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint,
+            Inventory inventory, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(1, 0, MaxHp, MaxMP, AttacPoint, ArmorPoint, inventory, Name, Gold, SkillList, IsDead, EvasionRate)
         {
+            this.Level = 1;
+            this.Exp = 0;
+            this.MaxMP = 100;
+            this.NowHP = 100;
+            this.AttackPoint = 10;
+            this.ArmorPoint = 5;
+            this.Gold = 1500;
+            this.IsDead = false;
+            this.EvasionRate = 10;
+            this.Inventory = inventory;
+
             this.MaxExp = MaxExp;
             this.Class = className;
         }
@@ -37,6 +50,14 @@ namespace Sparta_TextRPG
         public void AddExp(int exp)
         {
             this.Exp += exp;
+            // 레벨업
+            if (this.Exp > MaxExp)
+            {
+                this.Level++;
+                this.Exp = 0;
+                this.AttackPoint += 1;
+                this.ArmorPoint += 1; // 아머는 원래 0.5긴 함
+            }
         }
         public Skill UseSkill(string SkillName)
         {
@@ -53,13 +74,33 @@ namespace Sparta_TextRPG
             //리턴도 새로 작성 필요
             return null;
         }
-        public void usePotion(string PotionName)
+        public void usePotion(Potion potion,Player player)
         {
             //인벤토리에서 포션찾고 포션 사용하기
+            if(player.Inventory.Potions. > 0)
+            {
+                
+            }
         }
-        public void Equiped(Item item)
+        public void Equiped(Item item, Player player)
         {
             // 아이템 종류 확인후 현채 작용중인 아이템과 교체
+            if (item.Type == ItemType.Weapon)
+            {
+                player.Weapon.IsEquipped = false;
+                Weapon.IsEquipped = true;
+                // 검수 받기
+            }
+            else if (item.Type == ItemType.Armor)
+            {
+                player.Armor.IsEquipped = false;
+                Armor.IsEquipped = true;
+            }
+            else if(item.Type == ItemType.Shield)
+            {
+                player.Shield.IsEquipped = false;
+                Shield.IsEquipped = true;
+            }
         }
     }
     
