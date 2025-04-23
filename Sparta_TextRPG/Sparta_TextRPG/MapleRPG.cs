@@ -43,6 +43,7 @@ namespace Sparta_TextRPG
                 
                 switch (sceneName){
                     case SceneName.Start :
+
                         start();
                         break;
                     case SceneName.StartSetName:
@@ -81,7 +82,7 @@ namespace Sparta_TextRPG
                     case SceneName.BattlePlayerLose:
                         //BattlePlayerLose();
                         break;
-                    case SceneName.NPC :
+                    case SceneName.NPC:
                         NPCText();
                         break;
                     case SceneName.Quest:
@@ -188,6 +189,7 @@ namespace Sparta_TextRPG
             monsters.Add(new Monster(7, 30, 50, 10, 15, 12, 350, MonsterSkillset, 5, MonsterName.StoneGolem, MonsterDorpItems));
             monsters.Add(new Monster(8, 50, 80, 10, 15, 20, 500, MonsterSkillset, 15, MonsterName.JuniorBalrog, MonsterDorpItems));
 
+
             monsters.Add(new Monster(9, 10000, 1, 1, 10000, 10000, 10000, MonsterSkillset, 100, MonsterName.AnUnnamedPigeon, BossDorpItems));
 
             // Dungoun(string name, int level, List<Monster> monsters)
@@ -292,7 +294,7 @@ namespace Sparta_TextRPG
             sceneName = SceneName.Start;
 
         }
-        public void ShowStatus() 
+        public void ShowStatus()
         {
             Messages.Instance().ShowStatus(Player);
 
@@ -319,7 +321,7 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if(inputNum == 1)
+            if (inputNum == 1)
             {
                 sceneName = SceneName.ManageEquipment;
             }
@@ -551,7 +553,7 @@ namespace Sparta_TextRPG
             {
                 sceneName = SceneName.Quest; // 퀘스트 씬으로 이동
             }
-            else if (inputNum == 2) 
+            else if (inputNum == 2)
             {
                 sceneName = SceneName.Rest; // 힐 씬으로 이동
             }

@@ -77,4 +77,12 @@ namespace Sparta_TextRPG
         Shield,
         Potion,
     }
+
+    enum PotionType
+    {
+        None,
+        HP,
+        MP,
+        Alixir
+    }
 }
