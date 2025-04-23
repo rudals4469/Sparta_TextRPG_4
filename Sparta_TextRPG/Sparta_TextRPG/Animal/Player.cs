@@ -18,7 +18,7 @@ namespace Sparta_TextRPG
         // Animal에 있는 inventory를 Player로 옮기기
 
         public Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint,
-            Inventory inventory, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(1, 0, MaxHp, MaxMP, AttacPoint, ArmorPoint, inventory, Name, Gold, SkillList, IsDead, EvasionRate)
+            Inventory inventory, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(1, 0, MaxHp, MaxMP, AttacPoint, ArmorPoint, inventory, Name, 15000, SkillList, IsDead, EvasionRate)
         {
             this.Level = 1;
             this.Exp = 0;
@@ -26,7 +26,7 @@ namespace Sparta_TextRPG
             this.NowHP = 100;
             this.AttackPoint = 10;
             this.ArmorPoint = 5;
-            this.Gold = 1500;
+
             this.IsDead = false;
             this.EvasionRate = 10;
             this.Inventory = inventory;
@@ -77,7 +77,7 @@ namespace Sparta_TextRPG
         public void usePotion(Potion potion,Player player)
         {
             //인벤토리에서 포션찾고 포션 사용하기
-            if(player.Inventory.Potions. > 0)
+            if(player.Inventory.Potions.Count> 0)
             {
                 
             }

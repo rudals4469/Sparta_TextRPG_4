@@ -19,6 +19,10 @@ namespace Sparta_TextRPG
         //sellitem 에서는 사람이 판매를 누르고 장비에 따라 번호를 누르면 그 장비가 팔리게 됨
         //판매를 하면 장비는 인벤토리에서 없어져야 하고상점에는 다시 값어치로 뜨게 됨
 
+        public Shop()
+        {
+            Inventory = new Inventory();
+        }
         public void show() 
         {
                
@@ -37,13 +41,14 @@ namespace Sparta_TextRPG
         //상점이 유저의 아이템을 산다. 유저입장에서는 파는것
         public void BuyItem(Item item)
         {
-
+            Inventory.Add(item);
+            //플레이어 한태 돈
 
             // item 을 받고 
             // 유무 확인
             // Inventory.Add(item);
 
-            
+
             { }
                   
 
@@ -55,18 +60,6 @@ namespace Sparta_TextRPG
             
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
         // count : 전체의 수를 알려주는 int 리턴
 
 
@@ -79,9 +72,6 @@ namespace Sparta_TextRPG
         public void SellItem(Player player, int selectedIndex)
 
         {
-           
-        
-        
 
         }
     }

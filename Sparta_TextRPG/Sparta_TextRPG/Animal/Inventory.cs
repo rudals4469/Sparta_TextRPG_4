@@ -15,6 +15,13 @@ namespace Sparta_TextRPG
         public List<Shiled> Shild { get; set; }
         public List<Potion> Potions { get; set; } // 0 hp  , 1 mp
 
+        public Inventory()
+        {
+            Weapon = new List<Weapon>();
+            Armors = new List<Armor>();
+            Shild = new List<Shiled>();
+            Potions = new List<Potion>();
+        }
         public void Add(Item item)
         {
         if (item.Type == ItemType.Weapon)

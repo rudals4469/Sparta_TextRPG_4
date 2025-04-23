@@ -113,12 +113,12 @@ namespace Sparta_TextRPG
                 if (item.IsDead)
                 {
                     Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.Write($"{count} Lv.{item.Level} {item.MonsterName.ToString()} Dead");
+                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} Dead");
                     Console.ResetColor();
                 }
                 else
                 {
-                    Console.Write($"{count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}");
+                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}");
                 }
 
             }
@@ -228,8 +228,8 @@ namespace Sparta_TextRPG
 
             Console.WriteLine("인벤토리");                             //player 인벤토리로 받을 수 있게 처리
             //인벤토리 출력은 4단계를 거쳐서 작성해야함
-            foreach (var item in player.Inventory)                    //배열 리스트 순차적으로 꺼내서 처리(var 변수 타입 결정 player인벤토리 안에 있는 아이템 전부 item처리)
-                Console.WriteLine($" - {item.Name} x{item.Quantity}"); //아이템 이름과 수량
+            //foreach (var item in player.Inventory)                    //배열 리스트 순차적으로 꺼내서 처리(var 변수 타입 결정 player인벤토리 안에 있는 아이템 전부 item처리)
+                //Console.WriteLine($" - {item.Name} x{item.Quantity}"); //아이템 이름과 수량
 
 
             Console.WriteLine("장착 중인 아이템:");                     // 상태창에서 바로 장착중인 아이템이 보여지게 수정
@@ -242,8 +242,8 @@ namespace Sparta_TextRPG
                 Console.WriteLine($"{player.Armor.Name}");   // 방어구 장착 칸
             else Console.WriteLine();
             Console.Write("- 방패 : ");
-            if (player.Shiled != null)
-                Console.WriteLine($"{player.Shiled.Name}");   // 방패 장착 칸
+            if (player.Shield != null)
+                Console.WriteLine($"{player.Shield.Name}");   // 방패 장착 칸
             else Console.WriteLine();
             
             Console.WriteLine();                                      //줄 바꿈 처리
@@ -435,14 +435,14 @@ namespace Sparta_TextRPG
         public void ShowRest(Player player)
         {
             Console.Write($"""
-               500 G 를 소모하여 체력을 회복할 수 있습니다. (보유 골드 : {0} G)
+               500 G 를 소모하여 체력을 회복할 수 있습니다. (보유 골드 : {player.Gold} G)
                1. 휴식하기
                
                0. 나가기
 
                원하시는 행동을 입력해주세요. 
                >> 
-               """, player.Gold);
+               """);
         }
 
         public void ShowHeal()
