@@ -13,8 +13,7 @@ namespace Sparta_TextRPG
         List<Item> Items;
 
         public Monster():base() { }
-        public Monster(int Level, int Exp, int MaxHp, int NowHp, int MaxMP, int AttacPoint, int ArmorPoint,
-            Inventory inventory,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, MonsterName MonsterName, List<Item> Items) : base(Level, Exp, MaxHp,MaxHp,AttacPoint,ArmorPoint,inventory, MonsterName.ToString(), Gold,SkillList,IsDead,EvasionRate)
+        public Monster(int Level, int Exp, int MaxHp, int MaxMP, int AttacPoint, int ArmorPoint, int Gold, List<Skill> SkillList,int EvasionRate, MonsterName MonsterName, List<Item> Items) : base(Level, Exp, MaxHp,MaxHp,AttacPoint,ArmorPoint, MonsterName.ToString(), Gold,SkillList,EvasionRate)
         {
             this.MonsterName = MonsterName;
             this.Items = Items;

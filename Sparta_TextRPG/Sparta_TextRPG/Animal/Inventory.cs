@@ -74,7 +74,19 @@ namespace Sparta_TextRPG
             }
         }
 
-       
+        public int Count()
+        {
+            return Weapon.Count+ Armors.Count+ Shild.Count+ Potions.Count;
+        }
+
+        // count : 전체의 수를 알려주는 int 리턴
+
+
+
+        //숫자가 들어오면 
+        // 예를들면 다 4개
+        // 10
+        //무기 4개 방어구 4 실드에 2번째걸 리턴 item
 
     }
 }
