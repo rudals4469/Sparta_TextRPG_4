@@ -106,6 +106,9 @@ namespace Sparta_TextRPG
                     case SceneName.BuyItem:
                         BuyItem();
                         break;
+                    case SceneName.NotEnoughMoney:
+                        NotEnoughMoney();
+                        break;
 
                 }
             }
@@ -139,7 +142,7 @@ namespace Sparta_TextRPG
             // 엘릭서 , hp , mp
 
             //Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className)
-            Player = new Player(100, 200, 100, 200, "kim", 200000, MonsterSkillset, false, 50, 500, ClassName.전사);
+            Player = new Player(100, 200, 100, 200, "kim", 1000, MonsterSkillset, false, 50, 500, ClassName.전사);
 
             //Armor(string name, string text, int price, ItemType type,int armorPoint , bool isEquipped)
             Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구", 10000, ItemType.Armor, 100);
@@ -408,11 +411,11 @@ namespace Sparta_TextRPG
             {
                 if(Shop.SellItem(Player, inputNum-1))
                 {
-                    sceneName = SceneName.ShowShop;
+                    sceneName = SceneName.BuyItem;
                 }
                 else
                 {
-                    Messages.Instance().NotEnoughMoney();
+                    sceneName = SceneName.NotEnoughMoney;
                 }
 
             }
@@ -444,6 +447,16 @@ namespace Sparta_TextRPG
             {
                 Messages.Instance().ErrorMessage();
             }
+        }
+        public void NotEnoughMoney()
+        {
+            Messages.Instance().NotEnoughMoney();
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            sceneName = SceneName.BuyItem;
+            
         }
         public void BattelStart(Dungoun dungoun)
         {
