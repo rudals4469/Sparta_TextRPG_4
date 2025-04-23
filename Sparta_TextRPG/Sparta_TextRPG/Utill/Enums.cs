@@ -64,11 +64,11 @@ namespace Sparta_TextRPG
         RestSuccess,
         RestFail,
 
-        BattelStart,
-        BattelAttackPhase,
-        SellectSkill,
-        BattelAttackMonster,
-        BattelMonsterPhase,
+        BattleStart,
+        BattleAttackPhase,
+        SelectSkill,
+        BattleAttackMonster,
+        BattleMonsterPhase,
         BattlePlayerWin,
         BattlePlayerLose,
         

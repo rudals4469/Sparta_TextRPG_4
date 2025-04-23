@@ -81,7 +81,7 @@ namespace Sparta_TextRPG
         }
         //
 
-        public void ShowDungeonSelection(List<Dungoun> dungouns)
+        public void ShowDungeonSelection(List<Dungeoun> dungouns)
         {
             int count = 0;
             Console.WriteLine("던전 선택");
@@ -100,7 +100,7 @@ namespace Sparta_TextRPG
                 >>
                 """);
         }
-        public void ShowBattelStart(List<Monster> monsters, Player player)
+        public void ShowBattleStart(List<Monster> monsters, Player player)
         {
 
             foreach (var item in monsters)
@@ -149,7 +149,7 @@ namespace Sparta_TextRPG
                 >>
                 """);
         }
-        public void ShowBattelAttackPhase(List<Monster> monsters, Player player)
+        public void ShowBattleAttackPhase(List<Monster> monsters, Player player)
         {
             int count = 0;
             foreach (var item in monsters)
@@ -182,7 +182,7 @@ namespace Sparta_TextRPG
                """
              );
         }
-        public void ShowBattelAttackMonster(Monster monster, Player player, int Damage)
+        public void ShowBattleAttackMonster(Monster monster, Player player, int Damage)
         {
             if (Damage > 0)
             {
@@ -219,7 +219,7 @@ namespace Sparta_TextRPG
                """);
 
         }
-        public void ShowBattelMonsterPhase(Monster monster, Player player, Skill MonsterSkill)
+        public void ShowBattleMonsterPhase(Monster monster, Player player, Skill MonsterSkill)
         {
             Console.Write(
                $"""
@@ -618,7 +618,7 @@ namespace Sparta_TextRPG
                """);
         }
 
-        public void ShowDungoun(List<Dungoun> dungouns)
+        public void ShowDungoun(List<Dungeoun> dungouns)
         {
             Console.Write($"""
                던전입장

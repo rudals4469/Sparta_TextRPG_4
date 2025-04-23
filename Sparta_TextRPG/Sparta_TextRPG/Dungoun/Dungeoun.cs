@@ -7,12 +7,12 @@ using System.Transactions;
 
 namespace Sparta_TextRPG
 {
-    internal class Dungoun
+    internal class Dungeoun
     {
         public string Name;
         public int Level;
         public List<Monster> monsters;
-        public Dungoun(string name, int level, List<Monster> monsters)
+        public Dungeoun(string name, int level, List<Monster> monsters)
         {
             Name = name;
             Level = level;
