@@ -17,8 +17,8 @@ namespace Sparta_TextRPG
 
         // Animal에 있는 inventory를 Player로 옮기기
 
-        public Player(int Level, int Exp, int MaxHp, int NowHp, int MaxMP, int AttacPoint, int ArmorPoint,
-            Inventory inventory,string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(Level, Exp, MaxHp, NowHp, MaxHp, AttacPoint, ArmorPoint, inventory, Name, Gold, SkillList, IsDead, EvasionRate)
+        public Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint,
+            Inventory inventory, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(1, 0, MaxHp, MaxMP, AttacPoint, ArmorPoint, inventory, Name, Gold, SkillList, IsDead, EvasionRate)
         {
             this.Level = 1;
             this.Exp = 0;

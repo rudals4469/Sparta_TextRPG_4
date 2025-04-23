@@ -226,6 +226,12 @@ namespace Sparta_TextRPG
             Console.WriteLine($"Gold : {player.Gold} G");
             Console.WriteLine();                                      //줄 바꿈 처리
 
+            Console.WriteLine("인벤토리");                             //player 인벤토리로 받을 수 있게 처리
+            //인벤토리 출력은 4단계를 거쳐서 작성해야함
+            foreach (var item in player.Inventory)                    //배열 리스트 순차적으로 꺼내서 처리(var 변수 타입 결정 player인벤토리 안에 있는 아이템 전부 item처리)
+                Console.WriteLine($" - {item.Name} x{item.Quantity}"); //아이템 이름과 수량
+
+
             Console.WriteLine("장착 중인 아이템:");                     // 상태창에서 바로 장착중인 아이템이 보여지게 수정
             Console.Write("- 무기 : ");
             if (player.Weapon != null)
@@ -403,24 +409,65 @@ namespace Sparta_TextRPG
                1. 퀘스트 받기
                2. 휴식하기
 
+               0. 나가기
+
                원하시는 행동을 입력해주세요. 
                >>
                """);
                
         }
 
+        public void ShowQuest()
+        {
+
+            Console.Write($"""
+               퀘스트를 선택하세요. 
+               1.
+               2. 
+
+               0. 나가기
+
+               원하시는 행동을 입력해주세요. 
+               >>
+               """);
+        }
+
         public void ShowRest(Player player)
         {
             Console.Write($"""
                500 G 를 소모하여 체력을 회복할 수 있습니다. (보유 골드 : {0} G)
-
                1. 휴식하기
-               2. 나가기
+               
+               0. 나가기
 
                원하시는 행동을 입력해주세요. 
                >> 
                """, player.Gold);
         }
+
+        public void ShowHeal()
+        {
+            Console.Write($"""
+               [휴식 완료] 체력이 모두 회복되었습니다. (골드 -500)
+
+               0. 나가기
+
+               >>
+               """);
+
+        }
+
+        public void ShowNoHeal()
+        {
+            Console.Write($"""
+               [실패] 골드가 부족합니다.
+
+               0.나가기
+
+               >>
+               """);
+        }
+
         public void ShowDungoun(List<Dungoun> dungouns)
         {
             Console.Write($$"""
@@ -439,28 +486,7 @@ namespace Sparta_TextRPG
                """);
         }
 
-        public void ShowHealing()
-        {
-            Console.Write($"""
-               [휴식 완료] 체력이 모두 회복되었습니다. (골드 -500)
-
-               0.돌아가기
-
-               >>
-               """);
-
-        }
-
-        public void ShowNoHealing()
-        {
-            Console.Write($"""
-               [실패] 골드가 부족합니다.
-
-               0.돌아가기
-
-               >>
-               """);
-        }
+    
     }
 
 }
