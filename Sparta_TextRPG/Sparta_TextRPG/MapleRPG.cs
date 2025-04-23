@@ -623,7 +623,7 @@ namespace Sparta_TextRPG
 
             if (inputNum == 0) // 0번 입력 시 시작 메뉴로 돌아가기
             {
-                sceneName = SceneName.StartSetName;
+                sceneName = SceneName.MainScene;
             }
             else if (inputNum == 1)
             {
