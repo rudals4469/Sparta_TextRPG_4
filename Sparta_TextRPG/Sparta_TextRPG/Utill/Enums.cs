@@ -54,6 +54,8 @@ namespace Sparta_TextRPG
         NPC,
         Quest,
         Rest,
+        RestSuccess,
+        RestFail,
 
         BattelStart,
         BattelAttackPhase,

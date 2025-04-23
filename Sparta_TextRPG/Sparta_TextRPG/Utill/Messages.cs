@@ -29,7 +29,7 @@ namespace Sparta_TextRPG
                 2. 인벤토리
                 3. 상점
                 4. 던전입장
-                5. 휴식하기
+                5. 여관으로 가기(NPC)
                 6. 게임종료
 
                 원하시는 행동을 입력해주세요.
@@ -397,14 +397,15 @@ namespace Sparta_TextRPG
         {
 
             Console.Write($"""
-               NPC에게 왔습니다. 
+               여관으로 왔습니다. 
+
                1. 퀘스트 받기
                2. 휴식하기
 
                0. 나가기
 
                원하시는 행동을 입력해주세요. 
-               >>
+               >> 
                """);
 
         }
@@ -413,13 +414,14 @@ namespace Sparta_TextRPG
 
             Console.Write($"""
                퀘스트를 선택하세요. 
-               1.
-               2. 
+
+               1. 퀘스트 이름1
+               2. 퀘스트 이름2
 
                0. 나가기
 
                원하시는 행동을 입력해주세요. 
-               >>
+               >> 
                """);
         }
         public void ShowRest(Player player)
@@ -434,25 +436,27 @@ namespace Sparta_TextRPG
                >> 
                """);
         }
-        public void ShowHeal()
+
+        public void ShowRestSuccess()
         {
             Console.Write($"""
                [휴식 완료] 체력이 모두 회복되었습니다. (골드 -500)
 
                0. 나가기
 
-               >>
+               >> 
                """);
 
         }
-        public void ShowNoHeal()
+
+        public void ShowRestFail()
         {
             Console.Write($"""
                [실패] 골드가 부족합니다.
 
                0.나가기
 
-               >>
+               >> 
                """);
         }
         public void ShowDungoun(List<Dungoun> dungouns)
@@ -469,7 +473,7 @@ namespace Sparta_TextRPG
                0. 나가기 
 
                원하시는 행동을 입력해주세요. 
-               >>
+               >> 
                """);
         }
 
