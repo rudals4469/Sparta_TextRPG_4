@@ -22,7 +22,7 @@ namespace Sparta_TextRPG
         {
             Console.Write(
                 """     
-                스파르타 마을에 오신 여러분 환영합니다.
+                메이플 월드에 오신 여러분 환영합니다.
                 이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.
 
                 1. 상태 보기
@@ -40,7 +40,7 @@ namespace Sparta_TextRPG
         {
 
             Console.Write($"""
-                스파르타 던전에 오신여러분 환영합니다.
+                메이플 월드에 오신여러분 환영합니다.
                 원하시는 이름을 설정해주세요
 
                 >>
@@ -49,7 +49,7 @@ namespace Sparta_TextRPG
         public void ShowStartChackName(string Name)
         {
             Console.Write($"""
-                스파르타 던전에 오신여러분 환영합니다.
+                메이플 월드에 오신여러분 환영합니다.
                 원하시는 이름을 설정해주세요
                 {Name}
 
@@ -66,7 +66,7 @@ namespace Sparta_TextRPG
         {
 
             Console.Write($"""
-                스파르타 던전에 오신여러분 환영합니다.
+                메이플 월드에 오신여러분 환영합니다.
                 원하시는 직업을 설정해주세요
 
                 1.{ClassName.전사.ToString()}

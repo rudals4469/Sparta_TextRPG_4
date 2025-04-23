@@ -8,6 +8,7 @@ namespace Sparta_TextRPG
 {
     internal class Player : Animal //animal에 상속       
     {
+        public Inventory Inventory { get; set; }
         public int MaxExp {  get; set; } //exp
         public ClassName Class { get; set; }
         public Quest Quest { get; set; }
@@ -33,6 +34,7 @@ namespace Sparta_TextRPG
 
             this.MaxExp = MaxExp;
             this.Class = className;
+            this.Inventory = new Inventory();
         }
 
         public void GetQuest(Quest quest)
@@ -66,16 +68,17 @@ namespace Sparta_TextRPG
         }
         public void Buy(Item item)
         {
-            //상점에서 아이템 구매
+            Inventory.Add(item);
+            Gold -= item.Price;
         }
         public Item Sell(string itemName)
-        {
-            //상점에 아이템 판매
-            //리턴도 새로 작성 필요
+        {            
             return null;
         }
         public void usePotion(Potion potion,Player player)
         {
+            Potion potion = Inventory.Potions.Find(n => n.Name.CompareTo(PotionName) == 0);
+            potion.Count--;
             //인벤토리에서 포션찾고 포션 사용하기
             if(player.Inventory.Potions. > 0)
             {
