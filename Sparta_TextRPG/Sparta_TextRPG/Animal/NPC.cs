@@ -11,19 +11,19 @@ namespace Sparta_TextRPG
         public Quest Quest { get; set; }
 
 
-        public void Healing(Player player)  // 휴식 동작 기능
+        public bool Rest(Player player)  // 휴식 동작 기능
         {
             if (player.Gold >= 500)
             {
                 player.Gold -= 500;
-                Console.WriteLine("휴식을 완료했습니다.");
                 player.NowHP = player.MaxHP;
-            }
+                return true;
+            }   
             else if (player.Gold < 500)
             {
-                Console.WriteLine("Gold가 부족합니다.");
+                return false;
             }
+            return false;
         }
-
     }
 }

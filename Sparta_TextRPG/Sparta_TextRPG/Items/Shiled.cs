@@ -10,7 +10,14 @@ namespace Sparta_TextRPG
     {
         public int AttackPoint { get; set; }
         public int ArmorPoint { get; set; }
-        public bool isEquiped { get; set; }
+        public bool IsEquipped { get; set; }
+
+        public Shiled(string name, string text, int price, ItemType type, int attackPoint, int armorPoint) : base(name, text, price, type)
+        {
+            this.AttackPoint = attackPoint;
+            this.ArmorPoint = armorPoint;
+            this.IsEquipped = false;
+        }
 
     }
 }

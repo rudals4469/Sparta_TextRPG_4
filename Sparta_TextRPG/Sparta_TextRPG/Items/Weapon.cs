@@ -9,6 +9,12 @@ namespace Sparta_TextRPG
     internal class Weapon : Item
     {
         public int AttackPoint { get; set; }
-        public bool isEquiped { get; set; }
+        public bool IsEquipped { get; set; }
+
+        public Weapon(string name, string text, int price, ItemType type, int attackPoint) : base(name, text, price, type)
+        {
+            this.AttackPoint = attackPoint;
+            this.IsEquipped = false;
+        }
     }
 }
