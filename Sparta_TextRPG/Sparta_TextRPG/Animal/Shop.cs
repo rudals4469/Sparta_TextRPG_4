@@ -37,42 +37,59 @@ namespace Sparta_TextRPG
         {
             Inventory.Add(item);
         }
-
-        //상점이 유저의 아이템을 산다. 유저입장에서는 파는것
-        public void BuyItem(Item item)
+        //아이템을 해당 번호에 맞게 찾아오는 함수
+        public Item GetItemByIndex(int index)
         {
-            Inventory.Add(item);
-            //플레이어 한태 돈
+            if (index < Inventory.Weapon.Count)
+                return Inventory.Weapon[index];
+            index -= Inventory.Weapon.Count;
 
-            // item 을 받고 
-            // 유무 확인
-            // Inventory.Add(item);
+            if (index < Inventory.Armors.Count)
+                return Inventory.Armors[index];
+            index -= Inventory.Armors.Count;
 
+            if (index < Inventory.Shild.Count)
+                return Inventory.Shild[index];
+            index -= Inventory.Shild.Count;
 
-            { }
-                  
+            if (index < Inventory.Potions.Count)
+                return Inventory.Potions[index];
 
-            // item 을 받고 
-            // 유무 확인
-            // Inventory.Add(item);
-
-            
-            
-
+            return null;
         }
-        // count : 전체의 수를 알려주는 int 리턴
+        //상점이 유저의 아이템을 산다. 유저입장에서는 파는것 
+        public void BuyItem(Player player, int selectedIndex)
+        {
+            Item item = player.Inventory.GetItemByIndex(selectedIndex);
+
+            if (item == null)
+                return;
+
+            // 골드 지급
+            player.Gold += item.Price;
+
+            // 플레이어 인벤토리에서 제거
+            player.Inventory.Remove(item);
+            
+            AddItem(item);
+        }
 
 
-
-        //숫자가 들어오면 
-        // 예를들면 다 4개
-        // 10
-        //무기 4개 방어구 4 실드에 2번째걸 리턴 item
 
         public void SellItem(Player player, int selectedIndex)
 
-        {
+            {
+                Item item = GetItemByIndex(selectedIndex);
+               
+                if (player.Gold < item.Price)
+                    return;
 
-        }
+                player.Gold -= item.Price;
+                player.Inventory.Add(item);
+                
+            }
+
+
+        
     }
 }
