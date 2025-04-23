@@ -35,6 +35,11 @@ namespace Sparta_TextRPG
             }
         }
 
+        public int Count()
+        {
+            return Weapon.Count+ Armors.Count+ Shild.Count+ Potions.Count;
+        }
+
         // count : 전체의 수를 알려주는 int 리턴
 
 

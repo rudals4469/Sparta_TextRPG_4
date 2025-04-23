@@ -8,18 +8,17 @@ namespace Sparta_TextRPG
 {
     internal class Player : Animal //animal에 상속       
     {
+        public Inventory Inventory { get; set; }
         public int MaxExp {  get; set; } //exp
         public ClassName Class { get; set; }
         public Quest Quest { get; set; }
         public Weapon Weapon { get; set; }
         public Armor Armor { get; set; }
         public Shiled Shiled { get; set; }
-
-        public Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint,
-            Inventory inventory, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(1, 0, MaxHp, MaxMP, AttacPoint, ArmorPoint, inventory, Name, Gold, SkillList, IsDead, EvasionRate)
+        public Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint, string Name ,int Gold, List<Skill> SkillList, int EvasionRate, ClassName className) : base(1, 0, MaxHp, MaxMP, AttacPoint, ArmorPoint, Name, Gold, SkillList, EvasionRate)
         {
-            this.MaxExp = MaxExp;
             this.Class = className;
+            this.Inventory = new Inventory();
         }
 
         public void GetQuest(Quest quest)
@@ -46,17 +45,17 @@ namespace Sparta_TextRPG
         }
         public void Buy(Item item)
         {
-            //상점에서 아이템 구매
+            Inventory.Add(item);
+            Gold -= item.Price;
         }
         public Item Sell(string itemName)
-        {
-            //상점에 아이템 판매
-            //리턴도 새로 작성 필요
+        {            
             return null;
         }
         public void usePotion(string PotionName)
         {
-            //인벤토리에서 포션찾고 포션 사용하기
+            Potion potion = Inventory.Potions.Find(n => n.Name.CompareTo(PotionName) == 0);
+            potion.Count--;
         }
         public void Equiped(Item item)
         {
