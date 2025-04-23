@@ -460,7 +460,7 @@ namespace Sparta_TextRPG
         }
         public void ShowDungoun(List<Dungoun> dungouns)
         {
-            Console.Write($$"""
+            Console.Write($"""
                던전입장
                이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다. 
                """);
@@ -468,7 +468,7 @@ namespace Sparta_TextRPG
             {
                 Console.WriteLine($"{item.Name} | 던전 레벨 : {item.Level}");
             };
-            Console.Write($$"""
+            Console.Write($"""
                0. 나가기 
 
                원하시는 행동을 입력해주세요. 
@@ -477,18 +477,150 @@ namespace Sparta_TextRPG
         }
 
 
-        public void ShowShop(Player player)
+        public void ShowShop(Player player, Shop shop)
         {
+            int Count = 1;
+            
+            Console.Write($"""
+                상점에 오신 것을 환영합니다!
+                필요한 아이템을 골드로 구매하실 수 있습니다 :3
+
+                [보유 골드]
+                {player.Gold}
+                
+                [아이템 목록]
+
+
+                """);
+
+            foreach (var weapon in shop.Inventory.Weapon)
+            { 
+                Console.WriteLine($"- {Count} {weapon.Name} | +{weapon.AttackPoint} | {weapon.Text}");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방어구]");
+            foreach (var armor in shop.Inventory.Armors)
+            {
+                
+                Console.WriteLine($"- {Count} {armor.Name} | +{armor.ArmorPoint} | {armor.Text}");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방패]");
+            foreach (var shield in shop.Inventory.Shild)
+            {
+                
+                Console.WriteLine($"- {Count} {shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
+                Count++;
+            }
+            
+            Console.WriteLine("""
+                1. 아이템 구매
+                2. 아이템 판매
+                0. 나가기
+                """);
+
+
 
         }
-        public void SellItem(Player player)
+        public void BuyItem(Player player, Shop shop)
         {
+            int Count = 1;
+
+            Console.Write($"""
+                상점에 오신 것을 환영합니다!
+                필요한 아이템을 골드로 구매하실 수 있습니다 :3
+
+                [보유 골드]
+                {player.Gold}
+                
+                [아이템 목록]
+
+
+                """);
+
+            foreach (var weapon in shop.Inventory.Weapon)
+            {
+                Console.WriteLine($"- {Count} {weapon.Name} | +{weapon.AttackPoint} | {weapon.Text} | {weapon.Price}");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방어구]");
+            foreach (var armor in shop.Inventory.Armors)
+            {
+
+                Console.WriteLine($"- {Count} {armor.Name} | +{armor.ArmorPoint} | {armor.Text} | {armor.Price}");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방패]");
+            foreach (var shield in shop.Inventory.Shild)
+            {
+
+                Console.WriteLine($"- {Count} {shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text} | {shield.Price}");
+                Count++;
+            }
+
+            Console.Write("""
+                0. 나가기
+                >>
+                """);
+                
 
         }
+
+        public void SellItem(Player player, Shop shop)
+        {
+            int Count = 1;
+
+            Console.Write($"""
+                상점에 오신 것을 환영합니다!
+                필요한 아이템을 골드로 구매하실 수 있습니다 :3
+
+                [보유 골드]
+                {player.Gold}
+                
+                [아이템 목록]
+
+
+                """);
+
+            foreach (var weapon in player.Inventory.Weapon)
+            {
+                Console.WriteLine($"- {Count} {weapon.Name} | +{weapon.AttackPoint} | {weapon.Text} | {weapon.Price}메소");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방어구]");
+            foreach (var armor in player.Inventory.Armors)
+            {
+
+                Console.WriteLine($"- {Count} {armor.Name} | +{armor.ArmorPoint} | {armor.Text} | {armor.Price}메소");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방패]");
+            foreach (var shield in player.Inventory.Shild)
+            {
+
+                Console.WriteLine($"- {Count} {shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text} | {shield.Price}메소");
+                Count++;
+            }
+
+            Console.Write("""
+                
+                0. 나가기
+                >>
+                """);
+        }
+
+
         public void NotEnoughMoney()
         {
-
+            Console.WriteLine("[실패] 골드가 부족합니다. 다음에 다시 이용해 주세요");
         }
+
     }
 
 }

@@ -97,6 +97,9 @@ namespace Sparta_TextRPG
                     case SceneName.RestFail:
                         RestFail();
                         break;
+                    case SceneName.ShowShop:
+                        ShowShop();
+                        break;
                     case SceneName.SellItem:
                         SellItem();
                         break;
@@ -136,7 +139,7 @@ namespace Sparta_TextRPG
             // 엘릭서 , hp , mp
 
             //Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className)
-            Player = new Player(100, 200, 100, 200, "kim", 500, MonsterSkillset, false, 50, 500, ClassName.전사);
+            Player = new Player(100, 200, 100, 200, "kim", 200000, MonsterSkillset, false, 50, 500, ClassName.전사);
 
             //Armor(string name, string text, int price, ItemType type,int armorPoint , bool isEquipped)
             Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구", 10000, ItemType.Armor, 100);
@@ -239,7 +242,7 @@ namespace Sparta_TextRPG
             int inputNum = int.Parse(input);
 
             if (inputNum == 1) sceneName = SceneName.ShowStatus;
-            else if (inputNum == 2) sceneName = SceneName.Shop;
+            else if (inputNum == 2) sceneName = SceneName.ShowShop;
             else if (inputNum == 3) sceneName = SceneName.DungeonSelection;
             else if (inputNum == 4) sceneName = SceneName.NPC;
             else if (inputNum == 5) sceneName = SceneName.GameOver;
@@ -372,18 +375,18 @@ namespace Sparta_TextRPG
         }
         public void ShowShop()
         {
-            Messages.Instance().ShowShop(Player);
+            Messages.Instance().ShowShop(Player,Shop);
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
             if (inputNum == 1)
             {
-                sceneName = SceneName.SellItem;
+                sceneName = SceneName.BuyItem;
             }
             else if (inputNum == 2)
             {
-                sceneName = SceneName.BuyItem;
+                sceneName = SceneName.SellItem;
             }
             else if (inputNum == 0)
             {
@@ -394,16 +397,16 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-        public void BuyItem()
+        public void BuyItem() //플레이어 입장에서 사는 거
         {
-            Messages.Instance().SellItem(Player);
+            Messages.Instance().BuyItem(Player, Shop);
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if(inputNum <= Player.Inventory.Count())
+            if(inputNum <= Shop.Inventory.Count() && inputNum > 0)
             {
-                if(Shop.SellItem(Player, inputNum))
+                if(Shop.SellItem(Player, inputNum-1))
                 {
                     sceneName = SceneName.ShowShop;
                 }
@@ -413,22 +416,29 @@ namespace Sparta_TextRPG
                 }
 
             }
-            
+            else if (inputNum == 0)
+            {
+                sceneName= SceneName.ShowShop;
+            }
             else
             {
                 Messages.Instance().ErrorMessage();
             }
         }
-        public void SellItem()
+        public void SellItem() //플레이어 입장에서 파는 거
         {
-            Messages.Instance().SellItem(Player);
+            Messages.Instance().SellItem(Player, Shop);
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum <= Player.Inventory.Count())
+            if (inputNum <= Player.Inventory.Count() && inputNum > 0)
             {
-                Shop.BuyItem(Player, inputNum);
+                Shop.BuyItem(Player, inputNum-1);
+            }
+            else if (inputNum == 0)
+            {
+                sceneName = SceneName.ShowShop;
             }
             else
             {

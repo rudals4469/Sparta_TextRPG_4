@@ -20,15 +20,7 @@ namespace Sparta_TextRPG
 
         public Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className) : base(1, 0, MaxHp, MaxMP, AttacPoint, ArmorPoint, Name, Gold, SkillList, EvasionRate)
         {
-            this.Level = 1;
-            this.Exp = 0;
-            this.MaxMP = 100;
-            this.NowHP = 100;
-            this.AttackPoint = 10;
-            this.ArmorPoint = 5;
-            this.Gold = 1500;
-            this.IsDead = false;
-            this.EvasionRate = 10;
+            
 
             this.MaxExp = MaxExp;
             this.Class = className;
