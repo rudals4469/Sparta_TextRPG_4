@@ -216,6 +216,7 @@ namespace Sparta_TextRPG
         public void ShowStatus(Player player)         //$""" 사용해보려 하였으나 익숙치 않아 익숙한 것으로 진행
         {
             Console.WriteLine("상태 보기");
+            Console.WriteLine("캐릭터의 정보가 표시됩니다.");
             Console.WriteLine();                                       //줄 바꿈 처리
             Console.WriteLine($"Lv. {player.Level}");
             Console.WriteLine($"{player.Name} ( {player.Class} )");
@@ -226,16 +227,21 @@ namespace Sparta_TextRPG
             Console.WriteLine();                                      //줄 바꿈 처리
 
             Console.WriteLine("장착 중인 아이템:");                     // 상태창에서 바로 장착중인 아이템이 보여지게 수정
+            Console.Write("- 무기 : ");
             if (player.Weapon != null)
-                Console.WriteLine($"- 무기: {player.Weapon.Name}");    // 무기 장착 칸
+                Console.WriteLine($"{player.Weapon.Name}"); // 무기 장착 칸
+            else Console.WriteLine(); // 아니여도 줄 바꿈
+            Console.Write("- 방어구 : ");
             if (player.Armor != null)
-                Console.WriteLine($"- 방어구: {player.Armor.Name}");   // 방어구 장착 칸
+                Console.WriteLine($"{player.Armor.Name}");   // 방어구 장착 칸
+            else Console.WriteLine();
+            Console.Write("- 방패 : ");
             if (player.Shiled != null)
-                Console.WriteLine($"- 방패: {player.Shiled.Name}");   // 방패 장착 칸
-
+                Console.WriteLine($"{player.Shiled.Name}");   // 방패 장착 칸
+            else Console.WriteLine();
             
             Console.WriteLine();                                      //줄 바꿈 처리
-            Console.WriteLine("인벤토리:");                            // 상태창에서 바로 인벤토리가 보여지게 설정
+            /*Console.WriteLine("인벤토리:");                         // 상태창에서 바로 인벤토리가 보여지게 설정
                                                                      // 상태창에 너무 많은 정보가 보일 것 같아서 인벤토리 안으로 넣을 예정입니다 (수정예정이며 현재 임시 작성)
             Console.WriteLine("[무기]");                              
             foreach (var weapon in player.Inventory.Weapon)
@@ -259,13 +265,11 @@ namespace Sparta_TextRPG
             foreach (var potion in player.Inventory.Potions)
             {
                 Console.WriteLine($" - {potion.Name}");
-            }
-
-            Console.WriteLine("\n0. 나가기");
-            while (Console.ReadLine() != "0")
-            {
-                Console.WriteLine("0을 입력해주세요.\n>> ");
-            }
+            } 여기를 1번 누르면 인벤토리 창으로 들어가게 하자
+            */
+            Console.WriteLine("\n1. 인벤토리 보기");
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine("원하시는 행동을 입력해주세요.\r\n>>");
         }
 
 
@@ -273,7 +277,6 @@ namespace Sparta_TextRPG
         {
             while (true)
             {
-                Console.Clear();
                 Console.WriteLine("인벤토리");
                 Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
 
@@ -321,17 +324,69 @@ namespace Sparta_TextRPG
                 Console.Write("\n원하시는 행동을 입력해주세요. >> ");
                 string input = Console.ReadLine();
 
-                if (input == "0") break;
+                /*if (input == "0") break;
                 else if (input == "1") ManageEquipment(player); 
                 else
                 {
                     Console.WriteLine("잘못된 입력입니다.");
                     Console.ReadKey();
-                }
+                } 메세지 파일에서는 출력만 담당합니다. 기능들은 메이플알피지 파일에서 */
             }
         }
 
+        public void ManageEquipment(Player player)
+        {
+            // 장착 관리
+            Console.WriteLine("인벤토리");
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
 
+
+            int totalItemCount = player.Inventory.Weapon.Count
+                                   + player.Inventory.Armors.Count
+                                   + player.Inventory.Shild.Count
+                                   + player.Inventory.Potions.Count;
+
+            int Count = 0;
+
+
+            if (totalItemCount == 0)
+            {
+                Console.WriteLine("아이템이 없습니다.");
+            }
+            else
+            {
+                Console.WriteLine("[무기]");
+
+                foreach (var weapon in player.Inventory.Weapon)
+                {
+                    string prefix = weapon.IsEquipped ? "[E]" : "";
+                    Console.WriteLine($"- {Count} {prefix}{weapon.Name} | +{weapon.AttackPoint} | {weapon.Text}");
+                    Count++;
+                }
+
+                Console.WriteLine("\n[방어구]");
+                foreach (var armor in player.Inventory.Armors)
+                {
+                    string prefix = armor.IsEquipped ? "[E]" : "";
+                    Console.WriteLine($"- {Count} {prefix}{armor.Name} | +{armor.ArmorPoint} | {armor.Text}");
+                    Count++;
+                }
+
+                Console.WriteLine("\n[방패]");
+                foreach (var shield in player.Inventory.Shild)
+                {
+                    string prefix = shield.IsEquipped ? "[E]" : "";
+                    Console.WriteLine($"- {Count} {prefix}{shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
+                    Count++;
+                }
+
+                Console.WriteLine("\n[포션]");
+                foreach (var potion in player.Inventory.Potions)
+                {
+                    Console.WriteLine($"- {potion} {potion.Name} | +{potion.HealPoint} | {potion.Text}");
+                }
+            }
+        }
 
 
 

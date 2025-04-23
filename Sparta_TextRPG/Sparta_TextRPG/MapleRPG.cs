@@ -47,6 +47,15 @@ namespace Sparta_TextRPG
                     case SceneName.StartSetClass:
                         StartSetClass();
                         break;
+                    case SceneName.ShowStatus:
+                        ShowStatus();
+                        break;
+                    case SceneName.ShowInventory:
+                        ShowInventory();
+                        break;
+                    case SceneName.ManageEquipment:
+                        ManageEquipment();
+                        break;
                     case SceneName.BattelStart:
                         BattelStart();
                         break;
@@ -66,7 +75,7 @@ namespace Sparta_TextRPG
                         BattlePlayerLose();
                         break;
 
-                    case SceneName.NPC :
+                    case SceneName.NPC:
 
                         break;
 
@@ -98,7 +107,7 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum == 1) sceneName = SceneName.Staters;
+            if (inputNum == 1) sceneName = SceneName.ShowStatus;
             else if (inputNum == 2) sceneName = SceneName.Inventory;
             else if (inputNum == 3) sceneName = SceneName.Shop;
             else if (inputNum == 4) sceneName = SceneName.DungeonSelection;
@@ -108,7 +117,6 @@ namespace Sparta_TextRPG
         public void BattelStart() {
             Messages.Instance().ShowStart();
         }
-
         public string StartSetName()
         {
             Messages.Instance().ShowStartSetName();
@@ -169,6 +177,68 @@ namespace Sparta_TextRPG
 
             sceneName = SceneName.Start;
 
+        }
+        public void ShowStatus() 
+        {
+            Messages.Instance().ShowStatus(Player);
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 1)
+            {
+                sceneName = SceneName.ShowInventory;
+            }
+            else if (inputNum == 0)
+            {
+                sceneName = SceneName.BattelStart;
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
+        }
+        public void ShowInventory()
+        {
+            Messages.Instance().ShowInventory(Player);
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if(inputNum == 1)
+            {
+                sceneName = SceneName.ManageEquipment;
+            }
+            else if (inputNum == 0)
+            {
+                sceneName = SceneName.Start;
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
+
+        }
+
+        public void ManageEquipment(Player player, Item item)
+        {
+            Messages.Instance().ManageEquipment(Player);
+
+            // 장착 매커니즘 
+            player.Equiped(item, player);
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)
+            {
+                sceneName = SceneName.ShowInventory;
+            }
+
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
         }
         public void BattelStart(Dungoun dungoun)
         {
@@ -300,8 +370,6 @@ namespace Sparta_TextRPG
 
             }
 
-
-
             if (inputNum == 0) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
             {
                 sceneName = SceneName.BattelAttackPhase;
@@ -357,7 +425,10 @@ namespace Sparta_TextRPG
         public void NPCText()//이름 수정
         {
             Messages.Instance().ShowNPC();
+
         }
+
+        //pulbic 
 
         public void EnterDungoun()
         {

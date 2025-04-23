@@ -18,12 +18,13 @@ namespace Sparta_TextRPG
                 player.Gold -= 500;
                 player.NowHP = player.MaxHP;
                 Messages.Instance().ShowHealing();
+
             }
             else if (player.Gold < 500)
             {
                 Messages.Instance().ShowNoHealing();
-           
             }
+            
         }
     }
 }

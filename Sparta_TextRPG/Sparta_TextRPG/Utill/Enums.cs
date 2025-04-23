@@ -31,6 +31,10 @@ namespace Sparta_TextRPG
         None,
         Start,
 
+        ShowStatus,
+        ShowInventory,
+        ManageEquipment,
+        // 상태보기
 
         StartSetName,
         StartChackName,
@@ -49,6 +53,7 @@ namespace Sparta_TextRPG
         BattlePlayerLose,
         NPC,
         InDungeon,
+
 
         GameOver,//게임종료
 
