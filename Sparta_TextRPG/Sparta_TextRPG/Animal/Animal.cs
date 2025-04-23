@@ -23,14 +23,14 @@ namespace Sparta_TextRPG
         public int EvasionRate { get; set; }//회피율
 
         public Animal() { }
-        public Animal(int Level, int Exp, int MaxHp, int MaxMP, int AttacPoint, int ArmorPoint, string Name, int Gold, List<Skill> SkillList, int EvasionRate)
+        public Animal(int Level, int Exp, int Hp, int MP, int AttacPoint, int ArmorPoint, string Name, int Gold, List<Skill> SkillList, int EvasionRate)
         {
             this.Level = Level;
             this.Exp = Exp;
-            this.MaxHP = MaxHp;
-            this.NowHP = MaxHp;
-            this.MaxMP = MaxMP;
-            this.NowHP = MaxMP;
+            this.MaxHP = Hp;
+            this.NowHP = Hp;
+            this.MaxMP = MP;
+            this.NowMP = MP;
             this.AttackPoint = AttacPoint;
             this.ArmorPoint = ArmorPoint;
             this.Name = Name;
@@ -40,38 +40,30 @@ namespace Sparta_TextRPG
             this.EvasionRate = EvasionRate;
         }
 
-        public void Hit(int Damege)
-        {
-            this.NowHP -= Damege;
-        }
-        public Skill? useSkill(string skillName)
-        {
-            Skill? skill = SkillList.Find(n => n.Name.CompareTo(skillName) == 0);
-            return skill;
-        }//플레이어와 몬스터 스킬사용 로직이 다름
-        public bool Evasion(Skill skill,int PlayerDamage)
+        public int Hit(Skill skill, int PlayerDamage)
         {
             //스킬의 명중율과 나의 회피율을 잘 조합해서 회피 또는 피격
             Random rand = new Random();
             int EvasionNum = rand.Next(0, 100);
-            if(EvasionNum<= EvasionRate)
+            if (EvasionNum <= EvasionRate)
             {
-                return false;
+                return -1;
             }
             else
             {
                 int CritiacalNum = rand.Next(0, 100);
-                if(CritiacalNum<= skill.CriticalRate)
+                if (CritiacalNum <= skill.CriticalRate)
                 {
-                    Hit(PlayerDamage * skill.Damage * 2);
+                    NowHP -= PlayerDamage * skill.Damage * 2;
+                    return PlayerDamage * skill.Damage * 2;
                 }
                 else
                 {
-                    Hit(PlayerDamage * skill.Damage);
+                    NowHP -= PlayerDamage * skill.Damage;
+                    return PlayerDamage * skill.Damage;
                 }
-                return true;
-            }
 
+            }
         }
     }
 }

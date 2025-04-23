@@ -113,7 +113,8 @@ namespace Sparta_TextRPG
                [내정보]
                Lv.{player.Level} {player.Name} ({player.Class.ToString()})
                HP {player.NowHP}/{player.MaxHP}
-                
+               Mp {player.NowMP}/{player.MaxMP} 
+
                1.스킬 선택
 
                원하시는 행동을 입력해주세요.
@@ -134,6 +135,7 @@ namespace Sparta_TextRPG
                [내정보]
                Lv.{player.Level} {player.Name} ({player.Class.ToString()})
                HP {player.NowHP}/{player.MaxHP}
+               Mp {player.NowMP}/{player.MaxMP} 
                
                """);
             int count = 0;
@@ -141,7 +143,7 @@ namespace Sparta_TextRPG
             {
                 Console.WriteLine($"{++count} {item.Name} | {item.Text}");
             }
-            Console.WriteLine("""
+            Console.Write("""
 
                 원하시는 행동을 입력해주세요.
                 >>
@@ -166,6 +168,7 @@ namespace Sparta_TextRPG
                 }
 
             }
+
             Console.Write(
                $"""
                [내정보]
@@ -179,28 +182,38 @@ namespace Sparta_TextRPG
                """
              );
         }
-        public void ShowBattelAttackMonster(Monster monster, Player player, Skill PlayerSkill)
+        public void ShowBattelAttackMonster(Monster monster, Player player, int Damage)
         {
-            Console.Write(
-               $"""
+            if (Damage > 0)
+            {
+                Console.Write(
+                $"""
                player{player.Name} 의 공격!
-               Lv.{monster.Level} {monster.MonsterName.ToString()}을(를) 맞췄습니다. [데미지 : {PlayerSkill.Damage}]
+               Lv.{monster.Level} {monster.MonsterName.ToString()}을(를) 맞췄습니다. [데미지 : {Damage}]
 
                {monster.Level} {monster.MonsterName.ToString()}
                """);
 
-            if ((monster.NowHP - PlayerSkill.Damage) < 0)
-            {
-                Console.WriteLine($"HP {monster.NowHP} -> Dead");
+                if ((monster.NowHP - Damage) < 0)
+                {
+                    Console.WriteLine($"HP {monster.NowHP} -> Dead");
+                }
+                else
+                {
+                    Console.WriteLine($"HP {monster.NowHP} -> {monster.NowHP - Damage}");
+
+                }
             }
             else
             {
-                Console.WriteLine($"HP {monster.NowHP} -> {monster.NowHP - PlayerSkill.Damage}");
-
+                Console.Write($"{monster.Name}이 \"훗\" 하고 피함");
+                //회피 문구 추가하기
             }
+
 
             Console.Write(
                 $"""
+                 
 
                 0. 다음
                """);
@@ -513,7 +526,8 @@ namespace Sparta_TextRPG
             foreach (var item in dungouns)
             {
                 Console.WriteLine($"{item.Name} | 던전 레벨 : {item.Level}");
-            };
+            }
+            ;
             Console.Write($$"""
                0. 나가기 
 

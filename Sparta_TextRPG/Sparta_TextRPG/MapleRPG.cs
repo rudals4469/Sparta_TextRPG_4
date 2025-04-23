@@ -26,7 +26,7 @@ namespace Sparta_TextRPG
         public string inputName;
         public ClassName inputClassName;
         public Skill? Skill;
-
+        public Monster TargetMonster;
         public MapleRPG()
         {
             init();
@@ -77,7 +77,7 @@ namespace Sparta_TextRPG
                         BattelAttackPhase();
                         break;
                     case SceneName.BattelAttackMonster:
-                        //BattelAttackMonster();
+                        BattelAttackMonster();
                         break;
                     case SceneName.BattelMonsterPhase:
                         //BattelMonsterPhase();
@@ -485,80 +485,45 @@ namespace Sparta_TextRPG
             {
                 sceneName = SceneName.BattelStart;
             }
-            else if (inputNum <= monsters.Count + 1) // 입력 시 대상 선택, 구현 몬하겠다 일단 넘기고
+            else if (inputNum <= Dungouns[floor].monsters.Count + 1) // 입력 시 대상 선택, 구현 몬하겠다 일단 넘기고
             {
-                //monsters[inputNum-1]
-                if (inputNum == 1)
-                {
-                    sceneName = SceneName.BattelAttackMonster;
-                }
-                else if (inputNum == 2)
-                {
-                    sceneName = SceneName.BattelAttackMonster;
-                }
-                else if (inputNum == 3)
-                {
-                    sceneName = SceneName.BattelAttackMonster;
-                }
-                else
-                {
-                    sceneName = SceneName.BattelAttackMonster;
-                }
+                TargetMonster = Dungouns[floor].monsters[inputNum - 1];
+                sceneName = SceneName.BattelAttackMonster;
             }
             else
             {
                 Messages.Instance().ErrorMessage();
             }
+           
+        }
+        public void BattelAttackMonster()
+        {
+
+            this.Player.UseSkill(Skill);
+            int Damage = TargetMonster.Hit(Skill, Player.AttackPoint);
+
+            Messages.Instance().ShowBattelAttackMonster(TargetMonster, Player, Damage);
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
 
             bool isAllDeath = false; // 한 마리라도 살아있으면 true로 변경
 
-            for (int i = 0; i < monsters.Count; i++)
+            for (int i = 0; i < Dungouns[floor].monsters.Count; i++)
             {
-                if (monsters[i].IsDead == false)
+                if (Dungouns[floor].monsters[i].IsDead == false)
                 {
                     isAllDeath = true;
                 }
             }
-
-            if (isAllDeath = true)
+            if (isAllDeath = false)
             {
-                // 승리 씬으로 들어가기
                 sceneName = SceneName.BattlePlayerWin;
-            }
-        }
-        public void BattelAttackMonster(Monster monster, Skill PlayerSkill)
-        {
-            Messages.Instance().ShowBattelAttackMonster(monster, Player, Player.SkillList[0]);
-            //로직 추가
-            string input = Console.ReadLine();
-            int inputNum = int.Parse(input);
-
-            Random random = new Random();
-            double Deviation = Math.Ceiling((double)(random.Next(-1, 2) * PlayerSkill.Damage) / 10);
-            // 데미지 편차 (-1~1)까지 랜덤 난수 생성후 데미지에 곱한 뒤 10으로 나눈 걸 올림
-
-            if (monster.IsDead)
-            {
-                Messages.Instance().ErrorMessage(); // 죽어있다면 오류 메세지 출력
-
-            }
-            if (inputNum == 0) // 0 입력 시 몬스터 공격 턴으로 이동
-            {
-                sceneName = SceneName.BattelMonsterPhase;
-            }
-            else if (inputNum <= monsters.Count + 1)
-            {
-                Messages.Instance().ErrorMessage();
             }
             else
             {
-                monster.NowHP -= PlayerSkill.Damage + (int)Deviation - monster.ArmorPoint;
-                // 데미지 공식 = 플레이어 데미지 + 편차 - 몬스터 방어력
+                sceneName = SceneName.BattelStart;
             }
-
-
-
-
         }
         public void BattelMonsterPhase(List<Monster> monsters, Skill PlayerSKill, Player player)
         {

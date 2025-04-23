@@ -28,5 +28,12 @@ namespace Sparta_TextRPG
             """);
 
         }
+
+        public Skill? useSkill(string skillName)
+        {
+            Skill? skill = SkillList.Find(n => n.Name.CompareTo(skillName) == 0);
+            return skill;
+        }//플레이어와 몬스터 스킬사용 로직이 다름
+        // public bool Evasion(Skill skill,int PlayerDamage)
     }
 }
