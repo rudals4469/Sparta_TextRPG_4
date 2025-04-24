@@ -21,6 +21,7 @@ namespace Sparta_TextRPG
         public List<Monster> monsters { get; set; }
         public List<Dungoun> Dungouns { get; set; }
         public List<Quest> Quests { get; set; }
+        private string acceptedQuestName = "";
         private int selectedQuestIndex = 0;
         public int floor = 0;
 
@@ -93,26 +94,14 @@ namespace Sparta_TextRPG
                     case SceneName.NPC:
                         NPCText();
                         break;
-                    case SceneName.Quest:
-                        QuestText();
+                    case SceneName.QuestList:
+                        QuestList();
                         break;
-                    case SceneName.Quest1:
-                        Quest1Info();
+                    case SceneName.QuestInfo:
+                        QuestInfo();
                         break;
-                    case SceneName.Quest2:
-                        Quest2Info();
-                        break;
-                    case SceneName.Quest3:
-                        Quest3Info();
-                        break;
-                    case SceneName.receiveQuest1:
-                        ReceiveQuest1();
-                        break;
-                    case SceneName.receiveQuest2:
-                        ReceiveQuest2();
-                        break;
-                    case SceneName.receiveQuest3:
-                        ReceiveQuest3();
+                    case SceneName.ViewAcceptedQuest:
+                        ViewAcceptedQuest();
                         break;
                     case SceneName.Rest:
                         Rest();
@@ -172,6 +161,8 @@ namespace Sparta_TextRPG
             Player.SkillList.Add(threeSnails);
             Player.SkillList.Add(slashBlast);
             Player.SkillList.Add(Origin);
+
+            Player.ActiveQuests = new List<Quest>(); // 퀘스트 리스트 
 
             //Armor(string name, string text, int price, ItemType type,int armorPoint , bool isEquipped)
             Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구", 10000, ItemType.Armor, 100);
@@ -264,7 +255,7 @@ namespace Sparta_TextRPG
             Quests = new List<Quest>
             {
                 new Quest(
-                    "기초퀘스트",
+                    "기초 퀘스트",
                     "시작할 때 받는 달팽이 사냥 퀘스트입니다.",
                     new List<Item>(), // 빈 리스트
                     300,
@@ -273,7 +264,7 @@ namespace Sparta_TextRPG
                     1
                 ),
                 new Quest(
-                    "중간퀘스트",
+                    "중간 퀘스트",
                     "아이언호그를 사냥하는 퀘스트입니다.",
                     new List<Item>(),
                     600,
@@ -282,7 +273,7 @@ namespace Sparta_TextRPG
                     5
                 ),
                 new Quest(
-                    "최종퀘스트",
+                    "최종 퀘스트",
                     "정체 불명의 비둘기를 처치하는 퀘스트입니다.",
                     new List<Item>(),
                     1000,
@@ -521,7 +512,7 @@ namespace Sparta_TextRPG
             sceneName = SceneName.BuyItem;
             
         }
-        public void BattelStart(Dungoun dungoun)
+        // public void BattelStart(Dungoun dungoun)
         public void DungeonSelection()
         {
             Messages.Instance().ShowDungeonSelection(Dungouns);
@@ -693,118 +684,122 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 1)
             {
-                sceneName = SceneName.Quest; // 퀘스트 씬으로 이동
+                sceneName = SceneName.QuestList; // 퀘스트 씬으로 이동
             }
             else if (inputNum == 2)
             {
-                sceneName = SceneName.Rest; // 휴식 하기 씬으로 이동
+                sceneName = SceneName.Rest; // 휴식하기 씬으로 이동
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
             }
         }
 
-        public void QuestText()
+        public void QuestList()
         {
-            Messages.Instance().ShowQuest();
+            Messages.Instance().ShowQuestList(Quests);
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum == 0)  // 0번 입력 시 여관(NPC) 메뉴로 돌아가기
+            if (inputNum == 0)
             {
                 sceneName = SceneName.NPC;
             }
-            else if(inputNum == 1)
+            else if (inputNum >= 1 && inputNum <= Quests.Count)
             {
-                sceneName = SceneName.Quest1;
+                selectedQuestIndex = inputNum - 1;  // 선택한 퀘스트 인덱스 기억
+                sceneName = SceneName.QuestInfo;       
             }
-            else if(inputNum == 2)
+            else if (inputNum == 4)
             {
-                sceneName = SceneName.Quest2;
+                sceneName = SceneName.ViewAcceptedQuest;
             }
-            else if (inputNum == 3)
+            else
             {
-                sceneName = SceneName.Quest3;
+                Messages.Instance().ErrorMessage();
             }
         }
 
-        public void Quest1Info()
-        {
-            Messages.Instance().ShowQuest1Info();
-            string input = Console.ReadLine();
-            int inputNum = int.Parse(input);
 
-            if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
+        public void QuestInfo()
+        {
+            Quest selectedQuest = Quests[selectedQuestIndex];  // 사용자가 고른 퀘스트
+            Messages.Instance().ShowQuestInfo(selectedQuest);  // 퀘스트 정보 출력
+
+            string input = Console.ReadLine();
+           int inputNum = int.Parse(input);
+
+            if (inputNum == 0)
             {
-                sceneName = SceneName.Quest;
+                sceneName = SceneName.QuestList;
             }
             else if (inputNum == 1)
             {
-                sceneName = SceneName.receiveQuest1;
+                if (Player.ActiveQuests.Contains(selectedQuest))
+                {
+                    sceneName = SceneName.AlreadyAcceptedQuest; // 이미 수락한 퀘스트를 선택하면 메시지 표시
+                }
+                else
+                {
+                    Player.ActiveQuests.Add(selectedQuest);
+                    acceptedQuestName = selectedQuest.Name; // 수락한 퀘스트 이름 저장
+                    sceneName = SceneName.AcceptQuest;
+                }
+
+                Console.WriteLine("\n0. 나가기");
+                string confirm = Console.ReadLine();
+                sceneName = SceneName.QuestList;
             }
+
         }
 
-        public void Quest2Info()
+        public void AcceptQuest()
         {
-            Messages.Instance().ShowQuest2Info();
+            Messages.Instance().ShowAcceptQuest();
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
             if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
             {
-                sceneName = SceneName.Quest;
+                sceneName = SceneName.QuestList;
             }
-            else if (inputNum == 1)
+            else
             {
-                sceneName = SceneName.receiveQuest2;
+                Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
             }
         }
-        public void Quest3Info()
+
+
+        public void AlreadyAcceptedQuest()
         {
-            Messages.Instance().ShowQuest3Info();
+            Messages.Instance().ShowAlreadyAcceptedQuest();
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
             if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
             {
-                sceneName = SceneName.Quest;
+                sceneName = SceneName.QuestList;
             }
-            else if (inputNum == 1)
+            else
             {
-                sceneName = SceneName.receiveQuest3;
+                Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
             }
         }
 
-        public void ReceiveQuest1()
+        public void ViewAcceptedQuest()
         {
-            Messages.Instance().ShowReceiveQuest1();
+            Messages.Instance().ShowViewAcceptedQuest();
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
             if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
             {
-                sceneName = SceneName.Quest;
+                sceneName = SceneName.QuestList;
             }
-        }
-
-        public void ReceiveQuest2()
-        {
-            Messages.Instance().ShowReceiveQuest2();
-            string input = Console.ReadLine();
-            int inputNum = int.Parse(input);
-
-            if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
+            else
             {
-                sceneName = SceneName.Quest;
-            }
-        }
-
-        public void ReceiveQuest3()
-        {
-            Messages.Instance().ShowReceiveQuest3();
-            string input = Console.ReadLine();
-            int inputNum = int.Parse(input);
-
-            if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
-            {
-                sceneName = SceneName.Quest;
+                Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
             }
         }
 
@@ -847,7 +842,10 @@ namespace Sparta_TextRPG
             {
                 sceneName = SceneName.NPC;
             }
-
+            else
+            {
+                Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
+            }
         }
 
         public void RestFail()
@@ -859,6 +857,10 @@ namespace Sparta_TextRPG
             if (inputNum == 0)  // 0번 입력 시 여관(NPC) 메뉴로 돌아가기
             {
                 sceneName = SceneName.NPC;
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
             }
 
         }
