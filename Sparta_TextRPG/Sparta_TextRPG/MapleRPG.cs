@@ -19,7 +19,7 @@ namespace Sparta_TextRPG
         public Player Player { get; set; }
         public NPC NPC { get; set; }
         public List<Monster> monsters { get; set; }
-        public List<Dungoun> Dungouns { get; set; }
+        public List<Dungeon> Dungouns { get; set; }
         public List<Quest> Quests { get; set; }
         private string acceptedQuestName = "";
         private int selectedQuestIndex = 0;
@@ -70,19 +70,19 @@ namespace Sparta_TextRPG
                     case SceneName.DungeonSelection:
                         DungeonSelection();
                         break;
-                    case SceneName.BattelStart:
-                        BattelStart();
+                    case SceneName.BattleStart:
+                        BattleStart();
                         break;
-                    case SceneName.SellectSkill:
+                    case SceneName.SelectSkill:
                         SellectSkill();
                         break;
-                    case SceneName.BattelAttackPhase:
-                        BattelAttackPhase();
+                    case SceneName.BattleAttackPhase:
+                        BattleAttackPhase();
                         break;
-                    case SceneName.BattelAttackMonster:
-                        BattelAttackMonster();
+                    case SceneName.BattleAttackMonster:
+                        BattleAttackMonster();
                         break;
-                    case SceneName.BattelMonsterPhase:
+                    case SceneName.BattleMonsterPhase:
                         //BattelMonsterPhase();
                         break;
                     case SceneName.BattlePlayerWin:
@@ -132,7 +132,7 @@ namespace Sparta_TextRPG
         {
             Shop = new Shop();
             monsters = new List<Monster>();
-            Dungouns = new List<Dungoun>();
+            Dungouns = new List<Dungeon>();
             //Player(int Level, int Exp, int MaxHp, int NowHp, int MaxMP, int AttacPoint, int ArmorPoint, Inventory inventory,string Name,int Gold, List< Skill > SkillList, bool IsDead, int EvasionRate, int MaxExp, ClassName className)
 
             // public Skill(string name, int criticalRate, string text, int damage, int mana, int level, int coolTime,int targetCount)
@@ -191,8 +191,8 @@ namespace Sparta_TextRPG
             Weapon Absoluteknuckles = new Weapon("Absoluteknuckles", "앱솔루트 너클", 5000, ItemType.Weapon, 200);
 
             // Shiled(string name, string text, int price, ItemType type, int attackPoint, int armorPoint, bool isEquipped)
-            Shiled potlid = new Shiled("potlid", "앱솔루트 아대", 5000, ItemType.Shield, 50, 50);
-            Shiled nomok = new Shiled("nomok", "노가다 목장갑", 50000, ItemType.Shield, 200, 200);
+            Shield potlid = new Shield("potlid", "앱솔루트 아대", 5000, ItemType.Shield, 50, 50);
+            Shield nomok = new Shield("nomok", "노가다 목장갑", 50000, ItemType.Shield, 200, 200);
 
             //Potion(string name, string text, int price, ItemType type, int HealPoint)
             Potion HP = new Potion("HP", "체력회복 포션", 500, ItemType.Potion, 100);
@@ -222,7 +222,7 @@ namespace Sparta_TextRPG
             List<Item> MonsterDorpItems = new List<Item>() { WoodSword, WoodBow, WoodStaff, WoodClaw, Woodknuckles };
             List<Item> BossDorpItems = new List<Item>() { zakumHelmet, horntailNecklace };
 
-            monsters.Add(new Monster(1, 5, 10, 10, 5, 1, 100, MonsterSkillset, 100, MonsterName.Snail, MonsterDorpItems));
+            monsters.Add(new Monster(1, 5, 10, 10, 5, 1, 100, MonsterSkillset, 10, MonsterName.Snail, MonsterDorpItems));
             monsters.Add(new Monster(2, 8, 15,  10, 8, 2, 150, MonsterSkillset, 10, MonsterName.OrangeMushroom, MonsterDorpItems));
             monsters.Add(new Monster(3, 10, 20, 10, 10, 2, 200, MonsterSkillset, 10, MonsterName.RibbonPig, MonsterDorpItems));
             monsters.Add(new Monster(4, 12, 23, 10, 12, 3, 230, MonsterSkillset, 15, MonsterName.EvilEye, MonsterDorpItems));
@@ -233,17 +233,17 @@ namespace Sparta_TextRPG
 
 
             monsters.Add(new Monster(9, 10000, 1, 1, 10000, 10000, 10000, MonsterSkillset, 100, MonsterName.AnUnnamedPigeon, BossDorpItems));
-            
+
 
             // Dungoun(string name, int level, List<Monster> monsters)
-            Dungoun dungounLevel1 = new Dungoun("1층", 1, monsters.Skip(0).Take(3).ToList());
-            Dungoun dungounLevel2 = new Dungoun("2층", 2, monsters.Skip(1).Take(3).ToList());
-            Dungoun dungounLevel3 = new Dungoun("3층", 3, monsters.Skip(2).Take(3).ToList());
-            Dungoun dungounLevel4 = new Dungoun("4층", 4, monsters.Skip(3).Take(3).ToList());
-            Dungoun dungounLevel5 = new Dungoun("5층", 5, monsters.Skip(4).Take(3).ToList());
-            Dungoun dungounLevel6 = new Dungoun("6층", 6, monsters.Skip(5).Take(3).ToList());
-            Dungoun dungounLevel7 = new Dungoun("7층", 7, monsters.Skip(6).Take(2).ToList());
-            Dungoun dungounLevel8 = new Dungoun("Boss", 8, monsters.Skip(8).ToList());
+            Dungeon dungounLevel1 = new Dungeon("1층", 1, monsters.Skip(0).Take(3).ToList());
+            Dungeon dungounLevel2 = new Dungeon("2층", 2, monsters.Skip(1).Take(3).ToList());
+            Dungeon dungounLevel3 = new Dungeon("3층", 3, monsters.Skip(2).Take(3).ToList());
+            Dungeon dungounLevel4 = new Dungeon("4층", 4, monsters.Skip(3).Take(3).ToList());
+            Dungeon dungounLevel5 = new Dungeon("5층", 5, monsters.Skip(4).Take(3).ToList());
+            Dungeon dungounLevel6 = new Dungeon("6층", 6, monsters.Skip(5).Take(3).ToList());
+            Dungeon dungounLevel7 = new Dungeon("7층", 7, monsters.Skip(6).Take(2).ToList());
+            Dungeon dungounLevel8 = new Dungeon("Boss", 8, monsters.Skip(8).ToList());
             //
             Dungouns.Add(dungounLevel1);
             Dungouns.Add(dungounLevel2);
@@ -512,23 +512,45 @@ namespace Sparta_TextRPG
             sceneName = SceneName.BuyItem;
             
         }
-        // public void BattelStart(Dungoun dungoun)
+
+        //미완
         public void DungeonSelection()
         {
             Messages.Instance().ShowDungeonSelection(Dungouns);
             string str = Console.ReadLine();
-            floor = int.Parse(str) - 1;
+            int inputNum;
 
-            sceneName = SceneName.BattelStart;
+            if(int.TryParse(str , out inputNum))
+            {
+                if(inputNum < Dungouns.Count+1)
+                {
+                    floor = inputNum - 1;
+                    sceneName = SceneName.BattleStart;
+                }
+                else if (inputNum == Dungouns.Count + 1)
+                {
+                    int a = 0;
+                    //여기서 플레이어 상태보기
+                }
+                else if(inputNum == Dungouns.Count + 2)
+                {
+                    int a = 0;
+                    //여기서 표션 사용
+                }
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
         }
-        public void BattelStart()
+        public void BattleStart()
         {
-            Messages.Instance().ShowBattelStart(Dungouns[floor].monsters, Player);
+            Messages.Instance().ShowBattleStart(Dungouns[floor].monsters, Player);
             string str = Console.ReadLine();
             int num = int.Parse(str);
             if (num == 1)
             {
-                sceneName = SceneName.SellectSkill;
+                sceneName = SceneName.SelectSkill;
             }
         }
         public void SellectSkill()
@@ -539,24 +561,24 @@ namespace Sparta_TextRPG
             if (num < Player.SkillList.Count + 1)
             {
                 Skill = Player.SkillList[num - 1];
-                sceneName = SceneName.BattelAttackPhase;
+                sceneName = SceneName.BattleAttackPhase;
             }
 
         }
-        public void BattelAttackPhase()// 던전에 이미 몬스터수가 정해짐
+        public void BattleAttackPhase()// 던전에 이미 몬스터수가 정해짐
         {
-            Messages.Instance().ShowBattelAttackPhase(Dungouns[floor].monsters, Player);
+            Messages.Instance().ShowBattleAttackPhase(Dungouns[floor].monsters, Player);
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
             if (inputNum == 0) // 0 입력 시 전 화면으로 돌아가기
             {
-                sceneName = SceneName.BattelStart;
+                sceneName = SceneName.BattleStart;
             }
             else if (inputNum <= Dungouns[floor].monsters.Count + 1) // 입력 시 대상 선택, 구현 몬하겠다 일단 넘기고
             {
                 TargetMonster = Dungouns[floor].monsters[inputNum - 1];
-                sceneName = SceneName.BattelAttackMonster;
+                sceneName = SceneName.BattleAttackMonster;
             }
             else
             {
@@ -564,13 +586,13 @@ namespace Sparta_TextRPG
             }
            
         }
-        public void BattelAttackMonster()
+        public void BattleAttackMonster()
         {
 
             this.Player.UseSkill(Skill);
             int Damage = TargetMonster.Hit(Skill, Player.AttackPoint);
 
-            Messages.Instance().ShowBattelAttackMonster(TargetMonster, Player, Damage);
+            Messages.Instance().ShowBattleAttackMonster(TargetMonster, Player, Damage);
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
@@ -590,10 +612,10 @@ namespace Sparta_TextRPG
             }
             else
             {
-                sceneName = SceneName.BattelStart;
+                sceneName = SceneName.BattleStart;
             }
         }
-        public void BattelMonsterPhase(List<Monster> monsters, Skill PlayerSKill, Player player)
+        public void BattleMonsterPhase(List<Monster> monsters, Skill PlayerSKill, Player player)
         {
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
@@ -601,7 +623,7 @@ namespace Sparta_TextRPG
             //몬스터리스트 받아서 추가 = 모든 몬스터가 한 대 씩 때리기 때문.
             for (int i = 0; i < monsters.Count; i++)
             {
-                Messages.Instance().ShowBattelMonsterPhase(monsters[i], Player, Player.SkillList[0]);
+                Messages.Instance().ShowBattleMonsterPhase(monsters[i], Player, Player.SkillList[0]);
                 player.NowHP -= (monsters[i].AttackPoint - player.ArmorPoint);
                 // 데미지 공식 = 몬스터 공격력 - 플레이어 방어력
 
@@ -624,10 +646,10 @@ namespace Sparta_TextRPG
 
             if (inputNum == 0) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
             {
-                sceneName = SceneName.BattelAttackPhase;
+                sceneName = SceneName.BattleAttackPhase;
             }
 
-
+             
         }
         public void BattlePlayerWin(List<Monster> monsters, Player player)
         {

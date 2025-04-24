@@ -55,11 +55,13 @@ namespace Sparta_TextRPG
                 if (CritiacalNum <= skill.CriticalRate)
                 {
                     NowHP -= PlayerDamage * skill.Damage * 2;
+                    if(NowHP<=0) IsDead = true;
                     return PlayerDamage * skill.Damage * 2;
                 }
                 else
                 {
                     NowHP -= PlayerDamage * skill.Damage;
+                    if (NowHP <= 0) IsDead = true;
                     return PlayerDamage * skill.Damage;
                 }
 

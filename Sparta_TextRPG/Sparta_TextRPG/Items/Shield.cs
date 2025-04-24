@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
 {
-    internal class Shiled : Item
+    internal class Shield : Item
     {
         public int AttackPoint { get; set; }
         public int ArmorPoint { get; set; }
         public bool IsEquipped { get; set; }
 
-        public Shiled(string name, string text, int price, ItemType type, int attackPoint, int armorPoint) : base(name, text, price, type)
+        public Shield(string name, string text, int price, ItemType type, int attackPoint, int armorPoint) : base(name, text, price, type)
         {
             this.AttackPoint = attackPoint;
             this.ArmorPoint = armorPoint;

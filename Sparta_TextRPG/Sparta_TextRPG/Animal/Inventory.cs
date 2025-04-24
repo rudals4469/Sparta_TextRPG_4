@@ -12,14 +12,14 @@ namespace Sparta_TextRPG
         //public List<Item> Reward { get; set; }  // 퀘스트 아이템 보상
         public List<Weapon>? Weapon { get; set; }
         public List<Armor>? Armors { get; set; }
-        public List<Shiled>? Shild { get; set; }
+        public List<Shield>? Shild { get; set; }
         public List<Potion>? Potions { get; set; } // 0 hp  , 1 mp
 
         public Inventory()
         {
             Weapon = new List<Weapon>();
             Armors = new List<Armor>();
-            Shild = new List<Shiled>();
+            Shild = new List<Shield>();
             Potions = new List<Potion>();
         }
         public Item? GetItemByIndex(int index)
@@ -48,7 +48,7 @@ namespace Sparta_TextRPG
             else if (item.Type == ItemType.Armor)
                 Armors.Remove((Armor)item);
             else if (item.Type == ItemType.Shield)
-                Shild.Remove((Shiled)item);
+                Shild.Remove((Shield)item);
             else if (item.Type == ItemType.Potion)
                 Potions.Remove((Potion)item);
         }
@@ -67,7 +67,7 @@ namespace Sparta_TextRPG
             }
         if (item.Type == ItemType.Shield)
             {
-                Shild.Add((Shiled)item);
+                Shild.Add((Shield)item);
             }
         if (item.Type == ItemType.Potion)
             {

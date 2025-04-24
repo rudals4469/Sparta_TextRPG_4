@@ -15,7 +15,7 @@ namespace Sparta_TextRPG
         public List<Quest> ActiveQuests { get; set; } // 진행 중인 퀘스트 저장
         public Weapon Weapon { get; set; }
         public Armor Armor { get; set; }
-        public Shiled Shield { get; set; }
+        public Shield Shield { get; set; }
 
         // Animal에 있는 inventory를 Player로 옮기기
 
@@ -110,9 +110,9 @@ namespace Sparta_TextRPG
                 if (Shield != null)
                 {
                     Shield.IsEquipped = false;
-                    if (Shield == (Shiled)item) return;
+                    if (Shield == (Shield)item) return;
                 }
-                Shield = (Shiled)item;
+                Shield = (Shield)item;
                 Shield.IsEquipped = true;
             }
         }
