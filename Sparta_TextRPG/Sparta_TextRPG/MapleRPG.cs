@@ -696,6 +696,8 @@ namespace Sparta_TextRPG
             Messages.Instance().ShowBattleMonsterPhase();
             for (int i = 0; i < Dungouns[floor].monsters.Count; i++)
             {
+                // 몬스터 다음사용스킬 저장
+                //몬스터 다음스킬 턴수 확인하고 공격턴인지 확인
                 if(monsters[i].IsDead == false)
                 {
                     int PlayerBeforHP = Player.NowHP;
