@@ -33,6 +33,7 @@ namespace Sparta_TextRPG
         public Monster TargetMonster;
 
         public Dictionary<string, Skill> AllSkill = new Dictionary<string, Skill>();
+        public List<Item> dorps;
         public MapleRPG()
         {
             init();
@@ -86,13 +87,13 @@ namespace Sparta_TextRPG
                         BattleAttackMonster();
                         break;
                     case SceneName.BattleMonsterPhase:
-                        //BattelMonsterPhase();
+                        BattleMonsterPhase();
                         break;
                     case SceneName.BattlePlayerWin:
-                        //BattlePlayerWin();
+                        BattlePlayerWin();
                         break;
                     case SceneName.BattlePlayerLose:
-                        //BattlePlayerLose();
+                        BattlePlayerLose();
                         break;
                     case SceneName.NPC:
                         NPCText();
@@ -136,6 +137,7 @@ namespace Sparta_TextRPG
             Shop = new Shop();
             monsters = new List<Monster>();
             Dungouns = new List<Dungeon>();
+            dorps = new List<Item>();
             //Player(int Level, int Exp, int MaxHp, int NowHp, int MaxMP, int AttacPoint, int ArmorPoint, Inventory inventory,string Name,int Gold, List< Skill > SkillList, bool IsDead, int EvasionRate, int MaxExp, ClassName className)
 
             // public Skill(string name, int criticalRate, string text, int damage, int mana, int level, int coolTime,int targetCount)
@@ -571,6 +573,10 @@ namespace Sparta_TextRPG
 
             if(int.TryParse(str , out inputNum))
             {
+                if(inputNum == 0)
+                {
+                    sceneName = SceneName.MainScene;
+                }
                 if(inputNum < Dungouns.Count+1)
                 {
                     floor = inputNum - 1;
@@ -602,15 +608,23 @@ namespace Sparta_TextRPG
                 sceneName = SceneName.SelectSkill;
             }
         }
-        public void SellectSkill()
+        public void SellectSkill(Skill skill)
         {
             Messages.Instance().ShowSellectSkill(Dungouns[floor].monsters, Player);
             string str = Console.ReadLine();
             int num = int.Parse(str);
             if (num < Player.SkillList.Count + 1)
             {
-                Skill = Player.SkillList[num - 1];
-                sceneName = SceneName.BattleAttackPhase;
+                if (Player.SkillList.CoolTime > 0)
+                {
+                    Skill = Player.SkillList[num - 1];
+                    sceneName = SceneName.BattleAttackPhase;
+                }
+
+                else
+                {
+                    Messages.Instance().CoolTimeError();
+                }
             }
 
         }
@@ -640,6 +654,9 @@ namespace Sparta_TextRPG
 
             this.Player.UseSkill(Skill);
             int Damage = TargetMonster.Hit(Skill, Player.AttackPoint);
+            Item? drop = TargetMonster.DropItem();
+
+            if(drop != null) dorps.Add(drop);
 
             Messages.Instance().ShowBattleAttackMonster(TargetMonster, Player, Damage);
 
@@ -664,8 +681,9 @@ namespace Sparta_TextRPG
                 sceneName = SceneName.BattleStart;
             }
         }
-        public void BattleMonsterPhase(List<Monster> monsters, Skill PlayerSKill, Player player)
+        public void BattleMonsterPhase()
         {
+            //쿨타임 개념 완성하면 ㄱ
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
@@ -673,10 +691,10 @@ namespace Sparta_TextRPG
             for (int i = 0; i < monsters.Count; i++)
             {
                 Messages.Instance().ShowBattleMonsterPhase(monsters[i], Player, Player.SkillList[0]);
-                player.NowHP -= (monsters[i].AttackPoint - player.ArmorPoint);
+                Player.NowHP -= (monsters[i].AttackPoint - Player.ArmorPoint);
                 // 데미지 공식 = 몬스터 공격력 - 플레이어 방어력
 
-                if (player.IsDead = true)
+                if (Player.IsDead = true)
                 {
                     // 플레이어 사망 시 패배 씬으로 들어가기
                     sceneName = SceneName.BattlePlayerLose;
@@ -700,15 +718,21 @@ namespace Sparta_TextRPG
 
              
         }
-        public void BattlePlayerWin(List<Monster> monsters, Player player)
+        public void BattlePlayerWin()
         {
-            Messages.Instance().ShowBattlePlayerWin(monsters, Player.NowHP, Player);
-            for (int i = 0; i < monsters.Count; i++)
+            Messages.Instance().ShowBattlePlayerWin(Dungouns[floor].monsters, Player.NowHP, Player , dorps);
+
+            foreach (var monster in Dungouns[floor].monsters)
             {
-                player.Exp += monsters[i].Exp; // 경험치
-                player.Gold += monsters[i].Gold; // 돈
-                // 아이템 습득 로직
+                Player.AddExp(monster.Exp);
+                Player.Gold += (monster.Gold);
             }
+
+            foreach (var item in dorps)
+            {
+                Player.Inventory.Add(item);
+            }
+            dorps.Clear(); //드롭템 초기화
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
@@ -723,12 +747,12 @@ namespace Sparta_TextRPG
             }
 
         }
-        public void BattlePlayerLose(Player player)
+        public void BattlePlayerLose()
         {
             Messages.Instance().ShowBattlePlayerLose(Player.NowHP, Player);
             //로직 추가
 
-            player.NowHP = 0;
+            Player.NowHP = 0;
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);

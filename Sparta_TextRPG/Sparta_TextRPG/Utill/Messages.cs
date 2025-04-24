@@ -99,6 +99,7 @@ namespace Sparta_TextRPG
 
                 {++count}. 상태 보기
                 {++count}. 회복 아이템
+                0. 마을로 가기
                 입장할 던전을 선택해 주세요
                 >>
                 """);
@@ -159,9 +160,10 @@ namespace Sparta_TextRPG
                
                """);
             int count = 0;
+            Console.WriteLine("No.     이름       | 마나 | 쿨타임 |  설명");
             foreach (var item in player.SkillList)
             {
-                Console.WriteLine($"{++count} {item.Name} | {item.Text}");
+                Console.WriteLine($"{++count,-3} {item.Name,-14} | {item.Mana,4} | {item.CoolTime,6} | {item.Text}");
             }
             Console.Write("""
 
@@ -169,6 +171,12 @@ namespace Sparta_TextRPG
                 >>
                 """);
         }
+        public void CoolTimeError()
+        {
+            Console.Write("[스킬 사용 불가] 쿨타임 중이므로 다른 스킬을 사용해주세요.");
+            Thread.Sleep(3000);
+        }
+
         public void ShowBattleAttackPhase(List<Monster> monsters, Player player)
         {
             printMonster(monsters);
@@ -243,7 +251,7 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-        public void ShowBattlePlayerWin(List<Monster> monsters, int HP, Player player)
+        public void ShowBattlePlayerWin(List<Monster> monsters, int HP, Player player, List<Item> items)
         {
             Console.Write(
                $"""
@@ -256,6 +264,15 @@ namespace Sparta_TextRPG
                Lv.{player.Level} {player.Name}
                HP {HP} -> {player.NowHP}
 
+               획득 아이템
+               (
+               """);
+            foreach (var item in items)
+            {
+                Console.Write($"{item.Name} ");
+            }
+            Console.Write(
+               """
                0. 다음
 
                >>
