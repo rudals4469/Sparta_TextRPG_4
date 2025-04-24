@@ -172,7 +172,7 @@ namespace Sparta_TextRPG
             // 메이플 아이템들
             // 엘릭서 , hp , mp
 
-            Player.ActiveQuests = new List<Quest>(); // 퀘스트 리스트 
+            //Player.ActiveQuests = new List<Quest>(); // 퀘스트 리스트 
 
             //Armor(string name, string text, int price, ItemType type,int armorPoint , bool isEquipped)
             Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구", 10000, ItemType.Armor, 100);
@@ -413,7 +413,7 @@ namespace Sparta_TextRPG
             {
                 Messages.Instance().ErrorMessage();
             }
-            // 플레이어 생성
+
             sceneName = SceneName.MainScene;
 
         }
@@ -827,7 +827,7 @@ namespace Sparta_TextRPG
 
         public void AcceptQuest()
         {
-            Messages.Instance().ShowAcceptQuest();
+           // Messages.Instance().ShowAcceptQuest();
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 

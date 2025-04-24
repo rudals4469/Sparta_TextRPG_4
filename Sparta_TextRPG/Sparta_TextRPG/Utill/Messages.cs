@@ -33,7 +33,7 @@ namespace Sparta_TextRPG
                 5. 게임종료
 
                 원하시는 행동을 입력해주세요.
-                >>
+                >> 
                 """);
         }
         public void ShowStartSetName()
@@ -43,7 +43,7 @@ namespace Sparta_TextRPG
                 메이플 월드에 오신여러분 환영합니다.
                 원하시는 이름을 설정해주세요
 
-                >>
+                >> 
                 """);
         }
         public void ShowStartChackName(string Name)
@@ -59,7 +59,7 @@ namespace Sparta_TextRPG
                 2.취소
                 
                 원하시는 행동을 입력해주세요
-                >>
+                >> 
                 """);
         }
         public void ShowStartSetClass()
@@ -76,7 +76,7 @@ namespace Sparta_TextRPG
                 5.{ClassName.해적.ToString()}
 
                 원하시는 행동을 입력해주세요
-                >>
+                >> 
                 """);
 
         }
@@ -278,35 +278,35 @@ namespace Sparta_TextRPG
         }
         public void ShowStatus(Player player)         //$""" 사용해보려 하였으나 익숙치 않아 익숙한 것으로 진행
         {
-            Console.WriteLine("상태 보기");
+            Console.WriteLine("[상태 보기]");
             Console.WriteLine("캐릭터의 정보가 표시됩니다.");
             Console.WriteLine();                                       //줄 바꿈 처리
             Console.WriteLine($"Lv. {player.Level}");
             Console.WriteLine($"{player.Name} ( {player.Class} )");
-            Console.WriteLine($"공격력 : {player.AttackPoint}");
-            Console.WriteLine($"방어력 : {player.ArmorPoint}");
-            Console.WriteLine($"체  력 : {player.NowHP}/{player.MaxHP}");                //원본 가이드에서 띄어쓰기 되어있음
-            Console.WriteLine($"Gold : {player.Gold} G");
+            Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
+            Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
+            Console.WriteLine($"{"체  력",-6}: {player.NowHP}/{player.MaxHP}");                //원본 가이드에서 띄어쓰기 되어있음
+            Console.WriteLine($"{"Gold",-8}: {player.Gold} G");
             Console.WriteLine();                                      //줄 바꿈 처리
 
-            Console.WriteLine("인벤토리");                             //player 인벤토리로 받을 수 있게 처리
+            Console.WriteLine("[인벤토리]");                             //player 인벤토리로 받을 수 있게 처리
                                                                    //인벤토리 출력은 4단계를 거쳐서 작성해야함
                                                                    //foreach (var item in player.Inventory)                    //배열 리스트 순차적으로 꺼내서 처리(var 변수 타입 결정 player인벤토리 안에 있는 아이템 전부 item처리)
                                                                    //Console.WriteLine($" - {item.Name} x{item.Quantity}"); //아이템 이름과 수량
 
 
             Console.WriteLine("장착 중인 아이템:");                     // 상태창에서 바로 장착중인 아이템이 보여지게 수정
-            Console.Write("- 무기 : ");
+            Console.Write($"- {"무기",-4} :");
             if (player.Weapon != null)
-                Console.WriteLine($"{player.Weapon.Name}"); // 무기 장착 칸
+                Console.WriteLine($" {player.Weapon.Name}"); // 무기 장착 칸
             else Console.WriteLine(); // 아니여도 줄 바꿈
-            Console.Write("- 방어구 : ");
+            Console.Write($"- {"방어구",-3} :");
             if (player.Armor != null)
-                Console.WriteLine($"{player.Armor.Name}");   // 방어구 장착 칸
+                Console.WriteLine($" {player.Armor.Name}");   // 방어구 장착 칸
             else Console.WriteLine();
-            Console.Write("- 방패 : ");
+            Console.Write($"- {"방패",-4} :");
             if (player.Shield != null)
-                Console.WriteLine($"{player.Shield.Name}");   // 방패 장착 칸
+                Console.WriteLine($" {player.Shield.Name}");   // 방패 장착 칸
             else Console.WriteLine();
 
             Console.WriteLine();                                      //줄 바꿈 처리
@@ -338,7 +338,7 @@ namespace Sparta_TextRPG
             */
             Console.WriteLine("\n1. 인벤토리 보기");
             Console.WriteLine("0. 나가기\n");
-            Console.Write("원하시는 행동을 입력해주세요.\n>>");
+            Console.Write("원하시는 행동을 입력해주세요.\n>> ");
         }
 
         public void ShowInventory(Player player)
@@ -360,22 +360,22 @@ namespace Sparta_TextRPG
                 Console.WriteLine("[무기]");
                 foreach (var weapon in player.Inventory.Weapon)
                 {
-                    string prefix = weapon.IsEquipped ? "[E]" : "";
-                    Console.WriteLine($"- {prefix}{weapon.Name} | +{weapon.AttackPoint} | {weapon.Text}");
+                    string prefix = weapon.IsEquipped ? "[E] ": "[ ] ";
+                    Console.WriteLine($"- {prefix}{weapon.Name,-16} | +{weapon.AttackPoint} | {weapon.Text}");
                 }
 
                 Console.WriteLine("\n[방어구]");
                 foreach (var armor in player.Inventory.Armors)
                 {
-                    string prefix = armor.IsEquipped ? "[E]" : "";
-                    Console.WriteLine($"- {prefix}{armor.Name} | +{armor.ArmorPoint} | {armor.Text}");
+                    string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
+                    Console.WriteLine($"- {prefix}{armor.Name,-16} | +{armor.ArmorPoint} | {armor.Text}");
                 }
 
                 Console.WriteLine("\n[방패]");
                 foreach (var shield in player.Inventory.Shild)
                 {
-                    string prefix = shield.IsEquipped ? "[E]" : "";
-                    Console.WriteLine($"- {prefix}{shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
+                    string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
+                    Console.WriteLine($"- {prefix}{shield.Name,-16} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
                 }
 
                 Console.WriteLine("\n[포션]");
@@ -428,24 +428,24 @@ namespace Sparta_TextRPG
 
                 foreach (var weapon in player.Inventory.Weapon)
                 {
-                    string prefix = weapon.IsEquipped ? "[E]" : "";
-                    Console.WriteLine($"- {Count} {prefix}{weapon.Name} | +{weapon.AttackPoint} | {weapon.Text}");
+                    string prefix = weapon.IsEquipped ? "[E] " : "[ ] ";
+                    Console.WriteLine($"- {Count,-2} {prefix}{weapon.Name,-16} | +{weapon.AttackPoint} | {weapon.Text}");
                     Count++;
                 }
 
                 Console.WriteLine("\n[방어구]");
                 foreach (var armor in player.Inventory.Armors)
                 {
-                    string prefix = armor.IsEquipped ? "[E]" : "";
-                    Console.WriteLine($"- {Count} {prefix}{armor.Name} | +{armor.ArmorPoint} | {armor.Text}");
+                    string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
+                    Console.WriteLine($"- {Count, -2} {prefix}{armor.Name,-16} | +{armor.ArmorPoint} | {armor.Text}");
                     Count++;
                 }
 
                 Console.WriteLine("\n[방패]");
                 foreach (var shield in player.Inventory.Shild)
                 {
-                    string prefix = shield.IsEquipped ? "[E]" : "";
-                    Console.WriteLine($"- {Count} {prefix}{shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
+                    string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
+                    Console.WriteLine($"- {Count,-2} {prefix}{shield.Name,-16} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
                     Count++;
                 }
 
@@ -636,7 +636,6 @@ namespace Sparta_TextRPG
                500 G 를 소모하여 체력을 회복할 수 있습니다. (보유 골드 : {player.Gold} G)
 
                1. 휴식하기
-               
                0. 나가기
 
                원하시는 행동을 입력해주세요. 
@@ -698,7 +697,7 @@ namespace Sparta_TextRPG
                 필요한 아이템을 골드로 구매하실 수 있습니다 :3
 
                 [보유 골드]
-                {player.Gold}
+                {player.Gold} Meso
                 
                 [아이템 목록]
 
@@ -707,7 +706,7 @@ namespace Sparta_TextRPG
 
             foreach (var weapon in shop.Inventory.Weapon)
             { 
-                Console.WriteLine($"- {Count} {weapon.Name} | +{weapon.AttackPoint} | {weapon.Text} | {weapon.Price}");
+                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} meso | {weapon.Text} ");
                 Count++;
             }
 
@@ -715,7 +714,7 @@ namespace Sparta_TextRPG
             foreach (var armor in shop.Inventory.Armors)
             {
                 
-                Console.WriteLine($"- {Count} {armor.Name} | +{armor.ArmorPoint} | {armor.Text} | {armor.Price}");
+                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} meso | {armor.Text,-15}");
                 Count++;
             }
 
@@ -723,7 +722,7 @@ namespace Sparta_TextRPG
             foreach (var shield in shop.Inventory.Shild)
             {
                 
-                Console.WriteLine($"- {Count} {shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text} | {shield.Price}");
+                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} meso | {shield.Text,-15}");
                 Count++;
             }
             
@@ -734,7 +733,7 @@ namespace Sparta_TextRPG
                 0. 나가기
 
                 원하시는 행동을 입력해주세요.
-                >>
+                >> 
                 """);
 
 
@@ -758,15 +757,14 @@ namespace Sparta_TextRPG
 
             foreach (var weapon in shop.Inventory.Weapon)
             {
-                Console.WriteLine($"- {Count} {weapon.Name} | +{weapon.AttackPoint} | {weapon.Text} | {weapon.Price}");
+                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} meso | {weapon.Text} ");
                 Count++;
             }
 
             Console.WriteLine("\n[방어구]");
             foreach (var armor in shop.Inventory.Armors)
             {
-
-                Console.WriteLine($"- {Count} {armor.Name} | +{armor.ArmorPoint} | {armor.Text} | {armor.Price}");
+                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} meso | {armor.Text,-15}");
                 Count++;
             }
 
@@ -774,7 +772,7 @@ namespace Sparta_TextRPG
             foreach (var shield in shop.Inventory.Shild)
             {
 
-                Console.WriteLine($"- {Count} {shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text} | {shield.Price}");
+                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} meso | {shield.Text,-15}");
                 Count++;
             }
 
@@ -784,7 +782,7 @@ namespace Sparta_TextRPG
                 0. 나가기
 
                 번호를 눌러 원하는 아이템을 사거나 원하시는 행동을 입력해주세요.
-                >>
+                >> 
                 """);
                 
 
@@ -808,7 +806,7 @@ namespace Sparta_TextRPG
 
             foreach (var weapon in player.Inventory.Weapon)
             {
-                Console.WriteLine($"- {Count} {weapon.Name} | +{weapon.AttackPoint} | {weapon.Text} | {weapon.Price}메소");
+                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} meso | {weapon.Text} ");
                 Count++;
             }
 
@@ -816,7 +814,7 @@ namespace Sparta_TextRPG
             foreach (var armor in player.Inventory.Armors)
             {
 
-                Console.WriteLine($"- {Count} {armor.Name} | +{armor.ArmorPoint} | {armor.Text} | {armor.Price}메소");
+                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} meso | {armor.Text,-15}");
                 Count++;
             }
 
@@ -824,7 +822,7 @@ namespace Sparta_TextRPG
             foreach (var shield in player.Inventory.Shild)
             {
 
-                Console.WriteLine($"- {Count} {shield.Name} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text} | {shield.Price}메소");
+                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} meso | {shield.Text,-15}");
                 Count++;
             }
 
@@ -833,7 +831,7 @@ namespace Sparta_TextRPG
                 0. 나가기
 
                 번호를 눌러 원하는 아이템을 팔거나 원하시는 행동을 입력해주세요.
-                >>
+                >> 
                 """);
         }
 
