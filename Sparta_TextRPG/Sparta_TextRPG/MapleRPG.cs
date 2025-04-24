@@ -737,6 +737,14 @@ namespace Sparta_TextRPG
             {
                 Player.AddExp(monster.Exp);
                 Player.Gold += (monster.Gold);
+
+                foreach (var quest in Player.ActiveQuests)  // 퀘스트 진행도 올리기
+                {
+                    if (quest.Target == monster.MonsterName && !quest.IsComplete())
+                    {
+                        quest.Count++; // 진행도 증가
+                    }
+                }
             }
 
             foreach (var item in dorps)
@@ -855,7 +863,7 @@ namespace Sparta_TextRPG
         }
 
 
-        public void AcceptingQuest()    // 퀘스트 수락 알림 메시지
+        public void AcceptingQuest()    // 퀘스트 수락 메시지
         {
             List<Quest> availableQuests = Quests.Where(q => !Player.ActiveQuests.Contains(q)).ToList();
             Quest selectedQuest = availableQuests[selectedQuestIndex]; 
@@ -875,6 +883,23 @@ namespace Sparta_TextRPG
             }
         }
 
+        public void QuestCompleted()    // 퀘스트 완료 메시지 
+        {
+            List<Quest> availableQuests = Quests.Where(q => !Player.ActiveQuests.Contains(q)).ToList();
+            Quest selectedQuest = availableQuests[selectedQuestIndex];
+            Messages.Instance().ShowQuestCompleted(selectedQuest.Name);  // 퀘스트 이름 넘겨주기
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)
+            {
+                sceneName = SceneName.ViewAcceptedQuest; // 0번 입력 시 진행 중인 퀘스트 목록으로 돌아가기 
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
+            }
+        }
 
 
         public void ViewAcceptedQuest() // 수락한(진행 중인) 퀘스트 보기
