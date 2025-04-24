@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -216,6 +217,8 @@ namespace Sparta_TextRPG
                  
 
                 0. 다음
+               
+               >>
                """);
 
         }
@@ -251,6 +254,7 @@ namespace Sparta_TextRPG
                HP {HP} -> {player.NowHP}
 
                0. 다음
+
                >>
                """);
         }
@@ -331,7 +335,7 @@ namespace Sparta_TextRPG
             */
             Console.WriteLine("\n1. 인벤토리 보기");
             Console.WriteLine("0. 나가기");
-            Console.WriteLine("원하시는 행동을 입력해주세요.\n>> ");
+            Console.Write("원하시는 행동을 입력해주세요.\n>>");
         }
 
         public void ShowInventory(Player player)
@@ -379,8 +383,13 @@ namespace Sparta_TextRPG
             }
 
             Console.WriteLine("\n1. 장착 관리");
-            Console.WriteLine("0. 나가기");
-            Console.Write("\n원하시는 행동을 입력해주세요. >> ");
+            Console.Write("""
+                0. 나가기
+
+                원하시는 행동을 입력해주세요.
+                >>
+                """);
+         
 
             /*if (input == "0") break;
             else if (input == "1") ManageEquipment(player); 
@@ -445,7 +454,11 @@ namespace Sparta_TextRPG
             }
 
             Console.WriteLine("\n0. 나가기");
-            Console.Write("\n원하시는 행동을 입력해주세요. >> ");
+            Console.Write("""
+                원하시는 행동을 입력해주세요.
+                >>
+                """);
+            
         }
         public void ErrorMessage()
         {
@@ -500,7 +513,7 @@ namespace Sparta_TextRPG
                0. 나가기
 
                원하시는 행동을 입력해주세요. 
-               >> 
+               >>
                """);
         }
 
@@ -676,10 +689,12 @@ namespace Sparta_TextRPG
                 Count++;
             }
             
-            Console.WriteLine("""
+            Console.Write("""
                 1. 아이템 구매
                 2. 아이템 판매
                 0. 나가기
+
+                >>
                 """);
 
 
