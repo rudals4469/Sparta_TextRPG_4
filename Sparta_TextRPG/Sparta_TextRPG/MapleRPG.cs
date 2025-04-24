@@ -22,7 +22,7 @@ namespace Sparta_TextRPG
         public List<Monster> monsters { get; set; }
         public List<Dungeon> Dungouns { get; set; }
         public List<Quest> Quests { get; set; }
-        private string acceptedQuestName = "";
+        private Quest selectedQuestTemp;
         private int selectedQuestIndex = 0;
         public int floor = 0;
 
@@ -33,6 +33,7 @@ namespace Sparta_TextRPG
         public Monster TargetMonster;
 
         public Dictionary<string, Skill> AllSkill = new Dictionary<string, Skill>();
+        public List<Item> dorps;
         public MapleRPG()
         {
             init();
@@ -50,7 +51,7 @@ namespace Sparta_TextRPG
                 switch (sceneName)
                 {
                     case SceneName.MainScene:
-                        start();
+                        MainScene();
                         break;
                     case SceneName.StartSetName:
                         inputName = StartSetName();
@@ -77,7 +78,7 @@ namespace Sparta_TextRPG
                         BattleStart();
                         break;
                     case SceneName.SelectSkill:
-                        SellectSkill();
+                        SelectSkill();
                         break;
                     case SceneName.BattleAttackPhase:
                         BattleAttackPhase();
@@ -86,13 +87,13 @@ namespace Sparta_TextRPG
                         BattleAttackMonster();
                         break;
                     case SceneName.BattleMonsterPhase:
-                        //BattelMonsterPhase();
+                        BattleMonsterPhase();
                         break;
                     case SceneName.BattlePlayerWin:
-                        //BattlePlayerWin();
+                        BattlePlayerWin();
                         break;
                     case SceneName.BattlePlayerLose:
-                        //BattlePlayerLose();
+                        BattlePlayerLose();
                         break;
                     case SceneName.NPC:
                         NPCText();
@@ -102,6 +103,9 @@ namespace Sparta_TextRPG
                         break;
                     case SceneName.QuestInfo:
                         QuestInfo();
+                        break;
+                    case SceneName.AcceptingQuest:
+                        AcceptingQuest();
                         break;
                     case SceneName.ViewAcceptedQuest:
                         ViewAcceptedQuest();
@@ -136,6 +140,7 @@ namespace Sparta_TextRPG
             Shop = new Shop();
             monsters = new List<Monster>();
             Dungouns = new List<Dungeon>();
+            dorps = new List<Item>();
             //Player(int Level, int Exp, int MaxHp, int NowHp, int MaxMP, int AttacPoint, int ArmorPoint, Inventory inventory,string Name,int Gold, List< Skill > SkillList, bool IsDead, int EvasionRate, int MaxExp, ClassName className)
 
             // public Skill(string name, int criticalRate, string text, int damage, int mana, int level, int coolTime,int targetCount)
@@ -265,7 +270,7 @@ namespace Sparta_TextRPG
             Quests = new List<Quest>
             {
                 new Quest(
-                    "기초 퀘스트",
+                    "달팽이 사냥",
                     "시작할 때 받는 달팽이 사냥 퀘스트입니다.",
                     new List<Item>(), // 빈 리스트
                     300,
@@ -274,7 +279,7 @@ namespace Sparta_TextRPG
                     1
                 ),
                 new Quest(
-                    "중간 퀘스트",
+                    "아이언 호그 사냥",
                     "아이언호그를 사냥하는 퀘스트입니다.",
                     new List<Item>(),
                     600,
@@ -283,7 +288,7 @@ namespace Sparta_TextRPG
                     5
                 ),
                 new Quest(
-                    "최종 퀘스트",
+                    "정체 불명의 비둘기 사냥",
                     "정체 불명의 비둘기를 처치하는 퀘스트입니다.",
                     new List<Item>(),
                     1000,
@@ -299,7 +304,7 @@ namespace Sparta_TextRPG
 
 
         }
-        public void start()
+        public void MainScene()
         {
             Messages.Instance().ShowStart();
 
@@ -571,7 +576,11 @@ namespace Sparta_TextRPG
 
             if(int.TryParse(str , out inputNum))
             {
-                if(inputNum < Dungouns.Count+1)
+                if(inputNum == 0)
+                {
+                    sceneName = SceneName.MainScene;
+                }
+                else if(inputNum < Dungouns.Count+1)
                 {
                     floor = inputNum - 1;
                     sceneName = SceneName.BattleStart;
@@ -594,6 +603,8 @@ namespace Sparta_TextRPG
         }
         public void BattleStart()
         {
+            Player.CoolDounSkill();
+
             Messages.Instance().ShowBattleStart(Dungouns[floor].monsters, Player);
             string str = Console.ReadLine();
             int num = int.Parse(str);
@@ -602,15 +613,24 @@ namespace Sparta_TextRPG
                 sceneName = SceneName.SelectSkill;
             }
         }
-        public void SellectSkill()
+        public void SelectSkill()
         {
             Messages.Instance().ShowSellectSkill(Dungouns[floor].monsters, Player);
             string str = Console.ReadLine();
             int num = int.Parse(str);
             if (num < Player.SkillList.Count + 1)
             {
-                Skill = Player.SkillList[num - 1];
-                sceneName = SceneName.BattleAttackPhase;
+                // 로직수정
+                if (Player.SkillList[num - 1].NowCoolTime == Player.SkillList[num - 1].CoolTime)
+                {
+                    Skill = Player.SkillList[num - 1];
+                    sceneName = SceneName.BattleAttackPhase;
+                }
+                else
+                {
+                    sceneName = SceneName.SelectSkill;
+                    Messages.Instance().CoolTimeError();
+                }
             }
 
         }
@@ -641,31 +661,40 @@ namespace Sparta_TextRPG
             this.Player.UseSkill(Skill);
             int Damage = TargetMonster.Hit(Skill, Player.AttackPoint);
 
+            //몬스터 죽는지 확인
+            Item? drop = TargetMonster.DropItem();
+
+            if(drop != null) dorps.Add(drop);
+
             Messages.Instance().ShowBattleAttackMonster(TargetMonster, Player, Damage);
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            bool isAllDeath = false; // 한 마리라도 살아있으면 true로 변경
+            bool isAllDeath = true; // 한 마리라도 살아있으면 true로 변경
+
 
             for (int i = 0; i < Dungouns[floor].monsters.Count; i++)
             {
                 if (Dungouns[floor].monsters[i].IsDead == false)
                 {
-                    isAllDeath = true;
+                    isAllDeath = false;
                 }
             }
-            if (isAllDeath = false)
+            if (isAllDeath)
             {
                 sceneName = SceneName.BattlePlayerWin;
             }
             else
             {
-                sceneName = SceneName.BattleStart;
+
+                sceneName = SceneName.BattleMonsterPhase;
+                //sceneName = SceneName.BattleStart;
             }
         }
-        public void BattleMonsterPhase(List<Monster> monsters, Skill PlayerSKill, Player player)
+        public void BattleMonsterPhase()
         {
+            //쿨타임 개념 완성하면 ㄱ
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
@@ -673,10 +702,10 @@ namespace Sparta_TextRPG
             for (int i = 0; i < monsters.Count; i++)
             {
                 Messages.Instance().ShowBattleMonsterPhase(monsters[i], Player, Player.SkillList[0]);
-                player.NowHP -= (monsters[i].AttackPoint - player.ArmorPoint);
+                Player.NowHP -= (monsters[i].AttackPoint - Player.ArmorPoint);
                 // 데미지 공식 = 몬스터 공격력 - 플레이어 방어력
 
-                if (player.IsDead = true)
+                if (Player.IsDead = true)
                 {
                     // 플레이어 사망 시 패배 씬으로 들어가기
                     sceneName = SceneName.BattlePlayerLose;
@@ -700,22 +729,28 @@ namespace Sparta_TextRPG
 
              
         }
-        public void BattlePlayerWin(List<Monster> monsters, Player player)
+        public void BattlePlayerWin()
         {
-            Messages.Instance().ShowBattlePlayerWin(monsters, Player.NowHP, Player);
-            for (int i = 0; i < monsters.Count; i++)
+            Messages.Instance().ShowBattlePlayerWin(Dungouns[floor].monsters, Player.NowHP, Player , dorps);
+
+            foreach (var monster in Dungouns[floor].monsters)
             {
-                player.Exp += monsters[i].Exp; // 경험치
-                player.Gold += monsters[i].Gold; // 돈
-                // 아이템 습득 로직
+                Player.AddExp(monster.Exp);
+                Player.Gold += (monster.Gold);
             }
+
+            foreach (var item in dorps)
+            {
+                Player.Inventory.Add(item);
+            }
+            dorps.Clear(); //드롭템 초기화
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
             if (inputNum == 0) // 0번 입력 시 시작 메뉴로 돌아가기
             {
-                sceneName = SceneName.StartSetName;
+                sceneName = SceneName.MainScene;
             }
             else
             {
@@ -723,33 +758,33 @@ namespace Sparta_TextRPG
             }
 
         }
-        public void BattlePlayerLose(Player player)
+        public void BattlePlayerLose()
         {
             Messages.Instance().ShowBattlePlayerLose(Player.NowHP, Player);
             //로직 추가
 
-            player.NowHP = 0;
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
             if (inputNum == 0) // 0번 입력 시 시작 메뉴로 돌아가기
             {
-                sceneName = SceneName.StartSetName;
+                // 체력 10퍼로 회복시키고
+                sceneName = SceneName.MainScene;
             }
             else
             {
                 Messages.Instance().ErrorMessage();
             }
         }
-        public void NPCText() 
+        public void NPCText()   // 여관(NPC) 메뉴 보기
         {
 
             Messages.Instance().ShowNPC();
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum == 0) // 0번 입력 시 시작 메뉴로 돌아가기
+            if (inputNum == 0) // 0번 입력 시 메인 메뉴로 돌아가기
             {
                 sceneName = SceneName.MainScene;
             }
@@ -767,9 +802,13 @@ namespace Sparta_TextRPG
             }
         }
 
-        public void QuestList()
+        public void QuestList() // 퀘스트 목록 보기
         {
-            Messages.Instance().ShowQuestList(Quests);
+            // 수락하지 않은 퀘스트만 따로 추림
+            List<Quest> availableQuests = Quests.Where(q => !Player.ActiveQuests.Contains(q)).ToList();
+
+            Messages.Instance().ShowQuestList(availableQuests);
+
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
@@ -777,12 +816,14 @@ namespace Sparta_TextRPG
             {
                 sceneName = SceneName.NPC;
             }
-            else if (inputNum >= 1 && inputNum <= Quests.Count)
+            else if (inputNum >= 1 && inputNum <= availableQuests.Count)
             {
-                selectedQuestIndex = inputNum - 1;  // 선택한 퀘스트 인덱스 기억
-                sceneName = SceneName.QuestInfo;       
+                selectedQuestIndex = inputNum - 1;
+                // 선택된 퀘스트는 필터링된 리스트에서 가져와야 함!
+                selectedQuestTemp = availableQuests[selectedQuestIndex];
+                sceneName = SceneName.QuestInfo;
             }
-            else if (inputNum == 4)
+            else if (inputNum == availableQuests.Count + 1)
             {
                 sceneName = SceneName.ViewAcceptedQuest;
             }
@@ -792,14 +833,13 @@ namespace Sparta_TextRPG
             }
         }
 
-
         public void QuestInfo()
         {
-            Quest selectedQuest = Quests[selectedQuestIndex];  // 사용자가 고른 퀘스트
-            Messages.Instance().ShowQuestInfo(selectedQuest);  // 퀘스트 정보 출력
+            Quest selectedQuest = selectedQuestTemp;
+            Messages.Instance().ShowQuestInfo(selectedQuest);
 
             string input = Console.ReadLine();
-           int inputNum = int.Parse(input);
+            int inputNum = int.Parse(input);
 
             if (inputNum == 0)
             {
@@ -809,29 +849,47 @@ namespace Sparta_TextRPG
             {
                 if (Player.ActiveQuests.Contains(selectedQuest))
                 {
-                    sceneName = SceneName.AlreadyAcceptedQuest; // 이미 수락한 퀘스트를 선택하면 메시지 표시
+                    sceneName = SceneName.AlreadyAcceptedQuest;
                 }
                 else
                 {
-                    Player.ActiveQuests.Add(selectedQuest);
-                    acceptedQuestName = selectedQuest.Name; // 수락한 퀘스트 이름 저장
-                    sceneName = SceneName.AcceptQuest;
+                    sceneName = SceneName.AcceptingQuest;
                 }
-
-                Console.WriteLine("\n0. 나가기");
-                string confirm = Console.ReadLine();
-                sceneName = SceneName.QuestList;
             }
-
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
         }
 
-        public void AcceptQuest()
+
+        public void AcceptingQuest()    // 퀘스트 수락 알림 메시지
         {
-           // Messages.Instance().ShowAcceptQuest();
+            Quest selectedQuest = Quests[selectedQuestIndex];
+            Player.ActiveQuests.Add(selectedQuest);
+
+            Messages.Instance().ShowAcceptingQuest(selectedQuest.Name);  // 퀘스트 이름 넘겨주기
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
+            if (inputNum == 0)  
+            {
+                sceneName = SceneName.QuestList; // 0번 입력 시 퀘스트 목록으로 돌아가기 
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
+            }
+        }
+
+
+        public void ViewAcceptedQuest() // 수락한(진행 중인) 퀘스트 보기
+        {
+            Messages.Instance().ShowViewAcceptedQuest(Player.ActiveQuests);
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)  // 0번 입력 시 퀘스트 목록으로 돌아가기 
             {
                 sceneName = SceneName.QuestList;
             }
@@ -841,40 +899,7 @@ namespace Sparta_TextRPG
             }
         }
 
-
-        public void AlreadyAcceptedQuest()
-        {
-            Messages.Instance().ShowAlreadyAcceptedQuest();
-            string input = Console.ReadLine();
-            int inputNum = int.Parse(input);
-
-            if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
-            {
-                sceneName = SceneName.QuestList;
-            }
-            else
-            {
-                Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
-            }
-        }
-
-        public void ViewAcceptedQuest()
-        {
-            Messages.Instance().ShowViewAcceptedQuest();
-            string input = Console.ReadLine();
-            int inputNum = int.Parse(input);
-
-            if (inputNum == 0)  // 0번 입력 시 퀘스트 메뉴로 돌아가기
-            {
-                sceneName = SceneName.QuestList;
-            }
-            else
-            {
-                Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
-            }
-        }
-
-        public void Rest()
+        public void Rest()  // 휴식 
         {
             Messages.Instance().ShowRest(Player);
             string input = Console.ReadLine();
@@ -903,7 +928,7 @@ namespace Sparta_TextRPG
             }
         }
 
-        public void RestSuccess()
+        public void RestSuccess()   // 휴식 성공
         {
             Messages.Instance().ShowRestSuccess(Player);  // 휴식 성공 메시지 출력
             string input = Console.ReadLine();
@@ -919,7 +944,7 @@ namespace Sparta_TextRPG
             }
         }
 
-        public void RestFail()
+        public void RestFail()  // 휴식 실패
         {
             Messages.Instance().ShowRestFail();  // 휴식 성공 메시지 출력
             string input = Console.ReadLine();

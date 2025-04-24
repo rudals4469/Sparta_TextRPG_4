@@ -26,11 +26,11 @@ namespace Sparta_TextRPG
                 메이플 월드에 오신 여러분 환영합니다.
                 이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.
 
-                1. 상태 보기
-                2. 상점
-                3. 던전입장
-                4. 여관으로 가기(NPC)
-                5. 게임종료
+                1.상태 보기
+                2.상점
+                3.던전입장
+                4.여관으로 가기(NPC)
+                5.게임종료
 
                 원하시는 행동을 입력해주세요.
                 >> 
@@ -99,6 +99,7 @@ namespace Sparta_TextRPG
 
                 {++count}. 상태 보기
                 {++count}. 회복 아이템
+                0. 마을로 가기
                 입장할 던전을 선택해 주세요
                 >>
                 """);
@@ -159,9 +160,10 @@ namespace Sparta_TextRPG
                
                """);
             int count = 0;
+            Console.WriteLine("No.     이름       | 마나 |     쿨타임    |  설명");
             foreach (var item in player.SkillList)
             {
-                Console.WriteLine($"{++count} {item.Name} | {item.Text}");
+                Console.WriteLine($"{++count,-3} {item.Name,-14} | {item.Mana,4} | {item.NowCoolTime,6}/{item.CoolTime,6} | {item.Text}");
             }
             Console.Write("""
 
@@ -169,6 +171,12 @@ namespace Sparta_TextRPG
                 >>
                 """);
         }
+        public void CoolTimeError()
+        {
+            Console.Write("[스킬 사용 불가] 쿨타임 중이므로 다른 스킬을 사용해주세요.");
+            //Thread.Sleep(3000);
+        }
+
         public void ShowBattleAttackPhase(List<Monster> monsters, Player player)
         {
             printMonster(monsters);
@@ -210,7 +218,13 @@ namespace Sparta_TextRPG
             }
             else
             {
-                Console.Write($"{monster.Name}이 \"훗\" 하고 피함");
+                Random random = new Random();
+                int n = random.Next(0, 100);
+                if(n % 5 == 0) Console.Write($"{monster.Name}이 \"훗\" 하고 피함");
+                else
+                {
+                    Console.Write($"{monster.Name}가 슉 슈슉 슉 ");
+                }
                 //회피 문구 추가하기
             }
 
@@ -243,7 +257,7 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-        public void ShowBattlePlayerWin(List<Monster> monsters, int HP, Player player)
+        public void ShowBattlePlayerWin(List<Monster> monsters, int HP, Player player, List<Item> items)
         {
             Console.Write(
                $"""
@@ -256,6 +270,15 @@ namespace Sparta_TextRPG
                Lv.{player.Level} {player.Name}
                HP {HP} -> {player.NowHP}
 
+               획득 아이템
+               (
+               """);
+            foreach (var item in items)
+            {
+                Console.Write($"{item.Name} ");
+            }
+            Console.Write(
+               """
                0. 다음
 
                >>
@@ -282,11 +305,11 @@ namespace Sparta_TextRPG
             Console.WriteLine("캐릭터의 정보가 표시됩니다.");
             Console.WriteLine();                                       //줄 바꿈 처리
             Console.WriteLine($"Lv. {player.Level}");
-            Console.WriteLine($"{player.Name} ( {player.Class} )");
+            Console.WriteLine($"{player.Name} ({player.Class})");
             Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
             Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
-            Console.WriteLine($"{"체  력",-6}: {player.NowHP}/{player.MaxHP}");                //원본 가이드에서 띄어쓰기 되어있음
-            Console.WriteLine($"{"Gold",-8}: {player.Gold} G");
+            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");                //원본 가이드에서 띄어쓰기 되어있음
+            Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
             Console.WriteLine();                                      //줄 바꿈 처리
 
             Console.WriteLine("[인벤토리]");                             //player 인벤토리로 받을 수 있게 처리
@@ -390,7 +413,7 @@ namespace Sparta_TextRPG
                 0. 나가기
 
                 원하시는 행동을 입력해주세요.
-                >>
+                >> 
                 """);
          
 
@@ -459,7 +482,7 @@ namespace Sparta_TextRPG
             Console.WriteLine("\n0. 나가기\n");
             Console.Write("""
                 원하시는 행동을 입력해주세요.
-                >>
+                >> 
                 """);
             
         }
@@ -474,7 +497,7 @@ namespace Sparta_TextRPG
             Console.Write($"""
                여관으로 왔습니다. 
 
-               1. 퀘스트 받기
+               1. 퀘스트 관리
                2. 휴식하기
 
                0. 나가기
@@ -486,7 +509,7 @@ namespace Sparta_TextRPG
         }
         public void ShowQuestList(List<Quest> quests)
         {
-            Console.WriteLine("퀘스트를 선택하세요.\n");
+            Console.WriteLine("수락 가능한 퀘스트 목록\n");
 
             for (int i = 0; i < quests.Count; i++)
             {
@@ -495,14 +518,15 @@ namespace Sparta_TextRPG
 
             Console.Write($"""
 
-               4. 진행 중인 퀘스트 보기
+            {quests.Count + 1}. 진행 중인 퀘스트 보기
 
-               0. 나가기
+            0. 나가기
 
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
+            원하시는 행동을 입력해주세요.
+            >> 
+            """);
         }
+
 
         public void ShowQuestInfo(Quest quest)
         {
@@ -522,10 +546,10 @@ namespace Sparta_TextRPG
             """);
         }
 
-        public void ShowAcceptQuest(string questName)
+        public void ShowAcceptingQuest(string questName)
         {
             Console.Write($"""
-               '{questName}' 퀘스트를 수락했습니다. 
+               '{questName}'퀘스트를 수락했습니다. 
 
                0. 나가기
 
@@ -535,100 +559,32 @@ namespace Sparta_TextRPG
         }
 
 
-
-        public void ShowAlreadyAcceptedQuest()
+        public void ShowViewAcceptedQuest(List<Quest> acceptedQuests)
         {
+            Console.WriteLine("받은 퀘스트 목록");
+
+            if (acceptedQuests.Count == 0)
+            {
+                Console.WriteLine("- (진행 중인 퀘스트가 없습니다)");
+            }
+            else
+            {
+                foreach (var quest in acceptedQuests)
+                {
+                    Console.WriteLine($"- {quest.Name} ({quest.Count}/{quest.TargetCount})");
+                }
+            }
 
             Console.Write($"""
-               퀘스트 1
-               퀘스트 설명
-               잡을 몬스터 : 이름, 마릿수
-               보상 : 
 
-               퀘스트를 받으시겠습니까?
+            0. 나가기
 
-               1. 퀘스트 받기
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >>
-               """);
+            원하시는 행동을 입력해주세요. 
+            >> 
+            """);
         }
 
-        public void ShowViewAcceptedQuest()
-        {
-            Console.Write($"""
-               받은 퀘스트 목록
-               -
-               -
 
-               퀘스트를 받으시겠습니까?
-
-               1. 퀘스트 받기
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
-        }
-
-        public void ShowQuest3Info()
-        {
-            Console.Write($"""
-               퀘스트 3 
-               퀘스트 설명
-               잡을 몬스터 : 이름, 마릿수
-               보상 : 골드
-
-               퀘스트를 받으시겠습니까?
-
-               1. 퀘스트 받기
-               
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
-        }
-
-        public void ShowReceiveQuest1()
-        {
-            Console.Write($"""
-               (퀘스트 이름1) 퀘스트를 받았습니다.
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
-
-        }
-        public void ShowReceiveQuest2()
-        {
-            Console.Write($"""
-               (퀘스트 이름2) 퀘스트를 받았습니다.
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
-
-        }
-        public void ShowReceiveQuest3()
-        {
-            Console.Write($"""
-               (퀘스트 이름3) 퀘스트를 받았습니다.
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
-
-        }
 
         public void ShowRest(Player player)
         {
@@ -714,7 +670,7 @@ namespace Sparta_TextRPG
             Console.WriteLine("\n[무기]\n");
             foreach (var weapon in shop.Inventory.Weapon)
             { 
-                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} meso | {weapon.Text} ");
+                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} Meso | {weapon.Text} ");
                 Count++;
             }
 
@@ -722,7 +678,7 @@ namespace Sparta_TextRPG
             foreach (var armor in shop.Inventory.Armors)
             {
                 
-                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} meso | {armor.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} Meso | {armor.Text,-15}");
                 Count++;
             }
 
@@ -730,7 +686,7 @@ namespace Sparta_TextRPG
             foreach (var shield in shop.Inventory.Shild)
             {
                 
-                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} meso | {shield.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} Meso | {shield.Text,-15}");
                 Count++;
             }
             
@@ -773,14 +729,14 @@ namespace Sparta_TextRPG
             Console.WriteLine("\n[무기]\n");
             foreach (var weapon in shop.Inventory.Weapon)
             {
-                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} meso | {weapon.Text} ");
+                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} Meso | {weapon.Text} ");
                 Count++;
             }
 
             Console.WriteLine("\n[방어구]");
             foreach (var armor in shop.Inventory.Armors)
             {
-                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} meso | {armor.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} Meso | {armor.Text,-15}");
                 Count++;
             }
 
@@ -788,7 +744,7 @@ namespace Sparta_TextRPG
             foreach (var shield in shop.Inventory.Shild)
             {
 
-                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} meso | {shield.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} Meso | {shield.Text,-15}");
                 Count++;
             }
 
@@ -832,7 +788,7 @@ namespace Sparta_TextRPG
             Console.WriteLine("\n[무기]\n");
             foreach (var weapon in player.Inventory.Weapon)
             {
-                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} meso | {weapon.Text} ");
+                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} Meso | {weapon.Text} ");
                 Count++;
             }
 
@@ -840,7 +796,7 @@ namespace Sparta_TextRPG
             foreach (var armor in player.Inventory.Armors)
             {
 
-                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} meso | {armor.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} Meso | {armor.Text,-15}");
                 Count++;
             }
 
@@ -848,7 +804,7 @@ namespace Sparta_TextRPG
             foreach (var shield in player.Inventory.Shild)
             {
 
-                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} meso | {shield.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} Meso | {shield.Text,-15}");
                 Count++;
             }
 
