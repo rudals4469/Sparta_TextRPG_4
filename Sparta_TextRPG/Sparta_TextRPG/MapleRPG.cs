@@ -673,6 +673,7 @@ namespace Sparta_TextRPG
 
             bool isAllDeath = true; // 한 마리라도 살아있으면 true로 변경
 
+
             for (int i = 0; i < Dungouns[floor].monsters.Count; i++)
             {
                 if (Dungouns[floor].monsters[i].IsDead == false)
@@ -686,7 +687,9 @@ namespace Sparta_TextRPG
             }
             else
             {
-                sceneName = SceneName.BattleStart;
+
+                sceneName = SceneName.BattleMonsterPhase;
+                //sceneName = SceneName.BattleStart;
             }
         }
         public void BattleMonsterPhase()
