@@ -22,15 +22,26 @@ namespace Sparta_TextRPG
 
     enum MonsterName
     {
-        None,Snail,
-        RibbonPig, 
-        OrangeMushroom, 
-        EvilEye, 
-        ironHog, 
-        StoneGolem,
-        Drake, 
-        JuniorBalrog, 
-        AnUnnamedPigeon
+        None,
+        달팽이,
+        슬라임,
+        옥토퍼스,
+        리본돼지,
+        주황버섯,
+        페어리,
+        예티,
+        페페,
+        이블아이,
+        루팡,
+        아이언호그,
+        스톤골렘,
+        드레이크,
+        돌의정령,
+
+        머쉬맘,
+        주니어발록,
+        핑크빈,
+        이름_모를_비둘기,
         //달팽이, 리본돼지, 주황버섯, 이블아이, 아이언호그, 스톤골렘, 드레이크, 주니어발록, 이름 모를 비둘기
     }
 

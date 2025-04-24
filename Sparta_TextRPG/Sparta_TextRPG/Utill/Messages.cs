@@ -89,10 +89,11 @@ namespace Sparta_TextRPG
             Console.WriteLine("던전 선택");
             foreach (var item in dungouns)
             {
-                Console.Write($"{++count}. {item.Name} | 권장 레벨 : {item.Level} 등장 몬스터 :");
-                foreach (var item1 in item.monsters)
+                Console.Write($"{++count,2}. {item.Name} | 권장 레벨 : {item.Level} 등장 몬스터 :");
+                foreach (var item1 in item.baseMonsters)
                 {
-                    Console.Write($" {item1.Name} |");
+                    if(item1.Level >= 10 ) Console.Write($" ? |");
+                    else Console.Write($" {item1.Name} |");
                 }
                 Console.WriteLine("");
             }
@@ -195,7 +196,7 @@ namespace Sparta_TextRPG
                """
              );
         }
-        public void ShowBattleAttackMonster(Monster monster, Player player, int Damage)
+        public void ShowBattleAttackMonster(Monster monster,int monsterbeforHP, Player player, int Damage)
         {
             if (Damage > 0)
             {
@@ -209,11 +210,11 @@ namespace Sparta_TextRPG
 
                 if ((monster.NowHP - Damage) < 0)
                 {
-                    Console.WriteLine($"HP {monster.NowHP} -> Dead");
+                    Console.WriteLine($"HP {monsterbeforHP} -> Dead");
                 }
                 else
                 {
-                    Console.WriteLine($"HP {monster.NowHP} -> {monster.NowHP - Damage}");
+                    Console.WriteLine($"HP {monsterbeforHP} -> {monster.NowHP - Damage}");
 
                 }
             }

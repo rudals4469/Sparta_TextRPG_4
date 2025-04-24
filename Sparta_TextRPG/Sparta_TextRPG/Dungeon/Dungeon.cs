@@ -11,12 +11,26 @@ namespace Sparta_TextRPG
     {
         public string Name;
         public int Level;
+        public List<Monster> baseMonsters;
         public List<Monster> monsters;
-        public Dungeon(string name, int level, List<Monster> monsters)
+        public Dungeon(string name, int level, List<Monster> baseMonsters)
         {
             Name = name;
             Level = level;
-            this.monsters = monsters;
+            this.baseMonsters = baseMonsters;
+            monsters = new List<Monster>();
+        }
+
+        public void DunjeonReset()
+        {
+            Random rand = new Random();
+            for (int i = 0; i < rand.Next(3,4); i++)
+            {
+                int randnum = rand.Next(0, baseMonsters.Count);
+                monsters.Add(baseMonsters[randnum]);
+            }
+
+            
         }
         public void SpawnMonster() // 몬스터 랜덤 생성
         {
