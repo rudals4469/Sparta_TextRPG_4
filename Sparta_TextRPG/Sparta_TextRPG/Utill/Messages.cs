@@ -94,19 +94,40 @@ namespace Sparta_TextRPG
                 }
                 Console.WriteLine("");
             }
-            Console.Write("""
+            Console.Write($"""
 
+                {++count}. 상태 보기
+                {++count}. 회복 아이템
                 입장할 던전을 선택해 주세요
                 >>
                 """);
         }
+
+        public void printMonster(List<Monster> monsters)
+        {
+            int count = 0;
+            foreach (var item in monsters)
+            {
+                count++;
+
+                if (item.IsDead)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} Dead");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}");
+                }
+
+            }
+        }
         public void ShowBattleStart(List<Monster> monsters, Player player)
         {
 
-            foreach (var item in monsters)
-            {
-                Console.WriteLine($"Lv.{item.Level} {item.MonsterName.ToString()} HP {item.NowHP}");
-            }
+            printMonster(monsters);
+
             Console.Write(
                $"""
 
@@ -125,10 +146,8 @@ namespace Sparta_TextRPG
         }
         public void ShowSellectSkill(List<Monster> monsters, Player player)
         {
-            foreach (var item in monsters)
-            {
-                Console.WriteLine($"Lv.{item.Level} {item.MonsterName.ToString()} HP {item.NowHP}");
-            }
+            printMonster(monsters);
+
             Console.WriteLine(
                $"""
 
@@ -151,23 +170,7 @@ namespace Sparta_TextRPG
         }
         public void ShowBattleAttackPhase(List<Monster> monsters, Player player)
         {
-            int count = 0;
-            foreach (var item in monsters)
-            {
-                count++;
-
-                if (item.IsDead)
-                {
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} Dead");
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}");
-                }
-
-            }
+            printMonster(monsters);
 
             Console.Write(
                $"""

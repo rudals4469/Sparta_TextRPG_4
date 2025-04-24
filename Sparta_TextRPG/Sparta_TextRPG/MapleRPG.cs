@@ -231,7 +231,7 @@ namespace Sparta_TextRPG
             List<Item> MonsterDorpItems = new List<Item>() { WoodSword, WoodBow, WoodStaff, WoodClaw, Woodknuckles };
             List<Item> BossDorpItems = new List<Item>() { zakumHelmet, horntailNecklace };
 
-            monsters.Add(new Monster(1, 5, 10, 10, 5, 1, 100, MonsterSkillset, 100, MonsterName.Snail, MonsterDorpItems));
+            monsters.Add(new Monster(1, 5, 10, 10, 5, 1, 100, MonsterSkillset, 10, MonsterName.Snail, MonsterDorpItems));
             monsters.Add(new Monster(2, 8, 15,  10, 8, 2, 150, MonsterSkillset, 10, MonsterName.OrangeMushroom, MonsterDorpItems));
             monsters.Add(new Monster(3, 10, 20, 10, 10, 2, 200, MonsterSkillset, 10, MonsterName.RibbonPig, MonsterDorpItems));
             monsters.Add(new Monster(4, 12, 23, 10, 12, 3, 230, MonsterSkillset, 15, MonsterName.EvilEye, MonsterDorpItems));
@@ -521,13 +521,36 @@ namespace Sparta_TextRPG
             sceneName = SceneName.BuyItem;
             
         }
+
+        //미완
         public void DungeonSelection()
         {
             Messages.Instance().ShowDungeonSelection(Dungouns);
             string str = Console.ReadLine();
-            floor = int.Parse(str) - 1;
+            int inputNum;
 
-            sceneName = SceneName.BattleStart;
+            if(int.TryParse(str , out inputNum))
+            {
+                if(inputNum < Dungouns.Count+1)
+                {
+                    floor = inputNum - 1;
+                    sceneName = SceneName.BattleStart;
+                }
+                else if (inputNum == Dungouns.Count + 1)
+                {
+                    int a = 0;
+                    //여기서 플레이어 상태보기
+                }
+                else if(inputNum == Dungouns.Count + 2)
+                {
+                    int a = 0;
+                    //여기서 표션 사용
+                }
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
         }
         public void BattleStart()
         {
