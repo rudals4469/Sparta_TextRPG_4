@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sparta_TextRPG
@@ -239,21 +240,43 @@ namespace Sparta_TextRPG
                """);
 
         }
-        public void ShowBattleMonsterPhase(Monster monster, Player player, Skill MonsterSkill)
+        public void ShowBattleMonsterPhase()
         {
             Console.Write(
                $"""
                Battle!!
-
-               Lv.{monster.Level} {monster.MonsterName.ToString()} 의 공격!
-               {player.Name} 을(를) 맞췄습니다.  [데미지 : {MonsterSkill.Damage}]
+               """);
+        }
+        public void ShowBattleMonsterHitPhase(Monster monster,int beforHp ,Player player, int Damage)
+        {
+            if (Damage > 0)
+            {
+                Console.WriteLine(
+              $"""
+               Lv. {monster.Level} {monster.MonsterName.ToString()} 의 공격!
+               {player.Name} 을(를) 맞췄습니다.  [데미지 : {Damage}]
 
                Lv.{player.Level} {player.Name}
-               HP {player.NowHP} -> {player.NowHP - MonsterSkill.Damage};
+               HP {beforHp} -> {player.NowHP};
 
-               0. 다음
-
-               대상을 선택해주세요.
+               """);
+            }
+            else
+            {
+                Random random = new Random();
+                int n = random.Next(0, 100);
+                if (n % 5 == 0) Console.WriteLine($"{player.Name}이 \"훗\" 하고 피함 \n");
+                else
+                {
+                    Console.WriteLine($"{player.Name}가 슉 슈슉 슉 \n");
+                }
+            }
+        }
+        public void ShowBattleMonsterEndPhase()
+        {
+            Console.Write(
+              $"""
+               0. 전투 시작화면으로  
                >>
                """);
         }

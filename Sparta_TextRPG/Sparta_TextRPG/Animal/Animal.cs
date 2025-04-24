@@ -40,7 +40,7 @@ namespace Sparta_TextRPG
             this.EvasionRate = EvasionRate;
         }
 
-        public int Hit(Skill skill, int PlayerDamage)
+        public int Hit(Skill skill, int Damage)
         {
             //스킬의 명중율과 나의 회피율을 잘 조합해서 회피 또는 피격
             Random rand = new Random();
@@ -51,18 +51,21 @@ namespace Sparta_TextRPG
             }
             else
             {
+                int tempDamage = Damage * skill.Damage - ArmorPoint;
+                if (tempDamage <= 0) tempDamage = 1;
                 int CritiacalNum = rand.Next(0, 100);
+
                 if (CritiacalNum <= skill.CriticalRate)
                 {
-                    NowHP -= PlayerDamage * skill.Damage * 2;
+                    NowHP -= tempDamage * 2;
                     if(NowHP<=0) IsDead = true;
-                    return PlayerDamage * skill.Damage * 2;
+                    return tempDamage*2;
                 }
                 else
                 {
-                    NowHP -= PlayerDamage * skill.Damage;
+                    NowHP -= tempDamage;
                     if (NowHP <= 0) IsDead = true;
-                    return PlayerDamage * skill.Damage;
+                    return tempDamage;
                 }
 
             }

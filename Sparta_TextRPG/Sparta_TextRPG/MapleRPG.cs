@@ -687,47 +687,43 @@ namespace Sparta_TextRPG
             }
             else
             {
-
                 sceneName = SceneName.BattleMonsterPhase;
                 //sceneName = SceneName.BattleStart;
             }
         }
         public void BattleMonsterPhase()
         {
-            //쿨타임 개념 완성하면 ㄱ
+            Messages.Instance().ShowBattleMonsterPhase();
+            for (int i = 0; i < Dungouns[floor].monsters.Count; i++)
+            {
+                if(monsters[i].IsDead == false)
+                {
+                    int PlayerBeforHP = Player.NowHP;
+                    Messages.Instance().ShowBattleMonsterHitPhase(monsters[i], PlayerBeforHP, Player, Player.Hit(monsters[i].SkillList[0], monsters[i].AttackPoint));                   
+                }
+            }
+            Messages.Instance().ShowBattleMonsterEndPhase();
+            if (Player.IsDead == true)
+            {
+                // 플레이어 사망 시 패배 씬으로 들어가기
+                sceneName = SceneName.BattlePlayerLose;
+                return;
+            }
+
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            //몬스터리스트 받아서 추가 = 모든 몬스터가 한 대 씩 때리기 때문.
-            for (int i = 0; i < monsters.Count; i++)
-            {
-                Messages.Instance().ShowBattleMonsterPhase(monsters[i], Player, Player.SkillList[0]);
-                Player.NowHP -= (monsters[i].AttackPoint - Player.ArmorPoint);
-                // 데미지 공식 = 몬스터 공격력 - 플레이어 방어력
-
-                if (Player.IsDead = true)
-                {
-                    // 플레이어 사망 시 패배 씬으로 들어가기
-                    sceneName = SceneName.BattlePlayerLose;
-                }
-
-                if (inputNum == 0)
-                {
-                    continue;
-                }
-                else
-                {
-                    Messages.Instance().ErrorMessage();
-                }
-
-            }
 
             if (inputNum == 0) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
             {
-                sceneName = SceneName.BattleAttackPhase;
+                sceneName = SceneName.BattleStart;
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
             }
 
-             
+
         }
         public void BattlePlayerWin()
         {
