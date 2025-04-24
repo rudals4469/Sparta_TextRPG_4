@@ -40,6 +40,10 @@ namespace Sparta_TextRPG
         //아이템을 해당 번호에 맞게 찾아오는 함수
         public Item GetItemByIndex(int index)
         {
+            if (index < Inventory.Potions.Count)
+                return Inventory.Potions[index];
+            index -= Inventory.Potions.Count;
+
             if (index < Inventory.Weapon.Count)
                 return Inventory.Weapon[index];
             index -= Inventory.Weapon.Count;
@@ -69,7 +73,7 @@ namespace Sparta_TextRPG
             player.Gold += item.Price;
 
             // 플레이어 인벤토리에서 제거
-            player.Inventory.Remove(item);
+            player.Inventory.Remove(item); 
             
             AddItem(item);
         }
@@ -84,10 +88,15 @@ namespace Sparta_TextRPG
                 if (player.Gold < item.Price)
                     return false;
 
+
                 player.Gold -= item.Price;
                 player.Inventory.Add(item);
-                Inventory.Remove(item);    
-                
+
+                if (item.Type != ItemType.Potion) // 포션이면 
+                {
+                    Inventory.Remove(item);     // 샵 인벤토리에서 삭제 시키니깐 사라지지않나
+                }
+
                 return true;
             }
 

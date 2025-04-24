@@ -205,8 +205,8 @@ namespace Sparta_TextRPG
             Shield nomok = new Shield("nomok", "노가다 목장갑", 50000, ItemType.Shield, 200, 200);
 
             //Potion(string name, string text, int price, ItemType type, int HealPoint)
-            Potion HP = new Potion("HP", "체력회복 포션", 500, ItemType.Potion, 100);
-            Potion MP = new Potion("MP", "마나회복 포션", 500, ItemType.Potion, 100);
+            Potion HP = new Potion("HP", "체력회복 포션", 500, PotionType.HP, 100,ItemType.Potion);
+            Potion MP = new Potion("MP", "마나회복 포션", 500, PotionType.MP, 100,ItemType.Potion);
 
 
             //엘릭서 추가
@@ -503,7 +503,7 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-        public void BuyItem() //플레이어 입장에서 사는 거
+        public void BuyItem() // 플레이어 입장에서 사는 거
         {
             Messages.Instance().BuyItem(Player, Shop);
 

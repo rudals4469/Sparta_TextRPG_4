@@ -46,7 +46,7 @@ namespace Sparta_TextRPG
             {
                 this.Level++;
                 this.Exp = 0;
-                this.AttackPoint += 1;
+                this.AttackPoint += 2;
                 this.ArmorPoint += 1; // 아머는 원래 0.5긴 함
             }
         }

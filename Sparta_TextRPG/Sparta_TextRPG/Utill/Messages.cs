@@ -704,6 +704,14 @@ namespace Sparta_TextRPG
 
                 """);
 
+            Console.WriteLine("\n[포션]\n");
+            foreach (var potion in shop.Inventory.Potions)
+            {
+                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} meso | {potion.Text} ");
+                Count++;
+            }
+
+            Console.WriteLine("\n[무기]\n");
             foreach (var weapon in shop.Inventory.Weapon)
             { 
                 Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} meso | {weapon.Text} ");
@@ -748,13 +756,21 @@ namespace Sparta_TextRPG
                 필요한 아이템을 골드로 구매하실 수 있습니다 :3
 
                 [보유 골드]
-                {player.Gold}
+                {player.Gold} Meso
                 
                 [아이템 목록]
 
 
                 """);
 
+            Console.WriteLine("\n[포션]\n");
+            foreach (var potion in shop.Inventory.Potions)
+            {
+                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} meso | {potion.Text} ");
+                Count++;
+            }
+
+            Console.WriteLine("\n[무기]\n");
             foreach (var weapon in shop.Inventory.Weapon)
             {
                 Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} meso | {weapon.Text} ");
@@ -794,16 +810,26 @@ namespace Sparta_TextRPG
 
             Console.Write($"""
                 상점에 오신 것을 환영합니다!
-                필요한 아이템을 골드로 구매하실 수 있습니다 :3
+                필요한 아이템을 판매하실 수 있습니다 :3
 
                 [보유 골드]
-                {player.Gold}
+                {player.Gold} Meso
                 
                 [아이템 목록]
 
 
                 """);
 
+            Console.WriteLine("\n[포션]\n");
+
+
+            foreach (var potion in player.Inventory.Potions) // 모루겠습니다.
+            {
+                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} meso | {potion.Text} x{potion.Count}");
+                Count++;
+            }
+
+            Console.WriteLine("\n[무기]\n");
             foreach (var weapon in player.Inventory.Weapon)
             {
                 Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} meso | {weapon.Text} ");

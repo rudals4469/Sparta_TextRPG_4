@@ -12,8 +12,9 @@ namespace Sparta_TextRPG
         public int Count {  get; set; }
 
         public PotionType PotionType { get; set; }
-        public Potion(string name, string text, int price, ItemType type, int HealPoint) : base(name, text, price, type)
+        public Potion(string name, string text, int price, PotionType PotionType, int HealPoint, ItemType type) : base(name, text, price, type)
         {
+            this.PotionType = PotionType;
             this.HealPoint = HealPoint;
             Count = 0;
         }

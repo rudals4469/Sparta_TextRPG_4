@@ -24,6 +24,10 @@ namespace Sparta_TextRPG
         }
         public Item? GetItemByIndex(int index)
         {
+            if (index < Potions.Count)
+                return Potions[index];
+            index -= Potions.Count;
+
             if (index < Weapon.Count)
                 return Weapon[index];
             index -= Weapon.Count;
@@ -35,9 +39,6 @@ namespace Sparta_TextRPG
             if (index < Shild.Count)
                 return Shild[index];
             index -= Shild.Count;
-
-            if (index < Potions.Count)
-                return Potions[index];
 
             return null;
         }
@@ -72,6 +73,7 @@ namespace Sparta_TextRPG
         if (item.Type == ItemType.Potion)
             {
                 Potions.Add((Potion)item);
+                Potions.Find(n => n.Name.CompareTo(item.Name) == 0).Count++;
             }
         }
 
