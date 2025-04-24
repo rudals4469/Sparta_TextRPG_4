@@ -602,7 +602,7 @@ namespace Sparta_TextRPG
                 }
                 else if(inputNum == Dungouns.Count + 2)
                 {
-                    int a = 0;
+                    sceneName = SceneName.DrinkingPotion;
                     //여기서 표션 사용
                 }
             }
@@ -819,9 +819,26 @@ namespace Sparta_TextRPG
         }
         public void DrinkingPotion()
         {
-            Messages.Instance().DrinkingPotion();
+            Messages.Instance().DrinkingPotion(Player);
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
+
+            if (inputNum == 0)
+            {
+                sceneName = SceneName.DungeonSelection;
+            }
+            else if (inputNum == 1)
+            {
+                Messages.Instance().DrinkingHpPotion();
+                //hp potion 갯수가 하나 줄어드는 함수
+                //hp potion를 마셨을 때 회복이 되야 함(플레이어 hp를 끌어와야 함)
+            }
+            else if (inputNum == 2)
+            {
+                Messages.Instance().DrinkingMpPotion();
+                //mp potion 갯수가 하나 줄어드는 함수
+                //mp potion를 마셨을 때 마나회복이 되야 함(플레이어 hp를 끌어와야 함)
+            }
         }
 
         public void NPCText()   // 여관(NPC) 메뉴 보기
