@@ -31,6 +31,6 @@ namespace Sparta_TextRPG
             this.RequestLevel = requestLevel;
         }
 
-        //진행도 확인 함수 추가
+        // 진행도 확인 함수 추가
     }
 }

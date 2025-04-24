@@ -177,7 +177,7 @@ namespace Sparta_TextRPG
             // 메이플 아이템들
             // 엘릭서 , hp , mp
 
-            //Player.ActiveQuests = new List<Quest>(); // 퀘스트 리스트 
+             
 
             //Armor(string name, string text, int price, ItemType type,int armorPoint , bool isEquipped)
             Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구", 10000, ItemType.Armor, 100);
@@ -814,7 +814,6 @@ namespace Sparta_TextRPG
             else if (inputNum >= 1 && inputNum <= availableQuests.Count)
             {
                 selectedQuestIndex = inputNum - 1;
-                // 선택된 퀘스트는 필터링된 리스트에서 가져와야 함!
                 selectedQuestTemp = availableQuests[selectedQuestIndex];
                 sceneName = SceneName.QuestInfo;
             }
@@ -828,7 +827,7 @@ namespace Sparta_TextRPG
             }
         }
 
-        public void QuestInfo()
+        public void QuestInfo() // 퀘스트 정보 표시
         {
             Quest selectedQuest = selectedQuestTemp;
             Messages.Instance().ShowQuestInfo(selectedQuest);
@@ -836,20 +835,13 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum == 0)
+            if (inputNum == 0)  // 0번 입력 시 퀘스트 목록으로 돌아가기
             {
                 sceneName = SceneName.QuestList;
             }
-            else if (inputNum == 1)
+            else if (inputNum == 1) // 퀘스트 수락 완료 창
             {
-                if (Player.ActiveQuests.Contains(selectedQuest))
-                {
-                    sceneName = SceneName.AlreadyAcceptedQuest;
-                }
-                else
-                {
-                    sceneName = SceneName.AcceptingQuest;
-                }
+                sceneName = SceneName.AcceptingQuest;
             }
             else
             {
@@ -860,14 +852,15 @@ namespace Sparta_TextRPG
 
         public void AcceptingQuest()    // 퀘스트 수락 알림 메시지
         {
-            Quest selectedQuest = Quests[selectedQuestIndex];
+            List<Quest> availableQuests = Quests.Where(q => !Player.ActiveQuests.Contains(q)).ToList();
+            Quest selectedQuest = availableQuests[selectedQuestIndex]; 
             Player.ActiveQuests.Add(selectedQuest);
 
             Messages.Instance().ShowAcceptingQuest(selectedQuest.Name);  // 퀘스트 이름 넘겨주기
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum == 0)  
+            if (inputNum == 0)
             {
                 sceneName = SceneName.QuestList; // 0번 입력 시 퀘스트 목록으로 돌아가기 
             }
@@ -876,6 +869,7 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
             }
         }
+
 
 
         public void ViewAcceptedQuest() // 수락한(진행 중인) 퀘스트 보기

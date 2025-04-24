@@ -543,7 +543,7 @@ namespace Sparta_TextRPG
         public void ShowAcceptingQuest(string questName)
         {
             Console.Write($"""
-               '{questName}'퀘스트를 수락했습니다. 
+               '{questName}' 퀘스트를 수락했습니다. 
 
                0. 나가기
 
