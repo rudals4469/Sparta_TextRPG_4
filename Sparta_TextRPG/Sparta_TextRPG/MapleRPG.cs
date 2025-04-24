@@ -566,11 +566,12 @@ namespace Sparta_TextRPG
             int num = int.Parse(str);
             if (num < Player.SkillList.Count + 1)
             {
-                if (Player.SkillList.Cooltime > 0)
+                if (Player.SkillList.CoolTime > 0)
                 {
                     Skill = Player.SkillList[num - 1];
                     sceneName = SceneName.BattleAttackPhase;
                 }
+
                 else
                 {
                     Messages.Instance().CoolTimeError();
