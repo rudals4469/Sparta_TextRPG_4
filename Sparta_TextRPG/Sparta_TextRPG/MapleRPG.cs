@@ -131,6 +131,9 @@ namespace Sparta_TextRPG
                     case SceneName.NotEnoughMoney:
                         NotEnoughMoney();
                         break;
+                    case SceneName.LevelUp:
+                        LevelUp();
+                        break;
 
                 }
             }
@@ -364,7 +367,7 @@ namespace Sparta_TextRPG
                 WarriorSkill.Add(AllSkill["ThreeSnails"]);
                 WarriorSkill.Add(AllSkill["Slash Blast"]);
                 WarriorSkill.Add(AllSkill["Origin"]);
-                Player = new Player(200, 100, 100, 150, inputName, 2000000, WarriorSkill, false, 50, 500, ClassName.전사);
+                Player = new Player(99999, 100, 100, 150, inputName, 2000000, WarriorSkill, false, 10, 500, ClassName.전사);
             }
             else if (inputNum == 2)
             {
@@ -729,13 +732,37 @@ namespace Sparta_TextRPG
 
              
         }
+        public void LevelUp()
+        {
+            Messages.Instance().LevelUp(Player);
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)
+            {
+                sceneName = SceneName.BattlePlayerWin;
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
+        }
+
         public void BattlePlayerWin()
         {
             Messages.Instance().ShowBattlePlayerWin(Dungouns[floor].monsters, Player.NowHP, Player , dorps);
 
             foreach (var monster in Dungouns[floor].monsters)
             {
-                Player.AddExp(monster.Exp);
+                //Player.AddExp(monster.Exp);
+
+                if(Player.AddExp(monster.Exp))
+                {
+                    // 업했으면 씬을 레벨업 씬으로 이동
+                    sceneName = SceneName.LevelUp;
+                }
+
                 Player.Gold += (monster.Gold);
             }
 

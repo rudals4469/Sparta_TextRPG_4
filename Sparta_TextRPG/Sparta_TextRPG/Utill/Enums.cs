@@ -68,6 +68,7 @@ namespace Sparta_TextRPG
         BattleAttackMonster,
         BattleMonsterPhase,
         BattlePlayerWin,
+        LevelUp,
         BattlePlayerLose,
         
         InDungeon,
