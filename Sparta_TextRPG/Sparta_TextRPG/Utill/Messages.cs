@@ -160,10 +160,10 @@ namespace Sparta_TextRPG
                
                """);
             int count = 0;
-            Console.WriteLine("No.     이름       | 마나 | 쿨타임 |  설명");
+            Console.WriteLine("No.     이름       | 마나 |     쿨타임    |  설명");
             foreach (var item in player.SkillList)
             {
-                Console.WriteLine($"{++count,-3} {item.Name,-14} | {item.Mana,4} | {item.CoolTime,6} | {item.Text}");
+                Console.WriteLine($"{++count,-3} {item.Name,-14} | {item.Mana,4} | {item.NowCoolTime,6}/{item.CoolTime,6} | {item.Text}");
             }
             Console.Write("""
 
@@ -174,7 +174,7 @@ namespace Sparta_TextRPG
         public void CoolTimeError()
         {
             Console.Write("[스킬 사용 불가] 쿨타임 중이므로 다른 스킬을 사용해주세요.");
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
         }
 
         public void ShowBattleAttackPhase(List<Monster> monsters, Player player)
@@ -218,7 +218,13 @@ namespace Sparta_TextRPG
             }
             else
             {
-                Console.Write($"{monster.Name}이 \"훗\" 하고 피함");
+                Random random = new Random();
+                int n = random.Next(0, 100);
+                if(n % 5 == 0) Console.Write($"{monster.Name}이 \"훗\" 하고 피함");
+                else
+                {
+                    Console.Write($"{monster.Name}가 슉 슈슉 슉 ");
+                }
                 //회피 문구 추가하기
             }
 

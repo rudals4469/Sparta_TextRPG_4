@@ -54,7 +54,15 @@ namespace Sparta_TextRPG
         public void UseSkill(Skill skill)
         {
             this.NowMP -= skill.Mana;
+            this.SkillList.Find(n => n.Name.CompareTo(skill.Name) == 0).NowCoolTime = 0; // 쿨돌리기
             // 스킬사용시 마나 등 사용
+        }
+        public void CoolDounSkill()
+        {
+            for (int i = 0; i < SkillList.Count; i++)
+            {
+                if(SkillList[i].NowCoolTime!= SkillList[i].CoolTime) SkillList[i].NowCoolTime++;
+            }
         }
         public void Buy(Item item)
         {

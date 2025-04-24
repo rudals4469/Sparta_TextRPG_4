@@ -15,7 +15,7 @@ namespace Sparta_TextRPG
         public int Mana {  get; set; }      //마나 소모량
         public int Level { get; set; }      //스킬 레벨
         public int CoolTime { get; set; }   //스킬 쿨타임
-        public int NowCoolTime { get; set; }   //스킬 쿨타임
+        public int NowCoolTime { get; set; }   
         public int TargetCount { get; set; }
         public Skill(string name, int criticalRate, string text, int damage, int mana, int level, int coolTime, int targetCount)
         {

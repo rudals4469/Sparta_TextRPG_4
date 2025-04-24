@@ -603,6 +603,8 @@ namespace Sparta_TextRPG
         }
         public void BattleStart()
         {
+            Player.CoolDounSkill();
+
             Messages.Instance().ShowBattleStart(Dungouns[floor].monsters, Player);
             string str = Console.ReadLine();
             int num = int.Parse(str);
@@ -619,14 +621,14 @@ namespace Sparta_TextRPG
             if (num < Player.SkillList.Count + 1)
             {
                 // 로직수정
-                if (Skill.CoolTime > 0)
+                if (Player.SkillList[num - 1].NowCoolTime == Player.SkillList[num - 1].CoolTime)
                 {
                     Skill = Player.SkillList[num - 1];
                     sceneName = SceneName.BattleAttackPhase;
                 }
-
                 else
                 {
+                    sceneName = SceneName.SelectSkill;
                     Messages.Instance().CoolTimeError();
                 }
             }
@@ -669,16 +671,16 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            bool isAllDeath = false; // 한 마리라도 살아있으면 true로 변경
+            bool isAllDeath = true; // 한 마리라도 살아있으면 true로 변경
 
             for (int i = 0; i < Dungouns[floor].monsters.Count; i++)
             {
                 if (Dungouns[floor].monsters[i].IsDead == false)
                 {
-                    isAllDeath = true;
+                    isAllDeath = false;
                 }
             }
-            if (isAllDeath = false)
+            if (isAllDeath)
             {
                 sceneName = SceneName.BattlePlayerWin;
             }
@@ -745,7 +747,7 @@ namespace Sparta_TextRPG
 
             if (inputNum == 0) // 0번 입력 시 시작 메뉴로 돌아가기
             {
-                sceneName = SceneName.StartSetName;
+                sceneName = SceneName.MainScene;
             }
             else
             {
