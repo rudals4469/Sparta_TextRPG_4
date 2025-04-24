@@ -491,7 +491,7 @@ namespace Sparta_TextRPG
             Console.Write($"""
                여관으로 왔습니다. 
 
-               1. 퀘스트 받기
+               1. 퀘스트 관리
                2. 휴식하기
 
                0. 나가기
@@ -503,7 +503,7 @@ namespace Sparta_TextRPG
         }
         public void ShowQuestList(List<Quest> quests)
         {
-            Console.WriteLine("퀘스트를 선택하세요.\n");
+            Console.WriteLine("수락 가능한 퀘스트 목록\n");
 
             for (int i = 0; i < quests.Count; i++)
             {
@@ -512,14 +512,15 @@ namespace Sparta_TextRPG
 
             Console.Write($"""
 
-               4. 진행 중인 퀘스트 보기
+            {quests.Count + 1}. 진행 중인 퀘스트 보기
 
-               0. 나가기
+            0. 나가기
 
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
+            원하시는 행동을 입력해주세요.
+            >> 
+            """);
         }
+
 
         public void ShowQuestInfo(Quest quest)
         {
@@ -539,10 +540,10 @@ namespace Sparta_TextRPG
             """);
         }
 
-        public void ShowAcceptQuest(string questName)
+        public void ShowAcceptingQuest(string questName)
         {
             Console.Write($"""
-               '{questName}' 퀘스트를 수락했습니다. 
+               '{questName}'퀘스트를 수락했습니다. 
 
                0. 나가기
 
@@ -552,100 +553,32 @@ namespace Sparta_TextRPG
         }
 
 
-
-        public void ShowAlreadyAcceptedQuest()
+        public void ShowViewAcceptedQuest(List<Quest> acceptedQuests)
         {
+            Console.WriteLine("받은 퀘스트 목록");
+
+            if (acceptedQuests.Count == 0)
+            {
+                Console.WriteLine("- (진행 중인 퀘스트가 없습니다)");
+            }
+            else
+            {
+                foreach (var quest in acceptedQuests)
+                {
+                    Console.WriteLine($"- {quest.Name} ({quest.Count}/{quest.TargetCount})");
+                }
+            }
 
             Console.Write($"""
-               퀘스트 1
-               퀘스트 설명
-               잡을 몬스터 : 이름, 마릿수
-               보상 : 
 
-               퀘스트를 받으시겠습니까?
+            0. 나가기
 
-               1. 퀘스트 받기
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >>
-               """);
+            원하시는 행동을 입력해주세요. 
+            >> 
+            """);
         }
 
-        public void ShowViewAcceptedQuest()
-        {
-            Console.Write($"""
-               받은 퀘스트 목록
-               -
-               -
 
-               퀘스트를 받으시겠습니까?
-
-               1. 퀘스트 받기
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
-        }
-
-        public void ShowQuest3Info()
-        {
-            Console.Write($"""
-               퀘스트 3 
-               퀘스트 설명
-               잡을 몬스터 : 이름, 마릿수
-               보상 : 골드
-
-               퀘스트를 받으시겠습니까?
-
-               1. 퀘스트 받기
-               
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
-        }
-
-        public void ShowReceiveQuest1()
-        {
-            Console.Write($"""
-               (퀘스트 이름1) 퀘스트를 받았습니다.
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
-
-        }
-        public void ShowReceiveQuest2()
-        {
-            Console.Write($"""
-               (퀘스트 이름2) 퀘스트를 받았습니다.
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
-
-        }
-        public void ShowReceiveQuest3()
-        {
-            Console.Write($"""
-               (퀘스트 이름3) 퀘스트를 받았습니다.
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
-
-        }
 
         public void ShowRest(Player player)
         {

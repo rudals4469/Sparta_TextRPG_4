@@ -55,7 +55,7 @@ namespace Sparta_TextRPG
         NPC,
         QuestList,
         QuestInfo,
-        AcceptQuest,
+        AcceptingQuest,
         AlreadyAcceptedQuest,
         ViewAcceptedQuest,
         Rest,
