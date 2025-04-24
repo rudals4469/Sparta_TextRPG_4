@@ -413,13 +413,13 @@ namespace Sparta_TextRPG
                 Console.WriteLine("\n[포션]\n");
 
                 var potions = from potion in player.Inventory.Potions
+                              orderby potion.Name ascending
                               group potion by potion.Name into g
                               select new
                               {
                                   Name = g.Key,
                                   Count = g.Count(),
                                   Text = g.First().Text,
-                                  //ItemType = g.First().ItemType,
                                   Potion = g.First().PotionType
                                   
                               };
@@ -697,12 +697,7 @@ namespace Sparta_TextRPG
 
                 """);
 
-            Console.WriteLine("\n[포션]\n");
-            foreach (var potion in shop.Inventory.Potions)
-            {
-                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} meso | {potion.Text} ");
-                Count++;
-            }
+            
 
             Console.WriteLine("\n[무기]\n");
             foreach (var weapon in shop.Inventory.Weapon)
@@ -726,7 +721,14 @@ namespace Sparta_TextRPG
                 Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} Meso | {shield.Text,-15}");
                 Count++;
             }
-            
+
+            Console.WriteLine("\n[포션]\n");
+            foreach (var potion in shop.Inventory.Potions)
+            {
+                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} meso | {potion.Text} ");
+                Count++;
+            }
+
             Console.Write("""
                 --------------------------------------------------------------
                 1. 아이템 구매
@@ -755,14 +757,6 @@ namespace Sparta_TextRPG
 
 
                 """);
-
-            Console.WriteLine("\n[포션]\n");
-            foreach (var potion in shop.Inventory.Potions)
-            {
-                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} Meso | {potion.Text} ");
-                Count++;
-            }
-
             Console.WriteLine("\n[무기]\n");
             foreach (var weapon in shop.Inventory.Weapon)
             {
@@ -782,6 +776,14 @@ namespace Sparta_TextRPG
             {
 
                 Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} Meso | {shield.Text,-15}");
+                Count++;
+            }
+
+
+            Console.WriteLine("\n[포션]\n");
+            foreach (var potion in shop.Inventory.Potions)
+            {
+                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} Meso | {potion.Text} ");
                 Count++;
             }
 
@@ -813,24 +815,7 @@ namespace Sparta_TextRPG
 
                 """);
 
-            Console.WriteLine("\n[포션]\n");
-
-            var potions = from potion in player.Inventory.Potions
-                          group potion by potion.Name into g
-                          select new
-                          {
-                              Name = g.Key,
-                              Count = g.Count(),
-                              Text = g.First().Text,
-                              Potion = g.First().PotionType,
-                              Price = g.First().Price
-
-                          };
-            foreach (var potion in potions)
-            {
-                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} Meso | {potion.Text} | x{potion.Count}");
-                Count++;
-            }
+           
 
             Console.WriteLine("\n[무기]\n");
             foreach (var weapon in player.Inventory.Weapon)
@@ -852,6 +837,25 @@ namespace Sparta_TextRPG
             {
 
                 Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} Meso | {shield.Text,-15}");
+                Count++;
+            }
+
+            Console.WriteLine("\n[포션]\n");
+
+            var potions = from potion in player.Inventory.Potions
+                          group potion by potion.Name into g
+                          select new
+                          {
+                              Name = g.Key,
+                              Count = g.Count(),
+                              Text = g.First().Text,
+                              Potion = g.First().PotionType,
+                              Price = g.First().Price
+
+                          };
+            foreach (var potion in potions)
+            {
+                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} Meso | {potion.Text} | x{potion.Count}");
                 Count++;
             }
 

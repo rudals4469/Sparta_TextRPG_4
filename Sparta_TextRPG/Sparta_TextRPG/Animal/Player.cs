@@ -60,11 +60,6 @@ namespace Sparta_TextRPG
             }
             return false;
         }
-
-        public void LevelUp(int exp)
-        {
-            
-        }
         public void UseSkill(Skill skill)
         {
             this.NowMP -= skill.Mana;
@@ -127,25 +122,37 @@ namespace Sparta_TextRPG
             }
             else if (item.Type == ItemType.Armor)
             {
-                if (Armor == (Armor)item)
+                if(Armor != null)
                 {
-                    player.ArmorPoint -= Armor.ArmorPoint;
-                    Armor = null;
-                    return;
+                    Armor.IsEquipped = false;
+
+                    if (Armor == (Armor)item)
+                    {
+                        player.ArmorPoint -= Armor.ArmorPoint;
+                        Armor = null;
+                        return;
+                    }
                 }
+                
                 Armor = (Armor)item;
                 Armor.IsEquipped = true;
                 player.ArmorPoint += Armor.ArmorPoint;
             }
             else if(item.Type == ItemType.Shield)
             {
-                if (Shield == (Shield)item)
+                if (Shield != null)
                 {
-                    player.AttackPoint -= Shield.AttackPoint;
-                    player.ArmorPoint -= Shield.ArmorPoint;
-                    Shield = null;
-                    return;
-                }
+
+                    Shield.IsEquipped = false;
+
+                    if (Shield == (Shield)item)
+                    {
+                        player.AttackPoint -= Shield.AttackPoint;
+                        player.ArmorPoint -= Shield.ArmorPoint;
+                        Shield = null;
+                        return;
+                    }
+                }                
                 Shield = (Shield)item;
                 Shield.IsEquipped = true;
                 player.AttackPoint += Shield.AttackPoint;

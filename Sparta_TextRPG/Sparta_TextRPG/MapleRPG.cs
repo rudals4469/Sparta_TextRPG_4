@@ -133,6 +133,7 @@ namespace Sparta_TextRPG
                         break;
                     case SceneName.LevelUp:
                         LevelUp();
+                        break;
                     case SceneName.DrinkingPotion:
                         DrinkingPotion();
                         break;
