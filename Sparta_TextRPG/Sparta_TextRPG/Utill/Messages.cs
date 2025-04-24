@@ -99,6 +99,7 @@ namespace Sparta_TextRPG
 
                 {++count}. 상태 보기
                 {++count}. 회복 아이템
+                0. 마을로 가기
                 입장할 던전을 선택해 주세요
                 >>
                 """);
@@ -243,7 +244,7 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-        public void ShowBattlePlayerWin(List<Monster> monsters, int HP, Player player)
+        public void ShowBattlePlayerWin(List<Monster> monsters, int HP, Player player, List<Item> items)
         {
             Console.Write(
                $"""
@@ -256,6 +257,15 @@ namespace Sparta_TextRPG
                Lv.{player.Level} {player.Name}
                HP {HP} -> {player.NowHP}
 
+               획득 아이템
+               (
+               """);
+            foreach (var item in items)
+            {
+                Console.Write($"{item.Name} ");
+            }
+            Console.Write(
+               """
                0. 다음
 
                >>
