@@ -765,7 +765,7 @@ namespace Sparta_TextRPG
                 필요한 아이템을 골드로 구매하실 수 있습니다 :3
 
                 [보유 골드]
-                {player.Gold}
+                {player.Gold} Meso
                 
                 [아이템 목록]
 
@@ -814,7 +814,7 @@ namespace Sparta_TextRPG
                 필요한 아이템을 골드로 구매하실 수 있습니다 :3
 
                 [보유 골드]
-                {player.Gold}
+                {player.Gold} Meso
                 
                 [아이템 목록]
 
