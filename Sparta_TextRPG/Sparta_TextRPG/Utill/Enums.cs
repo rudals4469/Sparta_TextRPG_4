@@ -68,6 +68,7 @@ namespace Sparta_TextRPG
         BattleMonsterPhase,
         BattlePlayerWin,
         BattlePlayerLose,
+        DrinkingPotion,
         
         InDungeon,
 

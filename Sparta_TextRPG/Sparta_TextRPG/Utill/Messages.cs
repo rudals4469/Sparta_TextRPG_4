@@ -299,6 +299,18 @@ namespace Sparta_TextRPG
                >>
                """);
         }
+        public void DrinkingPotion()//던전에서 포션마시기를 눌렀을 때 나오는 메세지
+        {
+            Console.WriteLine("블라블라");
+        }
+        public void DrinkingHpPotion()//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
+        {
+            Console.WriteLine("블라블라");
+        }
+        public void DrinkingMpPotion()//포션마시기에서 mp포션을 눌렀을 때 나오는 메세지
+        {
+            Console.WriteLine("블라블라");
+        }
         public void ShowStatus(Player player)         //$""" 사용해보려 하였으나 익숙치 않아 익숙한 것으로 진행
         {
             Console.WriteLine("[상태 보기]");

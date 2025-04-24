@@ -131,6 +131,9 @@ namespace Sparta_TextRPG
                     case SceneName.NotEnoughMoney:
                         NotEnoughMoney();
                         break;
+                    case SceneName.DrinkingPotion:
+                        DrinkingPotion();
+                        break;
 
                 }
             }
@@ -777,6 +780,13 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
+        public void DrinkingPotion()
+        {
+            Messages.Instance().DrinkingPotion();
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+        }
+
         public void NPCText()   // 여관(NPC) 메뉴 보기
         {
 
