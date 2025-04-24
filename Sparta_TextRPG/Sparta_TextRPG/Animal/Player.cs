@@ -42,6 +42,7 @@ namespace Sparta_TextRPG
         {
             this.Exp += exp;
             // 레벨업
+            //레벨업 정보 전달 
             if (this.Exp > MaxExp)
             {
                 this.Level++;

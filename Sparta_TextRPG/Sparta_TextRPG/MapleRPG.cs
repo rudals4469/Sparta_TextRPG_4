@@ -51,7 +51,7 @@ namespace Sparta_TextRPG
                 switch (sceneName)
                 {
                     case SceneName.MainScene:
-                        start();
+                        MainScene();
                         break;
                     case SceneName.StartSetName:
                         inputName = StartSetName();
@@ -304,7 +304,7 @@ namespace Sparta_TextRPG
 
 
         }
-        public void start()
+        public void MainScene()
         {
             Messages.Instance().ShowStart();
 
@@ -580,7 +580,7 @@ namespace Sparta_TextRPG
                 {
                     sceneName = SceneName.MainScene;
                 }
-                if(inputNum < Dungouns.Count+1)
+                else if(inputNum < Dungouns.Count+1)
                 {
                     floor = inputNum - 1;
                     sceneName = SceneName.BattleStart;
@@ -611,14 +611,15 @@ namespace Sparta_TextRPG
                 sceneName = SceneName.SelectSkill;
             }
         }
-        public void SelectSkill(Skill skill)
+        public void SelectSkill()
         {
             Messages.Instance().ShowSellectSkill(Dungouns[floor].monsters, Player);
             string str = Console.ReadLine();
             int num = int.Parse(str);
             if (num < Player.SkillList.Count + 1)
             {
-                if (Player.SkillList.CoolTime > 0)
+                // 로직수정
+                if (Skill.CoolTime > 0)
                 {
                     Skill = Player.SkillList[num - 1];
                     sceneName = SceneName.BattleAttackPhase;
@@ -657,6 +658,8 @@ namespace Sparta_TextRPG
 
             this.Player.UseSkill(Skill);
             int Damage = TargetMonster.Hit(Skill, Player.AttackPoint);
+
+            //몬스터 죽는지 확인
             Item? drop = TargetMonster.DropItem();
 
             if(drop != null) dorps.Add(drop);
@@ -755,14 +758,14 @@ namespace Sparta_TextRPG
             Messages.Instance().ShowBattlePlayerLose(Player.NowHP, Player);
             //로직 추가
 
-            Player.NowHP = 0;
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
             if (inputNum == 0) // 0번 입력 시 시작 메뉴로 돌아가기
             {
-                sceneName = SceneName.StartSetName;
+                // 체력 10퍼로 회복시키고
+                sceneName = SceneName.MainScene;
             }
             else
             {
