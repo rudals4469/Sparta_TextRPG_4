@@ -24,6 +24,7 @@ namespace Sparta_TextRPG
             this.MaxExp = MaxExp;
             this.Class = className;
             this.Inventory = new Inventory();
+            this.ActiveQuests = new List<Quest>();
         }
 
         public void GetQuest(Quest quest)
