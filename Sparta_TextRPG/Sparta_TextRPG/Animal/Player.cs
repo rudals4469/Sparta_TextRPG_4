@@ -88,31 +88,44 @@ namespace Sparta_TextRPG
                 if(Weapon != null)
                 {
                     Weapon.IsEquipped = false;
-                    if (Weapon == (Weapon)item) return;
+                   
+
+                    if (Weapon == (Weapon)item)
+                    {
+                        player.AttackPoint -= Weapon.AttackPoint;
+                        Weapon = null;
+                        return;
+                    }
                 }
                 Weapon = (Weapon)item;
                 Weapon.IsEquipped = true;
-
+                player.AttackPoint += Weapon.AttackPoint;
             }
             else if (item.Type == ItemType.Armor)
             {
-                if (Armor != null)
+                if (Armor == (Armor)item)
                 {
-                    Armor.IsEquipped = false;
-                    if (Armor == (Armor)item) return;
+                    player.ArmorPoint -= Armor.ArmorPoint;
+                    Armor = null;
+                    return;
                 }
                 Armor = (Armor)item;
                 Armor.IsEquipped = true;
+                player.ArmorPoint += Armor.ArmorPoint;
             }
             else if(item.Type == ItemType.Shield)
             {
-                if (Shield != null)
+                if (Shield == (Shield)item)
                 {
-                    Shield.IsEquipped = false;
-                    if (Shield == (Shield)item) return;
+                    player.AttackPoint -= Shield.AttackPoint;
+                    player.ArmorPoint -= Shield.ArmorPoint;
+                    Shield = null;
+                    return;
                 }
                 Shield = (Shield)item;
                 Shield.IsEquipped = true;
+                player.AttackPoint += Shield.AttackPoint;
+                player.ArmorPoint += Shield.ArmorPoint;
             }
         }
     }

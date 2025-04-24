@@ -15,6 +15,7 @@ namespace Sparta_TextRPG
 {
     internal class MapleRPG
     {
+
         public Shop Shop { get; set; }
         public Player Player { get; set; }
         public NPC NPC { get; set; }
@@ -29,6 +30,8 @@ namespace Sparta_TextRPG
         public ClassName inputClassName;
         public Skill? Skill;
         public Monster TargetMonster;
+
+        public Dictionary<string, Skill> AllSkill = new Dictionary<string, Skill>();
         public MapleRPG()
         {
             init();
@@ -36,7 +39,7 @@ namespace Sparta_TextRPG
         //가장 메인으로 돌아가는 함수
         public void Program()
         {
-            sceneName = SceneName.MainScene;
+            sceneName = SceneName.StartSetName;
 
             while (true)
             {
@@ -161,17 +164,24 @@ namespace Sparta_TextRPG
 
             Skill Origin = new Skill("Origin", 80, "필살기!!!!", 500, 100, 20, 100, 3);
 
+            AllSkill.Add("NormalAttck", normalAttack);
+            AllSkill.Add("HeavyAttack", HeavyAttack);
+            AllSkill.Add("DoubleAttack", doubleAttack);
+
+            AllSkill.Add("ThreeSnails", threeSnails);
+
+            AllSkill.Add("Slash Blast", slashBlast);
+            AllSkill.Add("Energy Bolt", energyBolt);
+            AllSkill.Add("Arrow Blow", arrowBlow);
+            AllSkill.Add("Lucky Seven", luckySeven);
+            AllSkill.Add("Somersault Kick", somersaultKick);
+
+            AllSkill.Add("Origin", Origin);
             List<Skill> MonsterSkillset = new List<Skill>() { normalAttack, HeavyAttack, doubleAttack };
-            // 냄비뚜껑 , 노목 ,
+            // 냄비뚜껑 , 노목
             // 자쿰의 투구 , 파란색 가운 , 아이젠 , 혼테일의 목걸이
             // 메이플 아이템들
             // 엘릭서 , hp , mp
-
-            //Player(int MaxHp,int MaxMP, int AttacPoint, int ArmorPoint, string Name ,int Gold, List<Skill> SkillList, bool IsDead, int EvasionRate, int MaxExp , ClassName className)
-            Player = new Player(100, 200, 100, 200, "kim", 500, MonsterSkillset, false, 50, 500, ClassName.전사);
-            Player.SkillList.Add(threeSnails);
-            Player.SkillList.Add(slashBlast);
-            Player.SkillList.Add(Origin);
 
             //Armor(string name, string text, int price, ItemType type,int armorPoint , bool isEquipped)
             Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구", 10000, ItemType.Armor, 100);
@@ -327,6 +337,7 @@ namespace Sparta_TextRPG
             Messages.Instance().ShowStartChackName(inputName);
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
+
             if (inputNum == 1)
             {
                 sceneName = SceneName.StartSetClass;
@@ -340,37 +351,78 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
+
         public void StartSetClass()
         {
             Messages.Instance().ShowStartSetClass();
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
+
             if (inputNum == 1)
             {
                 inputClassName = ClassName.전사;
+                List<Skill> WarriorSkill = new List<Skill>();
+                WarriorSkill.Add(AllSkill["NormalAttck"]);
+                WarriorSkill.Add(AllSkill["HeavyAttack"]);
+                WarriorSkill.Add(AllSkill["DoubleAttack"]);
+                WarriorSkill.Add(AllSkill["ThreeSnails"]);
+                WarriorSkill.Add(AllSkill["Slash Blast"]);
+                WarriorSkill.Add(AllSkill["Origin"]);
+                Player = new Player(200, 100, 100, 150, inputName, 2000000, WarriorSkill, false, 50, 500, ClassName.전사);
             }
             else if (inputNum == 2)
             {
                 inputClassName = ClassName.마법사;
+                List<Skill> MagicianSkill = new List<Skill>();
+                MagicianSkill.Add(AllSkill["NormalAttck"]);
+                MagicianSkill.Add(AllSkill["HeavyAttack"]);
+                MagicianSkill.Add(AllSkill["DoubleAttack"]);
+                MagicianSkill.Add(AllSkill["ThreeSnails"]);
+                MagicianSkill.Add(AllSkill["Slash Blast"]);
+                MagicianSkill.Add(AllSkill["Origin"]);
+                Player = new Player(75, 200, 200, 50, inputName, 2000000, MagicianSkill, false, 50, 500, ClassName.마법사);
             }
             else if (inputNum == 3)
             {
                 inputClassName = ClassName.궁수;
+                List<Skill> ArchorSkill = new List<Skill>();
+                ArchorSkill.Add(AllSkill["NormalAttck"]);
+                ArchorSkill.Add(AllSkill["HeavyAttack"]);
+                ArchorSkill.Add(AllSkill["DoubleAttack"]);
+                ArchorSkill.Add(AllSkill["ThreeSnails"]);
+                ArchorSkill.Add(AllSkill["Slash Blast"]);
+                ArchorSkill.Add(AllSkill["Origin"]);
+                Player = new Player(125, 125, 150, 100, inputName, 2000000, ArchorSkill, false, 50, 500, ClassName.궁수);
             }
             else if (inputNum == 4)
             {
                 inputClassName = ClassName.도적;
+                List<Skill> LogSkill = new List<Skill>();
+                LogSkill.Add(AllSkill["NormalAttck"]);
+                LogSkill.Add(AllSkill["HeavyAttack"]);
+                LogSkill.Add(AllSkill["DoubleAttack"]);
+                LogSkill.Add(AllSkill["ThreeSnails"]);
+                LogSkill.Add(AllSkill["Slash Blast"]);
+                LogSkill.Add(AllSkill["Origin"]);
+                Player = new Player(125, 125, 175, 75, inputName, 2000000, LogSkill, false, 50, 500, ClassName.도적);
             }
             else if (inputNum == 5)
             {
                 inputClassName = ClassName.해적;
+                List<Skill> PirateSkill = new List<Skill>();
+                PirateSkill.Add(AllSkill["NormalAttck"]);
+                PirateSkill.Add(AllSkill["HeavyAttack"]);
+                PirateSkill.Add(AllSkill["DoubleAttack"]);
+                PirateSkill.Add(AllSkill["ThreeSnails"]);
+                PirateSkill.Add(AllSkill["Slash Blast"]);
+                PirateSkill.Add(AllSkill["Origin"]);
+                Player = new Player(175, 100, 125, 125, inputName, 2000000, PirateSkill, false, 50, 500, ClassName.해적);
             }
             else
             {
                 Messages.Instance().ErrorMessage();
             }
             // 플레이어 생성
-
             sceneName = SceneName.MainScene;
 
         }
@@ -425,9 +477,6 @@ namespace Sparta_TextRPG
             {
                 //장착 매커니즘
                 player.Equiped(player.Inventory.GetItemByIndex(inputNum-1),player);
-
-                // 하고 화면 다시 출력
-                //sceneName = SceneName.ManageEquipment;
             }
             else if (inputNum == 0)
             {
