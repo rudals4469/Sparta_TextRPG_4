@@ -107,6 +107,9 @@ namespace Sparta_TextRPG
                     case SceneName.AcceptingQuest:
                         AcceptingQuest();
                         break;
+                    case SceneName.QuestCompleted:
+                        QuestCompleted();
+                        break;
                     case SceneName.ViewAcceptedQuest:
                         ViewAcceptedQuest();
                         break;
@@ -903,7 +906,7 @@ namespace Sparta_TextRPG
         }
 
 
-        public void AcceptingQuest()    // 퀘스트 수락 메시지
+        public void AcceptingQuest()    // 퀘스트 수락할 때 메시지
         {
             List<Quest> availableQuests = Quests.Where(q => !Player.ActiveQuests.Contains(q)).ToList();
             Quest selectedQuest = availableQuests[selectedQuestIndex]; 
@@ -923,40 +926,65 @@ namespace Sparta_TextRPG
             }
         }
 
-        public void QuestCompleted()    // 퀘스트 완료 메시지 
+        public void QuestCompleted()    // 퀘스트 완료 메시지
         {
-            List<Quest> availableQuests = Quests.Where(q => !Player.ActiveQuests.Contains(q)).ToList();
-            Quest selectedQuest = availableQuests[selectedQuestIndex];
-            Messages.Instance().ShowQuestCompleted(selectedQuest.Name);  // 퀘스트 이름 넘겨주기
+            Quest completedQuest = selectedQuestTemp;
+
+            Messages.Instance().ShowQuestCompleted(completedQuest.Name);
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 1)
+            {
+                // 보상 지급
+                Player.Gold += completedQuest.Gold;
+                foreach (var item in completedQuest.Reward)
+                {
+                    Player.Inventory.Add(item);
+                }
+
+                // 완료 퀘스트 제거
+                Player.ActiveQuests.Remove(completedQuest);
+
+                sceneName = SceneName.ViewAcceptedQuest;
+            }
+            else if (inputNum == 0)
+            {
+                sceneName = SceneName.ViewAcceptedQuest;
+            }
+            else
+            {
+                Messages.Instance().ErrorMessage();
+            }
+        }
+
+
+        public void ViewAcceptedQuest() // 진행 중인 퀘스트 보기
+        {
+            Messages.Instance().ShowViewAcceptedQuest(Player.ActiveQuests);
+
+            var inProgress = Player.ActiveQuests.Where(q => !q.IsComplete()).ToList();
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
             if (inputNum == 0)
             {
-                sceneName = SceneName.ViewAcceptedQuest; // 0번 입력 시 진행 중인 퀘스트 목록으로 돌아가기 
-            }
-            else
-            {
-                Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
-            }
-        }
-
-
-        public void ViewAcceptedQuest() // 수락한(진행 중인) 퀘스트 보기
-        {
-            Messages.Instance().ShowViewAcceptedQuest(Player.ActiveQuests);
-            string input = Console.ReadLine();
-            int inputNum = int.Parse(input);
-
-            if (inputNum == 0)  // 0번 입력 시 퀘스트 목록으로 돌아가기 
-            {
                 sceneName = SceneName.QuestList;
             }
+            else if (inputNum >= 1 && inputNum <= inProgress.Count && inProgress[inputNum - 1].IsComplete())
+            {
+                // 선택된 완료된 퀘스트를 temp에 저장
+                selectedQuestTemp = inProgress[inputNum - 1];
+                selectedQuestIndex = Player.ActiveQuests.IndexOf(selectedQuestTemp);
+                sceneName = SceneName.QuestCompleted;
+            }
             else
             {
-                Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
+                Messages.Instance().ErrorMessage();
             }
         }
+
 
         public void Rest()  // 휴식 
         {

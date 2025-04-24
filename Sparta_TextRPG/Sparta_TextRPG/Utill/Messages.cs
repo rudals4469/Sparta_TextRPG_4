@@ -593,28 +593,32 @@ namespace Sparta_TextRPG
 
         public void ShowViewAcceptedQuest(List<Quest> acceptedQuests)
         {
-            Console.WriteLine("받은 퀘스트 목록");
+            Console.WriteLine("진행 중인 퀘스트 목록");
 
-            if (acceptedQuests.Count == 0)
+            var inProgress = acceptedQuests.Where(q => !q.IsComplete()).ToList();
+            var completed = acceptedQuests.Where(q => q.IsComplete()).ToList();
+
+            for (int i = 0; i < inProgress.Count; i++)
             {
-                Console.WriteLine("- (진행 중인 퀘스트가 없습니다)");
+                string completeText = inProgress[i].IsComplete() ? " [완료]" : "";
+                Console.WriteLine($"- {i + 1}. {inProgress[i].Name} ({inProgress[i].Count}/{inProgress[i].TargetCount}){completeText}");
             }
-            else
+
+            Console.WriteLine("\n완료한 퀘스트 목록");
+            foreach (var q in completed)
             {
-                foreach (var quest in acceptedQuests)
-                {
-                    Console.WriteLine($"- {quest.Name} ({quest.Count}/{quest.TargetCount})");
-                }
+                Console.WriteLine($"- {q.Name} 퀘스트\n");
             }
 
             Console.Write($"""
 
             0. 나가기
 
-            원하시는 행동을 입력해주세요. 
+            원하시는 행동을 입력해주세요.
             >> 
             """);
-        }
+                }
+
 
 
 
