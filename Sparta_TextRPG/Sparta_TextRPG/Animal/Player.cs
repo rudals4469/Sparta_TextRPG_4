@@ -39,18 +39,31 @@ namespace Sparta_TextRPG
         {
             //장비와 돈 받기
         }
-        public void AddExp(int exp)
+        public bool AddExp(int exp)
         {
             this.Exp += exp;
             // 레벨업
             //레벨업 정보 전달 
-            if (this.Exp > MaxExp)
+            if (this.Exp >= MaxExp)
             {
                 this.Level++;
                 this.Exp = 0;
+                this.MaxHP += 10;
+                this.NowHP = this.MaxHP;
+                this.MaxMP += 10;
+                this.NowMP = this.MaxMP;
                 this.AttackPoint += 2;
                 this.ArmorPoint += 1; // 아머는 원래 0.5긴 함
+                this.MaxExp += MaxExp + 25 + (Level*5);
+
+                return true;
             }
+            return false;
+        }
+
+        public void LevelUp(int exp)
+        {
+            
         }
         public void UseSkill(Skill skill)
         {

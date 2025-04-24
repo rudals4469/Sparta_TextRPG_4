@@ -331,7 +331,8 @@ namespace Sparta_TextRPG
             Console.WriteLine($"{player.Name} ({player.Class})");
             Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
             Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
-            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");                //원본 가이드에서 띄어쓰기 되어있음
+            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");
+            Console.WriteLine($"{"경험치",-5}: {player.Exp} / {player.MaxExp}");
             Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
             Console.WriteLine();                                      //줄 바꿈 처리
 
@@ -403,32 +404,39 @@ namespace Sparta_TextRPG
             }
             else
             {
-                Console.WriteLine("[무기]");
+                Console.WriteLine("\n[무기]\n");
                 foreach (var weapon in player.Inventory.Weapon)
                 {
                     string prefix = weapon.IsEquipped ? "[E] ": "[ ] ";
                     Console.WriteLine($"- {prefix}{weapon.Name,-16} | +{weapon.AttackPoint} | {weapon.Text}");
                 }
 
-                Console.WriteLine("\n[방어구]");
+                Console.WriteLine("\n[방어구]\n");
                 foreach (var armor in player.Inventory.Armors)
                 {
                     string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
                     Console.WriteLine($"- {prefix}{armor.Name,-16} | +{armor.ArmorPoint} | {armor.Text}");
                 }
 
-                Console.WriteLine("\n[방패]");
+                Console.WriteLine("\n[방패]\n");
                 foreach (var shield in player.Inventory.Shild)
                 {
                     string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
                     Console.WriteLine($"- {prefix}{shield.Name,-16} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
                 }
 
-                Console.WriteLine("\n[포션]");
-                foreach (var potion in player.Inventory.Potions)
-                {
-                    Console.WriteLine($"- {potion.Name} | +{potion.HealPoint} | {potion.Text}");
-                }
+                Console.WriteLine("\n[포션]\n");
+
+                //foreach (var potion in player.Inventory.Potions)
+                //{
+                //    Console.WriteLine($"- {potion.Name} | +{potion.HealPoint} | {potion.Text}");
+                //}
+
+                //var result = shop.Inventory.Potions.GroupBy(x => x).Select(y => y);
+                //foreach (var item in result)
+                //{
+                //    Console.WriteLine($"- {Count,-2} {item.,-16} | {potion.Price,-5} meso | {potion.Text} ");
+                //}
             }
 
             Console.WriteLine("\n1. 장착 관리");
@@ -470,7 +478,7 @@ namespace Sparta_TextRPG
             }
             else
             {
-                Console.WriteLine("[무기]");
+                Console.WriteLine("\n[무기]\n");
 
                 foreach (var weapon in player.Inventory.Weapon)
                 {
@@ -479,7 +487,7 @@ namespace Sparta_TextRPG
                     Count++;
                 }
 
-                Console.WriteLine("\n[방어구]");
+                Console.WriteLine("\n[방어구]\n");
                 foreach (var armor in player.Inventory.Armors)
                 {
                     string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
@@ -487,7 +495,7 @@ namespace Sparta_TextRPG
                     Count++;
                 }
 
-                Console.WriteLine("\n[방패]");
+                Console.WriteLine("\n[방패]\n");
                 foreach (var shield in player.Inventory.Shild)
                 {
                     string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
@@ -495,11 +503,11 @@ namespace Sparta_TextRPG
                     Count++;
                 }
 
-                Console.WriteLine("\n[포션]");
-                foreach (var potion in player.Inventory.Potions)
-                {
-                    Console.WriteLine($"- {potion} {potion.Name} | +{potion.HealPoint} | {potion.Text}");
-                }
+                //Console.WriteLine("\n[포션]\n");
+                //foreach (var potion in player.Inventory.Potions)
+                //{
+                //    Console.WriteLine($"- {potion} {potion.Name} | +{potion.HealPoint} | {potion.Text}");
+                //}
             }
 
             Console.WriteLine("\n0. 나가기\n");
@@ -689,7 +697,11 @@ namespace Sparta_TextRPG
                 Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} meso | {potion.Text} ");
                 Count++;
             }
+            List<PotionType> test = new List<PotionType>();
 
+           
+
+            // 인벤토리에 포션 정복 ㅏ있으니깐 링크로 
             Console.WriteLine("\n[무기]\n");
             foreach (var weapon in shop.Inventory.Weapon)
             { 
@@ -745,7 +757,7 @@ namespace Sparta_TextRPG
             Console.WriteLine("\n[포션]\n");
             foreach (var potion in shop.Inventory.Potions)
             {
-                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} meso | {potion.Text} ");
+                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} Meso | {potion.Text} ");
                 Count++;
             }
 
@@ -756,14 +768,14 @@ namespace Sparta_TextRPG
                 Count++;
             }
 
-            Console.WriteLine("\n[방어구]");
+            Console.WriteLine("\n[방어구]\n");
             foreach (var armor in shop.Inventory.Armors)
             {
                 Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} Meso | {armor.Text,-15}");
                 Count++;
             }
 
-            Console.WriteLine("\n[방패]");
+            Console.WriteLine("\n[방패]\n");
             foreach (var shield in shop.Inventory.Shild)
             {
 
@@ -801,12 +813,14 @@ namespace Sparta_TextRPG
 
             Console.WriteLine("\n[포션]\n");
 
-
             foreach (var potion in player.Inventory.Potions) // 모루겠습니다.
             {
-                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} meso | {potion.Text} x{potion.Count}");
+                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} Meso | {potion.Text} x{potion.Count}");
                 Count++;
+                
             }
+
+            
 
             Console.WriteLine("\n[무기]\n");
             foreach (var weapon in player.Inventory.Weapon)
@@ -815,7 +829,7 @@ namespace Sparta_TextRPG
                 Count++;
             }
 
-            Console.WriteLine("\n[방어구]");
+            Console.WriteLine("\n[방어구]\n");
             foreach (var armor in player.Inventory.Armors)
             {
 
@@ -823,7 +837,7 @@ namespace Sparta_TextRPG
                 Count++;
             }
 
-            Console.WriteLine("\n[방패]");
+            Console.WriteLine("\n[방패]\n");
             foreach (var shield in player.Inventory.Shild)
             {
 
@@ -846,7 +860,19 @@ namespace Sparta_TextRPG
             Console.WriteLine("[실패] 골드가 부족합니다. 아무 숫자를 눌러 상점으로 돌아가세요.");
         }
 
-
+        public void LevelUp(Player player)
+        {
+            Console.WriteLine("[Level Up]");
+            Console.WriteLine();
+            Console.WriteLine($"Lv. {player.Level}");
+            Console.WriteLine($"{player.Name} ({player.Class})");
+            Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
+            Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
+            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");
+            Console.WriteLine($"{"경험치",-5}: {player.Exp} / {player.MaxExp}");
+            Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
+            Console.WriteLine();
+        }
     }
 
 }
