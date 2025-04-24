@@ -82,7 +82,6 @@ namespace Sparta_TextRPG
 
         }
         //
-
         public void ShowDungeonSelection(List<Dungeon> dungouns)
         {
             int count = 0;
@@ -106,7 +105,6 @@ namespace Sparta_TextRPG
                 >>
                 """);
         }
-
         public void printMonster(List<Monster> monsters)
         {
             int count = 0;
@@ -178,7 +176,6 @@ namespace Sparta_TextRPG
             Console.Write("[스킬 사용 불가] 쿨타임 중이므로 다른 스킬을 사용해주세요.");
             //Thread.Sleep(3000);
         }
-
         public void ShowBattleAttackPhase(List<Monster> monsters, Player player)
         {
             printMonster(monsters);
@@ -380,7 +377,6 @@ namespace Sparta_TextRPG
             Console.WriteLine("0. 나가기\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
         }
-
         public void ShowInventory(Player player)
         {
             Console.WriteLine("인벤토리");
@@ -515,7 +511,6 @@ namespace Sparta_TextRPG
         {
             Console.WriteLine("잘못된 입력입니다 ");
         }
-
         public void ShowNPC()
         {
 
@@ -551,8 +546,6 @@ namespace Sparta_TextRPG
             >> 
             """);
         }
-
-
         public void ShowQuestInfo(Quest quest)
         {
             Console.Write($"""
@@ -570,7 +563,6 @@ namespace Sparta_TextRPG
             >> 
             """);
         }
-
         public void ShowAcceptingQuest(string questName)
         {
             Console.Write($"""
@@ -582,7 +574,6 @@ namespace Sparta_TextRPG
                >> 
                """);
         }
-
         public void ShowQuestCompleted(string questName)
         {
             Console.Write($"""
@@ -597,8 +588,6 @@ namespace Sparta_TextRPG
                >> 
                """);
         }
-
-
         public void ShowViewAcceptedQuest(List<Quest> acceptedQuests)
         {
             Console.WriteLine("진행 중인 퀘스트 목록");
@@ -626,10 +615,6 @@ namespace Sparta_TextRPG
             >> 
             """);
                 }
-
-
-
-
         public void ShowRest(Player player)
         {
             Console.Write($"""
@@ -642,7 +627,6 @@ namespace Sparta_TextRPG
                >> 
                """);
         }
-
         public void ShowRestSuccess(Player player)
         {
             Console.Write($"""
@@ -655,7 +639,6 @@ namespace Sparta_TextRPG
                """);
 
         }
-
         public void ShowRestFail()
         {
             Console.Write($"""
@@ -667,7 +650,6 @@ namespace Sparta_TextRPG
                >> 
                """);
         }
-
         public void ShowDungoun(List<Dungeon> dungouns)
         {
             Console.Write($"""
@@ -686,8 +668,6 @@ namespace Sparta_TextRPG
                >> 
                """);
         }
-
-
         public void ShowShop(Player player, Shop shop)
         {
             int Count = 1;
@@ -805,7 +785,6 @@ namespace Sparta_TextRPG
                 
 
         }
-
         public void SellItem(Player player, Shop shop)
         {
             int Count = 1;
@@ -875,13 +854,10 @@ namespace Sparta_TextRPG
                 >> 
                 """);
         }
-
-
         public void NotEnoughMoney()
         {
             Console.WriteLine("[실패] 골드가 부족합니다. 아무 숫자를 눌러 상점으로 돌아가세요.");
         }
-
         public void LevelUp(Player player)
         {
             Console.WriteLine("[Level Up]");

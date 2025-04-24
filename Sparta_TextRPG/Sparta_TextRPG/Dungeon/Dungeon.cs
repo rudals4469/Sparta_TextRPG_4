@@ -20,7 +20,6 @@ namespace Sparta_TextRPG
             this.baseMonsters = baseMonsters;
             monsters = new List<Monster>();
         }
-
         public void DunjeonReset()
         {
             Random rand = new Random();

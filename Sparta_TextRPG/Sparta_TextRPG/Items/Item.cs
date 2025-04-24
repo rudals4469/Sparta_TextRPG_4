@@ -11,10 +11,7 @@ namespace Sparta_TextRPG
         public string Name { get; set; }
         public string Text { get; set; }
         public int Price { get; set; }
-
-        public ItemType Type { get; set; }
-
-        
+        public ItemType Type { get; set; }      
 
         public Item(string name, string text , int price , ItemType type)
         {

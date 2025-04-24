@@ -37,7 +37,6 @@ namespace Sparta_TextRPG
         스톤골렘,
         드레이크,
         돌의정령,
-
         머쉬맘,
         주니어발록,
         핑크빈,

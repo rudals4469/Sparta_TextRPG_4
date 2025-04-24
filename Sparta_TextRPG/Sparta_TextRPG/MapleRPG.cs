@@ -351,7 +351,6 @@ namespace Sparta_TextRPG
             else if (inputNum == 5) sceneName = SceneName.GameOver;
 
         }
-
         public string StartSetName()
         {
             Messages.Instance().ShowStartSetName();
@@ -599,7 +598,6 @@ namespace Sparta_TextRPG
             sceneName = SceneName.BuyItem;
             
         }
-
         //미완
         public void DungeonSelection()
         {
@@ -777,7 +775,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
         public void BattlePlayerWin()
         {
             Messages.Instance().ShowBattlePlayerWin(Dungouns[floor].monsters, Player.NowHP, Player , dorps);
@@ -864,7 +861,6 @@ namespace Sparta_TextRPG
                 //mp potion를 마셨을 때 마나회복이 되야 함(플레이어 hp를 끌어와야 함)
             }
         }
-
         public void NPCText()   // 여관(NPC) 메뉴 보기
         {
 
@@ -889,7 +885,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
         public void QuestList() // 퀘스트 목록 보기
         {
             // 수락하지 않은 퀘스트만 따로 추림
@@ -919,7 +914,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
         public void QuestInfo() // 퀘스트 정보 표시
         {
             Quest selectedQuest = selectedQuestTemp;
@@ -941,8 +935,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
-
         public void AcceptingQuest()    // 퀘스트 수락할 때 메시지
         {
             List<Quest> availableQuests = Quests.Where(q => !Player.ActiveQuests.Contains(q)).ToList();
@@ -962,7 +954,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
             }
         }
-
         public void QuestCompleted()    // 퀘스트 완료 메시지
         {
             Quest completedQuest = selectedQuestTemp;
@@ -995,8 +986,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
-
         public void ViewAcceptedQuest() // 진행 중인 퀘스트 보기
         {
             Messages.Instance().ShowViewAcceptedQuest(Player.ActiveQuests);
@@ -1021,8 +1010,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
-
         public void Rest()  // 휴식 
         {
             Messages.Instance().ShowRest(Player);
@@ -1051,7 +1038,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
             }
         }
-
         public void RestSuccess()   // 휴식 성공
         {
             Messages.Instance().ShowRestSuccess(Player);  // 휴식 성공 메시지 출력
@@ -1067,7 +1053,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
             }
         }
-
         public void RestFail()  // 휴식 실패
         {
             Messages.Instance().ShowRestFail();  // 휴식 성공 메시지 출력

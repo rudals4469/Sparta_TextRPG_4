@@ -77,7 +77,6 @@ namespace Sparta_TextRPG
             }
         }
 
-
         //상점 입장에서 파는 거기 때문에 유저 입장에서 사는 것.
         public bool SellItem(Player player, int selectedIndex)
 
