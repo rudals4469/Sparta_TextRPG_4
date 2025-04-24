@@ -601,6 +601,21 @@ namespace Sparta_TextRPG
                """);
         }
 
+        public void ShowQuestCompleted(string questName)
+        {
+            Console.Write($"""
+               '{questName}' 퀘스트를 완료했습니다.
+               보상: 500 골드 
+
+               1. 보상 받기 
+
+               0. 나가기
+
+               원하시는 행동을 입력해주세요. 
+               >> 
+               """);
+        }
+
 
         public void ShowViewAcceptedQuest(List<Quest> acceptedQuests)
         {

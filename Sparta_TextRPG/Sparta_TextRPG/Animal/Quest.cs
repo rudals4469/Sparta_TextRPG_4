@@ -32,5 +32,9 @@ namespace Sparta_TextRPG
         }
 
         // 진행도 확인 함수 추가
+        public bool IsComplete()
+        {
+            return Count >= TargetCount;
+        }
     }
 }
