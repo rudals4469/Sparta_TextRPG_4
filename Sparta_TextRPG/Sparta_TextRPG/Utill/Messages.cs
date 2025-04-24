@@ -26,11 +26,11 @@ namespace Sparta_TextRPG
                 메이플 월드에 오신 여러분 환영합니다.
                 이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.
 
-                1. 상태 보기
-                2. 상점
-                3. 던전입장
-                4. 여관으로 가기(NPC)
-                5. 게임종료
+                1.상태 보기
+                2.상점
+                3.던전입장
+                4.여관으로 가기(NPC)
+                5.게임종료
 
                 원하시는 행동을 입력해주세요.
                 >> 
@@ -299,11 +299,11 @@ namespace Sparta_TextRPG
             Console.WriteLine("캐릭터의 정보가 표시됩니다.");
             Console.WriteLine();                                       //줄 바꿈 처리
             Console.WriteLine($"Lv. {player.Level}");
-            Console.WriteLine($"{player.Name} ( {player.Class} )");
+            Console.WriteLine($"{player.Name} ({player.Class})");
             Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
             Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
-            Console.WriteLine($"{"체  력",-6}: {player.NowHP}/{player.MaxHP}");                //원본 가이드에서 띄어쓰기 되어있음
-            Console.WriteLine($"{"Gold",-8}: {player.Gold} G");
+            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");                //원본 가이드에서 띄어쓰기 되어있음
+            Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
             Console.WriteLine();                                      //줄 바꿈 처리
 
             Console.WriteLine("[인벤토리]");                             //player 인벤토리로 받을 수 있게 처리
@@ -407,7 +407,7 @@ namespace Sparta_TextRPG
                 0. 나가기
 
                 원하시는 행동을 입력해주세요.
-                >>
+                >> 
                 """);
          
 
@@ -476,7 +476,7 @@ namespace Sparta_TextRPG
             Console.WriteLine("\n0. 나가기\n");
             Console.Write("""
                 원하시는 행동을 입력해주세요.
-                >>
+                >> 
                 """);
             
         }
@@ -723,7 +723,7 @@ namespace Sparta_TextRPG
 
             foreach (var weapon in shop.Inventory.Weapon)
             { 
-                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} meso | {weapon.Text} ");
+                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} Meso | {weapon.Text} ");
                 Count++;
             }
 
@@ -731,7 +731,7 @@ namespace Sparta_TextRPG
             foreach (var armor in shop.Inventory.Armors)
             {
                 
-                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} meso | {armor.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} Meso | {armor.Text,-15}");
                 Count++;
             }
 
@@ -739,7 +739,7 @@ namespace Sparta_TextRPG
             foreach (var shield in shop.Inventory.Shild)
             {
                 
-                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} meso | {shield.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} Meso | {shield.Text,-15}");
                 Count++;
             }
             
@@ -774,14 +774,14 @@ namespace Sparta_TextRPG
 
             foreach (var weapon in shop.Inventory.Weapon)
             {
-                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} meso | {weapon.Text} ");
+                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} Meso | {weapon.Text} ");
                 Count++;
             }
 
             Console.WriteLine("\n[방어구]");
             foreach (var armor in shop.Inventory.Armors)
             {
-                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} meso | {armor.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} Meso | {armor.Text,-15}");
                 Count++;
             }
 
@@ -789,7 +789,7 @@ namespace Sparta_TextRPG
             foreach (var shield in shop.Inventory.Shild)
             {
 
-                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} meso | {shield.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} Meso | {shield.Text,-15}");
                 Count++;
             }
 
@@ -823,7 +823,7 @@ namespace Sparta_TextRPG
 
             foreach (var weapon in player.Inventory.Weapon)
             {
-                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} meso | {weapon.Text} ");
+                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} Meso | {weapon.Text} ");
                 Count++;
             }
 
@@ -831,7 +831,7 @@ namespace Sparta_TextRPG
             foreach (var armor in player.Inventory.Armors)
             {
 
-                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} meso | {armor.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} Meso | {armor.Text,-15}");
                 Count++;
             }
 
@@ -839,7 +839,7 @@ namespace Sparta_TextRPG
             foreach (var shield in player.Inventory.Shild)
             {
 
-                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} meso | {shield.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} Meso | {shield.Text,-15}");
                 Count++;
             }
 
