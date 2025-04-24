@@ -74,8 +74,11 @@ namespace Sparta_TextRPG
 
             // 플레이어 인벤토리에서 제거
             player.Inventory.Remove(item); 
-            
-            AddItem(item);
+
+            if(item.Type != ItemType.Potion)
+            {
+                AddItem(item);
+            }
         }
 
 
@@ -94,7 +97,7 @@ namespace Sparta_TextRPG
 
                 if (item.Type != ItemType.Potion) // 포션이면 
                 {
-                    Inventory.Remove(item);     // 샵 인벤토리에서 삭제 시키니깐 사라지지않나
+                    Inventory.Remove(item); 
                 }
 
                 return true;
