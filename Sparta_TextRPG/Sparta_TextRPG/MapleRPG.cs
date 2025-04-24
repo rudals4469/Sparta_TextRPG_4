@@ -110,6 +110,9 @@ namespace Sparta_TextRPG
                     case SceneName.QuestCompleted:
                         QuestCompleted();
                         break;
+                    case SceneName.ReceiveQuestReward:
+                        ReceiveQuestReward();
+                        break;
                     case SceneName.ViewAcceptedQuest:
                         ViewAcceptedQuest();
                         break;
@@ -303,28 +306,56 @@ namespace Sparta_TextRPG
             Quests = new List<Quest>
             {
                 new Quest(
-                    "달팽이 사냥",
-                    "시작할 때 받는 달팽이 사냥 퀘스트입니다.",
+                    "달팽이 처치하기",
+                    "시작할 때 받는 달팽이 사냥 퀘스트입니다.\n달팽이 3마리를 처치하세요.",
                     new List<Item>(), // 빈 리스트
-                    300,
-                    MonsterName.슬라임,
-                    3,
-                    1
+                    1000,             // 보상 골드
+                    MonsterName.달팽이,    // 잡을 몬스터
+                    3,                     // 목표 처치 수 
+                    1                      // 퀘스트 요구 레벨
                 ),
                 new Quest(
-                    "아이언 호그 사냥",
-                    "아이언호그를 사냥하는 퀘스트입니다.",
+                    "주황버섯 처치하기",
+                    "주황버섯 5마리를 처치하세요.",
                     new List<Item>(),
-                    600,
+                    1500,
+                    MonsterName.주황버섯,
+                    5,
+                    2
+                ),
+                new Quest(
+                    "이블아이 처치하기",
+                    "이블아이 4마리를 처치하세요.",
+                    new List<Item>(),
+                    2000,
+                    MonsterName.이블아이,
+                    4,
+                    4
+                ),
+
+                new Quest(
+                    "아이언호그 처치하기",
+                    "아이언호그 3마리를 처치하세요.",
+                    new List<Item>(),
+                    5000,
                     MonsterName.아이언호그,
                     3,
                     5
                 ),
                 new Quest(
-                    "정체 불명의 비둘기 사냥",
-                    "정체 불명의 비둘기를 처치하는 퀘스트입니다.",
+                    "드레이크 처치하기",
+                    "드레이크 2마리를 처치하세요.",
                     new List<Item>(),
-                    1000,
+                    7000,
+                    MonsterName.드레이크,
+                    2,
+                    7
+                ),
+                new Quest(
+                    "정체 불명의 비둘기 처치하기",
+                    "정체 불명의 비둘기 1마리를 처치하세요.",
+                    new List<Item>(),
+                    50000,
                     MonsterName.이름_모를_비둘기,
                     1,
                     10
@@ -890,12 +921,21 @@ namespace Sparta_TextRPG
             }
         }
 
-        public void QuestList() // 퀘스트 목록 보기
+        public void QuestList()
         {
-            // 수락하지 않은 퀘스트만 따로 추림
-            List<Quest> availableQuests = Quests.Where(q => !Player.ActiveQuests.Contains(q)).ToList();
+            List<Quest> availableQuests = Quests
+                .Where(q => !Player.ActiveQuests.Contains(q) && Player.Level >= q.RequestLevel)
+                .ToList();
 
-            Messages.Instance().ShowQuestList(availableQuests);
+            List<Quest> lockedQuests = Quests
+                .Where(q => !Player.ActiveQuests.Contains(q) && Player.Level < q.RequestLevel)
+                .ToList();
+
+            // ✅ 보상을 받을 수 있는 퀘스트가 있는지 확인
+            bool hasUnclaimedReward = Player.ActiveQuests
+                .Any(q => q.IsComplete() && !q.IsRewarded);
+
+            Messages.Instance().ShowQuestList(availableQuests, lockedQuests, hasUnclaimedReward);
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
@@ -919,6 +959,8 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
+
+
 
         public void QuestInfo() // 퀘스트 정보 표시
         {
@@ -967,7 +1009,7 @@ namespace Sparta_TextRPG
         {
             Quest completedQuest = selectedQuestTemp;
 
-            Messages.Instance().ShowQuestCompleted(completedQuest.Name);
+            Messages.Instance().ShowQuestCompleted(completedQuest);
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
@@ -976,15 +1018,15 @@ namespace Sparta_TextRPG
             {
                 // 보상 지급
                 Player.Gold += completedQuest.Gold;
+                
                 foreach (var item in completedQuest.Reward)
                 {
                     Player.Inventory.Add(item);
                 }
 
-                // 완료 퀘스트 제거
-                Player.ActiveQuests.Remove(completedQuest);
+                completedQuest.IsRewarded = true;
 
-                sceneName = SceneName.ViewAcceptedQuest;
+                sceneName = SceneName.ReceiveQuestReward;
             }
             else if (inputNum == 0)
             {
@@ -996,12 +1038,9 @@ namespace Sparta_TextRPG
             }
         }
 
-
-        public void ViewAcceptedQuest() // 진행 중인 퀘스트 보기
+        public void ReceiveQuestReward()    // 보상 받기 창
         {
-            Messages.Instance().ShowViewAcceptedQuest(Player.ActiveQuests);
-
-            var inProgress = Player.ActiveQuests.Where(q => !q.IsComplete()).ToList();
+            Messages.Instance().ShowReceiveQuestRewards(selectedQuestTemp, Player.Gold); ;
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
@@ -1009,10 +1048,34 @@ namespace Sparta_TextRPG
             {
                 sceneName = SceneName.QuestList;
             }
-            else if (inputNum >= 1 && inputNum <= inProgress.Count && inProgress[inputNum - 1].IsComplete())
+            else
             {
-                // 선택된 완료된 퀘스트를 temp에 저장
-                selectedQuestTemp = inProgress[inputNum - 1];
+                Messages.Instance().ErrorMessage();
+            }
+        }
+
+
+        public void ViewAcceptedQuest()
+        {
+            var selectableQuests = Player.ActiveQuests
+                .Where(q => q.IsComplete() && !q.IsRewarded)
+                .ToList();
+
+            // 보상 받을 퀘스트가 하나라도 있으면 true
+            bool hasRewardableQuest = selectableQuests.Count > 0;
+
+            Messages.Instance().ShowViewAcceptedQuest(Player.ActiveQuests, hasRewardableQuest);
+
+            string input = Console.ReadLine();
+            int inputNum = int.Parse(input);
+
+            if (inputNum == 0)
+            {
+                sceneName = SceneName.QuestList;
+            }
+            else if (inputNum >= 1 && inputNum <= selectableQuests.Count)
+            {
+                selectedQuestTemp = selectableQuests[inputNum - 1];
                 selectedQuestIndex = Player.ActiveQuests.IndexOf(selectedQuestTemp);
                 sceneName = SceneName.QuestCompleted;
             }
@@ -1021,6 +1084,8 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
+
+
 
 
         public void Rest()  // 휴식 
