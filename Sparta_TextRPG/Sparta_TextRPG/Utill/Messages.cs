@@ -356,33 +356,6 @@ namespace Sparta_TextRPG
                 Console.WriteLine($" {player.Shield.Name}");   // 방패 장착 칸
             else Console.WriteLine();
 
-            Console.WriteLine();                                      //줄 바꿈 처리
-            /*Console.WriteLine("인벤토리:");                         // 상태창에서 바로 인벤토리가 보여지게 설정
-                                                                     // 상태창에 너무 많은 정보가 보일 것 같아서 인벤토리 안으로 넣을 예정입니다 (수정예정이며 현재 임시 작성)
-            Console.WriteLine("[무기]");                              
-            foreach (var weapon in player.Inventory.Weapon)
-            {
-                Console.WriteLine($" - {weapon.Name}");
-            }
-
-            Console.WriteLine("[방어구]");
-            foreach (var armor in player.Inventory.Armors)
-            {
-                Console.WriteLine($" - {armor.Name}");
-            }
-
-            Console.WriteLine("[방패]");
-            foreach (var shield in player.Inventory.Shild)
-            {
-                Console.WriteLine($" - {shield.Name}");
-            }
-
-            Console.WriteLine("[포션]");
-            foreach (var potion in player.Inventory.Potions)
-            {
-                Console.WriteLine($" - {potion.Name}");
-            } 여기를 1번 누르면 인벤토리 창으로 들어가게 하자
-            */
             Console.WriteLine("\n1. 인벤토리 보기");
             Console.WriteLine("0. 나가기\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
@@ -427,16 +400,22 @@ namespace Sparta_TextRPG
 
                 Console.WriteLine("\n[포션]\n");
 
-                //foreach (var potion in player.Inventory.Potions)
-                //{
-                //    Console.WriteLine($"- {potion.Name} | +{potion.HealPoint} | {potion.Text}");
-                //}
+                var potions = from potion in player.Inventory.Potions
+                              group potion by potion.Name into g
+                              select new
+                              {
+                                  Name = g.Key,
+                                  Count = g.Count(),
+                                  Text = g.First().Text,
+                                  //ItemType = g.First().ItemType,
+                                  Potion = g.First().PotionType
+                                  
+                              };
+                foreach (var potion in potions)
+                {
+                    Console.WriteLine($"-  {potion.Name,-16} | {potion.Text} | x{potion.Count}");
+                }
 
-                //var result = shop.Inventory.Potions.GroupBy(x => x).Select(y => y);
-                //foreach (var item in result)
-                //{
-                //    Console.WriteLine($"- {Count,-2} {item.,-16} | {potion.Price,-5} meso | {potion.Text} ");
-                //}
             }
 
             Console.WriteLine("\n1. 장착 관리");
@@ -712,11 +691,7 @@ namespace Sparta_TextRPG
                 Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} meso | {potion.Text} ");
                 Count++;
             }
-            List<PotionType> test = new List<PotionType>();
 
-           
-
-            // 인벤토리에 포션 정복 ㅏ있으니깐 링크로 
             Console.WriteLine("\n[무기]\n");
             foreach (var weapon in shop.Inventory.Weapon)
             { 
@@ -828,14 +803,22 @@ namespace Sparta_TextRPG
 
             Console.WriteLine("\n[포션]\n");
 
-            foreach (var potion in player.Inventory.Potions) // 모루겠습니다.
-            {
-                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} Meso | {potion.Text} x{potion.Count}");
-                Count++;
-                
-            }
+            var potions = from potion in player.Inventory.Potions
+                          group potion by potion.Name into g
+                          select new
+                          {
+                              Name = g.Key,
+                              Count = g.Count(),
+                              Text = g.First().Text,
+                              Potion = g.First().PotionType,
+                              Price = g.First().Price
 
-            
+                          };
+            foreach (var potion in potions)
+            {
+                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} Meso | {potion.Text} | x{potion.Count}");
+                Count++;
+            }
 
             Console.WriteLine("\n[무기]\n");
             foreach (var weapon in player.Inventory.Weapon)

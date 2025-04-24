@@ -53,7 +53,7 @@ namespace Sparta_TextRPG
             else if (item.Type == ItemType.Potion)
             {
                 Potions.Remove((Potion)item);
-                //Potions.Find(n => n.Name.CompareTo(item.Name) == 0).Count--;
+                
             }
         }
 
@@ -76,7 +76,6 @@ namespace Sparta_TextRPG
         if (item.Type == ItemType.Potion)
             {
                 Potions.Add((Potion)item);
-                Potions.Find(n => n.Name.CompareTo(item.Name) == 0).Count++;
             }
         }
 

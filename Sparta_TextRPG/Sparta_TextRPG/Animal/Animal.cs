@@ -51,21 +51,21 @@ namespace Sparta_TextRPG
             }
             else
             {
-                int tempDamage = Damage * skill.Damage - ArmorPoint;
+                float tempDamage = Damage * skill.Damage - ArmorPoint;
                 if (tempDamage <= 0) tempDamage = 1;
                 int CritiacalNum = rand.Next(0, 100);
 
                 if (CritiacalNum <= skill.CriticalRate)
                 {
-                    NowHP -= tempDamage * 2;
+                    NowHP -= (int)tempDamage * 2;
                     if(NowHP<=0) IsDead = true;
-                    return tempDamage*2;
+                    return (int)tempDamage*2;
                 }
                 else
                 {
-                    NowHP -= tempDamage;
+                    NowHP -= (int)tempDamage;
                     if (NowHP <= 0) IsDead = true;
-                    return tempDamage;
+                    return (int)tempDamage;
                 }
 
             }

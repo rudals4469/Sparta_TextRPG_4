@@ -145,21 +145,21 @@ namespace Sparta_TextRPG
             Dungouns = new List<Dungeon>();
             dorps = new List<Item>();
             //Player(int Level, int Exp, int MaxHp, int NowHp, int MaxMP, int AttacPoint, int ArmorPoint, Inventory inventory,string Name,int Gold, List< Skill > SkillList, bool IsDead, int EvasionRate, int MaxExp, ClassName className)
-
+            // 크확 데미지(배수) 마나 레벨 쿨타임 타겟수
             // public Skill(string name, int criticalRate, string text, int damage, int mana, int level, int coolTime,int targetCount)
-            Skill normalAttack = new Skill("NormalAttck", 50, "일반공격입니다.", 50, 5, 1, 10, 1);
-            Skill HeavyAttack = new Skill("HeavyAttack", 50, "강공격입니다.", 150, 50, 5, 10, 1);
-            Skill doubleAttack = new Skill("DoubleAttack", 50, "더블공격입니다.", 100, 10, 10, 20, 1);
+            Skill normalAttack = new Skill("NormalAttck", 20, "일반공격입니다.", 1, 0, 1, 0, 1);
+            Skill HeavyAttack = new Skill("HeavyAttack", 20, "강공격입니다.", 1.3f, 4, 5, 1, 1);
+            Skill doubleAttack = new Skill("DoubleAttack", 20, "더블공격입니다.", 2, 5, 10, 2, 1);
 
-            Skill threeSnails = new Skill("ThreeSnails", 50, "달팽이의 껍질을 던져 원거리의 적을 공격한다.", 10, 10, 10, 2, 1);
+            Skill threeSnails = new Skill("ThreeSnails", 20, "달팽이의 껍질을 던져 원거리의 적을 공격한다.", 1.2f, 4, 10, 1, 1);
 
-            Skill slashBlast = new Skill("Slash Blast", 50, "MP를 소비하여 주위의 적 다수를 동시에 공격한다.", 100, 20, 10, 20, 1);
-            Skill energyBolt = new Skill("Energy Bolt", 50, "적에게 닿으면 폭발하는 에너지 응집체를 발사한다.", 90, 20, 10, 20, 1);
-            Skill arrowBlow = new Skill("Arrow Blow", 50, "적을 향해 화살을 연속 발사한다.", 50, 20, 10, 20, 1);
-            Skill luckySeven = new Skill("Lucky Seven", 50, "표창을 던져 전방의 적들을 공격한다.", 150, 20, 10, 20, 1);
-            Skill somersaultKick = new Skill("Somersault Kick", 50, "적을 향해 화살을 연속 발사한다.", 50, 20, 10, 20, 1);
+            Skill PowerStrike = new Skill("Power Strike", 20, "MP를 소비하여 강하게 공격한다.", 1.5f, 5, 10, 2, 1);
+            Skill energyBolt = new Skill("Energy Bolt", 20, "적에게 닿으면 폭발하는 에너지 응집체를 발사한다.", 1.7f, 8, 10, 2, 1);
+            Skill arrowBlow = new Skill("Arrow Blow", 20, "적을 향해 화살을 연속 발사한다.", 1.5f, 5, 10, 2, 1);
+            Skill luckySeven = new Skill("Lucky Seven", 20, "표창을 던져 전방의 적들을 공격한다.", 1.5f, 5, 10, 2, 1);
+            Skill somersaultKick = new Skill("Somersault Kick", 20, "적을 향해 화살을 연속 발사한다.", 1.5f, 5, 10, 2, 1);
 
-            Skill Origin = new Skill("Origin", 80, "필살기!!!!", 500, 100, 20, 100, 3);
+            Skill Origin = new Skill("Origin", 20, "필살기!!!!", 3f, 20, 20, 5, 3);
 
             AllSkill.Add("NormalAttck", normalAttack);
             AllSkill.Add("HeavyAttack", HeavyAttack);
@@ -167,7 +167,7 @@ namespace Sparta_TextRPG
 
             AllSkill.Add("ThreeSnails", threeSnails);
 
-            AllSkill.Add("Slash Blast", slashBlast);
+            AllSkill.Add("Slash Blast", PowerStrike);
             AllSkill.Add("Energy Bolt", energyBolt);
             AllSkill.Add("Arrow Blow", arrowBlow);
             AllSkill.Add("Lucky Seven", luckySeven);
@@ -183,43 +183,46 @@ namespace Sparta_TextRPG
              
 
             //Armor(string name, string text, int price, ItemType type,int armorPoint , bool isEquipped)
-            Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구", 10000, ItemType.Armor, 100);
-            Armor horntailNecklace = new Armor("HorntailNecklace", "혼테일의 목걸이", 15000, ItemType.Armor, 150);
-            Armor aijen = new Armor("Aijen", "아이젠", 1000, ItemType.Armor, 40);
-            Armor blueGown = new Armor("BlueGown", "파란가운", 5000, ItemType.Armor, 80);
+            Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구", 10000, ItemType.Armor, 5);
+            Armor horntailNecklace = new Armor("HorntailNecklace", "혼테일의 목걸이", 15000, ItemType.Armor, 7);
+            Armor aijen = new Armor("Aijen", "아이젠", 1000, ItemType.Armor, 2);
+            Armor blueGown = new Armor("BlueGown", "파란가운", 5000, ItemType.Armor, 4);
 
             //Weapon(string name, string text, int price, ItemType type, int attackPoint, bool isEquipped)
             //Absolute Labs
-            Weapon WoodSword = new Weapon("WoodSword", "나무 검", 500, ItemType.Weapon, 50);
-            Weapon WoodBow = new Weapon("WoodBow", "나무 활", 500, ItemType.Weapon, 50);
-            Weapon WoodStaff = new Weapon("WoodStaff", "나무 스테프", 500, ItemType.Weapon, 50);
-            Weapon WoodClaw = new Weapon("WoodClaw", "나무 아대", 500, ItemType.Weapon, 50);
-            Weapon Woodknuckles = new Weapon("Woodknuckles", "나무 너클", 500, ItemType.Weapon, 50);
+            Weapon WoodSword = new Weapon("WoodSword", "나무 검", 500, ItemType.Weapon, 2);
+            Weapon WoodBow = new Weapon("WoodBow", "나무 활", 500, ItemType.Weapon, 2);
+            Weapon WoodStaff = new Weapon("WoodStaff", "나무 스테프", 500, ItemType.Weapon, 2);
+            Weapon WoodClaw = new Weapon("WoodClaw", "나무 아대", 500, ItemType.Weapon, 2);
+            Weapon Woodknuckles = new Weapon("Woodknuckles", "나무 너클", 500, ItemType.Weapon, 2);
 
-            Weapon MapleSword = new Weapon("MapleSword", "메이플 검", 1000, ItemType.Weapon, 100);
-            Weapon MapleBow = new Weapon("MapleBow", "메이플 활", 1000, ItemType.Weapon, 100);
-            Weapon MapleStaff = new Weapon("MapleStaff", "메이플 스테프", 1000, ItemType.Weapon, 100);
-            Weapon MapleClaw = new Weapon("MapleClaw", "메이플 아대", 1000, ItemType.Weapon, 100);
-            Weapon Mapleknuckles = new Weapon("knuckles", "메이플 너클", 1000, ItemType.Weapon, 100);
+            Weapon MapleSword = new Weapon("MapleSword", "메이플 검", 1000, ItemType.Weapon, 5);
+            Weapon MapleBow = new Weapon("MapleBow", "메이플 활", 1000, ItemType.Weapon, 5);
+            Weapon MapleStaff = new Weapon("MapleStaff", "메이플 스테프", 1000, ItemType.Weapon, 5);
+            Weapon MapleClaw = new Weapon("MapleClaw", "메이플 아대", 1000, ItemType.Weapon, 5);
+            Weapon Mapleknuckles = new Weapon("knuckles", "메이플 너클", 1000, ItemType.Weapon, 5);
 
-            Weapon AbsoluteSword = new Weapon("AbsoluteSword", "앱솔루트 검", 5000, ItemType.Weapon, 200);
-            Weapon AbsoluteBow = new Weapon("AbsoluteBow", "앱솔루트 활", 5000, ItemType.Weapon, 200);
-            Weapon AbsoluteStaff = new Weapon("AbsoluteStaff", "앱솔루트 스테프", 5000, ItemType.Weapon, 200);
-            Weapon AbsoluteClaw = new Weapon("AbsoluteClaw", "앱솔루트 아대", 5000, ItemType.Weapon, 200);
-            Weapon Absoluteknuckles = new Weapon("Absoluteknuckles", "앱솔루트 너클", 5000, ItemType.Weapon, 200);
+            Weapon AbsoluteSword = new Weapon("AbsoluteSword", "앱솔루트 검", 5000, ItemType.Weapon, 8);
+            Weapon AbsoluteBow = new Weapon("AbsoluteBow", "앱솔루트 활", 5000, ItemType.Weapon, 8);
+            Weapon AbsoluteStaff = new Weapon("AbsoluteStaff", "앱솔루트 스테프", 5000, ItemType.Weapon, 8);
+            Weapon AbsoluteClaw = new Weapon("AbsoluteClaw", "앱솔루트 아대", 5000, ItemType.Weapon, 8);
+            Weapon Absoluteknuckles = new Weapon("Absoluteknuckles", "앱솔루트 너클", 5000, ItemType.Weapon, 8);
 
             // Shiled(string name, string text, int price, ItemType type, int attackPoint, int armorPoint, bool isEquipped)
-            Shield potlid = new Shield("potlid", "앱솔루트 아대", 5000, ItemType.Shield, 50, 50);
-            Shield nomok = new Shield("nomok", "노가다 목장갑", 50000, ItemType.Shield, 200, 200);
+            Shield potlid = new Shield("potlid", "앱솔루트 아대", 5000, ItemType.Shield, 8, 8);
+            Shield nomok = new Shield("nomok", "노가다 목장갑", 1500, ItemType.Shield, 5, 5);
 
             //Potion(string name, string text, int price, ItemType type, int HealPoint)
             Potion HP = new Potion("HP", "체력회복 포션", 500, PotionType.HP, 100,ItemType.Potion);
             Potion MP = new Potion("MP", "마나회복 포션", 500, PotionType.MP, 100,ItemType.Potion);
+            Potion Alixir = new Potion("Alixir", "엘릭서", 1000, PotionType.Alixir, 500, ItemType.Potion);
 
+            Shop.Inventory.Add(nomok);
 
-            //엘릭서 추가
             Shop.Inventory.Add(aijen);
             Shop.Inventory.Add(blueGown);
+            Shop.Inventory.Add(zakumHelmet);
+            Shop.Inventory.Add(horntailNecklace);
 
             Shop.Inventory.Add(MapleSword);
             Shop.Inventory.Add(MapleBow);
@@ -235,11 +238,12 @@ namespace Sparta_TextRPG
 
             Shop.Inventory.Add(HP);
             Shop.Inventory.Add(MP);
+            Shop.Inventory.Add(Alixir);
 
 
             List<Item> MonsterDorpItems = new List<Item>() { WoodSword, WoodBow, WoodStaff, WoodClaw, Woodknuckles };
             List<Item> BossDorpItems = new List<Item>() { zakumHelmet, horntailNecklace };
-
+            // 레벨 경험치 hp mp 공격력 방어력 회피율
             monsters.Add(new Monster(1, 5, 10, 10, 5, 1, 100, MonsterSkillset, 10, MonsterName.Snail, MonsterDorpItems));
             monsters.Add(new Monster(2, 8, 15,  10, 8, 2, 150, MonsterSkillset, 10, MonsterName.OrangeMushroom, MonsterDorpItems));
             monsters.Add(new Monster(3, 10, 20, 10, 10, 2, 200, MonsterSkillset, 10, MonsterName.RibbonPig, MonsterDorpItems));
@@ -250,7 +254,7 @@ namespace Sparta_TextRPG
             monsters.Add(new Monster(8, 50, 80, 10, 15, 20, 500, MonsterSkillset, 15, MonsterName.JuniorBalrog, MonsterDorpItems));
 
 
-            monsters.Add(new Monster(9, 10000, 1, 1, 10000, 10000, 10000, MonsterSkillset, 100, MonsterName.AnUnnamedPigeon, BossDorpItems));
+            monsters.Add(new Monster(9, 100, 120, 10, 25, 20, 10000, MonsterSkillset, 25, MonsterName.AnUnnamedPigeon, BossDorpItems));
 
 
             // Dungoun(string name, int level, List<Monster> monsters)
@@ -358,7 +362,7 @@ namespace Sparta_TextRPG
             int inputNum = int.Parse(input);
 
             if (inputNum == 1)
-            {
+            {   // hp , mp , 공격력, 방어력
                 inputClassName = ClassName.전사;
                 List<Skill> WarriorSkill = new List<Skill>();
                 WarriorSkill.Add(AllSkill["NormalAttck"]);
@@ -367,7 +371,7 @@ namespace Sparta_TextRPG
                 WarriorSkill.Add(AllSkill["ThreeSnails"]);
                 WarriorSkill.Add(AllSkill["Slash Blast"]);
                 WarriorSkill.Add(AllSkill["Origin"]);
-                Player = new Player(99999, 100, 100, 150, inputName, 2000000, WarriorSkill, false, 10, 500, ClassName.전사);
+                Player = new Player(99999, 50, 10, 5, inputName, 10000, WarriorSkill, false, 20, 15, ClassName.전사);
             }
             else if (inputNum == 2)
             {
@@ -379,7 +383,7 @@ namespace Sparta_TextRPG
                 MagicianSkill.Add(AllSkill["ThreeSnails"]);
                 MagicianSkill.Add(AllSkill["Slash Blast"]);
                 MagicianSkill.Add(AllSkill["Origin"]);
-                Player = new Player(75, 200, 200, 50, inputName, 2000000, MagicianSkill, false, 50, 500, ClassName.마법사);
+                Player = new Player(50, 75, 15, 0, inputName, 10000, MagicianSkill, false, 20, 15, ClassName.마법사);
             }
             else if (inputNum == 3)
             {
@@ -391,7 +395,7 @@ namespace Sparta_TextRPG
                 ArchorSkill.Add(AllSkill["ThreeSnails"]);
                 ArchorSkill.Add(AllSkill["Slash Blast"]);
                 ArchorSkill.Add(AllSkill["Origin"]);
-                Player = new Player(125, 125, 150, 100, inputName, 2000000, ArchorSkill, false, 50, 500, ClassName.궁수);
+                Player = new Player(75, 50, 12, 3, inputName, 10000, ArchorSkill, false, 25, 15, ClassName.궁수);
             }
             else if (inputNum == 4)
             {
@@ -403,7 +407,7 @@ namespace Sparta_TextRPG
                 LogSkill.Add(AllSkill["ThreeSnails"]);
                 LogSkill.Add(AllSkill["Slash Blast"]);
                 LogSkill.Add(AllSkill["Origin"]);
-                Player = new Player(125, 125, 175, 75, inputName, 2000000, LogSkill, false, 50, 500, ClassName.도적);
+                Player = new Player(75, 50, 15, 3, inputName, 10000, LogSkill, false, 30, 15, ClassName.도적);
             }
             else if (inputNum == 5)
             {
@@ -415,7 +419,7 @@ namespace Sparta_TextRPG
                 PirateSkill.Add(AllSkill["ThreeSnails"]);
                 PirateSkill.Add(AllSkill["Slash Blast"]);
                 PirateSkill.Add(AllSkill["Origin"]);
-                Player = new Player(175, 100, 125, 125, inputName, 2000000, PirateSkill, false, 50, 500, ClassName.해적);
+                Player = new Player(100, 50, 12, 5, inputName, 10000, PirateSkill, false, 20, 15, ClassName.해적);
             }
             else
             {
