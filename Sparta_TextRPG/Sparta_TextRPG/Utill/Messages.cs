@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -219,6 +220,8 @@ namespace Sparta_TextRPG
                  
 
                 0. 다음
+               
+               >>
                """);
 
         }
@@ -254,6 +257,7 @@ namespace Sparta_TextRPG
                HP {HP} -> {player.NowHP}
 
                0. 다음
+
                >>
                """);
         }
@@ -333,8 +337,8 @@ namespace Sparta_TextRPG
             } 여기를 1번 누르면 인벤토리 창으로 들어가게 하자
             */
             Console.WriteLine("\n1. 인벤토리 보기");
-            Console.WriteLine("0. 나가기");
-            Console.WriteLine("원하시는 행동을 입력해주세요.\n>> ");
+            Console.WriteLine("0. 나가기\n");
+            Console.Write("원하시는 행동을 입력해주세요.\n>>");
         }
 
         public void ShowInventory(Player player)
@@ -382,8 +386,13 @@ namespace Sparta_TextRPG
             }
 
             Console.WriteLine("\n1. 장착 관리");
-            Console.WriteLine("0. 나가기");
-            Console.Write("\n원하시는 행동을 입력해주세요. >> ");
+            Console.Write("""
+                0. 나가기
+
+                원하시는 행동을 입력해주세요.
+                >>
+                """);
+         
 
             /*if (input == "0") break;
             else if (input == "1") ManageEquipment(player); 
@@ -447,8 +456,12 @@ namespace Sparta_TextRPG
                 }
             }
 
-            Console.WriteLine("\n0. 나가기");
-            Console.Write("\n원하시는 행동을 입력해주세요. >> ");
+            Console.WriteLine("\n0. 나가기\n");
+            Console.Write("""
+                원하시는 행동을 입력해주세요.
+                >>
+                """);
+            
         }
         public void ErrorMessage()
         {
@@ -498,12 +511,11 @@ namespace Sparta_TextRPG
                퀘스트를 받으시겠습니까?
 
                1. 퀘스트 받기
-               
 
                0. 나가기
 
                원하시는 행동을 입력해주세요. 
-               >> 
+               >>
                """);
         }
 
@@ -518,7 +530,6 @@ namespace Sparta_TextRPG
                퀘스트를 받으시겠습니까?
 
                1. 퀘스트 받기
-               
 
                0. 나가기
 
@@ -539,7 +550,6 @@ namespace Sparta_TextRPG
 
                1. 퀘스트 받기
                
-
                0. 나가기
 
                원하시는 행동을 입력해주세요. 
@@ -605,6 +615,7 @@ namespace Sparta_TextRPG
 
                0. 나가기
 
+               원하시는 행동을 입력해주세요.
                >> 
                """);
 
@@ -617,6 +628,7 @@ namespace Sparta_TextRPG
 
                0.나가기
 
+               원하시는 행동을 입력해주세요.
                >> 
                """);
         }
@@ -663,7 +675,7 @@ namespace Sparta_TextRPG
                 Count++;
             }
 
-            Console.WriteLine("\n[방어구]");
+            Console.WriteLine("\n[방어구]\n");
             foreach (var armor in shop.Inventory.Armors)
             {
                 
@@ -671,7 +683,7 @@ namespace Sparta_TextRPG
                 Count++;
             }
 
-            Console.WriteLine("\n[방패]");
+            Console.WriteLine("\n[방패]\n");
             foreach (var shield in shop.Inventory.Shild)
             {
                 
@@ -679,10 +691,14 @@ namespace Sparta_TextRPG
                 Count++;
             }
             
-            Console.WriteLine("""
+            Console.Write("""
+                --------------------------------------------------------------
                 1. 아이템 구매
                 2. 아이템 판매
                 0. 나가기
+
+                원하시는 행동을 입력해주세요.
+                >>
                 """);
 
 
@@ -727,7 +743,11 @@ namespace Sparta_TextRPG
             }
 
             Console.Write("""
+                --------------------------------------------------------------
+
                 0. 나가기
+
+                번호를 눌러 원하는 아이템을 사거나 원하시는 행동을 입력해주세요.
                 >>
                 """);
                 
@@ -773,8 +793,10 @@ namespace Sparta_TextRPG
             }
 
             Console.Write("""
-                
+                --------------------------------------------------------------
                 0. 나가기
+
+                번호를 눌러 원하는 아이템을 팔거나 원하시는 행동을 입력해주세요.
                 >>
                 """);
         }
@@ -782,7 +804,7 @@ namespace Sparta_TextRPG
 
         public void NotEnoughMoney()
         {
-            Console.WriteLine("[실패] 골드가 부족합니다. 아무 숫자를 눌러 상점으로 돌아가세용");
+            Console.WriteLine("[실패] 골드가 부족합니다. 아무 숫자를 눌러 상점으로 돌아가세요.");
         }
 
 
