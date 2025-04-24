@@ -316,15 +316,22 @@ namespace Sparta_TextRPG
                You Lose
 
                Lv.{player.Level} {player.Name}
-               HP HP -> {player.NowHP}
+               HP {HP} -> {player.NowHP}
 
                0. 다음
                >>
                """);
         }
-        public void DrinkingPotion()//던전에서 포션마시기를 눌렀을 때 나오는 메세지
+        public void DrinkingPotion(Player player)//던전에서 포션마시기를 눌렀을 때 나오는 메세지
         {
-            Console.WriteLine("블라블라");
+            Console.Write("""
+                [소유 포션]
+                1. HP 포션 | +100HP
+                2. MP 포션 | +100MP
+
+                사용하실 포션을 입력해주세요.
+                >>
+                """);
         }
         public void DrinkingHpPotion()//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
         {
