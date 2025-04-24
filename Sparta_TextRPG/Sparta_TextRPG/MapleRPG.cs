@@ -78,7 +78,7 @@ namespace Sparta_TextRPG
                         BattleStart();
                         break;
                     case SceneName.SelectSkill:
-                        SellectSkill();
+                        SelectSkill();
                         break;
                     case SceneName.BattleAttackPhase:
                         BattleAttackPhase();
@@ -608,7 +608,7 @@ namespace Sparta_TextRPG
                 sceneName = SceneName.SelectSkill;
             }
         }
-        public void SellectSkill(Skill skill)
+        public void SelectSkill(Skill skill)
         {
             Messages.Instance().ShowSellectSkill(Dungouns[floor].monsters, Player);
             string str = Console.ReadLine();
