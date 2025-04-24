@@ -317,15 +317,22 @@ namespace Sparta_TextRPG
                You Lose
 
                Lv.{player.Level} {player.Name}
-               HP HP -> {player.NowHP}
+               HP {HP} -> {player.NowHP}
 
                0. 다음
                >>
                """);
         }
-        public void DrinkingPotion()//던전에서 포션마시기를 눌렀을 때 나오는 메세지
+        public void DrinkingPotion(Player player)//던전에서 포션마시기를 눌렀을 때 나오는 메세지
         {
-            Console.WriteLine("블라블라");
+            Console.Write("""
+                [소유 포션]
+                1. HP 포션 | +100HP
+                2. MP 포션 | +100MP
+
+                사용하실 포션을 입력해주세요.
+                >>
+                """);
         }
         public void DrinkingHpPotion()//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
         {
@@ -358,15 +365,15 @@ namespace Sparta_TextRPG
             Console.WriteLine("장착 중인 아이템:");                     // 상태창에서 바로 장착중인 아이템이 보여지게 수정
             Console.Write($"- {"무기",-4} :");
             if (player.Weapon != null)
-                Console.WriteLine($" {player.Weapon.Name}"); // 무기 장착 칸
+                Console.WriteLine($" {player.Weapon.Text}"); // 무기 장착 칸
             else Console.WriteLine(); // 아니여도 줄 바꿈
             Console.Write($"- {"방어구",-3} :");
             if (player.Armor != null)
-                Console.WriteLine($" {player.Armor.Name}");   // 방어구 장착 칸
+                Console.WriteLine($" {player.Armor.Text}");   // 방어구 장착 칸
             else Console.WriteLine();
             Console.Write($"- {"방패",-4} :");
             if (player.Shield != null)
-                Console.WriteLine($" {player.Shield.Name}");   // 방패 장착 칸
+                Console.WriteLine($" {player.Shield.Text}");   // 방패 장착 칸
             else Console.WriteLine();
 
             Console.WriteLine("\n1. 인벤토리 보기");
@@ -394,39 +401,39 @@ namespace Sparta_TextRPG
                 foreach (var weapon in player.Inventory.Weapon)
                 {
                     string prefix = weapon.IsEquipped ? "[E] ": "[ ] ";
-                    Console.WriteLine($"- {prefix}{weapon.Name,-16} | +{weapon.AttackPoint} | {weapon.Text}");
+                    Console.WriteLine($"- {prefix}{weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
                 }
 
                 Console.WriteLine("\n[방어구]\n");
                 foreach (var armor in player.Inventory.Armors)
                 {
                     string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {prefix}{armor.Name,-16} | +{armor.ArmorPoint} | {armor.Text}");
+                    Console.WriteLine($"- {prefix}{armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
                 }
 
                 Console.WriteLine("\n[방패]\n");
                 foreach (var shield in player.Inventory.Shild)
                 {
                     string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {prefix}{shield.Name,-16} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
+                    Console.WriteLine($"- {prefix}{shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
                 }
 
                 Console.WriteLine("\n[포션]\n");
 
                 var potions = from potion in player.Inventory.Potions
+                              orderby potion.Name ascending
                               group potion by potion.Name into g
                               select new
                               {
                                   Name = g.Key,
                                   Count = g.Count(),
                                   Text = g.First().Text,
-                                  //ItemType = g.First().ItemType,
                                   Potion = g.First().PotionType
                                   
                               };
                 foreach (var potion in potions)
                 {
-                    Console.WriteLine($"-  {potion.Name,-16} | {potion.Text} | x{potion.Count}");
+                    Console.WriteLine($"-  {potion.Name,-18} | {potion.Text} | x{potion.Count}");
                 }
 
             }
@@ -475,7 +482,7 @@ namespace Sparta_TextRPG
                 foreach (var weapon in player.Inventory.Weapon)
                 {
                     string prefix = weapon.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {Count,-2} {prefix}{weapon.Name,-16} | +{weapon.AttackPoint} | {weapon.Text}");
+                    Console.WriteLine($"- {Count,-2} {prefix}{weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
                     Count++;
                 }
 
@@ -483,7 +490,7 @@ namespace Sparta_TextRPG
                 foreach (var armor in player.Inventory.Armors)
                 {
                     string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {Count, -2} {prefix}{armor.Name,-16} | +{armor.ArmorPoint} | {armor.Text}");
+                    Console.WriteLine($"- {Count,-2} {prefix}{armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
                     Count++;
                 }
 
@@ -491,15 +498,10 @@ namespace Sparta_TextRPG
                 foreach (var shield in player.Inventory.Shild)
                 {
                     string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {Count,-2} {prefix}{shield.Name,-16} | +{shield.ArmorPoint} +{shield.AttackPoint} | {shield.Text}");
+                    Console.WriteLine($"- {Count,-2} {prefix}{shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
                     Count++;
                 }
 
-                //Console.WriteLine("\n[포션]\n");
-                //foreach (var potion in player.Inventory.Potions)
-                //{
-                //    Console.WriteLine($"- {potion} {potion.Name} | +{potion.HealPoint} | {potion.Text}");
-                //}
             }
 
             Console.WriteLine("\n0. 나가기\n");
@@ -698,17 +700,12 @@ namespace Sparta_TextRPG
 
                 """);
 
-            Console.WriteLine("\n[포션]\n");
-            foreach (var potion in shop.Inventory.Potions)
-            {
-                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} meso | {potion.Text} ");
-                Count++;
-            }
+            
 
             Console.WriteLine("\n[무기]\n");
             foreach (var weapon in shop.Inventory.Weapon)
             { 
-                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} Meso | {weapon.Text} ");
+                Console.WriteLine($"- {Count,-2} {weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
                 Count++;
             }
 
@@ -716,7 +713,7 @@ namespace Sparta_TextRPG
             foreach (var armor in shop.Inventory.Armors)
             {
                 
-                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} Meso | {armor.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
                 Count++;
             }
 
@@ -724,10 +721,17 @@ namespace Sparta_TextRPG
             foreach (var shield in shop.Inventory.Shild)
             {
                 
-                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} Meso | {shield.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
                 Count++;
             }
-            
+
+            Console.WriteLine("\n[포션]\n");
+            foreach (var potion in shop.Inventory.Potions)
+            {
+                Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
+                Count++;
+            }
+
             Console.Write("""
                 --------------------------------------------------------------
                 1. 아이템 구매
@@ -756,25 +760,17 @@ namespace Sparta_TextRPG
 
 
                 """);
-
-            Console.WriteLine("\n[포션]\n");
-            foreach (var potion in shop.Inventory.Potions)
-            {
-                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} Meso | {potion.Text} ");
-                Count++;
-            }
-
             Console.WriteLine("\n[무기]\n");
             foreach (var weapon in shop.Inventory.Weapon)
             {
-                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} Meso | {weapon.Text} ");
+                Console.WriteLine($"- {Count,-2} {weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
                 Count++;
             }
 
             Console.WriteLine("\n[방어구]\n");
             foreach (var armor in shop.Inventory.Armors)
             {
-                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} Meso | {armor.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
                 Count++;
             }
 
@@ -782,7 +778,15 @@ namespace Sparta_TextRPG
             foreach (var shield in shop.Inventory.Shild)
             {
 
-                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} Meso | {shield.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
+                Count++;
+            }
+
+
+            Console.WriteLine("\n[포션]\n");
+            foreach (var potion in shop.Inventory.Potions)
+            {
+                Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
                 Count++;
             }
 
@@ -814,6 +818,31 @@ namespace Sparta_TextRPG
 
                 """);
 
+           
+
+            Console.WriteLine("\n[무기]\n");
+            foreach (var weapon in player.Inventory.Weapon)
+            {
+                Console.WriteLine($"- {Count,-2} {weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방어구]\n");
+            foreach (var armor in player.Inventory.Armors)
+            {
+
+                Console.WriteLine($"- {Count,-2} {armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방패]\n");
+            foreach (var shield in player.Inventory.Shild)
+            {
+
+                Console.WriteLine($"- {Count,-2} {shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
+                Count++;
+            }
+
             Console.WriteLine("\n[포션]\n");
 
             var potions = from potion in player.Inventory.Potions
@@ -824,35 +853,13 @@ namespace Sparta_TextRPG
                               Count = g.Count(),
                               Text = g.First().Text,
                               Potion = g.First().PotionType,
-                              Price = g.First().Price
+                              Price = g.First().Price,
+                              HealPoint = g.First().HealPoint
 
                           };
             foreach (var potion in potions)
             {
-                Console.WriteLine($"- {Count,-2} {potion.Name,-16} | {potion.Price,-5} Meso | {potion.Text} | x{potion.Count}");
-                Count++;
-            }
-
-            Console.WriteLine("\n[무기]\n");
-            foreach (var weapon in player.Inventory.Weapon)
-            {
-                Console.WriteLine($"- {Count,-2} {weapon.Name,-16} | +{weapon.AttackPoint,-5} | {weapon.Price,-5} Meso | {weapon.Text} ");
-                Count++;
-            }
-
-            Console.WriteLine("\n[방어구]\n");
-            foreach (var armor in player.Inventory.Armors)
-            {
-
-                Console.WriteLine($"- {Count,-2} {armor.Name,-16} | +{armor.ArmorPoint,-5} | {armor.Price} Meso | {armor.Text,-15}");
-                Count++;
-            }
-
-            Console.WriteLine("\n[방패]\n");
-            foreach (var shield in player.Inventory.Shild)
-            {
-
-                Console.WriteLine($"- {Count,-2} {shield.Name,-16} | +{shield.ArmorPoint,-5} +{shield.AttackPoint} | {shield.Price} Meso | {shield.Text,-15}");
+                Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
                 Count++;
             }
 

@@ -40,10 +40,6 @@ namespace Sparta_TextRPG
         //아이템을 해당 번호에 맞게 찾아오는 함수
         public Item GetItemByIndex(int index)
         {
-            if (index < Inventory.Potions.Count)
-                return Inventory.Potions[index];
-            index -= Inventory.Potions.Count;
-
             if (index < Inventory.Weapon.Count)
                 return Inventory.Weapon[index];
             index -= Inventory.Weapon.Count;

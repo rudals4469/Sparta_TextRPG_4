@@ -186,10 +186,10 @@ namespace Sparta_TextRPG
              
 
             //Armor(string name, string text, int price, ItemType type,int armorPoint , bool isEquipped)
-            Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구", 10000, ItemType.Armor, 5);
+            Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구    ", 10000, ItemType.Armor, 5);
             Armor horntailNecklace = new Armor("HorntailNecklace", "혼테일의 목걸이", 15000, ItemType.Armor, 7);
-            Armor aijen = new Armor("Aijen", "아이젠", 1000, ItemType.Armor, 2);
-            Armor blueGown = new Armor("BlueGown", "파란가운", 5000, ItemType.Armor, 4);
+            Armor aijen = new Armor("Aijen", "아이젠         ", 1000, ItemType.Armor, 2);
+            Armor blueGown = new Armor("BlueGown", "파란가운       ", 5000, ItemType.Armor, 4);
 
             //Weapon(string name, string text, int price, ItemType type, int attackPoint, bool isEquipped)
             //Absolute Labs
@@ -199,28 +199,29 @@ namespace Sparta_TextRPG
             Weapon WoodClaw = new Weapon("WoodClaw", "나무 아대", 500, ItemType.Weapon, 2);
             Weapon Woodknuckles = new Weapon("Woodknuckles", "나무 너클", 500, ItemType.Weapon, 2);
 
-            Weapon MapleSword = new Weapon("MapleSword", "메이플 검", 1000, ItemType.Weapon, 5);
-            Weapon MapleBow = new Weapon("MapleBow", "메이플 활", 1000, ItemType.Weapon, 5);
-            Weapon MapleStaff = new Weapon("MapleStaff", "메이플 스테프", 1000, ItemType.Weapon, 5);
-            Weapon MapleClaw = new Weapon("MapleClaw", "메이플 아대", 1000, ItemType.Weapon, 5);
-            Weapon Mapleknuckles = new Weapon("knuckles", "메이플 너클", 1000, ItemType.Weapon, 5);
+            Weapon MapleSword = new Weapon("MapleSword", "메이플 검      ", 1000, ItemType.Weapon, 5);
+            Weapon MapleBow = new Weapon("MapleBow", "메이플 활      ", 1000, ItemType.Weapon, 5);
+            Weapon MapleStaff = new Weapon("MapleStaff", "메이플 스테프  ", 1000, ItemType.Weapon, 5);
+            Weapon MapleClaw = new Weapon("MapleClaw", "메이플 아대    ", 1000, ItemType.Weapon, 5);
+            Weapon Mapleknuckles = new Weapon("knuckles", "메이플 너클    ", 1000, ItemType.Weapon, 5);
 
-            Weapon AbsoluteSword = new Weapon("AbsoluteSword", "앱솔루트 검", 5000, ItemType.Weapon, 8);
-            Weapon AbsoluteBow = new Weapon("AbsoluteBow", "앱솔루트 활", 5000, ItemType.Weapon, 8);
+            Weapon AbsoluteSword = new Weapon("AbsoluteSword", "앱솔루트 검    ", 5000, ItemType.Weapon, 8);
+            Weapon AbsoluteBow = new Weapon("AbsoluteBow", "앱솔루트 활    ", 5000, ItemType.Weapon, 8);
             Weapon AbsoluteStaff = new Weapon("AbsoluteStaff", "앱솔루트 스테프", 5000, ItemType.Weapon, 8);
-            Weapon AbsoluteClaw = new Weapon("AbsoluteClaw", "앱솔루트 아대", 5000, ItemType.Weapon, 8);
-            Weapon Absoluteknuckles = new Weapon("Absoluteknuckles", "앱솔루트 너클", 5000, ItemType.Weapon, 8);
+            Weapon AbsoluteClaw = new Weapon("AbsoluteClaw", "앱솔루트 아대  ", 5000, ItemType.Weapon, 8);
+            Weapon Absoluteknuckles = new Weapon("Absoluteknuckles", "앱솔루트 너클  ", 5000, ItemType.Weapon, 8);
 
             // Shiled(string name, string text, int price, ItemType type, int attackPoint, int armorPoint, bool isEquipped)
-            Shield potlid = new Shield("potlid", "앱솔루트 아대", 5000, ItemType.Shield, 8, 8);
-            Shield nomok = new Shield("nomok", "노가다 목장갑", 1500, ItemType.Shield, 5, 5);
+            Shield potlid = new Shield("potlid", "냄비 뚜껑      ", 5000, ItemType.Shield, 8, 8);
+            Shield nomok = new Shield("nomok", "노가다 목장갑  ", 1500, ItemType.Shield, 5, 5);
 
             //Potion(string name, string text, int price, ItemType type, int HealPoint)
-            Potion HP = new Potion("HP", "체력회복 포션", 500, PotionType.HP, 100,ItemType.Potion);
-            Potion MP = new Potion("MP", "마나회복 포션", 500, PotionType.MP, 100,ItemType.Potion);
-            Potion Alixir = new Potion("Alixir", "엘릭서", 1000, PotionType.Alixir, 500, ItemType.Potion);
+            Potion HP = new Potion("HP", "체력회복 포션  ", 500, PotionType.HP, 100,ItemType.Potion);
+            Potion MP = new Potion("MP", "마나회복 포션  ", 500, PotionType.MP, 100,ItemType.Potion);
+            Potion Alixir = new Potion("Alixir", "엘릭서         ", 1000, PotionType.Alixir, 500, ItemType.Potion);
 
             Shop.Inventory.Add(nomok);
+            Shop.Inventory.Add(potlid);
 
             Shop.Inventory.Add(aijen);
             Shop.Inventory.Add(blueGown);
@@ -621,7 +622,7 @@ namespace Sparta_TextRPG
                 }
                 else if(inputNum == Dungouns.Count + 2)
                 {
-                    int a = 0;
+                    sceneName = SceneName.DrinkingPotion;
                     //여기서 표션 사용
                 }
             }
@@ -839,9 +840,26 @@ namespace Sparta_TextRPG
         }
         public void DrinkingPotion()
         {
-            Messages.Instance().DrinkingPotion();
+            Messages.Instance().DrinkingPotion(Player);
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
+
+            if (inputNum == 0)
+            {
+                sceneName = SceneName.DungeonSelection;
+            }
+            else if (inputNum == 1)
+            {
+                Messages.Instance().DrinkingHpPotion();
+                //hp potion 갯수가 하나 줄어드는 함수
+                //hp potion를 마셨을 때 회복이 되야 함(플레이어 hp를 끌어와야 함)
+            }
+            else if (inputNum == 2)
+            {
+                Messages.Instance().DrinkingMpPotion();
+                //mp potion 갯수가 하나 줄어드는 함수
+                //mp potion를 마셨을 때 마나회복이 되야 함(플레이어 hp를 끌어와야 함)
+            }
         }
 
         public void NPCText()   // 여관(NPC) 메뉴 보기
