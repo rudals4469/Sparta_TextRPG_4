@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -94,19 +95,40 @@ namespace Sparta_TextRPG
                 }
                 Console.WriteLine("");
             }
-            Console.Write("""
+            Console.Write($"""
 
+                {++count}. 상태 보기
+                {++count}. 회복 아이템
                 입장할 던전을 선택해 주세요
                 >>
                 """);
         }
+
+        public void printMonster(List<Monster> monsters)
+        {
+            int count = 0;
+            foreach (var item in monsters)
+            {
+                count++;
+
+                if (item.IsDead)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} Dead");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}");
+                }
+
+            }
+        }
         public void ShowBattleStart(List<Monster> monsters, Player player)
         {
 
-            foreach (var item in monsters)
-            {
-                Console.WriteLine($"Lv.{item.Level} {item.MonsterName.ToString()} HP {item.NowHP}");
-            }
+            printMonster(monsters);
+
             Console.Write(
                $"""
 
@@ -125,10 +147,8 @@ namespace Sparta_TextRPG
         }
         public void ShowSellectSkill(List<Monster> monsters, Player player)
         {
-            foreach (var item in monsters)
-            {
-                Console.WriteLine($"Lv.{item.Level} {item.MonsterName.ToString()} HP {item.NowHP}");
-            }
+            printMonster(monsters);
+
             Console.WriteLine(
                $"""
 
@@ -151,23 +171,7 @@ namespace Sparta_TextRPG
         }
         public void ShowBattleAttackPhase(List<Monster> monsters, Player player)
         {
-            int count = 0;
-            foreach (var item in monsters)
-            {
-                count++;
-
-                if (item.IsDead)
-                {
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} Dead");
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}");
-                }
-
-            }
+            printMonster(monsters);
 
             Console.Write(
                $"""
@@ -216,6 +220,8 @@ namespace Sparta_TextRPG
                  
 
                 0. 다음
+               
+               >>
                """);
 
         }
@@ -251,6 +257,7 @@ namespace Sparta_TextRPG
                HP {HP} -> {player.NowHP}
 
                0. 다음
+
                >>
                """);
         }
@@ -330,8 +337,8 @@ namespace Sparta_TextRPG
             } 여기를 1번 누르면 인벤토리 창으로 들어가게 하자
             */
             Console.WriteLine("\n1. 인벤토리 보기");
-            Console.WriteLine("0. 나가기");
-            Console.WriteLine("원하시는 행동을 입력해주세요.\n>> ");
+            Console.WriteLine("0. 나가기\n");
+            Console.Write("원하시는 행동을 입력해주세요.\n>>");
         }
 
         public void ShowInventory(Player player)
@@ -379,8 +386,13 @@ namespace Sparta_TextRPG
             }
 
             Console.WriteLine("\n1. 장착 관리");
-            Console.WriteLine("0. 나가기");
-            Console.Write("\n원하시는 행동을 입력해주세요. >> ");
+            Console.Write("""
+                0. 나가기
+
+                원하시는 행동을 입력해주세요.
+                >>
+                """);
+         
 
             /*if (input == "0") break;
             else if (input == "1") ManageEquipment(player); 
@@ -444,13 +456,18 @@ namespace Sparta_TextRPG
                 }
             }
 
-            Console.WriteLine("\n0. 나가기");
-            Console.Write("\n원하시는 행동을 입력해주세요. >> ");
+            Console.WriteLine("\n0. 나가기\n");
+            Console.Write("""
+                원하시는 행동을 입력해주세요.
+                >>
+                """);
+            
         }
         public void ErrorMessage()
         {
             Console.WriteLine("잘못된 입력입니다 ");
         }
+
         public void ShowNPC()
         {
 
@@ -467,14 +484,48 @@ namespace Sparta_TextRPG
                """);
 
         }
-        public void ShowQuest()
+        public void ShowQuestList(List<Quest> quests)
+        {
+            Console.WriteLine("퀘스트를 선택하세요.\n");
+
+            for (int i = 0; i < quests.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {quests[i].Name}");
+            }
+
+            Console.Write($"""
+
+               4. 진행 중인 퀘스트 보기
+
+               0. 나가기
+
+               원하시는 행동을 입력해주세요. 
+               >> 
+               """);
+        }
+
+        public void ShowQuestInfo(Quest quest)
         {
             Console.Write($"""
-               퀘스트를 선택하세요.
+            {quest.Name}
+            {quest.Text}
 
-               1. 퀘스트1 
-               2. 퀘스트2 
-               3. 퀘스트2 
+            잡을 몬스터: {quest.Target} {quest.TargetCount}마리
+            보상: 골드 {quest.Gold}G
+
+            1. 퀘스트 받기
+
+            0. 나가기
+
+            원하시는 행동을 입력해주세요.
+            >> 
+            """);
+        }
+
+        public void ShowAcceptQuest(string questName)
+        {
+            Console.Write($"""
+               '{questName}' 퀘스트를 수락했습니다. 
 
                0. 나가기
 
@@ -484,8 +535,10 @@ namespace Sparta_TextRPG
         }
 
 
-        public void ShowQuest1Info()
+
+        public void ShowAlreadyAcceptedQuest()
         {
+
             Console.Write($"""
                퀘스트 1
                퀘스트 설명
@@ -495,27 +548,24 @@ namespace Sparta_TextRPG
                퀘스트를 받으시겠습니까?
 
                1. 퀘스트 받기
-               
 
                0. 나가기
 
                원하시는 행동을 입력해주세요. 
-               >> 
+               >>
                """);
         }
 
-        public void ShowQuest2Info()
+        public void ShowViewAcceptedQuest()
         {
             Console.Write($"""
-               퀘스트 2 
-               퀘스트 설명
-               잡을 몬스터 : 이름, 마릿수
-               보상 : 골드
+               받은 퀘스트 목록
+               -
+               -
 
                퀘스트를 받으시겠습니까?
 
                1. 퀘스트 받기
-               
 
                0. 나가기
 
@@ -536,7 +586,6 @@ namespace Sparta_TextRPG
 
                1. 퀘스트 받기
                
-
                0. 나가기
 
                원하시는 행동을 입력해주세요. 
@@ -602,6 +651,7 @@ namespace Sparta_TextRPG
 
                0. 나가기
 
+               원하시는 행동을 입력해주세요.
                >> 
                """);
 
@@ -614,6 +664,7 @@ namespace Sparta_TextRPG
 
                0.나가기
 
+               원하시는 행동을 입력해주세요.
                >> 
                """);
         }
@@ -660,7 +711,7 @@ namespace Sparta_TextRPG
                 Count++;
             }
 
-            Console.WriteLine("\n[방어구]");
+            Console.WriteLine("\n[방어구]\n");
             foreach (var armor in shop.Inventory.Armors)
             {
                 
@@ -668,7 +719,7 @@ namespace Sparta_TextRPG
                 Count++;
             }
 
-            Console.WriteLine("\n[방패]");
+            Console.WriteLine("\n[방패]\n");
             foreach (var shield in shop.Inventory.Shild)
             {
                 
@@ -676,10 +727,14 @@ namespace Sparta_TextRPG
                 Count++;
             }
             
-            Console.WriteLine("""
+            Console.Write("""
+                --------------------------------------------------------------
                 1. 아이템 구매
                 2. 아이템 판매
                 0. 나가기
+
+                원하시는 행동을 입력해주세요.
+                >>
                 """);
 
 
@@ -724,7 +779,11 @@ namespace Sparta_TextRPG
             }
 
             Console.Write("""
+                --------------------------------------------------------------
+
                 0. 나가기
+
+                번호를 눌러 원하는 아이템을 사거나 원하시는 행동을 입력해주세요.
                 >>
                 """);
                 
@@ -770,8 +829,10 @@ namespace Sparta_TextRPG
             }
 
             Console.Write("""
-                
+                --------------------------------------------------------------
                 0. 나가기
+
+                번호를 눌러 원하는 아이템을 팔거나 원하시는 행동을 입력해주세요.
                 >>
                 """);
         }
@@ -779,7 +840,7 @@ namespace Sparta_TextRPG
 
         public void NotEnoughMoney()
         {
-            Console.WriteLine("[실패] 골드가 부족합니다. 아무 숫자를 눌러 상점으로 돌아가세용");
+            Console.WriteLine("[실패] 골드가 부족합니다. 아무 숫자를 눌러 상점으로 돌아가세요.");
         }
 
 

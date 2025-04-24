@@ -12,6 +12,7 @@ namespace Sparta_TextRPG
         public int MaxExp {  get; set; } //exp
         public ClassName Class { get; set; }
         public Quest Quest { get; set; }
+        public List<Quest> ActiveQuests { get; set; } // 진행 중인 퀘스트 저장
         public Weapon Weapon { get; set; }
         public Armor Armor { get; set; }
         public Shield Shield { get; set; }
