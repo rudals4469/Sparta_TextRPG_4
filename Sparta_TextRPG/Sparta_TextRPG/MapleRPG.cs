@@ -84,7 +84,7 @@ namespace Sparta_TextRPG
                         BattleAttackMonster();
                         break;
                     case SceneName.BattleMonsterPhase:
-                        BattelMonsterPhase();
+                        BattleMonsterPhase();
                         break;
                     case SceneName.BattlePlayerWin:
                         BattlePlayerWin();
