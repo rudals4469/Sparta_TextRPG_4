@@ -602,15 +602,22 @@ namespace Sparta_TextRPG
                 sceneName = SceneName.SelectSkill;
             }
         }
-        public void SellectSkill()
+        public void SellectSkill(Skill skill)
         {
             Messages.Instance().ShowSellectSkill(Dungouns[floor].monsters, Player);
             string str = Console.ReadLine();
             int num = int.Parse(str);
             if (num < Player.SkillList.Count + 1)
             {
-                Skill = Player.SkillList[num - 1];
-                sceneName = SceneName.BattleAttackPhase;
+                if (Player.SkillList.CoolTime > 0)
+                {
+                    Skill = Player.SkillList[num - 1];
+                    sceneName = SceneName.BattleAttackPhase;
+                }
+                else
+                {
+                    Messages.Instance().CoolTimeError();
+                }
             }
 
         }
