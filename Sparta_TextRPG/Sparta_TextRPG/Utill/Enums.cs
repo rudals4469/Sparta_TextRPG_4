@@ -69,6 +69,7 @@ namespace Sparta_TextRPG
         BattlePlayerWin,
         LevelUp,
         BattlePlayerLose,
+        DrinkingPotion,
         
         InDungeon,
 
