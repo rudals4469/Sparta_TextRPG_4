@@ -250,33 +250,52 @@ namespace Sparta_TextRPG
 
             List<Item> MonsterDorpItems = new List<Item>() { WoodSword, WoodBow, WoodStaff, WoodClaw, Woodknuckles };
             List<Item> BossDorpItems = new List<Item>() { zakumHelmet, horntailNecklace };
-            // 레벨 경험치 hp mp 공격력 방어력 회피율
-            monsters.Add(new Monster(1, 5, 10, 10, 5, 1, 100, MonsterSkillset, 10, MonsterName.Snail, MonsterDorpItems));
-            monsters.Add(new Monster(2, 8, 15,  10, 8, 2, 150, MonsterSkillset, 10, MonsterName.OrangeMushroom, MonsterDorpItems));
-            monsters.Add(new Monster(3, 10, 20, 10, 10, 2, 200, MonsterSkillset, 10, MonsterName.RibbonPig, MonsterDorpItems));
-            monsters.Add(new Monster(4, 12, 23, 10, 12, 3, 230, MonsterSkillset, 15, MonsterName.EvilEye, MonsterDorpItems));
-            monsters.Add(new Monster(5, 15, 30, 10, 15, 5, 250, MonsterSkillset, 25, MonsterName.ironHog, MonsterDorpItems));
-            monsters.Add(new Monster(6, 20, 35, 10, 20, 7, 280, MonsterSkillset, 15, MonsterName.Drake, MonsterDorpItems));
-            monsters.Add(new Monster(7, 30, 50, 10, 15, 12, 350, MonsterSkillset, 5, MonsterName.StoneGolem, MonsterDorpItems));
-            monsters.Add(new Monster(8, 50, 80, 10, 15, 20, 500, MonsterSkillset, 15, MonsterName.JuniorBalrog, MonsterDorpItems));
-
-
-            monsters.Add(new Monster(9, 100, 120, 10, 25, 20, 10000, MonsterSkillset, 25, MonsterName.AnUnnamedPigeon, BossDorpItems));
+            //                   레벨경험치hp mp 공격력 방어력             회피율
+            monsters.Add(new Monster(1, 5, 10, 10, 5, 1, 100, MonsterSkillset, 10, MonsterName.달팽이, MonsterDorpItems));
+            monsters.Add(new Monster(2, 8, 12, 10, 6, 1, 100, MonsterSkillset, 10, MonsterName.슬라임, MonsterDorpItems));
+            monsters.Add(new Monster(2, 8, 8, 10, 6, 1, 100, MonsterSkillset, 20, MonsterName.옥토퍼스, MonsterDorpItems));
+            monsters.Add(new Monster(3, 10, 15, 10, 10, 2, 200, MonsterSkillset, 10, MonsterName.리본돼지, MonsterDorpItems));
+            monsters.Add(new Monster(4, 12, 17,  10, 10, 2, 200, MonsterSkillset, 10, MonsterName.주황버섯, MonsterDorpItems));
+            monsters.Add(new Monster(4, 12, 12, 10, 10, 2, 200, MonsterSkillset, 20, MonsterName.페어리, MonsterDorpItems));
+            monsters.Add(new Monster(5, 15, 20, 10, 12, 2, 200, MonsterSkillset, 10, MonsterName.예티, MonsterDorpItems));
+            monsters.Add(new Monster(5, 15, 20, 10, 12, 2, 200, MonsterSkillset, 10, MonsterName.페페, MonsterDorpItems));
+            monsters.Add(new Monster(6, 18, 23, 10, 12, 3, 230, MonsterSkillset, 15, MonsterName.이블아이, MonsterDorpItems));
+            monsters.Add(new Monster(6, 18, 15, 10, 17, 3, 230, MonsterSkillset, 15, MonsterName.루팡, MonsterDorpItems));
+            monsters.Add(new Monster(7, 20, 28, 10, 15, 5, 250, MonsterSkillset, 25, MonsterName.아이언호그, MonsterDorpItems));
+            monsters.Add(new Monster(8, 25, 30, 10, 15, 12, 350, MonsterSkillset, 15, MonsterName.스톤골렘, MonsterDorpItems));
+            monsters.Add(new Monster(9, 30, 35, 10, 20, 7, 280, MonsterSkillset, 15, MonsterName.드레이크, MonsterDorpItems));
+            monsters.Add(new Monster(15, 30, 50, 10, 20, 15, 280, MonsterSkillset, 15, MonsterName.돌의정령, MonsterDorpItems));
+            monsters.Add(new Monster(10, 35, 50, 10, 25, 20, 500, MonsterSkillset, 15, MonsterName.머쉬맘, MonsterDorpItems));
+            monsters.Add(new Monster(11, 40, 80, 10, 25, 20, 500, MonsterSkillset, 15, MonsterName.주니어발록, MonsterDorpItems));
+            monsters.Add(new Monster(12, 50, 150, 10, 35, 20, 2000, MonsterSkillset, 15, MonsterName.핑크빈, MonsterDorpItems));
+            monsters.Add(new Monster(13, 100, 200, 10, 45, 20, 10000, MonsterSkillset, 25, MonsterName.이름_모를_비둘기, BossDorpItems));
 
 
             // Dungoun(string name, int level, List<Monster> monsters)
-            Dungeon dungounLevel1 = new Dungeon("1층", 1, monsters.Skip(0).Take(3).ToList());
-            Dungeon dungounLevel2 = new Dungeon("2층", 2, monsters.Skip(1).Take(3).ToList());
-            Dungeon dungounLevel3 = new Dungeon("3층", 3, monsters.Skip(2).Take(3).ToList());
-            Dungeon dungounLevel4 = new Dungeon("4층", 4, monsters.Skip(3).Take(3).ToList());
-            Dungeon dungounLevel5 = new Dungeon("5층", 5, monsters.Skip(4).Take(3).ToList());
-            Dungeon dungounLevel6 = new Dungeon("6층", 6, monsters.Skip(5).Take(3).ToList());
-            Dungeon dungounLevel7 = new Dungeon("7층", 7, monsters.Skip(6).Take(2).ToList());
-            Dungeon dungounLevel8 = new Dungeon("Boss", 8, monsters.Skip(8).ToList());
+            Dungeon dungounLevel1 = new Dungeon("1층  ", 1, monsters.Skip(0).Take(4).ToList());
+            Dungeon dungounLevel2 = new Dungeon("2층  ", 2, monsters.Skip(2).Take(4).ToList());
+            Dungeon dungounLevel3 = new Dungeon("3층  ", 3, monsters.Skip(4).Take(4).ToList());
+            Dungeon dungounLevel4 = new Dungeon("4층  ", 4, monsters.Skip(6).Take(4).ToList());
+            Dungeon dungounLevel5 = new Dungeon("5층  ", 5, monsters.Skip(8).Take(4).ToList());
+            Dungeon dungounLevel6 = new Dungeon("6층  ", 6, monsters.Skip(10).Take(4).ToList());
+            Dungeon dungounLevel7 = new Dungeon("7층  ", 7, monsters.Skip(12).Take(2).ToList());
+            Dungeon dungounLevel8 = new Dungeon("Boss ", 8, monsters.Skip(14).Take(3).ToList());
+            Dungeon dungounLevel9 = new Dungeon("Hiden", 9, monsters.Skip(17).ToList());
             //
             Dungouns.Add(dungounLevel1);
             Dungouns.Add(dungounLevel2);
             Dungouns.Add(dungounLevel3);
+            Dungouns.Add(dungounLevel4);
+            Dungouns.Add(dungounLevel5);
+            Dungouns.Add(dungounLevel6);
+            Dungouns.Add(dungounLevel7);
+            Dungouns.Add(dungounLevel8);
+            Dungouns.Add(dungounLevel9);
+
+            for (int i = 0; i < Dungouns.Count; i++)
+            {
+                Dungouns[i].DunjeonReset();
+            }
 
 
             //Quest(string name , string text , List<Item> reward , int gold , MonsterName target , int requestLevel)
@@ -288,7 +307,7 @@ namespace Sparta_TextRPG
                     "시작할 때 받는 달팽이 사냥 퀘스트입니다.",
                     new List<Item>(), // 빈 리스트
                     300,
-                    MonsterName.Snail,
+                    MonsterName.슬라임,
                     3,
                     1
                 ),
@@ -297,7 +316,7 @@ namespace Sparta_TextRPG
                     "아이언호그를 사냥하는 퀘스트입니다.",
                     new List<Item>(),
                     600,
-                    MonsterName.ironHog,
+                    MonsterName.아이언호그,
                     3,
                     5
                 ),
@@ -306,7 +325,7 @@ namespace Sparta_TextRPG
                     "정체 불명의 비둘기를 처치하는 퀘스트입니다.",
                     new List<Item>(),
                     1000,
-                    MonsterName.AnUnnamedPigeon,
+                    MonsterName.이름_모를_비둘기,
                     1,
                     10
                 )
@@ -606,7 +625,7 @@ namespace Sparta_TextRPG
                 }
                 else if(inputNum == Dungouns.Count + 2)
                 {
-                    int a = 0;
+                    sceneName = SceneName.DrinkingPotion;
                     //여기서 표션 사용
                 }
             }
@@ -658,7 +677,7 @@ namespace Sparta_TextRPG
             {
                 sceneName = SceneName.BattleStart;
             }
-            else if (inputNum <= Dungouns[floor].monsters.Count + 1) // 입력 시 대상 선택, 구현 몬하겠다 일단 넘기고
+            else if (inputNum <= Dungouns[floor].monsters.Count + 1) 
             {
                 TargetMonster = Dungouns[floor].monsters[inputNum - 1];
                 sceneName = SceneName.BattleAttackMonster;
@@ -680,7 +699,8 @@ namespace Sparta_TextRPG
 
             if(drop != null) dorps.Add(drop);
 
-            Messages.Instance().ShowBattleAttackMonster(TargetMonster, Player, Damage);
+            int monsterbeforHP = TargetMonster.NowHP;
+            Messages.Instance().ShowBattleAttackMonster(TargetMonster, monsterbeforHP, Player, Damage);
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
@@ -712,10 +732,10 @@ namespace Sparta_TextRPG
             {
                 // 몬스터 다음사용스킬 저장
                 //몬스터 다음스킬 턴수 확인하고 공격턴인지 확인
-                if(monsters[i].IsDead == false)
+                if (Dungouns[floor].monsters[i].IsDead == false)
                 {
                     int PlayerBeforHP = Player.NowHP;
-                    Messages.Instance().ShowBattleMonsterHitPhase(monsters[i], PlayerBeforHP, Player, Player.Hit(monsters[i].SkillList[0], monsters[i].AttackPoint));                   
+                    Messages.Instance().ShowBattleMonsterHitPhase(Dungouns[floor].monsters[i], PlayerBeforHP, Player, Player.Hit(monsters[i].SkillList[0], monsters[i].AttackPoint));                   
                 }
             }
             Messages.Instance().ShowBattleMonsterEndPhase();
@@ -823,9 +843,26 @@ namespace Sparta_TextRPG
         }
         public void DrinkingPotion()
         {
-            Messages.Instance().DrinkingPotion();
+            Messages.Instance().DrinkingPotion(Player);
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
+
+            if (inputNum == 0)
+            {
+                sceneName = SceneName.DungeonSelection;
+            }
+            else if (inputNum == 1)
+            {
+                Messages.Instance().DrinkingHpPotion();
+                //hp potion 갯수가 하나 줄어드는 함수
+                //hp potion를 마셨을 때 회복이 되야 함(플레이어 hp를 끌어와야 함)
+            }
+            else if (inputNum == 2)
+            {
+                Messages.Instance().DrinkingMpPotion();
+                //mp potion 갯수가 하나 줄어드는 함수
+                //mp potion를 마셨을 때 마나회복이 되야 함(플레이어 hp를 끌어와야 함)
+            }
         }
 
         public void NPCText()   // 여관(NPC) 메뉴 보기

@@ -89,10 +89,11 @@ namespace Sparta_TextRPG
             Console.WriteLine("던전 선택");
             foreach (var item in dungouns)
             {
-                Console.Write($"{++count}. {item.Name} | 권장 레벨 : {item.Level} 등장 몬스터 :");
-                foreach (var item1 in item.monsters)
+                Console.Write($"{++count,2}. {item.Name} | 권장 레벨 : {item.Level} 등장 몬스터 :");
+                foreach (var item1 in item.baseMonsters)
                 {
-                    Console.Write($" {item1.Name} |");
+                    if(item1.Level >= 10 ) Console.Write($" ? |");
+                    else Console.Write($" {item1.Name} |");
                 }
                 Console.WriteLine("");
             }
@@ -195,7 +196,7 @@ namespace Sparta_TextRPG
                """
              );
         }
-        public void ShowBattleAttackMonster(Monster monster, Player player, int Damage)
+        public void ShowBattleAttackMonster(Monster monster,int monsterbeforHP, Player player, int Damage)
         {
             if (Damage > 0)
             {
@@ -209,11 +210,11 @@ namespace Sparta_TextRPG
 
                 if ((monster.NowHP - Damage) < 0)
                 {
-                    Console.WriteLine($"HP {monster.NowHP} -> Dead");
+                    Console.WriteLine($"HP {monsterbeforHP} -> Dead");
                 }
                 else
                 {
-                    Console.WriteLine($"HP {monster.NowHP} -> {monster.NowHP - Damage}");
+                    Console.WriteLine($"HP {monsterbeforHP} -> {monster.NowHP - Damage}");
 
                 }
             }
@@ -316,15 +317,22 @@ namespace Sparta_TextRPG
                You Lose
 
                Lv.{player.Level} {player.Name}
-               HP HP -> {player.NowHP}
+               HP {HP} -> {player.NowHP}
 
                0. 다음
                >>
                """);
         }
-        public void DrinkingPotion()//던전에서 포션마시기를 눌렀을 때 나오는 메세지
+        public void DrinkingPotion(Player player)//던전에서 포션마시기를 눌렀을 때 나오는 메세지
         {
-            Console.WriteLine("블라블라");
+            Console.Write("""
+                [소유 포션]
+                1. HP 포션 | +100HP
+                2. MP 포션 | +100MP
+
+                사용하실 포션을 입력해주세요.
+                >>
+                """);
         }
         public void DrinkingHpPotion()//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
         {
