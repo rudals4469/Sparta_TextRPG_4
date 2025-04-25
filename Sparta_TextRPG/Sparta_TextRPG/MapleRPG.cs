@@ -324,7 +324,7 @@ namespace Sparta_TextRPG
             {
                 new Quest(
                     "달팽이 처치하기",
-                    "시작할 때 받는 달팽이 사냥 퀘스트입니다.\n달팽이 3마리를 처치하세요.",
+                    "시작할 때 받는 달팽이 사냥 퀘스트입니다.\n달팽이 3 마리를 처치하세요.",
                     new List<Item>(), // 아이템 보상
                     1000,             // 보상 골드
                     MonsterName.달팽이,    // 잡을 몬스터
@@ -333,7 +333,7 @@ namespace Sparta_TextRPG
                 ),
                 new Quest(
                     "주황버섯 처치하기",
-                    "주황버섯 5마리를 처치하세요.",
+                    "주황버섯 5 마리를 처치하세요.",
                     new List<Item>() { orangeMushroomHat },
                     1500,
                     MonsterName.주황버섯,
@@ -342,7 +342,7 @@ namespace Sparta_TextRPG
                 ),
                 new Quest(
                     "이블아이 처치하기",
-                    "이블아이 4마리를 처치하세요.",
+                    "이블아이 4 마리를 처치하세요.",
                     new List<Item>(),
                     2000,
                     MonsterName.이블아이,
@@ -352,7 +352,7 @@ namespace Sparta_TextRPG
 
                 new Quest(
                     "아이언호그 처치하기",
-                    "아이언호그 3마리를 처치하세요.",
+                    "아이언호그 3 마리를 처치하세요.",
                     new List<Item> { ironHogSteelArmor } ,
                     5000,
                     MonsterName.아이언호그,
@@ -361,7 +361,7 @@ namespace Sparta_TextRPG
                 ),
                 new Quest(
                     "드레이크 처치하기",
-                    "드레이크 2마리를 처치하세요.",
+                    "드레이크 2 마리를 처치하세요.",
                     new List<Item>() { DrakeKnife },
                     7000,
                     MonsterName.드레이크,
@@ -370,7 +370,7 @@ namespace Sparta_TextRPG
                 ),
                 new Quest(
                     "정체 불명의 비둘기 처치하기",
-                    "정체 불명의 비둘기 1마리를 처치하세요.",
+                    "정체 불명의 비둘기 1 마리를 처치하세요.",
                     new List<Item>(),
                     50000,
                     MonsterName.이름_모를_비둘기,
@@ -884,7 +884,7 @@ namespace Sparta_TextRPG
         }
         public void DrinkingPotion(Player player)
         {
-            Messages.Instance().DrinkingPotion(Player);
+     //       Messages.Instance().DrinkingPotion(Player);
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
