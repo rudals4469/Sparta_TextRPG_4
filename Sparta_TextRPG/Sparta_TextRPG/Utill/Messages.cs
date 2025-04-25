@@ -1,4 +1,5 @@
 ﻿
+using Sparta_TextRPG.Utill;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,7 @@ namespace Sparta_TextRPG
         }
         public void ShowStartSetName()
         {
+            Imgs.Instance().Onewin();
             Console.Write($"""
                 ┌─────────────────────────────────────┐
                 │                                     │
