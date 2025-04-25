@@ -907,8 +907,7 @@ namespace Sparta_TextRPG
                     {
                         int beforeHp = player.NowHP;
                         player.Inventory.usePotion(PotionType.HP, player);
-                        Messages.Instance().DrinkingPotion(player, beforeHp, PotionType.HP);
-
+                        Messages.Instance().DrinkingPotion(Player, beforeHp, hpPotion.PotionType);
                     }
                 }
                 else
@@ -930,8 +929,7 @@ namespace Sparta_TextRPG
                     {
                         int beforeMp = player.NowMP;
                         player.Inventory.usePotion(PotionType.MP, player);
-                        Messages.Instance().DrinkingPotion(player, beforeMp, PotionType.MP);
-                        ;
+                        Messages.Instance().DrinkingPotion(player, beforeMp, mpPotion.PotionType);
                     }
                 }
                 else
@@ -962,7 +960,6 @@ namespace Sparta_TextRPG
                 }
             }
         }
-        
         public void NPCText()   // 여관(NPC) 메뉴 보기
         {
 
