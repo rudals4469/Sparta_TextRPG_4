@@ -1043,10 +1043,13 @@ namespace Sparta_TextRPG
         public void ShowQuestCompleted(Quest quest)
         {
             Console.WriteLine($" ┌ [{quest.Name}]─────────────┐");
-            Console.WriteLine(" │                              | ");
-            Console.WriteLine(" │  퀘스트를 완료했습니다           │");
+            Console.WriteLine(" │                               | ");
+            Console.WriteLine(" │  퀘스트를 완료했습니다.       │");
+            Console.WriteLine(" │                               | ");
             Console.WriteLine(" ├ [보상]────────────────────────┤");
-            Console.WriteLine($" │- 골드 : {quest.Gold} G                │");
+            Console.WriteLine(" │                               | ");
+            Console.WriteLine($" │  - 골드 : {quest.Gold} G              │");
+            Console.WriteLine(" │                               | ");
 
             if (quest.Reward.Count > 0)
             {
@@ -1072,17 +1075,19 @@ namespace Sparta_TextRPG
         
         public void ShowReceiveQuestRewards(Quest quest, int playerGold)
         {
-            Console.WriteLine("[보상 수령 완료]\n");
-
-            Console.WriteLine($"보유 골드: {playerGold} G\n");
+            Console.WriteLine(" ┌ [보상 수령 완료]───────────────────────────┐");
+            Console.WriteLine(" │                                            | ");
+            Console.WriteLine($" │  보유 골드: {playerGold} G                        │");
 
             if (quest.Reward.Count > 0)
             {
                 foreach (var item in quest.Reward)
                 {
-                    Console.WriteLine($"새로운 아이템 : {item.Text}");
+                    Console.WriteLine($" |  새로운 아이템 : {item.Text}          |");
                 }
             }
+            Console.WriteLine(" │                                            | ");
+            Console.WriteLine(" └────────────────────────────────────────────┘");
             Console.WriteLine();
             Exit();
         }
