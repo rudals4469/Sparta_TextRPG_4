@@ -847,7 +847,7 @@ namespace Sparta_TextRPG
         {
             Console.WriteLine($"[{quest.Name}] \n\n퀘스트를 완료했습니다.\n");
 
-            Console.WriteLine("[보상]");
+            Console.WriteLine("\n[보상]");
             Console.WriteLine($"\n- 골드 : {quest.Gold} G");
 
             if (quest.Reward.Count > 0)
