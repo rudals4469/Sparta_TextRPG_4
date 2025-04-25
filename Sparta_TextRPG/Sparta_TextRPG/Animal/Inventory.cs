@@ -37,7 +37,7 @@ namespace Sparta_TextRPG
             index -= Shild.Count;
 
             if (index < Potions.Count)
-                return Potions[index%3];
+                return Potions[index % 3];
             index -= Potions.Count;
 
             return null;
@@ -53,26 +53,26 @@ namespace Sparta_TextRPG
             else if (item.Type == ItemType.Potion)
             {
                 Potions.Remove((Potion)item);
-                
+
             }
         }
 
-        
+
         public void Add(Item item)
         {
-        if (item.Type == ItemType.Weapon)
+            if (item.Type == ItemType.Weapon)
             {
                 Weapon.Add((Weapon)item);
             }
-        if (item.Type == ItemType.Armor)
+            if (item.Type == ItemType.Armor)
             {
                 Armors.Add((Armor)item);
             }
-        if (item.Type == ItemType.Shield)
+            if (item.Type == ItemType.Shield)
             {
                 Shild.Add((Shield)item);
             }
-        if (item.Type == ItemType.Potion)
+            if (item.Type == ItemType.Potion)
             {
                 Potions.Add((Potion)item);
                 Potions = Potions.OrderBy(p => p.PotionType).ToList();
@@ -83,8 +83,8 @@ namespace Sparta_TextRPG
         {
             foreach (var item1 in Weapon)
             {
-                if(item1.SameItem(item))
-                    { return true; }
+                if (item1.SameItem(item))
+                { return true; }
             }
 
             foreach (var item1 in Armors)
@@ -103,41 +103,40 @@ namespace Sparta_TextRPG
 
         public int Count()
         {
-            return Weapon.Count+ Armors.Count+ Shild.Count+ Potions.Count;
+            return Weapon.Count + Armors.Count + Shild.Count + Potions.Count;
         }
-        public void usePotion(Potion potion, Player player)
+        public void usePotion(PotionType type, Player player)
         {
-            if (potion.Count > 0)
+            
+            Potion potion = Potions.Find(p => p.PotionType == type);
+            if (potion == null) return;
+
+            // 회복 적용
+            if (type == PotionType.HP)
             {
-                potion.Count--;
-
-                if (potion.PotionType == PotionType.HP)
-                {
-                    player.NowHP += potion.HealPoint;
-                    if (player.NowHP > player.MaxHP)
-                    {
-                        player.NowHP = player.MaxHP;
-                    }
-                }
-                else if (potion.PotionType == PotionType.MP)
-                {
-                    player.NowMP += potion.HealPoint;
-                    if (player.NowMP > player.MaxMP)
-                    {
-                        player.NowMP = player.MaxMP;
-                    }
-                }
-
-                if (potion.Count == 0)
-                {
-                    Potions.Remove(potion);
-                }
+                player.NowHP += potion.HealPoint;
+                if (player.NowHP > player.MaxHP)
+                    player.NowHP = player.MaxHP;
             }
-            else
+            else if (type == PotionType.MP)
             {
-                Console.WriteLine("포션이 없습니다!");
+                player.NowMP += potion.HealPoint;
+                if (player.NowMP > player.MaxMP)
+                    player.NowMP = player.MaxMP;
+            }
+            else if (type == PotionType.Alixir)
+            {
+                player.NowHP += potion.HealPoint;
+                if (player.NowHP > player.MaxHP)
+                    player.NowHP = player.MaxHP;
+
+                // 리스트에서 포션 제거
+                Potions.Remove(potion);
             }
         }
 
     }
 }
+    
+
+

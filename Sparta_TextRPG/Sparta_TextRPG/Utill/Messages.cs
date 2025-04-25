@@ -713,12 +713,16 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-        public void DrinkingPotion()//던전에서 포션마시기를 눌렀을 때 나오는 메세지
+        public void DrinkingPotion(Player player)//던전에서 포션마시기를 눌렀을 때 나오는 메세지
         {
-            Console.Write("""
+            int HpPotionCount = player.Inventory.Potions.Count(p => p.PotionType == PotionType.HP);
+            int MpPotionCount = player.Inventory.Potions.Count(p => p.PotionType == PotionType.MP);
+            int AlixirCount = player.Inventory.Potions.Count(p => p.PotionType == PotionType.Alixir);
+            Console.Write($"""
                 [소유 포션]
-                1. HP 포션 | +100HP
-                2. MP 포션 | +100MP
+                1. HP 포션 | +100HP ({HpPotionCount}개)
+                2. MP 포션 | +100MP ({MpPotionCount}개)
+                3. 엘릭서  | +500HP ({AlixirCount}개)
 
                 0. 나가기
 
@@ -729,10 +733,15 @@ namespace Sparta_TextRPG
         public void DrinkingPotion(Player player, int before, PotionType potionType)//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
         {
             int recovered = player.NowHP - before;
+            Console.Clear();
             Console.WriteLine($"""
             [{potionType.ToString()} 포션 사용!]
+
             {before} → {player.NowHP} ( +{recovered} 회복 )
             """);
+            Console.WriteLine("\n포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
+            Console.Write(">>");
+            Console.ReadLine();
         }
         public void Full(PotionType potionType)
         {
@@ -741,10 +750,10 @@ namespace Sparta_TextRPG
             Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
             Console.ReadLine();
         }
-        public void NoPotion(PotionType potionType)
+        public void NoPotion()
         {
             Console.Clear();
-            Console.WriteLine($"{potionType.ToString()} 포션이 없습니다.");
+            Console.WriteLine("포션이 없습니다.");
             Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
             Console.ReadLine();
         }
@@ -994,7 +1003,7 @@ namespace Sparta_TextRPG
         {
             Console.Write($"""
 
-               0.나가기
+               0. 나가기
 
                원하시는 행동을 입력해주세요.
                >> 
