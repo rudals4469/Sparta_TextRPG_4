@@ -34,6 +34,7 @@ namespace Sparta_TextRPG
 
         public Dictionary<string, Skill> AllSkill = new Dictionary<string, Skill>();
         public List<Item> dorps;
+        
         public MapleRPG()
         {
             init();
@@ -42,109 +43,115 @@ namespace Sparta_TextRPG
         public void Program()
         {
             sceneName = SceneName.StartSetName;
-
-            while (true)
+            try
             {
-
-                Console.Clear();//새로운 문구를 출력전 이전문구 삭제
-
-                switch (sceneName)
+                while (true)
                 {
-                    case SceneName.MainScene:
-                        MainScene();
-                        break;
-                    case SceneName.StartSetName:
-                        inputName = StartSetName();
-                        break;
-                    case SceneName.StartChackName:
-                        StartChackName();
-                        break;
-                    case SceneName.StartSetClass:
-                        StartSetClass();
-                        break;
-                    case SceneName.ShowStatus:
-                        ShowStatus();
-                        break;
-                    case SceneName.ShowInventory:
-                        ShowInventory();
-                        break;
-                    case SceneName.ManageEquipment:
-                        ManageEquipment(Player);
-                        break;
-                    case SceneName.DungeonSelection:
-                        DungeonSelection();
-                        break;
-                    case SceneName.BattleStart:
-                        BattleStart();
-                        break;
-                    case SceneName.SelectSkill:
-                        SelectSkill();
-                        break;
-                    case SceneName.BattleAttackPhase:
-                        BattleAttackPhase();
-                        break;
-                    case SceneName.BattleAttackMonster:
-                        BattleAttackMonster();
-                        break;
-                    case SceneName.BattleMonsterPhase:
-                        BattleMonsterPhase();
-                        break;
-                    case SceneName.BattlePlayerWin:
-                        BattlePlayerWin();
-                        break;
-                    case SceneName.BattlePlayerLose:
-                        BattlePlayerLose();
-                        break;
-                    case SceneName.NPC:
-                        NPCText();
-                        break;
-                    case SceneName.QuestList:
-                        QuestList();
-                        break;
-                    case SceneName.QuestInfo:
-                        QuestInfo();
-                        break;
-                    case SceneName.AcceptingQuest:
-                        AcceptingQuest();
-                        break;
-                    case SceneName.QuestCompleted:
-                        QuestCompleted();
-                        break;
-                    case SceneName.ReceiveQuestReward:
-                        ReceiveQuestReward();
-                        break;
-                    case SceneName.ViewAcceptedQuest:
-                        ViewAcceptedQuest();
-                        break;
-                    case SceneName.Rest:
-                        Rest();
-                        break;
-                    case SceneName.RestSuccess:
-                        RestSuccess();
-                        break;
-                    case SceneName.RestFail:
-                        RestFail();
-                        break;
-                    case SceneName.ShowShop:
-                        ShowShop();
-                        break;
-                    case SceneName.SellItem:
-                        SellItem();
-                        break;
-                    case SceneName.BuyItem:
-                        BuyItem();
-                        break;
-                    case SceneName.NotEnoughMoney:
-                        NotEnoughMoney();
-                        break;
-                    case SceneName.LevelUp:
-                        LevelUp();
-                        break;
-                    case SceneName.DrinkingPotion:
-                        DrinkingPotion();
-                        break;
 
+                    Console.Clear();//새로운 문구를 출력전 이전문구 삭제
+
+                    switch (sceneName)
+                    {
+                        case SceneName.MainScene:
+                            MainScene();
+                            break;
+                        case SceneName.StartSetName:
+                            inputName = StartSetName();
+                            break;
+                        case SceneName.StartChackName:
+                            StartChackName();
+                            break;
+                        case SceneName.StartSetClass:
+                            StartSetClass();
+                            break;
+                        case SceneName.ShowStatus:
+                            ShowStatus();
+                            break;
+                        case SceneName.ShowInventory:
+                            ShowInventory();
+                            break;
+                        case SceneName.ManageEquipment:
+                            ManageEquipment(Player);
+                            break;
+                        case SceneName.DungeonSelection:
+                            DungeonSelection();
+                            break;
+                        case SceneName.BattleStart:
+                            BattleStart();
+                            break;
+                        case SceneName.SelectSkill:
+                            SelectSkill();
+                            break;
+                        case SceneName.BattleAttackPhase:
+                            BattleAttackPhase();
+                            break;
+                        case SceneName.BattleAttackMonster:
+                            BattleAttackMonster();
+                            break;
+                        case SceneName.BattleMonsterPhase:
+                            BattleMonsterPhase();
+                            break;
+                        case SceneName.BattlePlayerWin:
+                            BattlePlayerWin();
+                            break;
+                        case SceneName.BattlePlayerLose:
+                            BattlePlayerLose();
+                            break;
+                        case SceneName.NPC:
+                            NPCText();
+                            break;
+                        case SceneName.QuestList:
+                            QuestList();
+                            break;
+                        case SceneName.QuestInfo:
+                            QuestInfo();
+                            break;
+                        case SceneName.AcceptingQuest:
+                            AcceptingQuest();
+                            break;
+                        case SceneName.QuestCompleted:
+                            QuestCompleted();
+                            break;
+                        case SceneName.ReceiveQuestReward:
+                            ReceiveQuestReward();
+                            break;
+                        case SceneName.ViewAcceptedQuest:
+                            ViewAcceptedQuest();
+                            break;
+                        case SceneName.Rest:
+                            Rest();
+                            break;
+                        case SceneName.RestSuccess:
+                            RestSuccess();
+                            break;
+                        case SceneName.RestFail:
+                            RestFail();
+                            break;
+                        case SceneName.ShowShop:
+                            ShowShop();
+                            break;
+                        case SceneName.SellItem:
+                            SellItem();
+                            break;
+                        case SceneName.BuyItem:
+                            BuyItem();
+                            break;
+                        case SceneName.NotEnoughMoney:
+                            NotEnoughMoney();
+                            break;
+                        case SceneName.LevelUp:
+                            LevelUp();
+                            break;
+                        case SceneName.DrinkingPotion:
+                            DrinkingPotion();
+                            break;
+
+                    }
                 }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
             }
         }
         public void init()
@@ -499,6 +506,7 @@ namespace Sparta_TextRPG
             else if (inputNum == 0)
             {
                 sceneName = SceneName.MainScene;
+                if(false) sceneName = SceneName.DungeonSelection;
             }
             else
             {
@@ -645,12 +653,12 @@ namespace Sparta_TextRPG
                 else if(inputNum < Dungouns.Count+1)
                 {
                     floor = inputNum - 1;
+                    Dungouns[floor].DunjeonReset();
                     sceneName = SceneName.BattleStart;
                 }
                 else if (inputNum == Dungouns.Count + 1)
                 {
-                    int a = 0;
-                    //여기서 플레이어 상태보기
+                    sceneName = SceneName.ShowStatus;
                 }
                 else if(inputNum == Dungouns.Count + 2)
                 {
@@ -709,7 +717,7 @@ namespace Sparta_TextRPG
             else if (inputNum <= Dungouns[floor].monsters.Count + 1) 
             {
                 TargetMonster = Dungouns[floor].monsters[inputNum - 1];
-                sceneName = SceneName.BattleAttackMonster;
+                if(!TargetMonster.IsDead) sceneName = SceneName.BattleAttackMonster;
             }
             else
             {
@@ -719,16 +727,16 @@ namespace Sparta_TextRPG
         }
         public void BattleAttackMonster()
         {
+            int monsterbeforHP = TargetMonster.NowHP;
 
             this.Player.UseSkill(Skill);
             int Damage = TargetMonster.Hit(Skill, Player.AttackPoint);
 
-            //몬스터 죽는지 확인
-            Item? drop = TargetMonster.DropItem();
+            Item? drop = null;
+            if (TargetMonster.IsDead) drop = TargetMonster.DropItem();
 
-            if(drop != null) dorps.Add(drop);
+            if (drop != null) dorps.Add(drop);
 
-            int monsterbeforHP = TargetMonster.NowHP;
             Messages.Instance().ShowBattleAttackMonster(TargetMonster, monsterbeforHP, Player, Damage);
 
             string input = Console.ReadLine();
@@ -793,18 +801,8 @@ namespace Sparta_TextRPG
         public void LevelUp()
         {
             Messages.Instance().LevelUp(Player);
-
-            string input = Console.ReadLine();
-            int inputNum = int.Parse(input);
-
-            if (inputNum == 0)
-            {
-                sceneName = SceneName.BattlePlayerWin;
-            }
-            else
-            {
-                Messages.Instance().ErrorMessage();
-            }
+            
+            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
         }
         public void BattlePlayerWin()
         {
@@ -817,8 +815,13 @@ namespace Sparta_TextRPG
                 if(Player.AddExp(monster.Exp))
                 {
                     // 업했으면 씬을 레벨업 씬으로 이동
-                    sceneName = SceneName.LevelUp;
+                    //sceneName = SceneName.LevelUp;
+
+                    //사실 이게 가장 쉬운방법이긴해;
+                    LevelUp();
                 }
+
+
 
                 Player.Gold += (monster.Gold);
 
@@ -830,6 +833,8 @@ namespace Sparta_TextRPG
                     }
                 }
             }
+
+            Messages.Instance().ShowBattlePlayerWinLest();
 
             foreach (var item in dorps)
             {

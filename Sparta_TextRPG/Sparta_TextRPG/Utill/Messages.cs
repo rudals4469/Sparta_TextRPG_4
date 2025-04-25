@@ -205,13 +205,13 @@ namespace Sparta_TextRPG
                {monster.Level} {monster.MonsterName.ToString()}
                """);
 
-                if ((monster.NowHP - Damage) < 0)
+                if (monster.IsDead)
                 {
                     Console.WriteLine($"HP {monsterbeforHP} -> Dead");
                 }
                 else
                 {
-                    Console.WriteLine($"HP {monsterbeforHP} -> {monster.NowHP - Damage}");
+                    Console.WriteLine($"HP {monsterbeforHP} -> {monsterbeforHP - Damage}");
 
                 }
             }
@@ -219,10 +219,11 @@ namespace Sparta_TextRPG
             {
                 Random random = new Random();
                 int n = random.Next(0, 100);
-                if(n % 5 == 0) Console.Write($"{monster.Name}이 \"훗\" 하고 피함");
+                if(n % 5 == 0) Console.Write($"{monster.Name}이(가) {player.Name}님의 공격을 \"훗\" 하고 피함");
                 else
                 {
-                    Console.Write($"{monster.Name}가 슉 슈슉 슉 ");
+                    Console.WriteLine($"{monster.Name}가 슉 슈슉 슉 ");
+                    Console.WriteLine($"{player.Name}님의 공격이 빘나갔습니다");
                 }
                 //회피 문구 추가하기
             }
@@ -243,6 +244,7 @@ namespace Sparta_TextRPG
             Console.Write(
                $"""
                Battle!!
+
                """);
         }
         public void ShowBattleMonsterHitPhase(Monster monster,int beforHp ,Player player, int Damage)
@@ -263,10 +265,11 @@ namespace Sparta_TextRPG
             {
                 Random random = new Random();
                 int n = random.Next(0, 100);
-                if (n % 5 == 0) Console.WriteLine($"{player.Name}이 \"훗\" 하고 피함 \n");
+                if(n % 5 == 0) Console.WriteLine($"{player.Name}이(가) {monster.Name}님의 공격을 \"훗\" 하고 피함");
                 else
                 {
-                    Console.WriteLine($"{player.Name}가 슉 슈슉 슉 \n");
+                    Console.WriteLine($"{player.Name}가 슉 슈슉 슉 ");
+                    Console.WriteLine($"{monster.Name}의 공격이 빘나갔습니다");
                 }
             }
         }
@@ -294,12 +297,22 @@ namespace Sparta_TextRPG
                획득 아이템
                (
                """);
+            for (int i = 0; i < items.Count; i++)
+            {
+                Console.Write($"{items[i].Text}");
+                if(i != items.Count) Console.Write($",");
+            }
             foreach (var item in items)
             {
-                Console.Write($"{item.Name} ");
+                Console.Write($"{item.Text}");
             }
+
+        }
+        public void ShowBattlePlayerWinLest()
+        {
             Console.Write(
-               """
+   """
+               )
                0. 다음
 
                >>
@@ -616,11 +629,6 @@ namespace Sparta_TextRPG
 
             Console.WriteLine($"보상: {quest.Gold} G");
 
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
         }
         public void ShowViewAcceptedQuest(List<Quest> acceptedQuests)
         {
@@ -630,15 +638,7 @@ namespace Sparta_TextRPG
             var completed = acceptedQuests.Where(q => q.IsComplete()).ToList();
 
             for (int i = 0; i < inProgress.Count; i++)
-            if (quest.Reward.Count > 0)
-            {
-                Console.Write(" + 아이템: ");
-                foreach (var item in quest.Reward)
-                {
-                    Console.Write($"{item.Text} ");
-                }
-                Console.WriteLine(); // 줄 바꿈
-            }
+
 
             Console.Write($"""
 
