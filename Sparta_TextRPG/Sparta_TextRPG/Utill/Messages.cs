@@ -1,4 +1,5 @@
 ﻿
+using Sparta_TextRPG.Utill;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,31 @@ namespace Sparta_TextRPG
             }
             return instance;
         }
+        public void ConsoleSPMS()
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.WriteLine(
+                """
+                
+                                   ███████╗██████╗  █████╗ ██████╗ ████████╗ █████╗                      
+                                   ██╔════╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗                                       
+                                   ███████╗██████╔╝███████║██████╔╝   ██║   ███████║                                        
+                                   ╚════██║██╔═══╝ ██╔══██║██╔══██╗   ██║   ██╔══██║                                         
+                                   ███████║██║     ██║  ██║██║  ██║   ██║   ██║  ██║                     
+                                   ╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝                     
+                ███╗   ███╗ █████╗ ██████╗ ██╗     ███████╗    ███████╗████████╗ ██████╗ ██████╗ ██╗   ██╗
+                ████╗ ████║██╔══██╗██╔══██╗██║     ██╔════╝    ██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝
+                ██╔████╔██║███████║██████╔╝██║     █████╗      ███████╗   ██║   ██║   ██║██████╔╝ ╚████╔╝ 
+                ██║╚██╔╝██║██╔══██║██╔═══╝ ██║     ██╔══╝      ╚════██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝  
+                ██║ ╚═╝ ██║██║  ██║██║     ███████╗███████╗    ███████║   ██║   ╚██████╔╝██║  ██║   ██║   
+                ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚══════╝╚══════╝    ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝                                                                                                           
+                
+                
+                """);
+        }
         public void ShowStart()
         {
+            ConsoleSPMS();
             Console.Write(
                 """     
 
@@ -48,6 +72,8 @@ namespace Sparta_TextRPG
         }
         public void ShowStartSetName()
         {
+            Imgs.Instance().Onewin();
+            ConsoleSPMS();
             Console.Write($"""
 
                 ┌─────────────────────────────────────┐
@@ -62,6 +88,7 @@ namespace Sparta_TextRPG
         }
         public void ShowStartChackName(string Name)
         {
+            ConsoleSPMS();
             Console.Write($"""
                 
                 ┌─────────────────────────────────────┐
@@ -84,6 +111,7 @@ namespace Sparta_TextRPG
         }
         public void ShowStartSetClass()
         {
+            ConsoleSPMS();
 
             Console.Write($"""
 
