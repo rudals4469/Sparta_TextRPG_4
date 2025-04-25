@@ -197,6 +197,10 @@ namespace Sparta_TextRPG
             Armor aijen = new Armor("Aijen", "아이젠         ", 1000, ItemType.Armor, 2);
             Armor blueGown = new Armor("BlueGown", "파란가운       ", 5000, ItemType.Armor, 4);
 
+            // Armor 퀘스트 보상 전용 아이템
+            Armor orangeMushroomHat = new Armor("OrangeMushroomHat", "주황버섯 모자", 300, ItemType.Armor, 1);
+            Armor ironHogSteelArmor = new Armor("IronHogSteelArmor", "아이언호그 강철 갑옷", 1000, ItemType.Armor, 3);
+            
             //Weapon(string name, string text, int price, ItemType type, int attackPoint, bool isEquipped)
             //Absolute Labs
             Weapon WoodSword = new Weapon("WoodSword", "나무 검", 500, ItemType.Weapon, 2);
@@ -217,9 +221,13 @@ namespace Sparta_TextRPG
             Weapon AbsoluteClaw = new Weapon("AbsoluteClaw", "앱솔루트 아대  ", 5000, ItemType.Weapon, 8);
             Weapon Absoluteknuckles = new Weapon("Absoluteknuckles", "앱솔루트 너클  ", 5000, ItemType.Weapon, 8);
 
+            // Weapon 퀘스트 보상 전용 아이템
+            Weapon DrakeKnife = new Weapon("DrakeKnife", "드레이크의 송곳니 칼    ", 800, ItemType.Weapon, 4);
+
             // Shiled(string name, string text, int price, ItemType type, int attackPoint, int armorPoint, bool isEquipped)
             Shield potlid = new Shield("potlid", "냄비 뚜껑      ", 5000, ItemType.Shield, 8, 8);
             Shield nomok = new Shield("nomok", "노가다 목장갑  ", 1500, ItemType.Shield, 5, 5);
+
 
             //Potion(string name, string text, int price, ItemType type, int HealPoint)
             Potion HP = new Potion("HP", "체력회복 포션  ", 500, PotionType.HP, 100,ItemType.Potion);
@@ -308,7 +316,7 @@ namespace Sparta_TextRPG
                 new Quest(
                     "달팽이 처치하기",
                     "시작할 때 받는 달팽이 사냥 퀘스트입니다.\n달팽이 3마리를 처치하세요.",
-                    new List<Item>(), // 빈 리스트
+                    new List<Item>(), // 아이템 보상
                     1000,             // 보상 골드
                     MonsterName.달팽이,    // 잡을 몬스터
                     3,                     // 목표 처치 수 
@@ -317,7 +325,7 @@ namespace Sparta_TextRPG
                 new Quest(
                     "주황버섯 처치하기",
                     "주황버섯 5마리를 처치하세요.",
-                    new List<Item>(),
+                    new List<Item>() { orangeMushroomHat },
                     1500,
                     MonsterName.주황버섯,
                     5,
@@ -336,7 +344,7 @@ namespace Sparta_TextRPG
                 new Quest(
                     "아이언호그 처치하기",
                     "아이언호그 3마리를 처치하세요.",
-                    new List<Item>(),
+                    new List<Item> { ironHogSteelArmor } ,
                     5000,
                     MonsterName.아이언호그,
                     3,
@@ -345,7 +353,7 @@ namespace Sparta_TextRPG
                 new Quest(
                     "드레이크 처치하기",
                     "드레이크 2마리를 처치하세요.",
-                    new List<Item>(),
+                    new List<Item>() { DrakeKnife },
                     7000,
                     MonsterName.드레이크,
                     2,
@@ -927,7 +935,6 @@ namespace Sparta_TextRPG
                 .Where(q => !Player.ActiveQuests.Contains(q) && Player.Level < q.RequestLevel)
                 .ToList();
 
-            // ✅ 보상을 받을 수 있는 퀘스트가 있는지 확인
             bool hasUnclaimedReward = Player.ActiveQuests
                 .Any(q => q.IsComplete() && !q.IsRewarded);
 
@@ -995,7 +1002,8 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
             }
         }
-        public void QuestCompleted()    // 퀘스트 완료 메시지
+
+        public void QuestCompleted()    // 퀘스트 완료 창
         {
             Quest completedQuest = selectedQuestTemp;
 
@@ -1006,14 +1014,11 @@ namespace Sparta_TextRPG
 
             if (inputNum == 1)
             {
-                // 보상 지급
                 Player.Gold += completedQuest.Gold;
-                
                 foreach (var item in completedQuest.Reward)
                 {
                     Player.Inventory.Add(item);
                 }
-
                 completedQuest.IsRewarded = true;
 
                 sceneName = SceneName.ReceiveQuestReward;
@@ -1028,15 +1033,17 @@ namespace Sparta_TextRPG
             }
         }
 
+
         public void ReceiveQuestReward()    // 보상 받기 창
         {
-            Messages.Instance().ShowReceiveQuestRewards(selectedQuestTemp, Player.Gold); ;
+            Messages.Instance().ShowReceiveQuestRewards(selectedQuestTemp, Player.Gold);
+
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
             if (inputNum == 0)
             {
-                sceneName = SceneName.QuestList;
+                sceneName = SceneName.ViewAcceptedQuest;
             }
             else
             {
