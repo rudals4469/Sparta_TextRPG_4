@@ -884,7 +884,7 @@ namespace Sparta_TextRPG
         }
         public void DrinkingPotion(Player player)
         {
-            Messages.Instance().DrinkingPotion(Player);
+            Messages.Instance().DrinkingPotion();
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
