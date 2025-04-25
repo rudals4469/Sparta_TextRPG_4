@@ -878,7 +878,6 @@ namespace Sparta_TextRPG
             """);
             Exit();
         }
-
         public void ShowReceiveQuestRewards(Quest quest, int playerGold)
         {
             Console.WriteLine("[보상 수령 완료]");
@@ -898,11 +897,6 @@ namespace Sparta_TextRPG
             }
             Exit();
         }
-
-
-
-
-
         public void ShowViewAcceptedQuest(List<Quest> acceptedQuests, bool hasRewardableQuest)
         {
             if (hasRewardableQuest)
@@ -953,12 +947,6 @@ namespace Sparta_TextRPG
             }
             Exit();
         }
-
-
-
-
-
-
         public void ShowRest(Player player)
         {
             Console.Write($"""
