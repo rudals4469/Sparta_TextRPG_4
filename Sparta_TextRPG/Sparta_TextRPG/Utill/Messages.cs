@@ -605,7 +605,7 @@ namespace Sparta_TextRPG
                1.스킬 선택
 
                원하시는 행동을 입력해주세요.
-               >>
+               >> 
                """
                 );
 
@@ -632,7 +632,7 @@ namespace Sparta_TextRPG
             Console.Write("""
 
                 원하시는 행동을 입력해주세요.
-                >>
+                >> 
                 """);
         }
         public void CoolTimeError()
@@ -653,7 +653,7 @@ namespace Sparta_TextRPG
                0.취소
 
                대상을 선택해주세요
-               >>
+               >> 
                """
              );
         }
@@ -699,7 +699,7 @@ namespace Sparta_TextRPG
 
                 0. 다음
                
-               >>
+               >> 
                """);
 
         }
@@ -742,7 +742,7 @@ namespace Sparta_TextRPG
             Console.Write(
               $"""
                0. 전투 시작화면으로  
-               >>
+               >> 
                """);
         }
         public void ShowBattlePlayerWin(List<Monster> monsters, int HP, Player player, List<Item> items)
@@ -779,7 +779,7 @@ namespace Sparta_TextRPG
                )
                0. 다음
 
-               >>
+               >> 
                """);
         }
         public void ShowBattlePlayerLose(int HP, Player player)
@@ -794,7 +794,7 @@ namespace Sparta_TextRPG
                HP {HP} -> {player.NowHP}
 
                0. 다음
-               >>
+               >> 
                """);
         }
         public void DrinkingPotion(Player player)//던전에서 포션마시기를 눌렀을 때 나오는 메세지
