@@ -675,10 +675,29 @@ namespace Sparta_TextRPG
 
 
                ┌ [내 정보]───────────────────────────────┐
-               │ Lv.{player.Level} {player.Name} ({player.Class.ToString()})
-               │ HP {player.NowHP}/{player.MaxHP}
-               └─────────────────────────────────────────┘
+               
+               """);
+            string print = "";
+            string print2 = "";
 
+
+            print = $"│ Lv.{player.Level} {player.Name} ({player.Class.ToString()})";
+            print2 = $"│ HP {player.NowHP}/{player.MaxHP}";
+
+            for (int i = GetStringWidth(print); i < 43; i++)
+            {
+                print += " ";
+            }
+            for (int i = GetStringWidth(print2); i < 43; i++)
+            {
+                print2 += " ";
+            }
+            Console.WriteLine($"{print}│");
+            Console.WriteLine($"{print2}│");
+
+            Console.Write($"""
+               └─────────────────────────────────────────┘
+           
 
                 0.취소
 
@@ -691,14 +710,32 @@ namespace Sparta_TextRPG
         {
             if (Damage > 0)
             {
-                Console.Write(
+                Console.WriteLine(
                 $"""
-               player{player.Name} 의 공격!
-               Lv.{monster.Level} {monster.MonsterName.ToString()}을(를) 맞췄습니다. [데미지 : {Damage}]
+                ┌────────────────────────────────────────────────┐
+                """);
+                string print = "";
 
-               {monster.Level} {monster.MonsterName.ToString()}
-               """);
+                string print2 = "";
 
+                print = $"│ {player.Name} 의 공격!";
+                print2 = $"│ Lv.{monster.Level} {monster.MonsterName.ToString()}을(를) 맞췄습니다. [데미지 : {Damage}]";
+                for (int i = GetStringWidth(print); i < 50; i++)
+                {
+                    print += " ";
+                }
+                for (int i = GetStringWidth(print2); i < 50; i++)
+                {
+                    print2 += " ";
+                }
+                Console.WriteLine($"{print}│");
+                Console.WriteLine($"{print2}│");
+
+
+                Console.Write("""
+                    └────────────────────────────────────────────────┘
+
+                    """);
                 if (monster.IsDead)
                 {
                     Console.WriteLine($"HP {monsterbeforHP} -> Dead");
@@ -727,7 +764,7 @@ namespace Sparta_TextRPG
                 $"""
                  
 
-                0. 다음
+               0. 다음
                
                >> 
                """);
