@@ -568,22 +568,30 @@ namespace Sparta_TextRPG
         public void printMonster(List<Monster> monsters)
         {
             int count = 0;
+
+            Console.WriteLine("┌ [몬스터]────────────────┐");
             foreach (var item in monsters)
             {
                 count++;
 
+                
+
                 if (item.IsDead)
                 {
+                    Console.Write("│");
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} Dead");
+                    Console.Write($" {count} Lv.{item.Level} {item.MonsterName.ToString()} Dead");
                     Console.ResetColor();
+                    Console.WriteLine("                                                                   │");
                 }
                 else
                 {
-                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}");
+                    Console.WriteLine($"│ {count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP,-5}│");
                 }
 
+                
             }
+            Console.WriteLine("└─────────────────────────┘");
         }
         public void ShowBattleStart(List<Monster> monsters, Player player)
         {
