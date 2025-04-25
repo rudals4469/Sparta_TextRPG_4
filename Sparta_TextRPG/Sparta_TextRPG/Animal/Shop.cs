@@ -94,8 +94,9 @@ namespace Sparta_TextRPG
             // if 팔 아이템이 상점에 있으면 return;
 
 
-            if (item.Type != ItemType.Potion) 
-                // 아이탬 타입이 포션이 아니고, 샵의 인벤토리에 탬이 없으면
+            if (item.Type != ItemType.Potion && !Inventory.SameItem(item)) 
+                // 아이탬 타입이 포션이 아니고
+                // 파는 아이템이 샵의 인벤토리에 탬이 없으면
             {
                 AddItem(item);
             }
@@ -114,7 +115,7 @@ namespace Sparta_TextRPG
             player.Gold -= item.Price;
             player.Inventory.Add(item);
 
-            if (item.Type != ItemType.Potion) // 포션이면 
+            if (item.Type != ItemType.Potion ) // 포션이면 
             {
                 Inventory.Remove(item); 
             }

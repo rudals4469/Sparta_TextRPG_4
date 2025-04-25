@@ -259,7 +259,7 @@ namespace Sparta_TextRPG
             Shop.Inventory.Add(Alixir);
 
 
-            List<Item> MonsterDorpItems = new List<Item>() { WoodSword, WoodBow, WoodStaff, WoodClaw, Woodknuckles };
+            List<Item> MonsterDorpItems = new List<Item>() { MapleSword, WoodBow, WoodStaff, WoodClaw, Woodknuckles };
             List<Item> BossDorpItems = new List<Item>() { zakumHelmet, horntailNecklace };
             //                   레벨경험치hp mp 공격력 방어력             회피율
             monsters.Add(new Monster(1, 5, 10, 10, 5, 1, 100, MonsterSkillset, 10, MonsterName.달팽이, MonsterDorpItems));

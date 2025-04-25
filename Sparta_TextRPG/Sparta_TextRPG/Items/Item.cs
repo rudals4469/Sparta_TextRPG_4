@@ -20,5 +20,11 @@ namespace Sparta_TextRPG
             this.Price = price;
             this.Type = type;
         }
+
+        public bool SameItem(Item item)
+        {
+            if (item.Name.CompareTo(Name) == 0) return true;
+            return false;
+        }
     }
 }

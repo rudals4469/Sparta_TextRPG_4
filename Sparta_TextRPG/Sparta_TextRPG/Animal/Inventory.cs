@@ -79,6 +79,28 @@ namespace Sparta_TextRPG
             }
         }
 
+        public bool SameItem(Item item)
+        {
+            foreach (var item1 in Weapon)
+            {
+                if(item1.SameItem(item))
+                    { return true; }
+            }
+
+            foreach (var item1 in Armors)
+            {
+                if (item1.SameItem(item))
+                { return true; }
+            }
+            foreach (var item1 in Shild)
+            {
+                if (item1.SameItem(item))
+                { return true; }
+            }
+
+            return false;
+        }
+
         public int Count()
         {
             return Weapon.Count+ Armors.Count+ Shild.Count+ Potions.Count;
