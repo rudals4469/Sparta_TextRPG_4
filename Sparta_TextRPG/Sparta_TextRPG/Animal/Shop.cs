@@ -23,15 +23,6 @@ namespace Sparta_TextRPG
         {
             Inventory = new Inventory();
         }   
-        public void show() 
-        {
-               
-        
-        }
-        public void main()
-        {
-            show();
-        }
         
         public void AddItem(Item item)
         {
