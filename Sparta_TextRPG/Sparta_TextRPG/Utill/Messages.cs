@@ -349,7 +349,7 @@ namespace Sparta_TextRPG
                 Count++;
             }
             Console.WriteLine("│                                                             │");
-            Console.Write("""
+            Console.WriteLine("""
                 └─────────────────────────────────────────────────────────────┘
 
                 1. 아이템 구매
@@ -550,10 +550,14 @@ namespace Sparta_TextRPG
                 string print = "";
                 foreach (var item1 in item.baseMonsters)
                 {
-                    if (item1.Level >= 10) print += $"?";
+                    if (item1.Level >= 10) print += $" ? ";
                     else print += $" {item1.Name,-4}";
                 }
-                Console.WriteLine(print);
+                for (int i = GetStringWidth(print); i < 43; i++)
+                {
+                    print += " ";
+                }
+                Console.WriteLine($"{print}│");
             }
             Console.Write($"""
                 │                                                                                  │
@@ -1070,12 +1074,26 @@ namespace Sparta_TextRPG
         }
         public void Exit()
         {
-            Console.Write($"""
+            Console.WriteLine($"""
                0. 나가기
               
                원하시는 행동을 입력해주세요.
                >> 
                """);
+        }
+
+        int GetStringWidth(string str)
+        {
+            int width = 0;
+            foreach (char c in str)
+            {
+                // 한글, 박스문자, 기타 특수문자 2칸, 나머지는 1칸
+                if ((c >= 0xAC00 && c <= 0xD7A3) || (c >= 0x2500 && c <= 0x257F))
+                    width += 2;
+                else
+                    width += 1;
+            }
+            return width;
         }
     }
 
