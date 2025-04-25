@@ -661,11 +661,15 @@ namespace Sparta_TextRPG
 
             Console.Write(
                $"""
-               [내정보]
-               Lv.{player.Level} {player.Name} ({player.Class.ToString()})
-               HP {player.NowHP}/{player.MaxHP}
-                
-               0.취소
+
+
+               ┌ [내 정보]───────────────────────────────┐
+               │ Lv.{player.Level} {player.Name} ({player.Class.ToString()})
+               │ HP {player.NowHP}/{player.MaxHP}
+               └─────────────────────────────────────────┘
+
+
+                0.취소
 
                대상을 선택해주세요
                >> 
