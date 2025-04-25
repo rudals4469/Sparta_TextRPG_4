@@ -83,7 +83,8 @@ namespace Sparta_TextRPG
         LevelUp,
         BattlePlayerLose,
         DrinkingPotion,
-        
+        DrinkingHpPotion,
+        DrinkingMpPotion,
         InDungeon,
 
         ShowShop,

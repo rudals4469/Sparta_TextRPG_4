@@ -47,6 +47,99 @@ namespace Sparta_TextRPG
             {
                 while (true)
                 {
+                    case SceneName.MainScene:
+                        MainScene();
+                        break;
+                    case SceneName.StartSetName:
+                        inputName = StartSetName();
+                        break;
+                    case SceneName.StartChackName:
+                        StartChackName();
+                        break;
+                    case SceneName.StartSetClass:
+                        StartSetClass();
+                        break;
+                    case SceneName.ShowStatus:
+                        ShowStatus();
+                        break;
+                    case SceneName.ShowInventory:
+                        ShowInventory();
+                        break;
+                    case SceneName.ManageEquipment:
+                        ManageEquipment(Player);
+                        break;
+                    case SceneName.DungeonSelection:
+                        DungeonSelection();
+                        break;
+                    case SceneName.BattleStart:
+                        BattleStart();
+                        break;
+                    case SceneName.SelectSkill:
+                        SelectSkill();
+                        break;
+                    case SceneName.BattleAttackPhase:
+                        BattleAttackPhase();
+                        break;
+                    case SceneName.BattleAttackMonster:
+                        BattleAttackMonster();
+                        break;
+                    case SceneName.BattleMonsterPhase:
+                        BattleMonsterPhase();
+                        break;
+                    case SceneName.BattlePlayerWin:
+                        BattlePlayerWin();
+                        break;
+                    case SceneName.BattlePlayerLose:
+                        BattlePlayerLose();
+                        break;
+                    case SceneName.NPC:
+                        NPCText();
+                        break;
+                    case SceneName.QuestList:
+                        QuestList();
+                        break;
+                    case SceneName.QuestInfo:
+                        QuestInfo();
+                        break;
+                    case SceneName.AcceptingQuest:
+                        AcceptingQuest();
+                        break;
+                    case SceneName.QuestCompleted:
+                        QuestCompleted();
+                        break;
+                    case SceneName.ReceiveQuestReward:
+                        ReceiveQuestReward();
+                        break;
+                    case SceneName.ViewAcceptedQuest:
+                        ViewAcceptedQuest();
+                        break;
+                    case SceneName.Rest:
+                        Rest();
+                        break;
+                    case SceneName.RestSuccess:
+                        RestSuccess();
+                        break;
+                    case SceneName.RestFail:
+                        RestFail();
+                        break;
+                    case SceneName.ShowShop:
+                        ShowShop();
+                        break;
+                    case SceneName.SellItem:
+                        SellItem();
+                        break;
+                    case SceneName.BuyItem:
+                        BuyItem();
+                        break;
+                    case SceneName.NotEnoughMoney:
+                        NotEnoughMoney();
+                        break;
+                    case SceneName.LevelUp:
+                        LevelUp();
+                        break;
+                    case SceneName.DrinkingPotion:
+                        DrinkingPotion(Player);
+                        break;
 
                     Console.Clear();//새로운 문구를 출력전 이전문구 삭제
 
@@ -434,7 +527,7 @@ namespace Sparta_TextRPG
                 WarriorSkill.Add(AllSkill["ThreeSnails"]);
                 WarriorSkill.Add(AllSkill["Slash Blast"]);
                 WarriorSkill.Add(AllSkill["Origin"]);
-                Player = new Player(99999, 50, 10, 5, inputName, 10000, WarriorSkill, false, 20, 15, ClassName.전사);
+                Player = new Player(99999, 50, 10, 5, inputName, 10000, WarriorSkill, false, 20, 15, ClassName.전사) {NowHP=1000};
             }
             else if (inputNum == 2)
             {
@@ -874,7 +967,7 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-        public void DrinkingPotion()
+        public void DrinkingPotion(Player player)
         {
             Messages.Instance().DrinkingPotion(Player);
             string input = Console.ReadLine();
@@ -886,17 +979,53 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 1)
             {
-                Messages.Instance().DrinkingHpPotion();
-                //hp potion 갯수가 하나 줄어드는 함수
-                //hp potion를 마셨을 때 회복이 되야 함(플레이어 hp를 끌어와야 함)
+                
+                Potion hpPotion = player.Inventory.Potions.Find(p => p.PotionType == PotionType.HP);
+
+                if (hpPotion != null)
+                {
+                    if (player.NowHP == player.MaxHP)
+                    {
+                        Messages.Instance().FullHp();
+                    }
+                    else
+                    {
+                        int beforeHp = player.NowHP;
+                        player.Inventory.usePotion(hpPotion, player);
+                        Messages.Instance().DrinkingHpPotion(Player, beforeHp);
+                    }
+                }
+                else
+                {
+                    Messages.Instance().NoHpPotion();
+                }
             }
             else if (inputNum == 2)
             {
-                Messages.Instance().DrinkingMpPotion();
-                //mp potion 갯수가 하나 줄어드는 함수
-                //mp potion를 마셨을 때 마나회복이 되야 함(플레이어 hp를 끌어와야 함)
+                Potion mpPotion = player.Inventory.Potions.Find(p => p.PotionType == PotionType.MP);
+
+                if (mpPotion != null)
+                {
+                    if (player.NowMP == player.MaxMP)
+                    {
+                        Messages.Instance().FullMp();
+
+
+                    }
+                    else
+                    {
+                        int beforeMp = player.NowMP;
+                        player.Inventory.usePotion(mpPotion, player);
+                        Messages.Instance().DrinkingMpPotion(player, beforeMp);
+                    }
+                }
+                else
+                {
+                    Messages.Instance().NoHpPotion();
+                }
             }
         }
+        
         public void NPCText()   // 여관(NPC) 메뉴 보기
         {
 
