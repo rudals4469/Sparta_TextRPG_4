@@ -958,8 +958,15 @@ namespace Sparta_TextRPG
             {
                 for (int i = 0; i < available.Count; i++)
                 {
-                    Console.WriteLine($"│  {i + 1}. {available[i].Name}                              │");
-                    Console.WriteLine("│                                                  │");
+                    string print = "";
+
+                    print = $"│{i + 1}. {available[i].Name}";
+                    for (int a = GetStringWidth(print); a < 51; a++)
+                    {
+                        print += " ";
+                    }
+                    Console.WriteLine($"{print} │");
+                    
                 }
                 Console.WriteLine("└──────────────────────────────────────────────────┘");
             }
@@ -975,8 +982,13 @@ namespace Sparta_TextRPG
             {
                 foreach (var quest in locked)
                 {
-                    Console.WriteLine($"│  - {quest.Name} (요구 레벨 : {quest.RequestLevel})             │");
-                    Console.WriteLine("│                                                  │");
+                    string print = "";        
+                    print = $"│  - {quest.Name} (요구 레벨 : {quest.RequestLevel})";
+                    for (int a = GetStringWidth(print); a < 51; a++)
+                    {
+                        print += " ";
+                    }
+                    Console.WriteLine($"{print} │");
                 }
             }
             Console.WriteLine("└──────────────────────────────────────────────────┘");
