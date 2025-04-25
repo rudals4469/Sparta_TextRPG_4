@@ -325,11 +325,11 @@ namespace Sparta_TextRPG
             {
                 new Quest(
                     "달팽이 처치하기",
-                    "시작할 때 받는 달팽이 사냥 퀘스트입니다.\n달팽이 3 마리를 처치하세요.",
+                    "시작할 때 받는 달팽이 사냥 퀘스트입니다.         │\n│  달팽이 3 마리를 처치하세요.                      │",
                     new List<Item>(), // 아이템 보상
                     1000,             // 보상 골드
                     MonsterName.달팽이,    // 잡을 몬스터
-                    3,                     // 목표 처치 수 
+                    0,                     // 목표 처치 수 
                     1                      // 퀘스트 요구 레벨
                 ),
                 new Quest(
@@ -444,7 +444,7 @@ namespace Sparta_TextRPG
                 WarriorSkill.Add(AllSkill["ThreeSnails"]);
                 WarriorSkill.Add(AllSkill["Slash Blast"]);
                 WarriorSkill.Add(AllSkill["Origin"]);
-                Player = new Player(100, 50, 10, 5, inputName, 10000, WarriorSkill, false, 20, 15, ClassName.전사);
+                Player = new Player(99999, 50, 10, 5, inputName, 10000, WarriorSkill, false, 20, 15, ClassName.전사) {NowHP=1000};
             }
             else if (inputNum == 2)
             {
@@ -767,6 +767,7 @@ namespace Sparta_TextRPG
                     isAllDeath = false;
                 }
             }
+
             if (isAllDeath)
             {
                 sceneName = SceneName.BattlePlayerWin;
@@ -799,10 +800,10 @@ namespace Sparta_TextRPG
             }
 
             string input = Console.ReadLine();
-            int inputNum = int.Parse(input);
+            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
 
 
-            if (inputNum == 0) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
+            if (consoleKeyInfo!=null) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
             {
                 sceneName = SceneName.BattleStart;
             }
