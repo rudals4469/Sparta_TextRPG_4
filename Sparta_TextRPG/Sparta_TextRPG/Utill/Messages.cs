@@ -129,13 +129,24 @@ namespace Sparta_TextRPG
         }
         public void ShowStatus(Player player) 
         {
+
             Console.WriteLine("\n┌ [상태 보기]───────────────┐");
             Console.WriteLine($"│ Lv. {player.Level,22}│");
-            Console.WriteLine($"│ {player.Name,26}│");
+            string print = $"{player.Name,26}";
+            for (int i = GetStringWidth(print); i < 25; i++)
+            {
+                print += " ";
+            }
+            Console.WriteLine($"│ {print}│");
             Console.WriteLine($"│ {"직  업"}:  {player.Class,15}│");
             Console.WriteLine($"│ {"공격력"}: {player.AttackPoint,18}│");
             Console.WriteLine($"│ {"방어력"}: {player.ArmorPoint,18}│");
-            Console.WriteLine($"│ {"체  력"}: {player.NowHP,12} / {player.MaxHP,2}│");
+            print = $" {"체  력"}: {player.NowHP,12} / {player.MaxHP,2}";
+            for (int i = GetStringWidth(print); i < 25; i++)
+            {
+                print += " ";
+            }
+            Console.WriteLine($"│ {print}│");
             Console.WriteLine($"│ {"경험치"}: {player.Exp,13} / {player.MaxExp}│");
             Console.WriteLine($"│ {"Gold"}: {player.Gold,15} Meso│");
             Console.WriteLine("└───────────────────────────┘");
