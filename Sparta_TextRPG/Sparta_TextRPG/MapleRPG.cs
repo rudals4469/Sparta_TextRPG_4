@@ -43,10 +43,11 @@ namespace Sparta_TextRPG
         public void Program()
         {
             sceneName = SceneName.StartSetName;
-            try
-            {
+
                 while (true)
                 {
+
+                try { 
                    
                     Console.Clear();//새로운 문구를 출력전 이전문구 삭제
 
@@ -147,13 +148,14 @@ namespace Sparta_TextRPG
                             break;
 
                     }
-
                 }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+
             }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+
         }
         public void init()
         {
