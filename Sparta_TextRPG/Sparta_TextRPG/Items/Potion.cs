@@ -11,7 +11,8 @@ namespace Sparta_TextRPG
         public int HealPoint { get; set; }
         public int Count {  get; set; } // 갯수를 상정하고 만들었습니다.
         public PotionType PotionType { get; set; }
-        public Potion(string name, string text, int price, PotionType PotionType, int HealPoint, ItemType type) : base(name, text, price, type)
+        public Potion(string name, string text, int price, PotionType PotionType, int HealPoint, ItemType type)
+            : base(name, text, price, type)
         {
             this.PotionType = PotionType;
             this.HealPoint = HealPoint;

@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Sparta_TextRPG
 {
@@ -81,7 +83,387 @@ namespace Sparta_TextRPG
                 """);
 
         }
-        //
+        public void ShowStatus(Player player)         //$""" 사용해보려 하였으나 익숙치 않아 익숙한 것으로 진행
+        {
+            Console.WriteLine("[상태 보기]");
+            Console.WriteLine("캐릭터의 정보가 표시됩니다.");
+            Console.WriteLine();                                       //줄 바꿈 처리
+            Console.WriteLine($"Lv. {player.Level}");
+            Console.WriteLine($"{player.Name} ({player.Class})");
+            Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
+            Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
+            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");
+            Console.WriteLine($"{"경험치",-5}: {player.Exp} / {player.MaxExp}");
+            Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
+            Console.WriteLine();                                      //줄 바꿈 처리
+
+            Console.WriteLine("[인벤토리]");                             //player 인벤토리로 받을 수 있게 처리
+                                                                     //인벤토리 출력은 4단계를 거쳐서 작성해야함
+                                                                     //foreach (var item in player.Inventory)                    //배열 리스트 순차적으로 꺼내서 처리(var 변수 타입 결정 player인벤토리 안에 있는 아이템 전부 item처리)
+                                                                     //Console.WriteLine($" - {item.Name} x{item.Quantity}"); //아이템 이름과 수량
+
+
+            Console.WriteLine("장착 중인 아이템:");                     // 상태창에서 바로 장착중인 아이템이 보여지게 수정
+            Console.Write($"- {"무기",-4} :");
+            if (player.Weapon != null)
+                Console.WriteLine($" {player.Weapon.Text}"); // 무기 장착 칸
+            else Console.WriteLine(); // 아니여도 줄 바꿈
+            Console.Write($"- {"방어구",-3} :");
+            if (player.Armor != null)
+                Console.WriteLine($" {player.Armor.Text}");   // 방어구 장착 칸
+            else Console.WriteLine();
+            Console.Write($"- {"방패",-4} :");
+            if (player.Shield != null)
+                Console.WriteLine($" {player.Shield.Text}");   // 방패 장착 칸
+            else Console.WriteLine();
+
+            Console.WriteLine("\n1. 인벤토리 보기");
+            Exit();
+        }
+        public void ShowInventory(Player player)
+        {
+            Console.WriteLine("인벤토리");
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
+
+            int totalItemCount = player.Inventory.Weapon.Count
+                                + player.Inventory.Armors.Count
+                                + player.Inventory.Shild.Count
+                                + player.Inventory.Potions.Count;
+
+            if (totalItemCount == 0)
+            {
+                Console.WriteLine("아이템이 없습니다.");
+            }
+            else
+            {
+                Console.WriteLine("\n[무기]\n");
+                foreach (var weapon in player.Inventory.Weapon)
+                {
+                    string prefix = weapon.IsEquipped ? "[E] " : "[ ] ";
+                    Console.WriteLine($"- {prefix}{weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
+                }
+
+                Console.WriteLine("\n[방어구]\n");
+                foreach (var armor in player.Inventory.Armors)
+                {
+                    string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
+                    Console.WriteLine($"- {prefix}{armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
+                }
+
+                Console.WriteLine("\n[방패]\n");
+                foreach (var shield in player.Inventory.Shild)
+                {
+                    string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
+                    Console.WriteLine($"- {prefix}{shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
+                }
+
+                Console.WriteLine("\n[포션]\n");
+
+                var potions = from potion in player.Inventory.Potions
+                              orderby potion.Name ascending
+                              group potion by potion.Name into g
+                              select new
+                              {
+                                  Name = g.Key,
+                                  Count = g.Count(),
+                                  Text = g.First().Text,
+                                  Potion = g.First().PotionType
+
+                              };
+                foreach (var potion in potions)
+                {
+                    Console.WriteLine($"-  {potion.Name,-18} | {potion.Text} | x{potion.Count}");
+                }
+
+            }
+
+            Console.WriteLine("\n1. 장착 관리");
+            Exit();
+
+
+            /*if (input == "0") break;
+            else if (input == "1") ManageEquipment(player); 
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다.");
+                Console.ReadKey();
+            } 메세지 파일에서는 출력만 담당합니다. 기능들은 메이플알피지 파일에서 */
+
+        }
+        public void ManageEquipment(Player player)
+        {
+            // 장착 관리
+            Console.WriteLine("인벤토리");
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
+
+
+            int totalItemCount = player.Inventory.Weapon.Count
+                                   + player.Inventory.Armors.Count
+                                   + player.Inventory.Shild.Count
+                                   + player.Inventory.Potions.Count;
+
+            int Count = 1;
+
+
+            if (totalItemCount == 0)
+            {
+                Console.WriteLine("아이템이 없습니다.");
+            }
+            else
+            {
+                Console.WriteLine("\n[무기]\n");
+
+                foreach (var weapon in player.Inventory.Weapon)
+                {
+                    string prefix = weapon.IsEquipped ? "[E] " : "[ ] ";
+                    Console.WriteLine($"- {Count,-2} {prefix}{weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
+                    Count++;
+                }
+
+                Console.WriteLine("\n[방어구]\n");
+                foreach (var armor in player.Inventory.Armors)
+                {
+                    string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
+                    Console.WriteLine($"- {Count,-2} {prefix}{armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
+                    Count++;
+                }
+
+                Console.WriteLine("\n[방패]\n");
+                foreach (var shield in player.Inventory.Shild)
+                {
+                    string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
+                    Console.WriteLine($"- {Count,-2} {prefix}{shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
+                    Count++;
+                }
+
+            }
+
+            Exit();
+
+        }
+        public void ShowShop(Player player, Shop shop)
+        {
+            int Count = 1;
+
+            Console.Write($"""
+                상점에 오신 것을 환영합니다!
+                필요한 아이템을 골드로 구매하실 수 있습니다 :3
+
+                [보유 골드]
+                {player.Gold} Meso
+                
+                [아이템 목록]
+
+
+                """);
+
+
+
+            Console.WriteLine("\n[무기]\n");
+            foreach (var weapon in shop.Inventory.Weapon)
+            {
+                Console.WriteLine($"- {Count,-2} {weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방어구]\n");
+            foreach (var armor in shop.Inventory.Armors)
+            {
+
+                Console.WriteLine($"- {Count,-2} {armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방패]\n");
+            foreach (var shield in shop.Inventory.Shild)
+            {
+
+                Console.WriteLine($"- {Count,-2} {shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
+                Count++;
+            }
+
+            Console.WriteLine("\n[포션]\n");
+            foreach (var potion in shop.Inventory.Potions)
+            {
+                Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
+                Count++;
+            }
+
+            Console.Write("""
+                --------------------------------------------------------------
+                1. 아이템 구매
+                2. 아이템 판매
+                """);
+            Exit();
+
+
+        }
+        public void BuyItem(Player player, Shop shop)
+        {
+            int Count = 1;
+
+            Console.Write($"""
+                상점에 오신 것을 환영합니다!
+                필요한 아이템을 골드로 구매하실 수 있습니다 :3
+
+                [보유 골드]
+                {player.Gold} Meso
+                
+                [아이템 목록]
+
+
+                """);
+            Console.WriteLine("\n[무기]\n");
+            foreach (var weapon in shop.Inventory.Weapon)
+            {
+                Console.WriteLine($"- {Count,-2} {weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방어구]\n");
+            foreach (var armor in shop.Inventory.Armors)
+            {
+                Console.WriteLine($"- {Count,-2} {armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방패]\n");
+            foreach (var shield in shop.Inventory.Shild)
+            {
+
+                Console.WriteLine($"- {Count,-2} {shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
+                Count++;
+            }
+
+
+            Console.WriteLine("\n[포션]\n");
+            foreach (var potion in shop.Inventory.Potions)
+            {
+                Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
+                Count++;
+            }
+
+            Console.Write("""
+                --------------------------------------------------------------
+
+                0. 나가기
+
+                번호를 눌러 원하는 아이템을 사거나 원하시는 행동을 입력해주세요.
+                >> 
+                """);
+
+
+        }
+        public void SellItem(Player player, Shop shop)
+        {
+            int Count = 1;
+
+            Console.Write($"""
+                상점에 오신 것을 환영합니다!
+                필요한 아이템을 판매하실 수 있습니다 :3
+
+                [보유 골드]
+                {player.Gold} Meso
+                
+                [아이템 목록]
+
+
+                """);
+
+
+
+            Console.WriteLine("\n[무기]\n");
+            foreach (var weapon in player.Inventory.Weapon)
+            {
+                Console.WriteLine($"- {Count,-2} {weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방어구]\n");
+            foreach (var armor in player.Inventory.Armors)
+            {
+
+                Console.WriteLine($"- {Count,-2} {armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
+                Count++;
+            }
+
+            Console.WriteLine("\n[방패]\n");
+            foreach (var shield in player.Inventory.Shild)
+            {
+
+                Console.WriteLine($"- {Count,-2} {shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
+                Count++;
+            }
+
+            Console.WriteLine("\n[포션]\n");
+
+            //var potions = from potion in player.Inventory.Potions
+            //              group potion by potion.PotionType into g
+            //              orderby g.Key
+            //              select new
+            //              {
+
+            //                  Name = g.First().Name,
+            //                  Count = g.Count(),
+            //                  Text = g.First().Text,
+            //                  Potion = g.Key,
+            //                  Price = g.First().Price,
+            //                  HealPoint = g.First().HealPoint
+
+            //              };
+
+            //foreach (var potion in potions)
+            //{
+            //    Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
+            //    Count++;
+            //}
+            var potionssearch = player.Inventory.Potions.OrderBy(p => p.PotionType);
+
+            foreach (var potion in potionssearch)
+            {
+                Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
+                Count++;
+            }
+
+
+            Console.Write("""
+                --------------------------------------------------------------
+                0. 나가기
+
+                번호를 눌러 원하는 아이템을 팔거나 원하시는 행동을 입력해주세요.
+                >> 
+                """);
+        }
+        public void NotEnoughMoney()
+        {
+            Console.WriteLine("[실패] 골드가 부족합니다. 아무 숫자를 눌러 상점으로 돌아가세요.");
+        }
+        public void LevelUp(Player player)
+        {
+            Console.WriteLine("[Level Up]");
+            Console.WriteLine();
+            Console.WriteLine($"Lv. {player.Level}");
+            Console.WriteLine($"{player.Name} ({player.Class})");
+            Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
+            Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
+            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");
+            Console.WriteLine($"{"경험치",-5}: {player.Exp} / {player.MaxExp}");
+            Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
+            Console.WriteLine();
+        }
+        public void ShowDungoun(List<Dungeon> dungouns)
+        {
+            Console.Write($"""
+               던전입장
+               이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다. 
+               """);
+            foreach (var item in dungouns)
+            {
+                Console.WriteLine($"{item.Name} | 던전 레벨 : {item.Level}");
+            }
+            ;
+            Exit();
+        }
         public void ShowDungeonSelection(List<Dungeon> dungouns)
         {
             int count = 0;
@@ -100,10 +482,8 @@ namespace Sparta_TextRPG
 
                 {++count}. 상태 보기
                 {++count}. 회복 아이템
-                0. 마을로 가기
-                입장할 던전을 선택해 주세요
-                >>
                 """);
+            Exit();
         }
         public void printMonster(List<Monster> monsters)
         {
@@ -205,13 +585,13 @@ namespace Sparta_TextRPG
                {monster.Level} {monster.MonsterName.ToString()}
                """);
 
-                if ((monster.NowHP - Damage) < 0)
+                if (monster.IsDead)
                 {
                     Console.WriteLine($"HP {monsterbeforHP} -> Dead");
                 }
                 else
                 {
-                    Console.WriteLine($"HP {monsterbeforHP} -> {monster.NowHP - Damage}");
+                    Console.WriteLine($"HP {monsterbeforHP} -> {monsterbeforHP - Damage}");
 
                 }
             }
@@ -219,10 +599,11 @@ namespace Sparta_TextRPG
             {
                 Random random = new Random();
                 int n = random.Next(0, 100);
-                if(n % 5 == 0) Console.Write($"{monster.Name}이 \"훗\" 하고 피함");
+                if(n % 5 == 0) Console.Write($"{monster.Name}이(가) {player.Name}님의 공격을 \"훗\" 하고 피함");
                 else
                 {
-                    Console.Write($"{monster.Name}가 슉 슈슉 슉 ");
+                    Console.WriteLine($"{monster.Name}가 슉 슈슉 슉 ");
+                    Console.WriteLine($"{player.Name}님의 공격이 빘나갔습니다");
                 }
                 //회피 문구 추가하기
             }
@@ -243,6 +624,7 @@ namespace Sparta_TextRPG
             Console.Write(
                $"""
                Battle!!
+
                """);
         }
         public void ShowBattleMonsterHitPhase(Monster monster,int beforHp ,Player player, int Damage)
@@ -263,10 +645,11 @@ namespace Sparta_TextRPG
             {
                 Random random = new Random();
                 int n = random.Next(0, 100);
-                if (n % 5 == 0) Console.WriteLine($"{player.Name}이 \"훗\" 하고 피함 \n");
+                if(n % 5 == 0) Console.WriteLine($"{player.Name}이(가) {monster.Name}님의 공격을 \"훗\" 하고 피함");
                 else
                 {
-                    Console.WriteLine($"{player.Name}가 슉 슈슉 슉 \n");
+                    Console.WriteLine($"{player.Name}가 슉 슈슉 슉 ");
+                    Console.WriteLine($"{monster.Name}의 공격이 빘나갔습니다");
                 }
             }
         }
@@ -294,12 +677,22 @@ namespace Sparta_TextRPG
                획득 아이템
                (
                """);
+            for (int i = 0; i < items.Count; i++)
+            {
+                Console.Write($"{items[i].Text}");
+                if(i != items.Count) Console.Write($",");
+            }
             foreach (var item in items)
             {
-                Console.Write($"{item.Name} ");
+                Console.Write($"{item.Text}");
             }
+
+        }
+        public void ShowBattlePlayerWinLest()
+        {
             Console.Write(
-               """
+   """
+               )
                0. 다음
 
                >>
@@ -320,196 +713,40 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-        public void DrinkingPotion(Player player)//던전에서 포션마시기를 눌렀을 때 나오는 메세지
+        public void DrinkingPotion()//던전에서 포션마시기를 눌렀을 때 나오는 메세지
         {
             Console.Write("""
                 [소유 포션]
                 1. HP 포션 | +100HP
                 2. MP 포션 | +100MP
 
+                0. 나가기
+
                 사용하실 포션을 입력해주세요.
                 >>
                 """);
         }
-        public void DrinkingHpPotion()//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
+        public void DrinkingPotion(Player player, int before, PotionType potionType)//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
         {
-            Console.WriteLine("블라블라");
+            int recovered = player.NowHP - before;
+            Console.WriteLine($"""
+            [{potionType.ToString()} 포션 사용!]
+            {before} → {player.NowHP} ( +{recovered} 회복 )
+            """);
         }
-        public void DrinkingMpPotion()//포션마시기에서 mp포션을 눌렀을 때 나오는 메세지
+        public void Full(PotionType potionType)
         {
-            Console.WriteLine("블라블라");
+            Console.Clear();
+            Console.WriteLine($"현재 {potionType.ToString()}가 최대입니다. 포션을 사용할 수 없습니다.");
+            Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
+            Console.ReadLine();
         }
-        public void ShowStatus(Player player)         //$""" 사용해보려 하였으나 익숙치 않아 익숙한 것으로 진행
+        public void NoPotion(PotionType potionType)
         {
-            Console.WriteLine("[상태 보기]");
-            Console.WriteLine("캐릭터의 정보가 표시됩니다.");
-            Console.WriteLine();                                       //줄 바꿈 처리
-            Console.WriteLine($"Lv. {player.Level}");
-            Console.WriteLine($"{player.Name} ({player.Class})");
-            Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
-            Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
-            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");
-            Console.WriteLine($"{"경험치",-5}: {player.Exp} / {player.MaxExp}");
-            Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
-            Console.WriteLine();                                      //줄 바꿈 처리
-
-            Console.WriteLine("[인벤토리]");                             //player 인벤토리로 받을 수 있게 처리
-                                                                   //인벤토리 출력은 4단계를 거쳐서 작성해야함
-                                                                   //foreach (var item in player.Inventory)                    //배열 리스트 순차적으로 꺼내서 처리(var 변수 타입 결정 player인벤토리 안에 있는 아이템 전부 item처리)
-                                                                   //Console.WriteLine($" - {item.Name} x{item.Quantity}"); //아이템 이름과 수량
-
-
-            Console.WriteLine("장착 중인 아이템:");                     // 상태창에서 바로 장착중인 아이템이 보여지게 수정
-            Console.Write($"- {"무기",-4} :");
-            if (player.Weapon != null)
-                Console.WriteLine($" {player.Weapon.Text}"); // 무기 장착 칸
-            else Console.WriteLine(); // 아니여도 줄 바꿈
-            Console.Write($"- {"방어구",-3} :");
-            if (player.Armor != null)
-                Console.WriteLine($" {player.Armor.Text}");   // 방어구 장착 칸
-            else Console.WriteLine();
-            Console.Write($"- {"방패",-4} :");
-            if (player.Shield != null)
-                Console.WriteLine($" {player.Shield.Text}");   // 방패 장착 칸
-            else Console.WriteLine();
-
-            Console.WriteLine("\n1. 인벤토리 보기");
-            Console.WriteLine("0. 나가기\n");
-            Console.Write("원하시는 행동을 입력해주세요.\n>> ");
-        }
-        public void ShowInventory(Player player)
-        {
-            Console.WriteLine("인벤토리");
-            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
-
-            int totalItemCount = player.Inventory.Weapon.Count
-                                + player.Inventory.Armors.Count
-                                + player.Inventory.Shild.Count
-                                + player.Inventory.Potions.Count;
-
-            if (totalItemCount == 0)
-            {
-                Console.WriteLine("아이템이 없습니다.");
-            }
-            else
-            {
-                Console.WriteLine("\n[무기]\n");
-                foreach (var weapon in player.Inventory.Weapon)
-                {
-                    string prefix = weapon.IsEquipped ? "[E] ": "[ ] ";
-                    Console.WriteLine($"- {prefix}{weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
-                }
-
-                Console.WriteLine("\n[방어구]\n");
-                foreach (var armor in player.Inventory.Armors)
-                {
-                    string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {prefix}{armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
-                }
-
-                Console.WriteLine("\n[방패]\n");
-                foreach (var shield in player.Inventory.Shild)
-                {
-                    string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {prefix}{shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
-                }
-
-                Console.WriteLine("\n[포션]\n");
-
-                var potions = from potion in player.Inventory.Potions
-                              orderby potion.Name ascending
-                              group potion by potion.Name into g
-                              select new
-                              {
-                                  Name = g.Key,
-                                  Count = g.Count(),
-                                  Text = g.First().Text,
-                                  Potion = g.First().PotionType
-                                  
-                              };
-                foreach (var potion in potions)
-                {
-                    Console.WriteLine($"-  {potion.Name,-18} | {potion.Text} | x{potion.Count}");
-                }
-
-            }
-
-            Console.WriteLine("\n1. 장착 관리");
-            Console.Write("""
-                0. 나가기
-
-                원하시는 행동을 입력해주세요.
-                >> 
-                """);
-         
-
-            /*if (input == "0") break;
-            else if (input == "1") ManageEquipment(player); 
-            else
-            {
-                Console.WriteLine("잘못된 입력입니다.");
-                Console.ReadKey();
-            } 메세지 파일에서는 출력만 담당합니다. 기능들은 메이플알피지 파일에서 */
-
-        }
-        public void ManageEquipment(Player player)
-        {
-            // 장착 관리
-            Console.WriteLine("인벤토리");
-            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
-
-
-            int totalItemCount = player.Inventory.Weapon.Count
-                                   + player.Inventory.Armors.Count
-                                   + player.Inventory.Shild.Count
-                                   + player.Inventory.Potions.Count;
-
-            int Count = 1;
-
-
-            if (totalItemCount == 0)
-            {
-                Console.WriteLine("아이템이 없습니다.");
-            }
-            else
-            {
-                Console.WriteLine("\n[무기]\n");
-
-                foreach (var weapon in player.Inventory.Weapon)
-                {
-                    string prefix = weapon.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {Count,-2} {prefix}{weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
-                    Count++;
-                }
-
-                Console.WriteLine("\n[방어구]\n");
-                foreach (var armor in player.Inventory.Armors)
-                {
-                    string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {Count,-2} {prefix}{armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
-                    Count++;
-                }
-
-                Console.WriteLine("\n[방패]\n");
-                foreach (var shield in player.Inventory.Shild)
-                {
-                    string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {Count,-2} {prefix}{shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
-                    Count++;
-                }
-
-            }
-
-            Console.WriteLine("\n0. 나가기\n");
-            Console.Write("""
-                원하시는 행동을 입력해주세요.
-                >> 
-                """);
-            
-        }
-        public void ErrorMessage()
-        {
-            Console.WriteLine("잘못된 입력입니다 ");
+            Console.Clear();
+            Console.WriteLine($"{potionType.ToString()} 포션이 없습니다.");
+            Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
+            Console.ReadLine();
         }
         public void ShowNPC()
         {
@@ -523,15 +760,10 @@ namespace Sparta_TextRPG
 
                2. 휴식하기
 
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
                """);
+            Exit();
 
         }
-
         public void ShowQuestList(List<Quest> available, List<Quest> locked, bool hasUnclaimedReward)
         {
             Console.WriteLine("[시작 가능 퀘스트]\n");
@@ -568,11 +800,8 @@ namespace Sparta_TextRPG
 
             {available.Count + 1}. 내 퀘스트 보기{notice}
 
-            0. 나가기
-
-            원하시는 행동을 입력해주세요.
-            >> 
             """);
+            Exit();
         }
         public void ShowQuestInfo(Quest quest)
         {
@@ -600,33 +829,60 @@ namespace Sparta_TextRPG
 
             1. 퀘스트 받기
 
-            0. 나가기
-
-            원하시는 행동을 입력해주세요.
-            >> 
             """);
+            Exit();
         }
-
-
         public void ShowAcceptingQuest(string questName)    // 퀘스트 수락 메시지
         {
             Console.Write($"""
                [{questName}] 퀘스트를 받았습니다. 
 
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
                """);
+            Exit();
         }
-
         public void ShowQuestCompleted(Quest quest)
         {
             Console.WriteLine($"[{quest.Name}] 퀘스트를 완료했습니다.\n");
 
-            Console.WriteLine("[보상]");
-            Console.WriteLine($"- 골드 : {quest.Gold} G");
+            Console.WriteLine($"보상: {quest.Gold} G");
+        }
+        public void ShowViewAcceptedQuest(List<Quest> acceptedQuests)
+        {
+            Console.WriteLine("진행 중인 퀘스트 목록");
+
+            var inProgress = acceptedQuests.Where(q => !q.IsComplete()).ToList();
+            var completed = acceptedQuests.Where(q => q.IsComplete()).ToList();
+
+            for (int i = 0; i < inProgress.Count; i++)
+            {
+                var quest = inProgress[i];  // ← 여기에서 quest 변수를 정의해주는 게 핵심이야
+
+                Console.WriteLine($"{i + 1}. {quest.Name} ({quest.Count} / {quest.TargetCount})");
+
+                if (quest.Reward.Count > 0)
+                {
+                    Console.Write(" + 아이템: ");
+                    foreach (var item in quest.Reward)
+                    {
+                        Console.Write($"{item.Text} ");
+                    }
+                    Console.WriteLine(); // 줄 바꿈
+                }
+            }
+
+
+            Console.Write($"""
+
+            1. 보상 받기 
+
+            """);
+            Exit();
+        }
+        public void ShowReceiveQuestRewards(Quest quest, int playerGold)
+        {
+            Console.WriteLine("[보상 수령 완료]");
+
+            Console.WriteLine($"\n현재 보유 골드: {playerGold} G");
 
             if (quest.Reward.Count > 0)
             {
@@ -637,20 +893,8 @@ namespace Sparta_TextRPG
                 }
                 Console.WriteLine();
             }
-
-            Console.Write($"""
-
-            1. 보상 받기
-
-            0. 나가기
-
-            >> 
-            """);
+            Exit();
         }
-
-
-
-
         public void ShowViewAcceptedQuest(List<Quest> acceptedQuests, bool hasRewardableQuest)
         {
             if (hasRewardableQuest)
@@ -694,45 +938,13 @@ namespace Sparta_TextRPG
                 }
             }
 
-            Console.Write($"""
-
-
-            0. 나가기
-
-            원하시는 행동을 입력해주세요.
-            >> 
-            """);
-        }
-
-
-
-        public void ShowReceiveQuestRewards(Quest quest, int playerGold)
-        {
-            Console.WriteLine("[보상 수령 완료]");
-
-            Console.WriteLine($"\n현재 보유 골드 : {playerGold} G");
-
-            if (quest.Reward.Count > 0)
+            // 보상 받을 퀘스트가 있으면 안내 메시지 출력
+            if (hasRewardableQuest)
             {
-                Console.Write("새로운 아이템 : ");
-                foreach (var item in quest.Reward)
-                {
-                    Console.Write($"{item.Text} ");
-                }
-                Console.WriteLine(); // 줄 바꿈
+                Console.WriteLine("\n\n(알림 : [완료] 표시가 있는 퀘스트를 선택하여 보상을 받으세요)");
             }
-
-            Console.Write($"""
-
-
-            0. 나가기
-
-            원하시는 행동을 입력해주세요. 
-            >> 
-            """);
+            Exit();
         }
-
-
         public void ShowRest(Player player)
         {
             Console.Write($"""
@@ -740,256 +952,39 @@ namespace Sparta_TextRPG
 
                1. 휴식하기
 
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
                """);
+            Exit();
         }
         public void ShowRestSuccess(Player player)
         {
             Console.Write($"""
                [휴식 완료] 체력이 모두 회복되었습니다. (남은 골드 : {player.Gold} G)
 
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요.
-               >> 
                """);
+            Exit();
 
         }
         public void ShowRestFail()
         {
             Console.Write($"""
                [실패] 골드가 부족합니다.
+               """);
+            Exit();
+        }
+        public void ErrorMessage()
+        {
+            Console.WriteLine("잘못된 입력입니다 ");
+            Exit();
+        }
+        public void Exit()
+        {
+            Console.Write($"""
 
                0.나가기
 
                원하시는 행동을 입력해주세요.
                >> 
                """);
-        }
-        public void ShowDungoun(List<Dungeon> dungouns)
-        {
-            Console.Write($"""
-               던전입장
-               이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다. 
-               """);
-            foreach (var item in dungouns)
-            {
-                Console.WriteLine($"{item.Name} | 던전 레벨 : {item.Level}");
-            }
-            ;
-            Console.Write($$"""
-               0. 나가기 
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
-        }
-        public void ShowShop(Player player, Shop shop)
-        {
-            int Count = 1;
-            
-            Console.Write($"""
-                상점에 오신 것을 환영합니다!
-                필요한 아이템을 골드로 구매하실 수 있습니다 :3
-
-                [보유 골드]
-                {player.Gold} Meso
-                
-                [아이템 목록]
-
-
-                """);
-
-            
-
-            Console.WriteLine("\n[무기]\n");
-            foreach (var weapon in shop.Inventory.Weapon)
-            { 
-                Console.WriteLine($"- {Count,-2} {weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
-                Count++;
-            }
-
-            Console.WriteLine("\n[방어구]\n");
-            foreach (var armor in shop.Inventory.Armors)
-            {
-                
-                Console.WriteLine($"- {Count,-2} {armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
-                Count++;
-            }
-
-            Console.WriteLine("\n[방패]\n");
-            foreach (var shield in shop.Inventory.Shild)
-            {
-                
-                Console.WriteLine($"- {Count,-2} {shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
-                Count++;
-            }
-
-            Console.WriteLine("\n[포션]\n");
-            foreach (var potion in shop.Inventory.Potions)
-            {
-                Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
-                Count++;
-            }
-
-            Console.Write("""
-                --------------------------------------------------------------
-                1. 아이템 구매
-                2. 아이템 판매
-                0. 나가기
-
-                원하시는 행동을 입력해주세요.
-                >> 
-                """);
-
-
-
-        }
-        public void BuyItem(Player player, Shop shop)
-        {
-            int Count = 1;
-
-            Console.Write($"""
-                상점에 오신 것을 환영합니다!
-                필요한 아이템을 골드로 구매하실 수 있습니다 :3
-
-                [보유 골드]
-                {player.Gold} Meso
-                
-                [아이템 목록]
-
-
-                """);
-            Console.WriteLine("\n[무기]\n");
-            foreach (var weapon in shop.Inventory.Weapon)
-            {
-                Console.WriteLine($"- {Count,-2} {weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
-                Count++;
-            }
-
-            Console.WriteLine("\n[방어구]\n");
-            foreach (var armor in shop.Inventory.Armors)
-            {
-                Console.WriteLine($"- {Count,-2} {armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
-                Count++;
-            }
-
-            Console.WriteLine("\n[방패]\n");
-            foreach (var shield in shop.Inventory.Shild)
-            {
-
-                Console.WriteLine($"- {Count,-2} {shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
-                Count++;
-            }
-
-
-            Console.WriteLine("\n[포션]\n");
-            foreach (var potion in shop.Inventory.Potions)
-            {
-                Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
-                Count++;
-            }
-
-            Console.Write("""
-                --------------------------------------------------------------
-
-                0. 나가기
-
-                번호를 눌러 원하는 아이템을 사거나 원하시는 행동을 입력해주세요.
-                >> 
-                """);
-                
-
-        }
-        public void SellItem(Player player, Shop shop)
-        {
-            int Count = 1;
-
-            Console.Write($"""
-                상점에 오신 것을 환영합니다!
-                필요한 아이템을 판매하실 수 있습니다 :3
-
-                [보유 골드]
-                {player.Gold} Meso
-                
-                [아이템 목록]
-
-
-                """);
-
-           
-
-            Console.WriteLine("\n[무기]\n");
-            foreach (var weapon in player.Inventory.Weapon)
-            {
-                Console.WriteLine($"- {Count,-2} {weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
-                Count++;
-            }
-
-            Console.WriteLine("\n[방어구]\n");
-            foreach (var armor in player.Inventory.Armors)
-            {
-
-                Console.WriteLine($"- {Count,-2} {armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
-                Count++;
-            }
-
-            Console.WriteLine("\n[방패]\n");
-            foreach (var shield in player.Inventory.Shild)
-            {
-
-                Console.WriteLine($"- {Count,-2} {shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
-                Count++;
-            }
-
-            Console.WriteLine("\n[포션]\n");
-
-            var potions = from potion in player.Inventory.Potions
-                          group potion by potion.Name into g
-                          select new
-                          {
-                              Name = g.Key,
-                              Count = g.Count(),
-                              Text = g.First().Text,
-                              Potion = g.First().PotionType,
-                              Price = g.First().Price,
-                              HealPoint = g.First().HealPoint
-
-                          };
-            foreach (var potion in potions)
-            {
-                Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
-                Count++;
-            }
-
-            Console.Write("""
-                --------------------------------------------------------------
-                0. 나가기
-
-                번호를 눌러 원하는 아이템을 팔거나 원하시는 행동을 입력해주세요.
-                >> 
-                """);
-        }
-        public void NotEnoughMoney()
-        {
-            Console.WriteLine("[실패] 골드가 부족합니다. 아무 숫자를 눌러 상점으로 돌아가세요.");
-        }
-        public void LevelUp(Player player)
-        {
-            Console.WriteLine("[Level Up]");
-            Console.WriteLine();
-            Console.WriteLine($"Lv. {player.Level}");
-            Console.WriteLine($"{player.Name} ({player.Class})");
-            Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
-            Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
-            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");
-            Console.WriteLine($"{"경험치",-5}: {player.Exp} / {player.MaxExp}");
-            Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
-            Console.WriteLine();
         }
     }
 

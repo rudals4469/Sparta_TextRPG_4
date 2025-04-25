@@ -53,7 +53,21 @@ namespace Sparta_TextRPG
             index -= Inventory.Shild.Count;
 
             if (index < Inventory.Potions.Count)
+            {
+                // 15 입력
+                // 14 15 16 x2 
+                // 14  
+                // 14
+                // 15 마나
+                // 15
+                // 16
+                // 16
+                // ex 14 14 15 15 16 16 마나로 검색
+                // ex 14 15 14 15 16 16 마나로 검색
+                
+
                 return Inventory.Potions[index];
+            }
 
             return null;
         }
@@ -66,12 +80,23 @@ namespace Sparta_TextRPG
                 return;
 
             // 골드 지급
-            player.Gold += item.Price;
+            player.Gold += (int)(item.Price * 0.85);
 
+            player.Inventory.Remove(item);
+
+            if (item.Name.Contains("Wood"))
+            {
+                return;
+            }
             // 플레이어 인벤토리에서 제거
-            player.Inventory.Remove(item); 
 
-            if(item.Type != ItemType.Potion)
+
+            // if 팔 아이템이 상점에 있으면 return;
+
+
+            if (item.Type != ItemType.Potion && !Inventory.SameItem(item)) 
+                // 아이탬 타입이 포션이 아니고
+                // 파는 아이템이 샵의 인벤토리에 탬이 없으면
             {
                 AddItem(item);
             }
@@ -81,21 +106,21 @@ namespace Sparta_TextRPG
         public bool SellItem(Player player, int selectedIndex)
 
             {
-                Item item = GetItemByIndex(selectedIndex);
+            Item item = GetItemByIndex(selectedIndex);
                
-                if (player.Gold < item.Price)
-                    return false;
+            if (player.Gold < item.Price)
+                return false;
 
 
-                player.Gold -= item.Price;
-                player.Inventory.Add(item);
+            player.Gold -= item.Price;
+            player.Inventory.Add(item);
 
-                if (item.Type != ItemType.Potion) // 포션이면 
-                {
-                    Inventory.Remove(item); 
-                }
+            if (item.Type != ItemType.Potion ) // 포션이면 
+            {
+                Inventory.Remove(item); 
+            }
 
-                return true;
+            return true;
             }
 
 

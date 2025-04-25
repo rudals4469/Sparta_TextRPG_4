@@ -19,7 +19,7 @@ namespace Sparta_TextRPG
             this.Items = Items;
             NextAttack = SkillList[0];
         } // Monster 생성자
-               public void show(Monster monster)
+        public void show(Monster monster)
         {
             Console.Write(
            $"""
@@ -53,5 +53,11 @@ namespace Sparta_TextRPG
         // public bool Evasion(Skill skill,int PlayerDamage)
 
         //몬스터 공격
+        public Monster Cope()
+        {
+            Monster monster = new Monster();
+            monster = new Monster(this.Level, this.Exp, this.MaxHP, this.MaxMP, this.AttackPoint, this.ArmorPoint, this.Gold, this.SkillList, this.EvasionRate, this.MonsterName, this.Items);
+            return monster;
+        }
     }
 }

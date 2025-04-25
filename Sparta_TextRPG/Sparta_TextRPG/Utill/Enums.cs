@@ -60,7 +60,7 @@ namespace Sparta_TextRPG
         Staters,
         Inventory,
         Shop,
-        DungeonSelection,
+
 
         NPC,
         QuestList,
@@ -73,6 +73,7 @@ namespace Sparta_TextRPG
         RestSuccess,
         RestFail,
 
+        DungeonSelection,
         BattleStart,
         BattleAttackPhase,
         SelectSkill,
@@ -82,7 +83,8 @@ namespace Sparta_TextRPG
         LevelUp,
         BattlePlayerLose,
         DrinkingPotion,
-        
+        DrinkingHpPotion,
+        DrinkingMpPotion,
         InDungeon,
 
         ShowShop,
