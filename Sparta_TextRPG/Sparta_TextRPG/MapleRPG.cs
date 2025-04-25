@@ -884,7 +884,7 @@ namespace Sparta_TextRPG
         }
         public void DrinkingPotion(Player player)
         {
-            Messages.Instance().DrinkingPotion(player);
+            Messages.Instance().DrinkingPotion();
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
@@ -906,14 +906,13 @@ namespace Sparta_TextRPG
                     else
                     {
                         int beforeHp = player.NowHP;
-                        player.Inventory.usePotion(PotionType.HP, player);
-                        Messages.Instance().DrinkingPotion(player, beforeHp, PotionType.HP);
-
+                        player.Inventory.usePotion(hpPotion, player);
+                        Messages.Instance().DrinkingPotion(Player, beforeHp, hpPotion.PotionType);
                     }
                 }
                 else
                 {
-                    Messages.Instance().NoPotion();
+                    Messages.Instance().NoPotion(hpPotion.PotionType);
                 }
             }
             else if (inputNum == 2)
@@ -929,41 +928,16 @@ namespace Sparta_TextRPG
                     else
                     {
                         int beforeMp = player.NowMP;
-                        player.Inventory.usePotion(PotionType.MP, player);
-                        Messages.Instance().DrinkingPotion(player, beforeMp, PotionType.MP);
-                        ;
+                        player.Inventory.usePotion(mpPotion, player);
+                        Messages.Instance().DrinkingPotion(player, beforeMp, mpPotion.PotionType);
                     }
                 }
                 else
                 {
-                    Messages.Instance().NoPotion();
-                }
-            }
-            else if (inputNum == 3)
-            {
-                Potion Alixir = player.Inventory.Potions.Find(p => p.PotionType == PotionType.Alixir);
-
-                if (Alixir != null)
-                {
-                    if (player.NowHP == player.MaxHP)
-                    {
-                        Messages.Instance().Full(Alixir.PotionType);
-                    }
-                    else
-                    {
-                        int beforeHp = player.NowHP;
-                        player.Inventory.usePotion(PotionType.HP, player);
-                        Messages.Instance().DrinkingPotion(player, beforeHp, PotionType.Alixir);
-                        ;
-                    }
-                }
-                else
-                {
-                    Messages.Instance().NoPotion();
+                    Messages.Instance().NoPotion(mpPotion.PotionType);
                 }
             }
         }
-        
         public void NPCText()   // 여관(NPC) 메뉴 보기
         {
 
