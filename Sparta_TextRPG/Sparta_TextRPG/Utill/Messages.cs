@@ -510,8 +510,8 @@ namespace Sparta_TextRPG
         public void ShowDungoun(List<Dungeon> dungouns)
         {
             Console.Write($"""
-               던전입장
-               이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다. 
+               ┌[던전입장]───────────────────────┐
+               │이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다. │
                """);
             foreach (var item in dungouns)
             {
@@ -523,21 +523,24 @@ namespace Sparta_TextRPG
         public void ShowDungeonSelection(List<Dungeon> dungouns)
         {
             int count = 0;
-            Console.WriteLine("던전 선택");
+            Console.WriteLine("\n┌ [던전 선택]──────────────────────────────────────────────────────────────────────┐");
             foreach (var item in dungouns)
             {
-                Console.Write($"{++count,2}. {item.Name} | 권장 레벨 : {item.Level} 등장 몬스터 :");
+                Console.Write($"│{++count,2}. {item.Name} | 권장 레벨 : {item.Level} 등장 몬스터 :");
                 foreach (var item1 in item.baseMonsters)
                 {
                     if(item1.Level >= 10 ) Console.Write($" ? |");
-                    else Console.Write($" {item1.Name} |");
+                    else Console.Write($" {item1.Name, 10} |");
                 }
                 Console.WriteLine("");
             }
             Console.Write($"""
+                │                                                                                  │
+                ├ [탐색 준비]──────────────────────────────────────────────────────────────────────│
+                │ {++count}. 상태 보기                                                                    │ 
+                │ {++count}. 회복 아이템                                                                  │
+                └──────────────────────────────────────────────────────────────────────────────────┘
 
-                {++count}. 상태 보기
-                {++count}. 회복 아이템
                 """);
             Exit();
         }
@@ -783,7 +786,7 @@ namespace Sparta_TextRPG
                 0. 나가기
 
                 사용하실 포션을 입력해주세요.
-                >>
+                >> 
                 """);
         }
         public void DrinkingPotion(Player player, int before, PotionType potionType)//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
@@ -1030,7 +1033,7 @@ namespace Sparta_TextRPG
         {
             Console.Write($"""
                0. 나가기
-
+              
                원하시는 행동을 입력해주세요.
                >> 
                """);
