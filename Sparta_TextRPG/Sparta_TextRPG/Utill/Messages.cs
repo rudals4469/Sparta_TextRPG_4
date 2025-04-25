@@ -843,8 +843,10 @@ namespace Sparta_TextRPG
         public void ShowQuestCompleted(Quest quest)
         {
             Console.WriteLine($"[{quest.Name}] 퀘스트를 완료했습니다.\n");
-
             Console.WriteLine($"보상: {quest.Gold} G");
+
+            // 1번을 추가하고
+            Exit();
         }
         public void ShowViewAcceptedQuest(List<Quest> acceptedQuests)
         {
@@ -898,7 +900,7 @@ namespace Sparta_TextRPG
             Exit();
         }
         public void ShowViewAcceptedQuest(List<Quest> acceptedQuests, bool hasRewardableQuest)
-        {
+        { // 출력 정리 
             if (hasRewardableQuest)
             {
                 Console.WriteLine("[진행 중인 퀘스트] (알림 : [완료] 표시가 있는 퀘스트를 선택하여 보상을 받으세요)");

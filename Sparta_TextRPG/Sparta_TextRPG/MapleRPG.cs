@@ -328,7 +328,7 @@ namespace Sparta_TextRPG
                     new List<Item>(), // 아이템 보상
                     1000,             // 보상 골드
                     MonsterName.달팽이,    // 잡을 몬스터
-                    1,                     // 목표 처치 수 
+                    0,                     // 목표 처치 수 
                     1                      // 퀘스트 요구 레벨
                 ),
                 new Quest(
