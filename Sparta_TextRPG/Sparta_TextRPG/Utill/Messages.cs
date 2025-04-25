@@ -1,4 +1,5 @@
 ﻿
+using Sparta_TextRPG.Utill;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,31 @@ namespace Sparta_TextRPG
             }
             return instance;
         }
+        public void ConsoleSPMS()
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.WriteLine(
+                """
+                
+                                   ███████╗██████╗  █████╗ ██████╗ ████████╗ █████╗                      
+                                   ██╔════╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗                                       
+                                   ███████╗██████╔╝███████║██████╔╝   ██║   ███████║                                        
+                                   ╚════██║██╔═══╝ ██╔══██║██╔══██╗   ██║   ██╔══██║                                         
+                                   ███████║██║     ██║  ██║██║  ██║   ██║   ██║  ██║                     
+                                   ╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝                     
+                ███╗   ███╗ █████╗ ██████╗ ██╗     ███████╗    ███████╗████████╗ ██████╗ ██████╗ ██╗   ██╗
+                ████╗ ████║██╔══██╗██╔══██╗██║     ██╔════╝    ██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝
+                ██╔████╔██║███████║██████╔╝██║     █████╗      ███████╗   ██║   ██║   ██║██████╔╝ ╚████╔╝ 
+                ██║╚██╔╝██║██╔══██║██╔═══╝ ██║     ██╔══╝      ╚════██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝  
+                ██║ ╚═╝ ██║██║  ██║██║     ███████╗███████╗    ███████║   ██║   ╚██████╔╝██║  ██║   ██║   
+                ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚══════╝╚══════╝    ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝                                                                                                           
+                
+                
+                """);
+        }
         public void ShowStart()
         {
+            ConsoleSPMS();
             Console.Write(
                 """     
                 메이플 월드에 오신 여러분 환영합니다.
@@ -41,7 +65,8 @@ namespace Sparta_TextRPG
         }
         public void ShowStartSetName()
         {
-
+            Imgs.Instance().Onewin();
+            ConsoleSPMS();
             Console.Write($"""
                 메이플 월드에 오신여러분 환영합니다.
                 원하시는 이름을 설정해주세요
@@ -51,6 +76,7 @@ namespace Sparta_TextRPG
         }
         public void ShowStartChackName(string Name)
         {
+            ConsoleSPMS();
             Console.Write($"""
                 메이플 월드에 오신여러분 환영합니다.
                 원하시는 이름을 설정해주세요
@@ -67,6 +93,7 @@ namespace Sparta_TextRPG
         }
         public void ShowStartSetClass()
         {
+            ConsoleSPMS();
 
             Console.Write($"""
                 메이플 월드에 오신여러분 환영합니다.
