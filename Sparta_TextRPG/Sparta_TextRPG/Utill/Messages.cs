@@ -572,12 +572,15 @@ namespace Sparta_TextRPG
         public void printMonster(List<Monster> monsters)
         {
             int count = 0;
+
+            Console.WriteLine("┌ [몬스터]────────────────┐");
             foreach (var item in monsters)
             {
                 count++;
                 string print = "";
                 if (item.IsDead)
                 {
+                    Console.Write("│");
                     Console.ForegroundColor = ConsoleColor.Red;
                     print = $"{count} Lv.{item.Level} {item.MonsterName.ToString()} Dead";
                     for (int i = GetStringWidth(print); i < 43; i++)
@@ -586,6 +589,7 @@ namespace Sparta_TextRPG
                     }
                     Console.WriteLine($"{print}│");
                     Console.ResetColor();
+                    Console.WriteLine("                                                                   │");
                 }
                 else
                 {
@@ -597,7 +601,9 @@ namespace Sparta_TextRPG
                     Console.WriteLine($"{print}│");
                 }
 
+                
             }
+            Console.WriteLine("└─────────────────────────┘");
         }
         public void ShowBattleStart(List<Monster> monsters, Player player)
         {
