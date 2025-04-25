@@ -615,13 +615,8 @@ namespace Sparta_TextRPG
             Console.WriteLine($"[{quest.Name}] 퀘스트를 완료했습니다.\n");
 
             Console.WriteLine($"보상: {quest.Gold} G");
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
         }
+
         public void ShowViewAcceptedQuest(List<Quest> acceptedQuests)
         {
             Console.WriteLine("진행 중인 퀘스트 목록");
@@ -630,15 +625,22 @@ namespace Sparta_TextRPG
             var completed = acceptedQuests.Where(q => q.IsComplete()).ToList();
 
             for (int i = 0; i < inProgress.Count; i++)
-            if (quest.Reward.Count > 0)
             {
-                Console.Write(" + 아이템: ");
-                foreach (var item in quest.Reward)
+                var quest = inProgress[i];  // ← 여기에서 quest 변수를 정의해주는 게 핵심이야
+
+                Console.WriteLine($"{i + 1}. {quest.Name} ({quest.Count} / {quest.TargetCount})");
+
+                if (quest.Reward.Count > 0)
                 {
-                    Console.Write($"{item.Text} ");
+                    Console.Write(" + 아이템: ");
+                    foreach (var item in quest.Reward)
+                    {
+                        Console.Write($"{item.Text} ");
+                    }
+                    Console.WriteLine(); // 줄 바꿈
                 }
-                Console.WriteLine(); // 줄 바꿈
             }
+
 
             Console.Write($"""
 
