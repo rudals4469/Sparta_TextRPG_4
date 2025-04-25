@@ -37,7 +37,7 @@ namespace Sparta_TextRPG
             index -= Shild.Count;
 
             if (index < Potions.Count)
-                return Potions[index];
+                return Potions[index%3];
             index -= Potions.Count;
 
             return null;
@@ -63,7 +63,6 @@ namespace Sparta_TextRPG
         if (item.Type == ItemType.Weapon)
             {
                 Weapon.Add((Weapon)item);
-                
             }
         if (item.Type == ItemType.Armor)
             {
@@ -76,6 +75,7 @@ namespace Sparta_TextRPG
         if (item.Type == ItemType.Potion)
             {
                 Potions.Add((Potion)item);
+                Potions = Potions.OrderBy(p => p.PotionType).ToList();
             }
         }
 

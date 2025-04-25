@@ -601,7 +601,7 @@ namespace Sparta_TextRPG
         }
         public void SellItem() //플레이어 입장에서 파는 거
         {
-            Messages.Instance().SellItem(Player, Shop);
+            Messages.Instance().SellItem(Player, Shop); //
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
