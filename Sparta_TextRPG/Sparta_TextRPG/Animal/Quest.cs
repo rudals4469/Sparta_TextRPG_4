@@ -18,6 +18,9 @@ namespace Sparta_TextRPG
         public int Count { get; set; }  // 잡은 마리수
         public int RequestLevel { get; set; }   // 퀘스트 요구 레벨
 
+
+        public bool IsRewarded { get; set; } = false; // 퀘스트 보상 수령 여부
+
         // public void show() { }   //
 
         public Quest(string name , string text , List<Item> reward , int gold , MonsterName target, int TargetCount, int requestLevel) { 
