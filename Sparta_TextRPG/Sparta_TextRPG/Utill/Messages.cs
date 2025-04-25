@@ -920,7 +920,7 @@ namespace Sparta_TextRPG
             Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
             Console.ReadLine();
         }
-        public void ShowNPC()
+        public void ShowNPC() // 여관 메뉴
         {
 
             Console.Write($"""
@@ -942,7 +942,7 @@ namespace Sparta_TextRPG
             Exit();
 
         }
-        public void ShowQuestList(List<Quest> available, List<Quest> locked, bool hasUnclaimedReward)
+        public void ShowQuestList(List<Quest> available, List<Quest> locked, bool hasUnclaimedReward)   // 전체 퀘스트 목록 보기
         {
             Console.WriteLine("\n┌ [시작 가능 퀘스트]───────────────────────────────┐");
             Console.WriteLine("│                                                  │");
@@ -1002,7 +1002,7 @@ namespace Sparta_TextRPG
             """);
             Exit();
         }
-        public void ShowQuestInfo(Quest quest)
+        public void ShowQuestInfo(Quest quest)  // 선택한 퀘스트의 정보 보기
         {
             Console.WriteLine();
             Console.WriteLine("┌ [퀘스트 정보]─────────────────────────────────────┐");
@@ -1052,7 +1052,7 @@ namespace Sparta_TextRPG
                """);
             Exit();
         }
-        public void ShowQuestCompleted(Quest quest)
+        public void ShowQuestCompleted(Quest quest) // 완료된 퀘스트 선택 시 보이는 퀘스트 완료 창
         {
             Console.WriteLine($" ┌ [{quest.Name}]─────────────┐");
             Console.WriteLine(" │                               │ ");
@@ -1085,7 +1085,7 @@ namespace Sparta_TextRPG
             Exit();  
         }
         
-        public void ShowReceiveQuestRewards(Quest quest, int playerGold)
+        public void ShowReceiveQuestRewards(Quest quest, int playerGold)    // 완료한 퀘스트의 보상을 받는 창
         {
             Console.WriteLine(" ┌ [보상 수령 완료]───────────────────────────┐");
             Console.WriteLine(" │                                            │ ");
@@ -1105,7 +1105,7 @@ namespace Sparta_TextRPG
         }
 
 
-        public void ShowViewAcceptedQuest(List<Quest> acceptedQuests, bool hasRewardableQuest)
+        public void ShowViewAcceptedQuest(List<Quest> acceptedQuests, bool hasRewardableQuest)  // 내가 진행 중인 퀘스트와 완료한 퀘스트 목록 창 
         {
             Console.WriteLine();
             Console.WriteLine("┌ [진행 중인 퀘스트]───────────────────────────────┐");
@@ -1156,7 +1156,7 @@ namespace Sparta_TextRPG
 
             Exit();
         }
-        public void ShowRest(Player player)
+        public void ShowRest(Player player) // 휴식하기 안내 창
         {
             Console.Write($"""
                ┌ [휴식하기]──────────────────────────────────────────────────────────┐
@@ -1171,7 +1171,7 @@ namespace Sparta_TextRPG
                """);
             Exit();
         }
-        public void ShowRestSuccess(Player player)
+        public void ShowRestSuccess(Player player)  // 휴식 완료 창
         {
             Console.Write($"""
                ┌ [휴식 완료]─────────────────────────────────────────────────────────┐
@@ -1185,13 +1185,19 @@ namespace Sparta_TextRPG
             Exit();
 
         }
-        public void ShowRestFail()
+
+        public void ShowRestFail(Player player)  // 휴식 실패 창
         {
             Console.Write($"""
-               [실패] 골드가 부족합니다.
+               ┌ [휴식 실패]─────────────────────────────────────────────────────────┐
+               │                                                                     │
+               │  골드가 부족합니다. (현재 골드 : {player.Gold} G)                   │
+               │                                                                     │
+               └─────────────────────────────────────────────────────────────────────┘
                """);
             Exit();
         }
+
         public void ErrorMessage()
         {
             Console.WriteLine("잘못된 입력입니다 ");

@@ -1183,7 +1183,7 @@ namespace Sparta_TextRPG
         }
         public void RestFail()  // 휴식 실패
         {
-            Messages.Instance().ShowRestFail();  // 휴식 성공 메시지 출력
+            Messages.Instance().ShowRestFail(Player);  // 휴식 성공 메시지 출력
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
