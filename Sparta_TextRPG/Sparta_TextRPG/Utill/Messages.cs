@@ -575,16 +575,26 @@ namespace Sparta_TextRPG
             foreach (var item in monsters)
             {
                 count++;
-
+                string print = "";
                 if (item.IsDead)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} Dead");
+                    print = $"{count} Lv.{item.Level} {item.MonsterName.ToString()} Dead";
+                    for (int i = GetStringWidth(print); i < 43; i++)
+                    {
+                        print += " ";
+                    }
+                    Console.WriteLine($"{print}│");
                     Console.ResetColor();
                 }
                 else
                 {
-                    Console.WriteLine($"{count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}");
+                    print = $"{count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}";
+                    for (int i = GetStringWidth(print); i < 43; i++)
+                    {
+                        print += " ";
+                    }
+                    Console.WriteLine($"{print}│");
                 }
 
             }
