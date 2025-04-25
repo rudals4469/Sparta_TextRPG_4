@@ -952,9 +952,8 @@ namespace Sparta_TextRPG
                     else
                     {
                         int beforeHp = player.NowHP;
-                        player.Inventory.usePotion(PotionType.HP, player);
+                        player.Inventory.usePotion(PotionType.Alixir, player);
                         Messages.Instance().DrinkingPotion(player, beforeHp, PotionType.Alixir);
-                        ;
                     }
                 }
                 else
