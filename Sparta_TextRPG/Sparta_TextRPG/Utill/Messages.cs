@@ -720,12 +720,16 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-        public void DrinkingPotion()//던전에서 포션마시기를 눌렀을 때 나오는 메세지
+        public void DrinkingPotion(Player player)//던전에서 포션마시기를 눌렀을 때 나오는 메세지
         {
-            Console.Write("""
+            int HpPotionCount = player.Inventory.Potions.Count(p => p.PotionType == PotionType.HP);
+            int MpPotionCount = player.Inventory.Potions.Count(p => p.PotionType == PotionType.MP);
+            int AlixirCount = player.Inventory.Potions.Count(p => p.PotionType == PotionType.Alixir);
+            Console.Write($"""
                 [소유 포션]
-                1. HP 포션 | +100HP
-                2. MP 포션 | +100MP
+                1. HP 포션 | +100HP ({HpPotionCount}개)
+                2. MP 포션 | +100MP ({MpPotionCount}개)
+                3. 엘릭서  | +500HP ({AlixirCount}개)
 
                 0. 나가기
 
@@ -736,10 +740,15 @@ namespace Sparta_TextRPG
         public void DrinkingPotion(Player player, int before, PotionType potionType)//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
         {
             int recovered = player.NowHP - before;
+            Console.Clear();
             Console.WriteLine($"""
             [{potionType.ToString()} 포션 사용!]
+
             {before} → {player.NowHP} ( +{recovered} 회복 )
             """);
+            Console.WriteLine("\n포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
+            Console.Write(">>");
+            Console.ReadLine();
         }
         public void Full(PotionType potionType)
         {
@@ -748,10 +757,10 @@ namespace Sparta_TextRPG
             Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
             Console.ReadLine();
         }
-        public void NoPotion(PotionType potionType)
+        public void NoPotion()
         {
             Console.Clear();
-            Console.WriteLine($"{potionType.ToString()} 포션이 없습니다.");
+            Console.WriteLine("포션이 없습니다.");
             Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
             Console.ReadLine();
         }
@@ -783,7 +792,7 @@ namespace Sparta_TextRPG
             {
                 for (int i = 0; i < available.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {available[i].Name}");
+                    Console.WriteLine($"{i + 1}. {available[i].Name}\n");
                 }
             }
 
@@ -816,14 +825,14 @@ namespace Sparta_TextRPG
 
             Console.WriteLine($"{quest.Name} 퀘스트");
             Console.WriteLine(quest.Text);
-            Console.WriteLine($"\n처치할 몬스터: {quest.Target} {quest.TargetCount}마리");
+            Console.WriteLine($"\n처치할 몬스터: {quest.Target} {quest.TargetCount} 마리");
 
             Console.WriteLine("\n\n[보상]");
-            Console.WriteLine($"- 골드 : {quest.Gold} G");
+            Console.WriteLine($"\n- 골드 : {quest.Gold} G");
 
             if (quest.Reward.Count > 0)
             {
-                Console.Write("- 아이템 : ");
+                Console.Write("\n- 아이템 : ");
                 foreach (var item in quest.Reward)
                 {
                     Console.Write($"{item.Text} ");
@@ -842,80 +851,62 @@ namespace Sparta_TextRPG
         public void ShowAcceptingQuest(string questName)    // 퀘스트 수락 메시지
         {
             Console.Write($"""
-               [{questName}] 퀘스트를 받았습니다. 
+               [{questName}]
+               
+               퀘스트를 받았습니다. 
+
 
                """);
             Exit();
         }
         public void ShowQuestCompleted(Quest quest)
         {
-            Console.WriteLine($"[{quest.Name}] 퀘스트를 완료했습니다.\n");
-            Console.WriteLine($"보상: {quest.Gold} G");
+            Console.WriteLine($"[{quest.Name}] \n\n퀘스트를 완료했습니다.\n");
 
-            // 1번을 추가하고
-            Exit();
-        }
-        public void ShowViewAcceptedQuest(List<Quest> acceptedQuests)
-        {
-            Console.WriteLine("진행 중인 퀘스트 목록");
-
-            var inProgress = acceptedQuests.Where(q => !q.IsComplete()).ToList();
-            var completed = acceptedQuests.Where(q => q.IsComplete()).ToList();
-
-            for (int i = 0; i < inProgress.Count; i++)
-            {
-                var quest = inProgress[i];  // ← 여기에서 quest 변수를 정의해주는 게 핵심이야
-
-                Console.WriteLine($"{i + 1}. {quest.Name} ({quest.Count} / {quest.TargetCount})");
-
-                if (quest.Reward.Count > 0)
-                {
-                    Console.Write(" + 아이템: ");
-                    foreach (var item in quest.Reward)
-                    {
-                        Console.Write($"{item.Text} ");
-                    }
-                    Console.WriteLine(); // 줄 바꿈
-                }
-            }
-
-
-            Console.Write($"""
-
-            1. 보상 받기 
-
-            """);
-            Exit();
-        }
-        public void ShowReceiveQuestRewards(Quest quest, int playerGold)
-        {
-            Console.WriteLine("[보상 수령 완료]");
-
-            Console.WriteLine($"\n현재 보유 골드: {playerGold} G");
-            Console.WriteLine("[보상]");
-            Console.WriteLine($"- 골드 : {quest.Gold} G");
+            Console.WriteLine("\n[보상]");
+            Console.WriteLine($"\n- 골드 : {quest.Gold} G");
 
             if (quest.Reward.Count > 0)
             {
-                Console.Write("- 아이템 : ");
+                Console.Write("\n- 아이템 : ");
                 foreach (var item in quest.Reward)
                 {
                     Console.Write($"{item.Text} ");
                 }
                 Console.WriteLine();
             }
+
+            Console.Write($"""
+
+
+            1. 보상 받기
+
+            """);
+
+            Exit();  // ← 여기서 0. 뒤로 가기 + >> 출력됨
+        }
+        
+        public void ShowReceiveQuestRewards(Quest quest, int playerGold)
+        {
+            Console.WriteLine("[보상 수령 완료]\n");
+
+            Console.WriteLine($"보유 골드: {playerGold} G\n");
+
+            if (quest.Reward.Count > 0)
+            {
+                foreach (var item in quest.Reward)
+                {
+                    Console.WriteLine($"새로운 아이템 : {item.Text}");
+                }
+            }
+            Console.WriteLine();
             Exit();
         }
+
+
         public void ShowViewAcceptedQuest(List<Quest> acceptedQuests, bool hasRewardableQuest)
-        { // 출력 정리 
-            if (hasRewardableQuest)
-            {
-                Console.WriteLine("[진행 중인 퀘스트] (알림 : [완료] 표시가 있는 퀘스트를 선택하여 보상을 받으세요)");
-            }
-            else
-            {
-                Console.WriteLine("[진행 중인 퀘스트]");
-            }
+        {
+            Console.WriteLine("[진행 중인 퀘스트]");
 
             var showable = acceptedQuests.Where(q => !q.IsRewarded).ToList();
             var rewarded = acceptedQuests.Where(q => q.IsRewarded).ToList();
@@ -931,7 +922,6 @@ namespace Sparta_TextRPG
                     var quest = showable[i];
                     string completeText = quest.IsComplete() ? " [완료]" : "";
                     Console.WriteLine($"\n{i + 1}. {quest.Name} ({quest.Count} / {quest.TargetCount}){completeText}");
-
                 }
             }
 
@@ -945,15 +935,15 @@ namespace Sparta_TextRPG
             {
                 foreach (var q in rewarded)
                 {
-                    Console.WriteLine($"\n- {q.Name} 퀘스트");
+                    Console.WriteLine($"\n- {q.Name} 퀘스트\n");
                 }
             }
 
-            // 보상 받을 퀘스트가 있으면 안내 메시지 출력
             if (hasRewardableQuest)
             {
                 Console.WriteLine("\n\n(알림 : [완료] 표시가 있는 퀘스트를 선택하여 보상을 받으세요)");
             }
+
             Exit();
         }
         public void ShowRest(Player player)
@@ -991,7 +981,7 @@ namespace Sparta_TextRPG
         {
             Console.Write($"""
 
-               0.나가기
+               0. 나가기
 
                원하시는 행동을 입력해주세요.
                >> 

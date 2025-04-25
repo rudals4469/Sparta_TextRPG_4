@@ -19,15 +19,6 @@ namespace Sparta_TextRPG
             this.Items = Items;
             NextAttack = SkillList[0];
         } // Monster 생성자
-        public void show(Monster monster)
-        {
-            Console.Write(
-           $"""
-               Lv.{monster.Level} {monster.MonsterName}) HP {monster.NowHP}
-                
-            """);
-
-        }
         public Item? DropItem()
         {
             Random rand = new Random();
