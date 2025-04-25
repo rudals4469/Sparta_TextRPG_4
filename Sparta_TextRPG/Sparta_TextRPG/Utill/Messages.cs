@@ -878,6 +878,7 @@ namespace Sparta_TextRPG
             """);
             Exit();
         }
+
         public void ShowReceiveQuestRewards(Quest quest, int playerGold)
         {
             Console.WriteLine("[보상 수령 완료]");
@@ -898,15 +899,6 @@ namespace Sparta_TextRPG
             Exit();
         }
 
-            Console.Write($"""
-
-            1. 보상 받기
-
-            0. 나가기
-
-            >> 
-            """);
-        }
 
 
 
@@ -961,43 +953,10 @@ namespace Sparta_TextRPG
             }
             Exit();
         }
-            Console.Write($"""
-
-
-            0. 나가기
-
-            원하시는 행동을 입력해주세요.
-            >> 
-            """);
-        }
 
 
 
-        public void ShowReceiveQuestRewards(Quest quest, int playerGold)
-        {
-            Console.WriteLine("[보상 수령 완료]");
 
-            Console.WriteLine($"\n현재 보유 골드 : {playerGold} G");
-
-            if (quest.Reward.Count > 0)
-            {
-                Console.Write("새로운 아이템 : ");
-                foreach (var item in quest.Reward)
-                {
-                    Console.Write($"{item.Text} ");
-                }
-                Console.WriteLine(); // 줄 바꿈
-            }
-
-            Console.Write($"""
-
-
-            0. 나가기
-
-            원하시는 행동을 입력해주세요. 
-            >> 
-            """);
-        }
 
 
         public void ShowRest(Player player)
