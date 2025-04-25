@@ -141,7 +141,7 @@ namespace Sparta_TextRPG
             Console.WriteLine($"│ {"직  업"}:  {player.Class,15}│");
             Console.WriteLine($"│ {"공격력"}: {player.AttackPoint,18}│");
             Console.WriteLine($"│ {"방어력"}: {player.ArmorPoint,18}│");
-            print = $" {"체  력"}: {player.NowHP,12} / {player.MaxHP,2}";
+            print = $"{"체  력"}: {player.NowHP,12} / {player.MaxHP,2}";
             for (int i = GetStringWidth(print); i < 25; i++)
             {
                 print += " ";
@@ -318,7 +318,6 @@ namespace Sparta_TextRPG
                 {player.Gold} Meso
                 
                 [아이템 목록]
-
 
                 """);
 
@@ -624,10 +623,11 @@ namespace Sparta_TextRPG
             Console.Write(
                $"""
 
-               [내정보]
-               Lv.{player.Level} {player.Name} ({player.Class.ToString()})
-               HP {player.NowHP}/{player.MaxHP}
-               Mp {player.NowMP}/{player.MaxMP} 
+               ┌ [내정보]────────────┐
+               │ Lv.{player.Level} {player.Name,-6} ({player.Class.ToString()})  │
+               │ HP {player.NowHP,-3}/{player.MaxHP,-13}│
+               │ Mp {player.NowMP,-3}/{player.MaxMP,-13}│ 
+               └─────────────────────┘
 
                1.스킬 선택
 
@@ -644,18 +644,27 @@ namespace Sparta_TextRPG
             Console.WriteLine(
                $"""
 
-               [내정보]
-               Lv.{player.Level} {player.Name} ({player.Class.ToString()})
-               HP {player.NowHP}/{player.MaxHP}
-               Mp {player.NowMP}/{player.MaxMP} 
+               ┌ [내정보]────────────┐
+               │ Lv.{player.Level} {player.Name,-6} ({player.Class.ToString()})  │
+               │ HP {player.NowHP,-3}/{player.MaxHP,-13}│
+               │ Mp {player.NowMP,-3}/{player.MaxMP,-13}│ 
+               └─────────────────────┘
                
                """);
             int count = 0;
-            Console.WriteLine("No.     이름       | 마나 |     쿨타임    |  설명");
+
+            Console.WriteLine("┌ [No]── [이름]───────── [마나]── [쿨타임]─── [설명] ──────────────────────────────────────┐");
             foreach (var item in player.SkillList)
             {
-                Console.WriteLine($"{++count,-3} {item.Name,-14} | {item.Mana,4} | {item.NowCoolTime,6}/{item.CoolTime,6} | {item.Text}");
-            }
+                string print = $"{++count,-2} | {item.Name,-14} | {item.Mana,4}  | {item.NowCoolTime,3}/{item.CoolTime,3}   | {item.Text}";
+                for (int i = GetStringWidth(print); i < 89; i++)
+                {
+                    print += " ";
+                }
+                Console.WriteLine($"│ {print}│");
+                //Console.WriteLine($"│  {++count,-2} | {item.Name,-14} | {item.Mana,4}  | {item.NowCoolTime,3}/{item.CoolTime,3}   | {item.Text,-30} │"); 
+            }  // 여기도 광민씨의 도움이 필요합니다.
+            Console.WriteLine("└──────────────────────────────────────────────────────────────────────────────────────────┘");
             Console.Write("""
 
                 원하시는 행동을 입력해주세요.
@@ -664,7 +673,7 @@ namespace Sparta_TextRPG
         }
         public void CoolTimeError()
         {
-            Console.Write("[스킬 사용 불가] 쿨타임 중이므로 다른 스킬을 사용해주세요.");
+            Console.Write("\n [스킬 사용 불가] 쿨타임 중이므로 다른 스킬을 사용해주세요.");
             //Thread.Sleep(3000);
         }
         public void ShowBattleAttackPhase(List<Monster> monsters, Player player)
@@ -673,11 +682,15 @@ namespace Sparta_TextRPG
 
             Console.Write(
                $"""
-               [내정보]
-               Lv.{player.Level} {player.Name} ({player.Class.ToString()})
-               HP {player.NowHP}/{player.MaxHP}
-                
-               0.취소
+
+
+               ┌ [내 정보]───────────────────────────────┐
+               │ Lv.{player.Level} {player.Name} ({player.Class.ToString()})
+               │ HP {player.NowHP}/{player.MaxHP}
+               └─────────────────────────────────────────┘
+
+
+                0.취소
 
                대상을 선택해주세요
                >> 
@@ -830,10 +843,12 @@ namespace Sparta_TextRPG
             int MpPotionCount = player.Inventory.Potions.Count(p => p.PotionType == PotionType.MP);
             int AlixirCount = player.Inventory.Potions.Count(p => p.PotionType == PotionType.Alixir);
             Console.Write($"""
-                [소유 포션]
-                1. HP 포션 | +100HP ({HpPotionCount}개)
-                2. MP 포션 | +100MP ({MpPotionCount}개)
-                3. 엘릭서  | +500HP ({AlixirCount}개)
+
+                ┌ [소유 포션]───────────────┐
+                │ 1. HP 포션 | +100HP ({HpPotionCount}개) │
+                │ 2. MP 포션 | +100MP ({MpPotionCount}개) │ 
+                │ 3. 엘릭서  | +500HP ({AlixirCount}개) │
+                └───────────────────────────┘
 
                 0. 나가기
 
@@ -1093,7 +1108,7 @@ namespace Sparta_TextRPG
         }
         public void Exit()
         {
-            Console.WriteLine($"""
+            Console.Write($"""
                0. 나가기
               
                원하시는 행동을 입력해주세요.

@@ -50,6 +50,7 @@ namespace Sparta_TextRPG
                 try { 
                    
                     Console.Clear();//새로운 문구를 출력전 이전문구 삭제
+                    Messages.Instance().ConsoleSPMS();
 
                     switch (sceneName)
                     {
