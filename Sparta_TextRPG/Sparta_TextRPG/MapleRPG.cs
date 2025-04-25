@@ -74,6 +74,21 @@ namespace Sparta_TextRPG
                         case SceneName.ManageEquipment:
                             ManageEquipment(Player);
                             break;
+                        case SceneName.ShowShop:
+                            ShowShop();
+                            break;
+                        case SceneName.SellItem:
+                            SellItem();
+                            break;
+                        case SceneName.BuyItem:
+                            BuyItem();
+                            break;
+                        case SceneName.NotEnoughMoney:
+                            NotEnoughMoney();
+                            break;
+                        case SceneName.LevelUp:
+                            LevelUp();
+                            break;
                         case SceneName.DungeonSelection:
                             DungeonSelection();
                             break;
@@ -97,6 +112,9 @@ namespace Sparta_TextRPG
                             break;
                         case SceneName.BattlePlayerLose:
                             BattlePlayerLose();
+                            break;
+                        case SceneName.DrinkingPotion:
+                            DrinkingPotion(Player);
                             break;
                         case SceneName.NPC:
                             NPCText();
@@ -128,25 +146,6 @@ namespace Sparta_TextRPG
                         case SceneName.RestFail:
                             RestFail();
                             break;
-                        case SceneName.ShowShop:
-                            ShowShop();
-                            break;
-                        case SceneName.SellItem:
-                            SellItem();
-                            break;
-                        case SceneName.BuyItem:
-                            BuyItem();
-                            break;
-                        case SceneName.NotEnoughMoney:
-                            NotEnoughMoney();
-                            break;
-                        case SceneName.LevelUp:
-                            LevelUp();
-                            break;
-                        case SceneName.DrinkingPotion:
-                            DrinkingPotion(Player);
-                            break;
-
                     }
                 }
                 catch (Exception e)
@@ -640,7 +639,12 @@ namespace Sparta_TextRPG
             sceneName = SceneName.BuyItem;
             
         }
-        //미완
+        public void LevelUp()
+        {
+            Messages.Instance().LevelUp(Player);
+
+            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
+        }
         public void DungeonSelection()
         {
             Messages.Instance().ShowDungeonSelection(Dungouns);
@@ -801,12 +805,6 @@ namespace Sparta_TextRPG
 
 
         }
-        public void LevelUp()
-        {
-            Messages.Instance().LevelUp(Player);
-            
-            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
-        }
         public void BattlePlayerWin()
         {
             Messages.Instance().ShowBattlePlayerWin(Dungouns[floor].monsters, Player.NowHP, Player , dorps);
@@ -935,7 +933,6 @@ namespace Sparta_TextRPG
                 }
             }
         }
-        
         public void NPCText()   // 여관(NPC) 메뉴 보기
         {
 
@@ -960,7 +957,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
         public void QuestList()
         {
             List<Quest> availableQuests = Quests
@@ -1071,7 +1067,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
         public void ReceiveQuestReward()    // 보상 받기 창
         {
             Messages.Instance().ShowReceiveQuestRewards(selectedQuestTemp, Player.Gold); ;
@@ -1087,8 +1082,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
-
         public void ViewAcceptedQuest()
         {
             var selectableQuests = Player.ActiveQuests
