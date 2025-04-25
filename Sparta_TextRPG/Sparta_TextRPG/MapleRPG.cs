@@ -766,6 +766,7 @@ namespace Sparta_TextRPG
                     isAllDeath = false;
                 }
             }
+
             if (isAllDeath)
             {
                 sceneName = SceneName.BattlePlayerWin;
@@ -798,10 +799,10 @@ namespace Sparta_TextRPG
             }
 
             string input = Console.ReadLine();
-            int inputNum = int.Parse(input);
+            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
 
 
-            if (inputNum == 0) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
+            if (consoleKeyInfo!=null) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
             {
                 sceneName = SceneName.BattleStart;
             }

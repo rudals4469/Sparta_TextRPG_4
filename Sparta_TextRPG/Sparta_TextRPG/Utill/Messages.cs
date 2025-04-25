@@ -591,15 +591,16 @@ namespace Sparta_TextRPG
                 string print = "";
                 if (item.IsDead)
                 {
-
+                    Console.Write("│");
                     Console.ForegroundColor = ConsoleColor.Red;
-                    print = $"│ {count} Lv.{item.Level} {item.MonsterName.ToString()} Dead";
-                    for (int i = GetStringWidth(print); i < 43; i++)
+                    print = $" {count} Lv.{item.Level} {item.MonsterName.ToString()} Dead";
+                    for (int i = GetStringWidth(print); i < 41; i++)
                     {
                         print += " ";
                     }
-                    Console.WriteLine($"{print}│");
+                    Console.Write($"{print}");
                     Console.ResetColor();
+                    Console.WriteLine("│");
                 }
                 else
                 {
