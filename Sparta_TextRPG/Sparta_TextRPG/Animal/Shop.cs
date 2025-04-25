@@ -45,18 +45,6 @@ namespace Sparta_TextRPG
 
             if (index < Inventory.Potions.Count)
             {
-                // 15 입력
-                // 14 15 16 x2 
-                // 14  
-                // 14
-                // 15 마나
-                // 15
-                // 16
-                // 16
-                // ex 14 14 15 15 16 16 마나로 검색
-                // ex 14 15 14 15 16 16 마나로 검색
-                
-
                 return Inventory.Potions[index];
             }
 
@@ -93,26 +81,21 @@ namespace Sparta_TextRPG
             }
         }
 
-        //상점 입장에서 파는 거기 때문에 유저 입장에서 사는 것.
-        public bool SellItem(Player player, int selectedIndex)
 
-            {
+        public bool SellItem(Player player, int selectedIndex)
+        //상점 입장에서 파는 거기 때문에 유저 입장에서 사는 것.
+        {
             Item item = GetItemByIndex(selectedIndex);
-               
             if (player.Gold < item.Price)
                 return false;
-
-
             player.Gold -= item.Price;
             player.Inventory.Add(item);
-
             if (item.Type != ItemType.Potion ) // 포션이면 
             {
                 Inventory.Remove(item); 
             }
-
             return true;
-            }
+        }
 
 
         

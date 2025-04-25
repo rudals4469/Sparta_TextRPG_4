@@ -47,7 +47,9 @@ namespace Sparta_TextRPG
         public Monster Cope()
         {
             Monster monster = new Monster();
-            monster = new Monster(this.Level, this.Exp, this.MaxHP, this.MaxMP, this.AttackPoint, this.ArmorPoint, this.Gold, this.SkillList, this.EvasionRate, this.MonsterName, this.Items);
+            monster = new Monster(this.Level, this.Exp, this.MaxHP, this.MaxMP, 
+                this.AttackPoint,  this.ArmorPoint, this.Gold, this.SkillList,
+                this.EvasionRate, this.MonsterName, this.Items);
             return monster;
         }
     }
