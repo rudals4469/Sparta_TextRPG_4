@@ -662,9 +662,8 @@ namespace Sparta_TextRPG
                 {
                     print += " ";
                 }
-                Console.WriteLine($"│ {print}│");
-                //Console.WriteLine($"│  {++count,-2} | {item.Name,-14} | {item.Mana,4}  | {item.NowCoolTime,3}/{item.CoolTime,3}   | {item.Text,-30} │"); 
-            }  // 여기도 광민씨의 도움이 필요합니다.
+                Console.WriteLine($"│ {print}│");   
+            }
             Console.WriteLine("└──────────────────────────────────────────────────────────────────────────────────────────┘");
             Console.Write("""
 
@@ -1056,10 +1055,13 @@ namespace Sparta_TextRPG
         public void ShowQuestCompleted(Quest quest)
         {
             Console.WriteLine($" ┌ [{quest.Name}]─────────────┐");
-            Console.WriteLine(" │                              | ");
-            Console.WriteLine(" │  퀘스트를 완료했습니다           │");
+            Console.WriteLine(" │                               | ");
+            Console.WriteLine(" │  퀘스트를 완료했습니다.       │");
+            Console.WriteLine(" │                               | ");
             Console.WriteLine(" ├ [보상]────────────────────────┤");
-            Console.WriteLine($" │- 골드 : {quest.Gold} G                │");
+            Console.WriteLine(" │                               | ");
+            Console.WriteLine($" │  - 골드 : {quest.Gold} G              │");
+            Console.WriteLine(" │                               | ");
 
             if (quest.Reward.Count > 0)
             {
@@ -1085,17 +1087,19 @@ namespace Sparta_TextRPG
         
         public void ShowReceiveQuestRewards(Quest quest, int playerGold)
         {
-            Console.WriteLine("[보상 수령 완료]\n");
-
-            Console.WriteLine($"보유 골드: {playerGold} G\n");
+            Console.WriteLine(" ┌ [보상 수령 완료]───────────────────────────┐");
+            Console.WriteLine(" │                                            | ");
+            Console.WriteLine($" │  보유 골드: {playerGold} G                        │");
 
             if (quest.Reward.Count > 0)
             {
                 foreach (var item in quest.Reward)
                 {
-                    Console.WriteLine($"새로운 아이템 : {item.Text}");
+                    Console.WriteLine($" |  새로운 아이템 : {item.Text}          |");
                 }
             }
+            Console.WriteLine(" │                                            | ");
+            Console.WriteLine(" └────────────────────────────────────────────┘");
             Console.WriteLine();
             Exit();
         }
