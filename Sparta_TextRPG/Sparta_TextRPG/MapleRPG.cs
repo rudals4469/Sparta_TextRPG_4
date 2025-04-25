@@ -934,7 +934,29 @@ namespace Sparta_TextRPG
                 }
                 else
                 {
-                    Messages.Instance().NoPotion(mpPotion.PotionType);
+                    Messages.Instance().NoPotion();
+                }
+            }
+            else if (inputNum == 3)
+            {
+                Potion Alixir = player.Inventory.Potions.Find(p => p.PotionType == PotionType.Alixir);
+
+                if (Alixir != null)
+                {
+                    if (player.NowHP == player.MaxHP)
+                    {
+                        Messages.Instance().Full(Alixir.PotionType);
+                    }
+                    else
+                    {
+                        int beforeHp = player.NowHP;
+                        player.Inventory.usePotion(PotionType.Alixir, player);
+                        Messages.Instance().DrinkingPotion(player, beforeHp, PotionType.Alixir);
+                    }
+                }
+                else
+                {
+                    Messages.Instance().NoPotion();
                 }
             }
         }

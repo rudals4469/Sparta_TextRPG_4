@@ -131,8 +131,8 @@ namespace Sparta_TextRPG
                     player.NowHP = player.MaxHP;
 
                 // 리스트에서 포션 제거
-                Potions.Remove(potion);
             }
+            Potions.Remove(potion);
         }
 
     }

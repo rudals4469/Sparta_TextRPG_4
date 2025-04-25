@@ -27,18 +27,6 @@ namespace Sparta_TextRPG
             this.ActiveQuests = new List<Quest>();
         }
 
-        public void GetQuest(Quest quest)
-        {
-            this.Quest = quest;
-        }
-        public void ShowQuest()
-        {
-            //메세지에서 퀘스트 내용을 받아서 출력하는부분
-        }
-        public void ClearQuset()
-        {
-            //장비와 돈 받기
-        }
         public bool AddExp(int exp)
         {
             this.Exp += exp;
@@ -72,31 +60,6 @@ namespace Sparta_TextRPG
             {
                 if(SkillList[i].NowCoolTime!= SkillList[i].CoolTime) SkillList[i].NowCoolTime++;
             }
-        }
-        public void Buy(Item item)
-        {
-            Inventory.Add(item);
-            Gold -= item.Price;
-        }
-        public Item Sell(string itemName)
-        {            
-            return null;
-        }
-        public void usePotion(Potion potion, Player player)
-        {
-
-            //Potion potion = Inventory.Potions.Find(n => n.Name.CompareTo(potion.Name) == 0);
-            potion.Count--;
-            //인벤토리에서 포션찾고 포션 사용하기
-            if(player.Inventory.Potions.Count > 0)
-            {
-                
-            }
-
-            // 포션의 타입이 맞으면
-            // 인벤토리에서 포션이 있으면
-            // 포션 사용
-
         }
         public void Equiped(Item item, Player player)
         {
