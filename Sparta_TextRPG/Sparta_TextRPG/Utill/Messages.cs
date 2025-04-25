@@ -957,23 +957,34 @@ namespace Sparta_TextRPG
 
             Console.WriteLine("\n[포션]\n");
 
-            var potions = from potion in player.Inventory.Potions
-                          group potion by potion.Name into g
-                          select new
-                          {
-                              Name = g.Key,
-                              Count = g.Count(),
-                              Text = g.First().Text,
-                              Potion = g.First().PotionType,
-                              Price = g.First().Price,
-                              HealPoint = g.First().HealPoint
+            //var potions = from potion in player.Inventory.Potions
+            //              group potion by potion.PotionType into g
+            //              orderby g.Key
+            //              select new
+            //              {
 
-                          };
-            foreach (var potion in potions)
+            //                  Name = g.First().Name,
+            //                  Count = g.Count(),
+            //                  Text = g.First().Text,
+            //                  Potion = g.Key,
+            //                  Price = g.First().Price,
+            //                  HealPoint = g.First().HealPoint
+
+            //              };
+
+            //foreach (var potion in potions)
+            //{
+            //    Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
+            //    Count++;
+            //}
+            var potionssearch = player.Inventory.Potions.OrderBy(p => p.PotionType);
+
+            foreach(var potion in potionssearch)
             {
                 Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
                 Count++;
             }
+
 
             Console.Write("""
                 --------------------------------------------------------------
