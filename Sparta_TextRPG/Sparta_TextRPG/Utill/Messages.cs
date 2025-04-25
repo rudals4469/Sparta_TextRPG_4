@@ -528,12 +528,13 @@ namespace Sparta_TextRPG
             foreach (var item in dungouns)
             {
                 Console.Write($"│{++count,2}. {item.Name} | 권장 레벨 : {item.Level} 등장 몬스터 :");
+                string print = "";
                 foreach (var item1 in item.baseMonsters)
                 {
-                    if(item1.Level >= 10 ) Console.Write($" ? |");
-                    else Console.Write($" {item1.Name, 10} |");
+                    if (item1.Level >= 10) print += $"?";
+                    else print += $" {item1.Name,-4}";
                 }
-                Console.WriteLine("");
+                Console.WriteLine(print);
             }
             Console.Write($"""
                 │                                                                                  │
