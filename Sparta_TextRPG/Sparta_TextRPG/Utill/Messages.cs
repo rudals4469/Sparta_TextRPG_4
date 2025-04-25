@@ -987,7 +987,7 @@ namespace Sparta_TextRPG
                 {
                     string print = "";
 
-                    print = $"│{i + 1}. {available[i].Name}";
+                    print = $"│ {i + 1}. {available[i].Name}";
                     for (int a = GetStringWidth(print); a < 51; a++)
                     {
                         print += " ";
@@ -1152,7 +1152,14 @@ namespace Sparta_TextRPG
                 {
                     var quest = showable[i];
                     string completeText = quest.IsComplete() ? " [완료]" : "";
-                    Console.WriteLine($"│  {i + 1}. {quest.Name} ({quest.Count} / {quest.TargetCount}){completeText}               │");
+                    string print = "";
+                    print = $"│  {i + 1}. {quest.Name} ({quest.Count} / {quest.TargetCount}){completeText}";
+                    for (int j = GetStringWidth(print); j < 51; j++)
+                    {
+                        print += " ";
+                    }
+                    Console.WriteLine($"{print} │");
+
                 }
             }
             Console.WriteLine("│                                                  │");
@@ -1170,7 +1177,15 @@ namespace Sparta_TextRPG
             {
                 foreach (var q in rewarded)
                 {
-                    Console.WriteLine($"\n- {q.Name} 퀘스트");
+                    string print = "";
+                    print = $"│ {q.Name} 퀘스트";
+                    for (int a = GetStringWidth(print); a < 51; a++)
+                    {
+                        print += " ";
+                    }
+                    Console.WriteLine($"{print} │");
+                    
+
                 }
             }
             Console.WriteLine("│                                                  │");
