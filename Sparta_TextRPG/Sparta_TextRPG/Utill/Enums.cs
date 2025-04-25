@@ -10,7 +10,7 @@ namespace Sparta_TextRPG
     {
         None,
         전사,
-        마법사,
+        법사,
         궁수,
         해적,
         도적,

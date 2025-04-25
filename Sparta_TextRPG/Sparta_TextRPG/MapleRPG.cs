@@ -443,11 +443,11 @@ namespace Sparta_TextRPG
                 WarriorSkill.Add(AllSkill["ThreeSnails"]);
                 WarriorSkill.Add(AllSkill["Slash Blast"]);
                 WarriorSkill.Add(AllSkill["Origin"]);
-                Player = new Player(99999, 50, 10, 5, inputName, 10000, WarriorSkill, false, 20, 15, ClassName.전사) {NowHP=1000};
+                Player = new Player(100, 50, 10, 5, inputName, 10000, WarriorSkill, false, 20, 15, ClassName.전사);
             }
             else if (inputNum == 2)
             {
-                inputClassName = ClassName.마법사;
+                inputClassName = ClassName.법사;
                 List<Skill> MagicianSkill = new List<Skill>();
                 MagicianSkill.Add(AllSkill["NormalAttck"]);
                 MagicianSkill.Add(AllSkill["HeavyAttack"]);
@@ -455,7 +455,7 @@ namespace Sparta_TextRPG
                 MagicianSkill.Add(AllSkill["ThreeSnails"]);
                 MagicianSkill.Add(AllSkill["Slash Blast"]);
                 MagicianSkill.Add(AllSkill["Origin"]);
-                Player = new Player(50, 75, 15, 0, inputName, 10000, MagicianSkill, false, 20, 15, ClassName.마법사);
+                Player = new Player(50, 75, 15, 0, inputName, 10000, MagicianSkill, false, 20, 15, ClassName.법사);
             }
             else if (inputNum == 3)
             {
