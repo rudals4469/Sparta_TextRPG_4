@@ -813,7 +813,7 @@ namespace Sparta_TextRPG
         {
             Messages.Instance().ShowBattlePlayerWin(Dungeons[floor].monsters, Player.NowHP, Player , dorps);
 
-            foreach (var monster in Dungeonss[floor].monsters)
+            foreach (var monster in Dungeons[floor].monsters)
             {
                 //Player.AddExp(monster.Exp);
 
