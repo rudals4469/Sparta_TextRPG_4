@@ -47,100 +47,7 @@ namespace Sparta_TextRPG
             {
                 while (true)
                 {
-                    case SceneName.MainScene:
-                        MainScene();
-                        break;
-                    case SceneName.StartSetName:
-                        inputName = StartSetName();
-                        break;
-                    case SceneName.StartChackName:
-                        StartChackName();
-                        break;
-                    case SceneName.StartSetClass:
-                        StartSetClass();
-                        break;
-                    case SceneName.ShowStatus:
-                        ShowStatus();
-                        break;
-                    case SceneName.ShowInventory:
-                        ShowInventory();
-                        break;
-                    case SceneName.ManageEquipment:
-                        ManageEquipment(Player);
-                        break;
-                    case SceneName.DungeonSelection:
-                        DungeonSelection();
-                        break;
-                    case SceneName.BattleStart:
-                        BattleStart();
-                        break;
-                    case SceneName.SelectSkill:
-                        SelectSkill();
-                        break;
-                    case SceneName.BattleAttackPhase:
-                        BattleAttackPhase();
-                        break;
-                    case SceneName.BattleAttackMonster:
-                        BattleAttackMonster();
-                        break;
-                    case SceneName.BattleMonsterPhase:
-                        BattleMonsterPhase();
-                        break;
-                    case SceneName.BattlePlayerWin:
-                        BattlePlayerWin();
-                        break;
-                    case SceneName.BattlePlayerLose:
-                        BattlePlayerLose();
-                        break;
-                    case SceneName.NPC:
-                        NPCText();
-                        break;
-                    case SceneName.QuestList:
-                        QuestList();
-                        break;
-                    case SceneName.QuestInfo:
-                        QuestInfo();
-                        break;
-                    case SceneName.AcceptingQuest:
-                        AcceptingQuest();
-                        break;
-                    case SceneName.QuestCompleted:
-                        QuestCompleted();
-                        break;
-                    case SceneName.ReceiveQuestReward:
-                        ReceiveQuestReward();
-                        break;
-                    case SceneName.ViewAcceptedQuest:
-                        ViewAcceptedQuest();
-                        break;
-                    case SceneName.Rest:
-                        Rest();
-                        break;
-                    case SceneName.RestSuccess:
-                        RestSuccess();
-                        break;
-                    case SceneName.RestFail:
-                        RestFail();
-                        break;
-                    case SceneName.ShowShop:
-                        ShowShop();
-                        break;
-                    case SceneName.SellItem:
-                        SellItem();
-                        break;
-                    case SceneName.BuyItem:
-                        BuyItem();
-                        break;
-                    case SceneName.NotEnoughMoney:
-                        NotEnoughMoney();
-                        break;
-                    case SceneName.LevelUp:
-                        LevelUp();
-                        break;
-                    case SceneName.DrinkingPotion:
-                        DrinkingPotion(Player);
-                        break;
-
+                   
                     Console.Clear();//새로운 문구를 출력전 이전문구 삭제
 
                     switch (sceneName)
@@ -236,10 +143,11 @@ namespace Sparta_TextRPG
                             LevelUp();
                             break;
                         case SceneName.DrinkingPotion:
-                            DrinkingPotion();
+                            DrinkingPotion(Player);
                             break;
 
                     }
+
                 }
             }
             catch(Exception e)
