@@ -20,7 +20,7 @@ namespace Sparta_TextRPG
             this.baseMonsters = baseMonsters;
             monsters = new List<Monster>();
         }
-        public void DunjeonReset()
+        public void DungeonReset()
         {
             monsters = new List<Monster>();
 
@@ -36,6 +36,7 @@ namespace Sparta_TextRPG
             }
             
         }       
+
 
     }
 }

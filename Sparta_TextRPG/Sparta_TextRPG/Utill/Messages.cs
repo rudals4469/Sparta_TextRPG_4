@@ -674,7 +674,15 @@ namespace Sparta_TextRPG
         }
         public void CoolTimeError()
         {
-            Console.Write("\n [스킬 사용 불가] 쿨타임 중이므로 다른 스킬을 사용해주세요.");
+            Console.WriteLine(
+                $"""
+                ┌────────────────────────────────────────────────┐
+                """);
+            Console.WriteLine("│ [스킬 사용 불가] 쿨타임 중이므로 다른 스킬을 사용해주세요.");
+            Console.Write(
+                """                
+                └────────────────────────────────────────────────┘                    
+                """);
             //Thread.Sleep(3000);
         }
         public void ShowBattleAttackPhase(List<Monster> monsters, Player player)
@@ -719,12 +727,14 @@ namespace Sparta_TextRPG
         }
         public void ShowBattleAttackMonster(Monster monster,int monsterbeforHP, Player player, int Damage)
         {
-            if (Damage > 0)
-            {
-                Console.WriteLine(
+            Console.WriteLine(
                 $"""
                 ┌────────────────────────────────────────────────┐
                 """);
+
+            if (Damage > 0)
+            {
+
                 string print = "";
 
                 string print2 = "";
@@ -743,33 +753,50 @@ namespace Sparta_TextRPG
                 Console.WriteLine($"{print2}│");
 
 
-                Console.Write("""
-                    └────────────────────────────────────────────────┘
-
-                    """);
+                string print3 = $"│ LV.{monster.Level} {monster.MonsterName.ToString()} ";
                 if (monster.IsDead)
                 {
-                    Console.WriteLine($"HP {monsterbeforHP} -> Dead");
+                    print3 += $"HP {monsterbeforHP} -> Dead";
                 }
                 else
                 {
-                    Console.WriteLine($"HP {monsterbeforHP} -> {monsterbeforHP - Damage}");
-
+                    print3 += $"HP {monsterbeforHP} -> {monsterbeforHP - Damage}";
                 }
+                for (int i = GetStringWidth(print3); i < 50; i++)
+                {
+                    print3 += " ";
+                }
+                Console.WriteLine($"{print3}│");
+
             }
             else
             {
                 Random random = new Random();
                 int n = random.Next(0, 100);
-                if(n % 5 == 0) Console.Write($"{monster.Name}이(가) {player.Name}님의 공격을 \"훗\" 하고 피함");
+                string print = "";
+
+
+
+                if (n % 5 == 0)
+                {
+                    print += $"│ {monster.Name}이(가) {player.Name}님의 공격을 \"훗\" 하고 피함";
+                }
                 else
                 {
-                    Console.WriteLine($"{monster.Name}가 슉 슈슉 슉 ");
-                    Console.WriteLine($"{player.Name}님의 공격이 빘나갔습니다");
-                }
-                //회피 문구 추가하기
-            }
+                    print += $"│ {monster.Name}이(가) {player.Name}님의 공격을 슉 슈슉 슉하고 피함";
+                }//회피 문구 추가하기
 
+                for (int i = GetStringWidth(print); i < 50; i++)
+                {
+                    print += " ";
+                }
+                Console.WriteLine($"{print}│");
+                
+            }
+            Console.Write(
+                """                
+                └────────────────────────────────────────────────┘                    
+                """);
 
             Console.Write(
                 $"""
@@ -853,7 +880,7 @@ namespace Sparta_TextRPG
         public void ShowBattlePlayerWinLest()
         {
             Console.Write(
-   """
+               """
                )
                0. 다음
 
@@ -958,8 +985,15 @@ namespace Sparta_TextRPG
             {
                 for (int i = 0; i < available.Count; i++)
                 {
-                    Console.WriteLine($"│  {i + 1}. {available[i].Name}                              │");
-                    Console.WriteLine("│                                                  │");
+                    string print = "";
+
+                    print = $"│{i + 1}. {available[i].Name}";
+                    for (int a = GetStringWidth(print); a < 51; a++)
+                    {
+                        print += " ";
+                    }
+                    Console.WriteLine($"{print} │");
+                    
                 }
                 Console.WriteLine("└──────────────────────────────────────────────────┘");
             }
@@ -975,8 +1009,13 @@ namespace Sparta_TextRPG
             {
                 foreach (var quest in locked)
                 {
-                    Console.WriteLine($"│  - {quest.Name} (요구 레벨 : {quest.RequestLevel})             │");
-                    Console.WriteLine("│                                                  │");
+                    string print = "";        
+                    print = $"│  - {quest.Name} (요구 레벨 : {quest.RequestLevel})";
+                    for (int a = GetStringWidth(print); a < 51; a++)
+                    {
+                        print += " ";
+                    }
+                    Console.WriteLine($"{print} │");
                 }
             }
             Console.WriteLine("└──────────────────────────────────────────────────┘");
@@ -1004,7 +1043,7 @@ namespace Sparta_TextRPG
             Console.WriteLine("│                                                   │");
             Console.WriteLine("├ [보상]────────────────────────────────────────────┤");
             Console.WriteLine("│                                                   │");
-            Console.WriteLine($"│  - 골드 : {quest.Gold} G                                   |");
+            Console.WriteLine($"│  - 골드 : {quest.Gold} G                                  │");
 
             if (quest.Reward.Count > 0)
             {
@@ -1044,10 +1083,13 @@ namespace Sparta_TextRPG
         public void ShowQuestCompleted(Quest quest)
         {
             Console.WriteLine($" ┌ [{quest.Name}]─────────────┐");
-            Console.WriteLine(" │                              | ");
-            Console.WriteLine(" │  퀘스트를 완료했습니다           │");
+            Console.WriteLine(" │                               │ ");
+            Console.WriteLine(" │  퀘스트를 완료했습니다.       │");
+            Console.WriteLine(" │                               │ ");
             Console.WriteLine(" ├ [보상]────────────────────────┤");
-            Console.WriteLine($" │- 골드 : {quest.Gold} G                │");
+            Console.WriteLine(" │                               │ ");
+            Console.WriteLine($" │  - 골드 : {quest.Gold} G              │");
+            Console.WriteLine(" │                               │ ");
 
             if (quest.Reward.Count > 0)
             {
@@ -1073,17 +1115,19 @@ namespace Sparta_TextRPG
         
         public void ShowReceiveQuestRewards(Quest quest, int playerGold)
         {
-            Console.WriteLine("[보상 수령 완료]\n");
-
-            Console.WriteLine($"보유 골드: {playerGold} G\n");
+            Console.WriteLine(" ┌ [보상 수령 완료]───────────────────────────┐");
+            Console.WriteLine(" │                                            │ ");
+            Console.WriteLine($" │  보유 골드: {playerGold} G                        │");
 
             if (quest.Reward.Count > 0)
             {
                 foreach (var item in quest.Reward)
                 {
-                    Console.WriteLine($"새로운 아이템 : {item.Text}");
+                    Console.WriteLine($" |  새로운 아이템 : {item.Text}          │");
                 }
             }
+            Console.WriteLine(" │                                            │ ");
+            Console.WriteLine(" └────────────────────────────────────────────┘");
             Console.WriteLine();
             Exit();
         }
@@ -1107,7 +1151,7 @@ namespace Sparta_TextRPG
                 for (int i = 0; i < showable.Count; i++)
                 {
                     var quest = showable[i];
-                    string completeText = quest.IsComplete() ? " [완료]       " : "";
+                    string completeText = quest.IsComplete() ? " [완료]" : "";
                     Console.WriteLine($"│  {i + 1}. {quest.Name} ({quest.Count} / {quest.TargetCount}){completeText}               │");
                 }
             }
@@ -1143,9 +1187,14 @@ namespace Sparta_TextRPG
         public void ShowRest(Player player)
         {
             Console.Write($"""
-               500 G 를 소모하여 체력을 회복할 수 있습니다. (보유 골드 : {player.Gold} G)
+               ┌ [휴식하기]──────────────────────────────────────────────────────────┐
+               │                                                                     │
+               │  500 G 를 소모하여 체력을 회복할 수 있습니다. (보유 골드 : {player.Gold} G) │
+               │                                                                     │
+               └─────────────────────────────────────────────────────────────────────┘
 
                1. 휴식하기
+
 
                """);
             Exit();
@@ -1153,7 +1202,12 @@ namespace Sparta_TextRPG
         public void ShowRestSuccess(Player player)
         {
             Console.Write($"""
-               [휴식 완료] 체력이 모두 회복되었습니다. (남은 골드 : {player.Gold} G)
+               ┌ [휴식 완료]─────────────────────────────────────────────────────────┐
+               │                                                                     │
+               │  체력이 모두 회복되었습니다. (남은 골드 : {player.Gold} G)                   │
+               │                                                                     │
+               └─────────────────────────────────────────────────────────────────────┘
+
 
                """);
             Exit();
