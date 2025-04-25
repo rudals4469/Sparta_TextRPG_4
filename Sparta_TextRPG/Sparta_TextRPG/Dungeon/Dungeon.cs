@@ -25,13 +25,18 @@ namespace Sparta_TextRPG
             monsters = new List<Monster>();
 
             Random rand = new Random();
-            for (int i = 0; i < rand.Next(3,4); i++)
+            for (int i = 0; i < rand.Next(3,5); i++)
             {
                 int randnum = rand.Next(0, baseMonsters.Count);
+                // 던전에서 나올 수 있는 몬스터 풀
 
                 monsters.Add(baseMonsters[randnum].Cope());
-            }            
-        }      
+                // 그냥 복사하면 참조 복사가 되어서 Cope()를 사용해서
+                // 각 자의 객체로 복사가 되게 한다.
+            }
+            
+        }       
+
 
     }
 }

@@ -327,7 +327,8 @@ namespace Sparta_TextRPG
             Console.WriteLine("│                                                             │");
             foreach (var weapon in shop.Inventory.Weapon)
             {
-                Console.WriteLine($"│  - {Count,-2} {weapon.Text} │ {weapon.Price,-5} Meso │ 공격력 + {weapon.AttackPoint}             │");
+                Console.WriteLine($"│  - {Count,-2} {weapon.Text} │" +
+                    $" {weapon.Price,-5} Meso │ 공격력 + {weapon.AttackPoint}             │");
                 Count++;
             }
             Console.WriteLine("│                                                             │");
