@@ -26,14 +26,21 @@ namespace Sparta_TextRPG
         {
             Console.Write(
                 """     
+
                 메이플 월드에 오신 여러분 환영합니다.
                 이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.
 
-                1.상태 보기
-                2.상점
-                3.던전입장
-                4.여관으로 가기
-                5.게임종료
+                ┌────────────────────────┐
+                │ 1.상태 보기            │
+                │                        │
+                │ 2.상점                 │
+                │                        │
+                │ 3.던전입장             │
+                │                        │
+                │ 4.여관으로 가기        │
+                │                        │
+                │ 5.게임종료             │
+                └────────────────────────┘
 
                 원하시는 행동을 입력해주세요.
                 >> 
@@ -41,29 +48,36 @@ namespace Sparta_TextRPG
         }
         public void ShowStartSetName()
         {
-            Console.WriteLine("                    ███████╗██████╗  █████╗ ██████╗ ████████╗ █████╗                      \r\n                    ██╔════╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗                     \r\n                    ███████╗██████╔╝███████║██████╔╝   ██║   ███████║                     \r\n                    ╚════██║██╔═══╝ ██╔══██║██╔══██╗   ██║   ██╔══██║                     \r\n                    ███████║██║     ██║  ██║██║  ██║   ██║   ██║  ██║                     \r\n                    ╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝                     \r\n                                                                                          \r\n███╗   ███╗ █████╗ ██████╗ ██╗     ███████╗    ███████╗████████╗ ██████╗ ██████╗ ██╗   ██╗\r\n████╗ ████║██╔══██╗██╔══██╗██║     ██╔════╝    ██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝\r\n██╔████╔██║███████║██████╔╝██║     █████╗      ███████╗   ██║   ██║   ██║██████╔╝ ╚████╔╝ \r\n██║╚██╔╝██║██╔══██║██╔═══╝ ██║     ██╔══╝      ╚════██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝  \r\n██║ ╚═╝ ██║██║  ██║██║     ███████╗███████╗    ███████║   ██║   ╚██████╔╝██║  ██║   ██║   \r\n╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚══════╝╚══════╝    ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝ ");
-
-
             Console.Write($"""
 
-                메이플 월드에 오신여러분 환영합니다.
-                원하시는 이름을 설정해주세요
-
+                ┌─────────────────────────────────────┐
+                │                                     │
+                │ 메이플 월드에 오신여러분 환영합니다.│                
+                │ 원하시는 이름을 설정해주세요.       │
+                │                                     │
+                └─────────────────────────────────────┘
+                
                 >> 
                 """);
         }
         public void ShowStartChackName(string Name)
         {
             Console.Write($"""
-                메이플 월드에 오신여러분 환영합니다.
-                원하시는 이름을 설정해주세요
-                {Name}
-
-                입력하신 이름은 {Name}입니다.
-
-                1.저장
-                2.취소
                 
+                ┌─────────────────────────────────────┐
+                │                                     │
+                │ 메이플 월드에 오신여러분 환영합니다.│                
+                │ 원하시는 이름을 설정해주세요.       │
+                │                                     │
+                └─────────────────────────────────────┘
+
+                 입력하신 이름은 {Name}입니다.
+
+                ┌─────────┐
+                │ 1.저장  │
+                │ 2.취소  │
+                └─────────┘
+
                 원하시는 행동을 입력해주세요
                 >> 
                 """);
@@ -72,53 +86,54 @@ namespace Sparta_TextRPG
         {
 
             Console.Write($"""
-                메이플 월드에 오신여러분 환영합니다.
-                원하시는 직업을 설정해주세요
 
-                1.{ClassName.전사.ToString()}
-                2.{ClassName.마법사.ToString()}
-                3.{ClassName.궁수.ToString()}
-                4.{ClassName.도적.ToString()}
-                5.{ClassName.해적.ToString()}
+                ┌─────────────────────────────────────┐
+                │ 메이플 월드에 오신여러분 환영합니다.│
+                │ 원하시는 직업을 설정해주세요.       │
+                └─────────────────────────────────────┘
 
+                ┌──────────────────────────────────────────────────────┐
+                │ 1.{ClassName.전사.ToString()} : 강한 공격력과 체력을 지니고 있는 탱커       │
+                │ 2.{ClassName.법사.ToString()} : 화려하고 강력한 속성 공격의 대가            │
+                │ 3.{ClassName.궁수.ToString()} : 빠르고 강력한 원거리 공격을 하는 저격 마스터│ 
+                │ 4.{ClassName.도적.ToString()} : 그림자에서 공격을 퍼붓는 암살자             │ 
+                │ 5.{ClassName.해적.ToString()} : 노틸러스 호를 타고 여행하는 모험가          │
+                └──────────────────────────────────────────────────────┘
+                
                 원하시는 행동을 입력해주세요
                 >> 
                 """);
 
         }
-        public void ShowStatus(Player player)         //$""" 사용해보려 하였으나 익숙치 않아 익숙한 것으로 진행
+        public void ShowStatus(Player player) 
         {
-            Console.WriteLine("[상태 보기]");
-            Console.WriteLine("캐릭터의 정보가 표시됩니다.");
-            Console.WriteLine();                                       //줄 바꿈 처리
-            Console.WriteLine($"Lv. {player.Level}");
-            Console.WriteLine($"{player.Name} ({player.Class})");
-            Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
-            Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
-            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");
-            Console.WriteLine($"{"경험치",-5}: {player.Exp} / {player.MaxExp}");
-            Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
-            Console.WriteLine();                                      //줄 바꿈 처리
-
-            Console.WriteLine("[인벤토리]");                             //player 인벤토리로 받을 수 있게 처리
-                                                                     //인벤토리 출력은 4단계를 거쳐서 작성해야함
-                                                                     //foreach (var item in player.Inventory)                    //배열 리스트 순차적으로 꺼내서 처리(var 변수 타입 결정 player인벤토리 안에 있는 아이템 전부 item처리)
-                                                                     //Console.WriteLine($" - {item.Name} x{item.Quantity}"); //아이템 이름과 수량
+            Console.WriteLine("\n┌ [상태 보기]───────────────┐");
+            Console.WriteLine($"│ Lv. {player.Level,22}│");
+            Console.WriteLine($"│ {player.Name,26}│");
+            Console.WriteLine($"│ {"직  업"}:  {player.Class,15}│");
+            Console.WriteLine($"│ {"공격력"}: {player.AttackPoint,18}│");
+            Console.WriteLine($"│ {"방어력"}: {player.ArmorPoint,18}│");
+            Console.WriteLine($"│ {"체  력"}: {player.NowHP,12} / {player.MaxHP,2}│");
+            Console.WriteLine($"│ {"경험치"}: {player.Exp,13} / {player.MaxExp}│");
+            Console.WriteLine($"│ {"Gold"}: {player.Gold,15} Meso│");
+            Console.WriteLine("└───────────────────────────┘");
 
 
-            Console.WriteLine("장착 중인 아이템:");                     // 상태창에서 바로 장착중인 아이템이 보여지게 수정
-            Console.Write($"- {"무기",-4} :");
+            Console.WriteLine("\n┌ [인벤토리]───────────────────┐");
+            Console.Write($"│ - {"무기",-4} :");
             if (player.Weapon != null)
-                Console.WriteLine($" {player.Weapon.Text}"); // 무기 장착 칸
-            else Console.WriteLine(); // 아니여도 줄 바꿈
-            Console.Write($"- {"방어구",-3} :");
+                Console.WriteLine($" {player.Weapon.Name,18}│"); // 무기 장착 칸
+            else Console.WriteLine($" {"",-10}        │");
+            Console.Write($"│ - {"방어구",-3} :");
             if (player.Armor != null)
-                Console.WriteLine($" {player.Armor.Text}");   // 방어구 장착 칸
-            else Console.WriteLine();
-            Console.Write($"- {"방패",-4} :");
+                Console.WriteLine($" {player.Armor.Name,18}│");   // 방어구 장착 칸
+            else Console.WriteLine($" {"",-10}        │");
+            Console.Write($"│ - {"방패",-4} :");
             if (player.Shield != null)
-                Console.WriteLine($" {player.Shield.Text}");   // 방패 장착 칸
-            else Console.WriteLine();
+                Console.WriteLine($" {player.Shield.Name,18}│");   // 방패 장착 칸
+            else Console.WriteLine($" {"",-10}        │");
+
+            Console.WriteLine("└──────────────────────────────┘");
 
             Console.WriteLine("\n1. 인벤토리 보기");
             Exit();
@@ -132,37 +147,37 @@ namespace Sparta_TextRPG
                                 + player.Inventory.Armors.Count
                                 + player.Inventory.Shild.Count
                                 + player.Inventory.Potions.Count;
-            Console.WriteLine("────────────────────────────────────────────────────────────────────");
+            Console.WriteLine("┌────────────────────────────────────────────────────────────────────┐");
             if (totalItemCount == 0)
             {
-                Console.WriteLine("│                         아이템이 없습니다.                                    │");
+                Console.WriteLine("│                         아이템이 없습니다.                         │");
             }
             else
             {
-                Console.WriteLine("│ [무기]                                                                 │\n│                                                                               │");
+                Console.WriteLine("│ [무기]                                                             │\n│                                                                    │");
                 foreach (var weapon in player.Inventory.Weapon)
                 {
                     string prefix = weapon.IsEquipped ? "[E] " : "[ ] ";
                     Console.WriteLine($"│ - {prefix}{weapon.Text} │ {weapon.Price,-5} Meso │ 공격력 + {weapon.AttackPoint,-10}           │");
                 }
-                Console.WriteLine("──────────────────────────────────────────");
-                Console.WriteLine("│ [방어구]                                                           │\n│                                                                               │");
+                Console.WriteLine("├────────────────────────────────────────────────────────────────────┤");
+                Console.WriteLine("│ [방어구]                                                           │\n│                                                                    │");
 
                 foreach (var armor in player.Inventory.Armors)
                 {
                     string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
                     Console.WriteLine($"│ - {prefix}{armor.Text} │ {armor.Price,-5} Meso │ 방어력 + {armor.ArmorPoint,-10}           │");
                 }
-                Console.WriteLine("──────────────────────────────────────────");
-                Console.WriteLine("│ [방패]                                                             │\n│                                                                               │");
+                Console.WriteLine("├────────────────────────────────────────────────────────────────────┤");
+                Console.WriteLine("│ [방패]                                                             │\n│                                                                    │");
 
                 foreach (var shield in player.Inventory.Shild)
                 {
                     string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
                     Console.WriteLine($"│ - {prefix}{shield.Text} │ {shield.Price,-5} Meso │ 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint,-10}│");
                 }
-                Console.WriteLine("──────────────────────────────────────────");
-                Console.WriteLine("│ [포션]                                                             │\n│                                                                               │");
+                Console.WriteLine("├────────────────────────────────────────────────────────────────────┤");
+                Console.WriteLine("│ [포션]                                                             │\n│                                                                    │");
 
 
                 var potions = from potion in player.Inventory.Potions
@@ -182,7 +197,7 @@ namespace Sparta_TextRPG
                 }
 
             }
-            Console.WriteLine("─────────────────────────────────────────────────────────────────────");
+            Console.WriteLine("└────────────────────────────────────────────────────────────────────┘");
 
             Console.WriteLine("\n1. 장착 관리");
             Exit();
@@ -200,7 +215,7 @@ namespace Sparta_TextRPG
         public void ManageEquipment(Player player)
         {
             // 장착 관리
-            Console.WriteLine("인벤토리");
+            Console.WriteLine("\n인벤토리");
             Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
 
 
@@ -214,34 +229,41 @@ namespace Sparta_TextRPG
 
             if (totalItemCount == 0)
             {
-                Console.WriteLine("아이템이 없습니다.");
+                Console.WriteLine("┌────────────────────────────────────────────────────────────────────┐");
+                Console.WriteLine("│                         아이템이 없습니다.                         │");
+                Console.WriteLine("└────────────────────────────────────────────────────────────────────┘\n");
             }
             else
             {
-                Console.WriteLine("\n[무기]\n");
+                Console.WriteLine("┌────────────────────────────────────────────────────────────────────┐");
+                Console.WriteLine("│ [무기]                                                             │\n│                                                                    │");
 
                 foreach (var weapon in player.Inventory.Weapon)
                 {
                     string prefix = weapon.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {Count,-2} {prefix}{weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
+                    Console.WriteLine($"│ - {Count,-2} {prefix}{weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint,-7}           │ ");
                     Count++;
                 }
 
-                Console.WriteLine("\n[방어구]\n");
+                Console.WriteLine("├────────────────────────────────────────────────────────────────────┤");
+                Console.WriteLine("│ [방어구]                                                           │\n│                                                                    │");
                 foreach (var armor in player.Inventory.Armors)
                 {
                     string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {Count,-2} {prefix}{armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
+                    Console.WriteLine($"│ - {Count,-2} {prefix}{armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint,-7}           │");
                     Count++;
                 }
 
-                Console.WriteLine("\n[방패]\n");
+                Console.WriteLine("├────────────────────────────────────────────────────────────────────┤");
+                Console.WriteLine("│ [방패]                                                             │\n│                                                                    │");
                 foreach (var shield in player.Inventory.Shild)
                 {
                     string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"- {Count,-2} {prefix}{shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
+                    Console.WriteLine($"│ - {Count,-2} {prefix}{shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint,-7}│");
                     Count++;
                 }
+
+                Console.WriteLine("└────────────────────────────────────────────────────────────────────┘");
 
             }
 
@@ -980,7 +1002,6 @@ namespace Sparta_TextRPG
         public void Exit()
         {
             Console.Write($"""
-
                0. 나가기
 
                원하시는 행동을 입력해주세요.
