@@ -20,7 +20,7 @@ namespace Sparta_TextRPG
             this.baseMonsters = baseMonsters;
             monsters = new List<Monster>();
         }
-        public void DunjeonReset()
+        public void DungeonReset()
         {
             monsters = new List<Monster>();
 
@@ -30,9 +30,8 @@ namespace Sparta_TextRPG
                 int randnum = rand.Next(0, baseMonsters.Count);
 
                 monsters.Add(baseMonsters[randnum].Cope());
-            }
-            
-        }       
+            }            
+        }      
 
     }
 }

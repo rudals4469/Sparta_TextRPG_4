@@ -673,7 +673,15 @@ namespace Sparta_TextRPG
         }
         public void CoolTimeError()
         {
-            Console.Write("\n [스킬 사용 불가] 쿨타임 중이므로 다른 스킬을 사용해주세요.");
+            Console.WriteLine(
+                $"""
+                ┌────────────────────────────────────────────────┐
+                """);
+            Console.WriteLine("│ [스킬 사용 불가] 쿨타임 중이므로 다른 스킬을 사용해주세요.");
+            Console.Write(
+                """                
+                └────────────────────────────────────────────────┘                    
+                """);
             //Thread.Sleep(3000);
         }
         public void ShowBattleAttackPhase(List<Monster> monsters, Player player)
@@ -718,12 +726,14 @@ namespace Sparta_TextRPG
         }
         public void ShowBattleAttackMonster(Monster monster,int monsterbeforHP, Player player, int Damage)
         {
-            if (Damage > 0)
-            {
-                Console.WriteLine(
+            Console.WriteLine(
                 $"""
                 ┌────────────────────────────────────────────────┐
                 """);
+
+            if (Damage > 0)
+            {
+
                 string print = "";
 
                 string print2 = "";
@@ -742,33 +752,50 @@ namespace Sparta_TextRPG
                 Console.WriteLine($"{print2}│");
 
 
-                Console.Write("""
-                    └────────────────────────────────────────────────┘
-
-                    """);
+                string print3 = $"│ LV.{monster.Level} {monster.MonsterName.ToString()} ";
                 if (monster.IsDead)
                 {
-                    Console.WriteLine($"HP {monsterbeforHP} -> Dead");
+                    print3 += $"HP {monsterbeforHP} -> Dead";
                 }
                 else
                 {
-                    Console.WriteLine($"HP {monsterbeforHP} -> {monsterbeforHP - Damage}");
-
+                    print3 += $"HP {monsterbeforHP} -> {monsterbeforHP - Damage}";
                 }
+                for (int i = GetStringWidth(print3); i < 50; i++)
+                {
+                    print3 += " ";
+                }
+                Console.WriteLine($"{print3}│");
+
             }
             else
             {
                 Random random = new Random();
                 int n = random.Next(0, 100);
-                if(n % 5 == 0) Console.Write($"{monster.Name}이(가) {player.Name}님의 공격을 \"훗\" 하고 피함");
+                string print = "";
+
+
+
+                if (n % 5 == 0)
+                {
+                    print += $"│ {monster.Name}이(가) {player.Name}님의 공격을 \"훗\" 하고 피함";
+                }
                 else
                 {
-                    Console.WriteLine($"{monster.Name}가 슉 슈슉 슉 ");
-                    Console.WriteLine($"{player.Name}님의 공격이 빘나갔습니다");
-                }
-                //회피 문구 추가하기
-            }
+                    print += $"│ {monster.Name}이(가) {player.Name}님의 공격을 슉 슈슉 슉하고 피함";
+                }//회피 문구 추가하기
 
+                for (int i = GetStringWidth(print); i < 50; i++)
+                {
+                    print += " ";
+                }
+                Console.WriteLine($"{print}│");
+                
+            }
+            Console.Write(
+                """                
+                └────────────────────────────────────────────────┘                    
+                """);
 
             Console.Write(
                 $"""
@@ -852,7 +879,7 @@ namespace Sparta_TextRPG
         public void ShowBattlePlayerWinLest()
         {
             Console.Write(
-   """
+               """
                )
                0. 다음
 
