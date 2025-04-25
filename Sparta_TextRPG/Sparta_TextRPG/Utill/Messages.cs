@@ -135,7 +135,7 @@ namespace Sparta_TextRPG
             Console.WriteLine($"│ {"직  업"}:  {player.Class,15}│");
             Console.WriteLine($"│ {"공격력"}: {player.AttackPoint,18}│");
             Console.WriteLine($"│ {"방어력"}: {player.ArmorPoint,18}│");
-            Console.WriteLine($"│ {"체  력"}: {player.NowHP,12} / {player.MaxHP,2}│");
+            Console.WriteLine($"│ {"체  력"}: {player.NowHP,12} / {player.MaxHP,3}│");
             Console.WriteLine($"│ {"경험치"}: {player.Exp,13} / {player.MaxExp}│");
             Console.WriteLine($"│ {"Gold"}: {player.Gold,15} Meso│");
             Console.WriteLine("└───────────────────────────┘");
@@ -605,10 +605,11 @@ namespace Sparta_TextRPG
             Console.Write(
                $"""
 
-               [내정보]
-               Lv.{player.Level} {player.Name} ({player.Class.ToString()})
-               HP {player.NowHP}/{player.MaxHP}
-               Mp {player.NowMP}/{player.MaxMP} 
+               ┌ [내정보]────────────┐
+               │ Lv.{player.Level} {player.Name,-6} ({player.Class.ToString()})  │
+               │ HP {player.NowHP,-3}/{player.MaxHP,-13}│
+               │ Mp {player.NowMP,-3}/{player.MaxMP,-13}│ 
+               └─────────────────────┘
 
                1.스킬 선택
 
@@ -625,18 +626,20 @@ namespace Sparta_TextRPG
             Console.WriteLine(
                $"""
 
-               [내정보]
-               Lv.{player.Level} {player.Name} ({player.Class.ToString()})
-               HP {player.NowHP}/{player.MaxHP}
-               Mp {player.NowMP}/{player.MaxMP} 
+               ┌ [내정보]────────────┐
+               │ Lv.{player.Level} {player.Name,-6} ({player.Class.ToString()})  │
+               │ HP {player.NowHP,-3}/{player.MaxHP,-13}│
+               │ Mp {player.NowMP,-3}/{player.MaxMP,-13}│ 
+               └─────────────────────┘
                
                """);
             int count = 0;
-            Console.WriteLine("No.     이름       | 마나 |     쿨타임    |  설명");
+            Console.WriteLine("┌ [No]── [이름]───────── [마나]── [쿨타임]─── [설명] ──────────────────────────────────────┐");
             foreach (var item in player.SkillList)
             {
-                Console.WriteLine($"{++count,-3} {item.Name,-14} | {item.Mana,4} | {item.NowCoolTime,6}/{item.CoolTime,6} | {item.Text}");
-            }
+                Console.WriteLine($"│  {++count,-2} | {item.Name,-14} | {item.Mana,4}  | {item.NowCoolTime,3}/{item.CoolTime,3}   | {item.Text,-30} │"); 
+            }  // 여기도 광민씨의 도움이 필요합니다.
+            Console.WriteLine("└─────────────────────────────────────────────────────────────────────────────────────────┘");
             Console.Write("""
 
                 원하시는 행동을 입력해주세요.
