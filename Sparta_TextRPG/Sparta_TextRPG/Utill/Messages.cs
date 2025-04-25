@@ -660,9 +660,8 @@ namespace Sparta_TextRPG
                 {
                     print += " ";
                 }
-                Console.WriteLine($"│ {print}│");
-                //Console.WriteLine($"│  {++count,-2} | {item.Name,-14} | {item.Mana,4}  | {item.NowCoolTime,3}/{item.CoolTime,3}   | {item.Text,-30} │"); 
-            }  // 여기도 광민씨의 도움이 필요합니다.
+                Console.WriteLine($"│ {print}│");   
+            }
             Console.WriteLine("└──────────────────────────────────────────────────────────────────────────────────────────┘");
             Console.Write("""
 
