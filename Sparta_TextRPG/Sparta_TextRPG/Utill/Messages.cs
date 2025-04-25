@@ -69,7 +69,7 @@ namespace Sparta_TextRPG
         }
         public void ShowStartSetName()
         {
-
+            Console.Write($"""
                 ┌─────────────────────────────────────┐
                 │                                     │
                 │ 메이플 월드에 오신여러분 환영합니다.│                
