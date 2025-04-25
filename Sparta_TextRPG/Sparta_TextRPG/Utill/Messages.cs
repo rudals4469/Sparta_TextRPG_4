@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Sparta_TextRPG
 {
@@ -327,17 +329,60 @@ namespace Sparta_TextRPG
                 1. HP 포션 | +100HP
                 2. MP 포션 | +100MP
 
+                0. 나가기
+
                 사용하실 포션을 입력해주세요.
                 >>
                 """);
         }
-        public void DrinkingHpPotion()//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
+        public void DrinkingHpPotion(Player player, int beforeHp)//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
         {
-            Console.WriteLine("블라블라");
+               int recovered = player.NowHP - beforeHp;
+                Console.WriteLine($"""
+                [HP 포션 사용!]
+                {beforeHp} → {player.NowHP} ( +{recovered} 회복 )
+                """);
+                
         }
-        public void DrinkingMpPotion()//포션마시기에서 mp포션을 눌렀을 때 나오는 메세지
+        public void DrinkingMpPotion(Player player, int beforeMp)//포션마시기에서 mp포션을 눌렀을 때 나오는 메세지
         {
-            Console.WriteLine("블라블라");
+            int recovered = player.NowMP - beforeMp;
+
+            Console.WriteLine($"""
+        [MP 포션 사용!]
+        {beforeMp} → {player.NowMP} ( +{recovered} 회복 )
+        """);
+
+        
+        }
+
+        public void FullHp()
+        {
+            Console.Clear();
+            Console.WriteLine("현재 HP가 최대입니다. 포션을 사용할 수 없습니다.");
+            Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
+            Console.ReadLine();
+        }
+        public void FullMp()
+        {
+            Console.Clear();
+            Console.WriteLine("현재 MP가 최대입니다. 포션을 사용할 수 없습니다.");
+            Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
+            Console.ReadLine();
+        }
+        public void NoHpPotion()
+        {
+            Console.Clear();
+            Console.WriteLine("HP 포션이 없습니다.");
+            Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
+            Console.ReadLine();
+        }
+        public void NoMpPotion()
+        {
+            Console.Clear();
+            Console.WriteLine("MP 포션이 없습니다.");
+            Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
+            Console.ReadLine();
         }
         public void ShowStatus(Player player)         //$""" 사용해보려 하였으나 익숙치 않아 익숙한 것으로 진행
         {

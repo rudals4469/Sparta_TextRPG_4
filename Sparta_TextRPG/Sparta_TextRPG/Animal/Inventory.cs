@@ -83,6 +83,39 @@ namespace Sparta_TextRPG
         {
             return Weapon.Count+ Armors.Count+ Shild.Count+ Potions.Count;
         }
+        public void usePotion(Potion potion, Player player)
+        {
+            if (potion.Count > 0)
+            {
+                potion.Count--;
+
+                if (potion.PotionType == PotionType.HP)
+                {
+                    player.NowHP += potion.HealPoint;
+                    if (player.NowHP > player.MaxHP)
+                    {
+                        player.NowHP = player.MaxHP;
+                    }
+                }
+                else if (potion.PotionType == PotionType.MP)
+                {
+                    player.NowMP += potion.HealPoint;
+                    if (player.NowMP > player.MaxMP)
+                    {
+                        player.NowMP = player.MaxMP;
+                    }
+                }
+
+                if (potion.Count == 0)
+                {
+                    Potions.Remove(potion);
+                }
+            }
+            else
+            {
+                Console.WriteLine("포션이 없습니다!");
+            }
+        }
 
     }
 }
