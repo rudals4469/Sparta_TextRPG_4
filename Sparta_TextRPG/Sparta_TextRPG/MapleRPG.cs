@@ -884,7 +884,7 @@ namespace Sparta_TextRPG
         }
         public void DrinkingPotion(Player player)
         {
-            Messages.Instance().DrinkingPotion();
+            Messages.Instance().DrinkingPotion(player);
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
@@ -906,13 +906,13 @@ namespace Sparta_TextRPG
                     else
                     {
                         int beforeHp = player.NowHP;
-                        player.Inventory.usePotion(hpPotion, player);
+                        player.Inventory.usePotion(PotionType.HP, player);
                         Messages.Instance().DrinkingPotion(Player, beforeHp, hpPotion.PotionType);
                     }
                 }
                 else
                 {
-                    Messages.Instance().NoPotion(hpPotion.PotionType);
+                    Messages.Instance().NoPotion();
                 }
             }
             else if (inputNum == 2)
@@ -928,7 +928,7 @@ namespace Sparta_TextRPG
                     else
                     {
                         int beforeMp = player.NowMP;
-                        player.Inventory.usePotion(mpPotion, player);
+                        player.Inventory.usePotion(PotionType.MP, player);
                         Messages.Instance().DrinkingPotion(player, beforeMp, mpPotion.PotionType);
                     }
                 }
