@@ -805,16 +805,26 @@ namespace Sparta_TextRPG
         }
         public void ShowQuestInfo(Quest quest)
         {
+            Console.WriteLine("[퀘스트 정보]\n");
+
+            Console.WriteLine($"{quest.Name} 퀘스트");
+            Console.WriteLine(quest.Text);
+            Console.WriteLine($"\n처치할 몬스터: {quest.Target} {quest.TargetCount}마리");
+
+            Console.WriteLine("\n\n[보상]");
+            Console.WriteLine($"- 골드 : {quest.Gold} G");
+
+            if (quest.Reward.Count > 0)
+            {
+                Console.Write("- 아이템 : ");
+                foreach (var item in quest.Reward)
+                {
+                    Console.Write($"{item.Text} ");
+                }
+                Console.WriteLine();
+            }
+
             Console.Write($"""
-            [퀘스트 정보]
-
-            {quest.Name} 퀘스트
-            {quest.Text}
-
-
-            처치할 몬스터: {quest.Target} {quest.TargetCount}마리
-
-            보상: {quest.Gold} G
 
 
             1. 퀘스트 받기
@@ -873,21 +883,44 @@ namespace Sparta_TextRPG
             Console.WriteLine("[보상 수령 완료]");
 
             Console.WriteLine($"\n현재 보유 골드: {playerGold} G");
+            Console.WriteLine("[보상]");
+            Console.WriteLine($"- 골드 : {quest.Gold} G");
 
             if (quest.Reward.Count > 0)
             {
-                Console.Write("아이템: ");
+                Console.Write("- 아이템 : ");
                 foreach (var item in quest.Reward)
                 {
                     Console.Write($"{item.Text} ");
                 }
-                Console.WriteLine(); // 줄 바꿈
+                Console.WriteLine();
             }
             Exit();
         }
+
+            Console.Write($"""
+
+            1. 보상 받기
+
+            0. 나가기
+
+            >> 
+            """);
+        }
+
+
+
+
         public void ShowViewAcceptedQuest(List<Quest> acceptedQuests, bool hasRewardableQuest)
         {
-            Console.WriteLine("[진행 중인 퀘스트]");
+            if (hasRewardableQuest)
+            {
+                Console.WriteLine("[진행 중인 퀘스트] (알림 : [완료] 표시가 있는 퀘스트를 선택하여 보상을 받으세요)");
+            }
+            else
+            {
+                Console.WriteLine("[진행 중인 퀘스트]");
+            }
 
             var showable = acceptedQuests.Where(q => !q.IsRewarded).ToList();
             var rewarded = acceptedQuests.Where(q => q.IsRewarded).ToList();
@@ -900,12 +933,14 @@ namespace Sparta_TextRPG
             {
                 for (int i = 0; i < showable.Count; i++)
                 {
-                    string completeText = showable[i].IsComplete() ? " [완료]" : "";
-                    Console.WriteLine($"\n{i + 1}. {showable[i].Name} ({showable[i].Count} / {showable[i].TargetCount}){completeText}\n");
+                    var quest = showable[i];
+                    string completeText = quest.IsComplete() ? " [완료]" : "";
+                    Console.WriteLine($"\n{i + 1}. {quest.Name} ({quest.Count} / {quest.TargetCount}){completeText}");
+
                 }
             }
 
-            Console.WriteLine("\n[완료한 퀘스트]");
+            Console.WriteLine("\n\n[완료한 퀘스트]");
 
             if (rewarded.Count == 0)
             {
@@ -915,7 +950,7 @@ namespace Sparta_TextRPG
             {
                 foreach (var q in rewarded)
                 {
-                    Console.WriteLine($"\n- {q.Name} 퀘스트\n");
+                    Console.WriteLine($"\n- {q.Name} 퀘스트");
                 }
             }
 
@@ -926,6 +961,45 @@ namespace Sparta_TextRPG
             }
             Exit();
         }
+            Console.Write($"""
+
+
+            0. 나가기
+
+            원하시는 행동을 입력해주세요.
+            >> 
+            """);
+        }
+
+
+
+        public void ShowReceiveQuestRewards(Quest quest, int playerGold)
+        {
+            Console.WriteLine("[보상 수령 완료]");
+
+            Console.WriteLine($"\n현재 보유 골드 : {playerGold} G");
+
+            if (quest.Reward.Count > 0)
+            {
+                Console.Write("새로운 아이템 : ");
+                foreach (var item in quest.Reward)
+                {
+                    Console.Write($"{item.Text} ");
+                }
+                Console.WriteLine(); // 줄 바꿈
+            }
+
+            Console.Write($"""
+
+
+            0. 나가기
+
+            원하시는 행동을 입력해주세요. 
+            >> 
+            """);
+        }
+
+
         public void ShowRest(Player player)
         {
             Console.Write($"""
