@@ -129,13 +129,24 @@ namespace Sparta_TextRPG
         }
         public void ShowStatus(Player player) 
         {
+
             Console.WriteLine("\n┌ [상태 보기]───────────────┐");
             Console.WriteLine($"│ Lv. {player.Level,22}│");
-            Console.WriteLine($"│ {player.Name,26}│");
+            string print = $"{player.Name,26}";
+            for (int i = GetStringWidth(print); i < 25; i++)
+            {
+                print += " ";
+            }
+            Console.WriteLine($"│ {print}│");
             Console.WriteLine($"│ {"직  업"}:  {player.Class,15}│");
             Console.WriteLine($"│ {"공격력"}: {player.AttackPoint,18}│");
             Console.WriteLine($"│ {"방어력"}: {player.ArmorPoint,18}│");
-            Console.WriteLine($"│ {"체  력"}: {player.NowHP,12} / {player.MaxHP,3}│");
+            print = $" {"체  력"}: {player.NowHP,12} / {player.MaxHP,2}";
+            for (int i = GetStringWidth(print); i < 25; i++)
+            {
+                print += " ";
+            }
+            Console.WriteLine($"│ {print}│");
             Console.WriteLine($"│ {"경험치"}: {player.Exp,13} / {player.MaxExp}│");
             Console.WriteLine($"│ {"Gold"}: {player.Gold,15} Meso│");
             Console.WriteLine("└───────────────────────────┘");
@@ -573,29 +584,36 @@ namespace Sparta_TextRPG
         {
             int count = 0;
 
-            Console.WriteLine("┌ [몬스터]────────────────┐");
+            Console.WriteLine("┌ [몬스터]────────────────────────────────┐");
             foreach (var item in monsters)
             {
                 count++;
-
-                
-
+                string print = "";
                 if (item.IsDead)
                 {
-                    Console.Write("│");
+
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write($" {count} Lv.{item.Level} {item.MonsterName.ToString()} Dead");
+                    print = $"│ {count} Lv.{item.Level} {item.MonsterName.ToString()} Dead";
+                    for (int i = GetStringWidth(print); i < 43; i++)
+                    {
+                        print += " ";
+                    }
+                    Console.WriteLine($"{print}│");
                     Console.ResetColor();
-                    Console.WriteLine("                                                                   │");
                 }
                 else
                 {
-                    Console.WriteLine($"│ {count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP,-5}│");
+                    print = $"│ {count} Lv.{item.Level} {item.MonsterName.ToString()} HP:{item.NowHP}";
+                    for (int i = GetStringWidth(print); i < 43; i++)
+                    {
+                        print += " ";
+                    }
+                    Console.WriteLine($"{print}│");
                 }
 
                 
             }
-            Console.WriteLine("└─────────────────────────┘");
+            Console.WriteLine("└─────────────────────────────────────────┘");
         }
         public void ShowBattleStart(List<Monster> monsters, Player player)
         {
@@ -657,11 +675,15 @@ namespace Sparta_TextRPG
 
             Console.Write(
                $"""
-               [내정보]
-               Lv.{player.Level} {player.Name} ({player.Class.ToString()})
-               HP {player.NowHP}/{player.MaxHP}
-                
-               0.취소
+
+
+               ┌ [내 정보]───────────────────────────────┐
+               │ Lv.{player.Level} {player.Name} ({player.Class.ToString()})
+               │ HP {player.NowHP}/{player.MaxHP}
+               └─────────────────────────────────────────┘
+
+
+                0.취소
 
                대상을 선택해주세요
                >> 
