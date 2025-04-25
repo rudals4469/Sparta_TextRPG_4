@@ -118,8 +118,7 @@ namespace Sparta_TextRPG
             else Console.WriteLine();
 
             Console.WriteLine("\n1. 인벤토리 보기");
-            Console.WriteLine("0. 나가기\n");
-            Console.Write("원하시는 행동을 입력해주세요.\n>> ");
+            Exit();
         }
         public void ShowInventory(Player player)
         {
@@ -179,12 +178,7 @@ namespace Sparta_TextRPG
             }
 
             Console.WriteLine("\n1. 장착 관리");
-            Console.Write("""
-                0. 나가기
-
-                원하시는 행동을 입력해주세요.
-                >> 
-                """);
+            Exit();
 
 
             /*if (input == "0") break;
@@ -244,11 +238,7 @@ namespace Sparta_TextRPG
 
             }
 
-            Console.WriteLine("\n0. 나가기\n");
-            Console.Write("""
-                원하시는 행동을 입력해주세요.
-                >> 
-                """);
+            Exit();
 
         }
         public void ShowShop(Player player, Shop shop)
@@ -303,12 +293,8 @@ namespace Sparta_TextRPG
                 --------------------------------------------------------------
                 1. 아이템 구매
                 2. 아이템 판매
-                0. 나가기
-
-                원하시는 행동을 입력해주세요.
-                >> 
                 """);
-
+            Exit();
 
 
         }
@@ -476,12 +462,7 @@ namespace Sparta_TextRPG
                 Console.WriteLine($"{item.Name} | 던전 레벨 : {item.Level}");
             }
             ;
-            Console.Write($$"""
-               0. 나가기 
-
-               원하시는 행동을 입력해주세요. 
-               >> 
-               """);
+            Exit();
         }
         public void ShowDungeonSelection(List<Dungeon> dungouns)
         {
@@ -501,10 +482,8 @@ namespace Sparta_TextRPG
 
                 {++count}. 상태 보기
                 {++count}. 회복 아이템
-                0. 마을로 가기
-                입장할 던전을 선택해 주세요
-                >>
                 """);
+            Exit();
         }
         public void printMonster(List<Monster> monsters)
         {
@@ -734,7 +713,7 @@ namespace Sparta_TextRPG
                >>
                """);
         }
-        public void DrinkingPotion(Player player)//던전에서 포션마시기를 눌렀을 때 나오는 메세지
+        public void DrinkingPotion()//던전에서 포션마시기를 눌렀을 때 나오는 메세지
         {
             Console.Write("""
                 [소유 포션]
@@ -747,51 +726,25 @@ namespace Sparta_TextRPG
                 >>
                 """);
         }
-        public void DrinkingHpPotion(Player player, int beforeHp)//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
+        public void DrinkingPotion(Player player, int before, PotionType potionType)//포션마시기에서 hp 포션을 눌렀을 때 나오는 메세지
         {
-               int recovered = player.NowHP - beforeHp;
-                Console.WriteLine($"""
-                [HP 포션 사용!]
-                {beforeHp} → {player.NowHP} ( +{recovered} 회복 )
-                """);
-                
-        }
-        public void DrinkingMpPotion(Player player, int beforeMp)//포션마시기에서 mp포션을 눌렀을 때 나오는 메세지
-        {
-            int recovered = player.NowMP - beforeMp;
-
+            int recovered = player.NowHP - before;
             Console.WriteLine($"""
-        [MP 포션 사용!]
-        {beforeMp} → {player.NowMP} ( +{recovered} 회복 )
-        """);
-
-        
+            [{potionType.ToString()} 포션 사용!]
+            {before} → {player.NowHP} ( +{recovered} 회복 )
+            """);
         }
-        public void FullHp()
+        public void Full(PotionType potionType)
         {
             Console.Clear();
-            Console.WriteLine("현재 HP가 최대입니다. 포션을 사용할 수 없습니다.");
+            Console.WriteLine($"현재 {potionType.ToString()}가 최대입니다. 포션을 사용할 수 없습니다.");
             Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
             Console.ReadLine();
         }
-        public void FullMp()
+        public void NoPotion(PotionType potionType)
         {
             Console.Clear();
-            Console.WriteLine("현재 MP가 최대입니다. 포션을 사용할 수 없습니다.");
-            Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
-            Console.ReadLine();
-        }
-        public void NoHpPotion()
-        {
-            Console.Clear();
-            Console.WriteLine("HP 포션이 없습니다.");
-            Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
-            Console.ReadLine();
-        }
-        public void NoMpPotion()
-        {
-            Console.Clear();
-            Console.WriteLine("MP 포션이 없습니다.");
+            Console.WriteLine($"{potionType.ToString()} 포션이 없습니다.");
             Console.WriteLine("포션 선택 화면으로 돌아가시려면 아무 키나 입력하세요.");
             Console.ReadLine();
         }
@@ -807,12 +760,8 @@ namespace Sparta_TextRPG
 
                2. 휴식하기
 
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
                """);
+            Exit();
 
         }
         public void ShowQuestList(List<Quest> available, List<Quest> locked, bool hasUnclaimedReward)
@@ -851,11 +800,8 @@ namespace Sparta_TextRPG
 
             {available.Count + 1}. 내 퀘스트 보기{notice}
 
-            0. 나가기
-
-            원하시는 행동을 입력해주세요.
-            >> 
             """);
+            Exit();
         }
         public void ShowQuestInfo(Quest quest)
         {
@@ -873,23 +819,16 @@ namespace Sparta_TextRPG
 
             1. 퀘스트 받기
 
-            0. 나가기
-
-            원하시는 행동을 입력해주세요.
-            >> 
             """);
+            Exit();
         }
         public void ShowAcceptingQuest(string questName)    // 퀘스트 수락 메시지
         {
             Console.Write($"""
                [{questName}] 퀘스트를 받았습니다. 
 
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
                """);
+            Exit();
         }
         public void ShowQuestCompleted(Quest quest)
         {
@@ -926,11 +865,8 @@ namespace Sparta_TextRPG
 
             1. 보상 받기 
 
-            0. 나가기
-
-            원하시는 행동을 입력해주세요. 
-            >> 
             """);
+            Exit();
         }
         public void ShowReceiveQuestRewards(Quest quest, int playerGold)
         {
@@ -947,14 +883,7 @@ namespace Sparta_TextRPG
                 }
                 Console.WriteLine(); // 줄 바꿈
             }
-
-            Console.Write($"""
-
-            0. 나가기
-
-            원하시는 행동을 입력해주세요. 
-            >> 
-            """);
+            Exit();
         }
         public void ShowViewAcceptedQuest(List<Quest> acceptedQuests, bool hasRewardableQuest)
         {
@@ -995,15 +924,8 @@ namespace Sparta_TextRPG
             {
                 Console.WriteLine("\n\n(알림 : [완료] 표시가 있는 퀘스트를 선택하여 보상을 받으세요)");
             }
-
-            Console.Write($"""
-
-            0. 나가기
-
-            원하시는 행동을 입력해주세요.
-            >> 
-            """);
-                }
+            Exit();
+        }
         public void ShowRest(Player player)
         {
             Console.Write($"""
@@ -1011,39 +933,39 @@ namespace Sparta_TextRPG
 
                1. 휴식하기
 
-               0. 나가기
-
-               원하시는 행동을 입력해주세요. 
-               >> 
                """);
+            Exit();
         }
         public void ShowRestSuccess(Player player)
         {
             Console.Write($"""
                [휴식 완료] 체력이 모두 회복되었습니다. (남은 골드 : {player.Gold} G)
 
-
-               0. 나가기
-
-               원하시는 행동을 입력해주세요.
-               >> 
                """);
+            Exit();
 
         }
         public void ShowRestFail()
         {
             Console.Write($"""
                [실패] 골드가 부족합니다.
+               """);
+            Exit();
+        }
+        public void ErrorMessage()
+        {
+            Console.WriteLine("잘못된 입력입니다 ");
+            Exit();
+        }
+        public void Exit()
+        {
+            Console.Write($"""
 
                0.나가기
 
                원하시는 행동을 입력해주세요.
                >> 
                """);
-        }
-        public void ErrorMessage()
-        {
-            Console.WriteLine("잘못된 입력입니다 ");
         }
     }
 

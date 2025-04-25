@@ -419,7 +419,6 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-
         public void StartSetClass()
         {
             Messages.Instance().ShowStartSetClass();
@@ -894,18 +893,18 @@ namespace Sparta_TextRPG
                 {
                     if (player.NowHP == player.MaxHP)
                     {
-                        Messages.Instance().FullHp();
+                        Messages.Instance().Full(hpPotion.PotionType);
                     }
                     else
                     {
                         int beforeHp = player.NowHP;
                         player.Inventory.usePotion(hpPotion, player);
-                        Messages.Instance().DrinkingHpPotion(Player, beforeHp);
+                        Messages.Instance().DrinkingPotion(Player, beforeHp, hpPotion.PotionType);
                     }
                 }
                 else
                 {
-                    Messages.Instance().NoHpPotion();
+                    Messages.Instance().NoPotion(hpPotion.PotionType);
                 }
             }
             else if (inputNum == 2)
@@ -916,20 +915,18 @@ namespace Sparta_TextRPG
                 {
                     if (player.NowMP == player.MaxMP)
                     {
-                        Messages.Instance().FullMp();
-
-
+                        Messages.Instance().Full(mpPotion.PotionType);
                     }
                     else
                     {
                         int beforeMp = player.NowMP;
                         player.Inventory.usePotion(mpPotion, player);
-                        Messages.Instance().DrinkingMpPotion(player, beforeMp);
+                        Messages.Instance().DrinkingPotion(player, beforeMp, mpPotion.PotionType);
                     }
                 }
                 else
                 {
-                    Messages.Instance().NoHpPotion();
+                    Messages.Instance().NoPotion(mpPotion.PotionType);
                 }
             }
         }
