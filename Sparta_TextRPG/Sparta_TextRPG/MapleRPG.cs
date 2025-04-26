@@ -25,8 +25,8 @@ namespace Sparta_TextRPG
         private Quest selectedQuestTemp;
         private int selectedQuestIndex = 0;
         public int floor = 0;
-        SceneName sceneName = new SceneName();        
-
+        SceneName sceneName = new SceneName();
+        SceneName beforSceneInventore = new SceneName();
         public string inputName;
         public ClassName inputClassName;
         public Skill? Skill;
@@ -390,7 +390,10 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum == 1) sceneName = SceneName.ShowStatus;
+            if (inputNum == 1) { 
+                sceneName = SceneName.ShowStatus;
+                beforSceneInventore = SceneName.MainScene;
+            }
             else if (inputNum == 2) sceneName = SceneName.ShowShop;
             else if (inputNum == 3) sceneName = SceneName.DungeonSelection;
             else if (inputNum == 4) sceneName = SceneName.NPC;
@@ -510,8 +513,7 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 0)
             {
-                sceneName = SceneName.MainScene;
-                if(false) sceneName = SceneName.DungeonSelection;
+                sceneName = beforSceneInventore;
             }
             else
             {
@@ -552,6 +554,7 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 0)
             {
+                beforSceneInventore = SceneName.ManageEquipment;
                 sceneName = SceneName.ShowInventory;
             }
 
@@ -668,6 +671,7 @@ namespace Sparta_TextRPG
                 }
                 else if (inputNum == Dungeons.Count + 1)
                 {
+                    beforSceneInventore = SceneName.DungeonSelection;
                     sceneName = SceneName.ShowStatus;
                 }
                 else if(inputNum == Dungeons.Count + 2)
@@ -683,8 +687,6 @@ namespace Sparta_TextRPG
         }
         public void BattleStart()
         {
-            Player.CoolDounSkill();
-
             Messages.Instance().ShowBattleStart(Dungeons[floor].monsters, Player);
             string str = Console.ReadLine();
             int num = int.Parse(str);
@@ -712,6 +714,7 @@ namespace Sparta_TextRPG
                     Messages.Instance().CoolTimeError();
                 }
             }
+            Player.CoolDounSkill();
 
         }
         public void BattleAttackPhase()// 던전에 이미 몬스터수가 정해짐
