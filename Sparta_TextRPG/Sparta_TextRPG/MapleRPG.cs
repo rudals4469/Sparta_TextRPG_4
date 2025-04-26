@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
+using Sparta_TextRPG.Utill;
 
 namespace Sparta_TextRPG
 {
@@ -45,7 +46,7 @@ namespace Sparta_TextRPG
                 while (true)
                 {
 
-                try {                    
+                try {
                     Console.Clear();//새로운 문구를 출력전 이전문구 삭제
                     Messages.Instance().ConsoleSPMS();
 
