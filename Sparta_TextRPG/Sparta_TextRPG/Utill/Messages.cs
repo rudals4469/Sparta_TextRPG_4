@@ -131,8 +131,8 @@ namespace Sparta_TextRPG
 
             Console.WriteLine("\n┌ [상태 보기]───────────────┐");
             Console.WriteLine($"│ Lv. {player.Level,22}│");
-            string print = $"{player.Name,26}";
-            for (int i = GetStringWidth(print); i < 25; i++)
+            string print = $"{player.Name,23}";
+            for (int i = GetStringWidth(print); i < 26; i++)
             {
                 print += " ";
             }
