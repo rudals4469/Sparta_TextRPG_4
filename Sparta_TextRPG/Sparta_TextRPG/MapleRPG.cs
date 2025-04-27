@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
 using Sparta_TextRPG.Utill;
+using NAudio.Wave;
 
 namespace Sparta_TextRPG
 {
@@ -40,10 +41,41 @@ namespace Sparta_TextRPG
             init();
         }
         //가장 메인으로 돌아가는 함수
+
+        private void Func()
+        {
+            string musicPath = "Bgm\\MapleBgm.mp3";
+            if (!File.Exists(musicPath))
+            {
+                Console.WriteLine("BGM 파일을 찾을 수 없습니다: " + musicPath);
+            }
+            var waitHandle = new System.Threading.AutoResetEvent(false);
+
+            using (var audioFile = new AudioFileReader(musicPath))
+            using (var outputDevice = new WaveOutEvent())
+            {
+                outputDevice.Init(audioFile);
+                outputDevice.PlaybackStopped += (s, e) =>
+                {
+                    audioFile.Position = 0;
+                    waitHandle.Set();
+                };
+
+                outputDevice.Play();
+                waitHandle.WaitOne();
+
+                while (true)
+                {
+                    Thread.Sleep(1000);
+                }
+            }
+        }
         public void Program()
         {
             sceneName = SceneName.StartSetName;
             Imgs.Instance().Onewin();
+            Thread myThread = new Thread(Func);
+            bool thredStart = true;
             while (true)
             {
 
@@ -55,6 +87,11 @@ namespace Sparta_TextRPG
                     switch (sceneName)
                     {
                         case SceneName.MainScene:
+                            if (thredStart)
+                            {
+                                myThread.Start();
+                                thredStart = false;
+                            }
                             MainScene();
                             break;
                         case SceneName.StartSetName:
@@ -156,6 +193,7 @@ namespace Sparta_TextRPG
 
             }
 
+            myThread.Abort();
         }
         public void init()
         {

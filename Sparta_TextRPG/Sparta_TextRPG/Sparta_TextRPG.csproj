@@ -12,6 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Bgm\MapleBgm.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Bgm\NewNexonLogin.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
