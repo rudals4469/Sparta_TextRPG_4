@@ -43,7 +43,8 @@ namespace Sparta_TextRPG
         public void Program()
         {
             sceneName = SceneName.StartSetName;
-                while (true)
+            Imgs.Instance().Onewin();
+            while (true)
                 {
 
                 try {
