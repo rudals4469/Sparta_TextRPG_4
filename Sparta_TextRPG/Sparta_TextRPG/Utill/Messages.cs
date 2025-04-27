@@ -69,8 +69,7 @@ namespace Sparta_TextRPG
                 """);
         }
         public void ShowStartSetName()
-        {
-            Imgs.Instance().Onewin();
+        {            
             Console.Write($"""
                 ┌─────────────────────────────────────┐
                 │                                     │

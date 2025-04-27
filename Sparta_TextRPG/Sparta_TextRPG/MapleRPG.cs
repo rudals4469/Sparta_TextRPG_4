@@ -34,7 +34,7 @@ namespace Sparta_TextRPG
         public Monster TargetMonster;
         public Dictionary<string, Skill> AllSkill = new Dictionary<string, Skill>();
         public List<Item> dorps;
-        
+
         public MapleRPG()
         {
             init();
@@ -43,10 +43,12 @@ namespace Sparta_TextRPG
         public void Program()
         {
             sceneName = SceneName.StartSetName;
-                while (true)
-                {
+            Imgs.Instance().Onewin();
+            while (true)
+            {
 
-                try {
+                try
+                {
                     Console.Clear();//새로운 문구를 출력전 이전문구 삭제
                     Messages.Instance().ConsoleSPMS();
 
@@ -197,7 +199,7 @@ namespace Sparta_TextRPG
             // 메이플 아이템들
             // 엘릭서 , hp , mp
 
-             
+
 
             //Armor(string name, string text, int price, ItemType type,int armorPoint , bool isEquipped)
             Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구    ", 10000, ItemType.Armor, 5);
@@ -208,7 +210,7 @@ namespace Sparta_TextRPG
             // Armor 퀘스트 보상 전용 아이템
             Armor orangeMushroomHat = new Armor("OrangeMushroomHat", "주황버섯 모자", 300, ItemType.Armor, 1);
             Armor ironHogSteelArmor = new Armor("IronHogSteelArmor", "아이언호그 강철 갑옷", 1000, ItemType.Armor, 3);
-            
+
             //Weapon(string name, string text, int price, ItemType type, int attackPoint, bool isEquipped)
             //Absolute Labs
             Weapon WoodSword = new Weapon("WoodSword", "나무 검", 500, ItemType.Weapon, 2);
@@ -238,8 +240,8 @@ namespace Sparta_TextRPG
 
 
             //Potion(string name, string text, int price, ItemType type, int HealPoint)
-            Potion HP = new Potion("HP", "체력회복 포션  ", 500, PotionType.HP, 100,ItemType.Potion);
-            Potion MP = new Potion("MP", "마나회복 포션  ", 500, PotionType.MP, 100,ItemType.Potion);
+            Potion HP = new Potion("HP", "체력회복 포션  ", 500, PotionType.HP, 100, ItemType.Potion);
+            Potion MP = new Potion("MP", "마나회복 포션  ", 500, PotionType.MP, 100, ItemType.Potion);
             Potion Alixir = new Potion("Alixir", "엘릭서         ", 1000, PotionType.Alixir, 500, ItemType.Potion);
 
             Shop.Inventory.Add(nomok);
@@ -274,7 +276,7 @@ namespace Sparta_TextRPG
             monsters.Add(new Monster(2, 8, 12, 10, 6, 1, 100, MonsterSkillset, 10, MonsterName.슬라임, MonsterDorpItems));
             monsters.Add(new Monster(2, 8, 8, 10, 6, 1, 100, MonsterSkillset, 20, MonsterName.옥토퍼스, MonsterDorpItems));
             monsters.Add(new Monster(3, 10, 15, 10, 10, 2, 200, MonsterSkillset, 10, MonsterName.리본돼지, MonsterDorpItems));
-            monsters.Add(new Monster(4, 12, 17,  10, 10, 2, 200, MonsterSkillset, 10, MonsterName.주황버섯, MonsterDorpItems));
+            monsters.Add(new Monster(4, 12, 17, 10, 10, 2, 200, MonsterSkillset, 10, MonsterName.주황버섯, MonsterDorpItems));
             monsters.Add(new Monster(4, 12, 12, 10, 10, 2, 200, MonsterSkillset, 20, MonsterName.페어리, MonsterDorpItems));
             monsters.Add(new Monster(5, 15, 20, 10, 12, 2, 200, MonsterSkillset, 10, MonsterName.예티, MonsterDorpItems));
             monsters.Add(new Monster(5, 15, 20, 10, 12, 2, 200, MonsterSkillset, 10, MonsterName.페페, MonsterDorpItems));
@@ -391,7 +393,8 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum == 1) { 
+            if (inputNum == 1)
+            {
                 sceneName = SceneName.ShowStatus;
                 beforSceneInventore = SceneName.MainScene;
             }
@@ -548,10 +551,10 @@ namespace Sparta_TextRPG
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
-            if(inputNum <= player.Inventory.Count() && inputNum > 0)
+            if (inputNum <= player.Inventory.Count() && inputNum > 0)
             {
                 //장착 매커니즘
-                player.Equiped(player.Inventory.GetItemByIndex(inputNum-1),player);
+                player.Equiped(player.Inventory.GetItemByIndex(inputNum - 1), player);
             }
             else if (inputNum == 0)
             {
@@ -566,7 +569,7 @@ namespace Sparta_TextRPG
         }
         public void ShowShop()
         {
-            Messages.Instance().ShowShop(Player,Shop);
+            Messages.Instance().ShowShop(Player, Shop);
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
@@ -595,9 +598,9 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if(inputNum <= Shop.Inventory.Count() && inputNum > 0)
+            if (inputNum <= Shop.Inventory.Count() && inputNum > 0)
             {
-                if(Shop.SellItem(Player, inputNum-1))
+                if (Shop.SellItem(Player, inputNum - 1))
                 {
                     sceneName = SceneName.BuyItem;
                 }
@@ -609,7 +612,7 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 0)
             {
-                sceneName= SceneName.ShowShop;
+                sceneName = SceneName.ShowShop;
             }
             else
             {
@@ -625,7 +628,7 @@ namespace Sparta_TextRPG
 
             if (inputNum <= Player.Inventory.Count() && inputNum > 0)
             {
-                Shop.BuyItem(Player, inputNum-1);
+                Shop.BuyItem(Player, inputNum - 1);
             }
             else if (inputNum == 0)
             {
@@ -644,7 +647,7 @@ namespace Sparta_TextRPG
             int inputNum = int.Parse(input);
 
             sceneName = SceneName.BuyItem;
-            
+
         }
         public void LevelUp()
         {
@@ -658,13 +661,13 @@ namespace Sparta_TextRPG
             string str = Console.ReadLine();
             int inputNum;
 
-            if(int.TryParse(str , out inputNum))
+            if (int.TryParse(str, out inputNum))
             {
-                if(inputNum == 0)
+                if (inputNum == 0)
                 {
                     sceneName = SceneName.MainScene;
                 }
-                else if(inputNum < Dungeons.Count+1)
+                else if (inputNum < Dungeons.Count + 1)
                 {
                     floor = inputNum - 1;
                     Dungeons[floor].DungeonReset();
@@ -675,7 +678,7 @@ namespace Sparta_TextRPG
                     beforSceneInventore = SceneName.DungeonSelection;
                     sceneName = SceneName.ShowStatus;
                 }
-                else if(inputNum == Dungeons.Count + 2)
+                else if (inputNum == Dungeons.Count + 2)
                 {
                     sceneName = SceneName.DrinkingPotion;
                     //여기서 표션 사용
@@ -728,16 +731,16 @@ namespace Sparta_TextRPG
             {
                 sceneName = SceneName.BattleStart;
             }
-            else if (inputNum <= Dungeons[floor].monsters.Count + 1) 
+            else if (inputNum <= Dungeons[floor].monsters.Count + 1)
             {
                 TargetMonster = Dungeons[floor].monsters[inputNum - 1];
-                if(!TargetMonster.IsDead) sceneName = SceneName.BattleAttackMonster;
+                if (!TargetMonster.IsDead) sceneName = SceneName.BattleAttackMonster;
             }
             else
             {
                 Messages.Instance().ErrorMessage();
             }
-           
+
         }
         public void BattleAttackMonster()
         {
@@ -787,7 +790,7 @@ namespace Sparta_TextRPG
                 if (Dungeons[floor].monsters[i].IsDead == false)
                 {
                     int PlayerBeforHP = Player.NowHP;
-                    Messages.Instance().ShowBattleMonsterHitPhase(Dungeons[floor].monsters[i], PlayerBeforHP, Player, Player.Hit(monsters[i].SkillList[0], monsters[i].AttackPoint));                   
+                    Messages.Instance().ShowBattleMonsterHitPhase(Dungeons[floor].monsters[i], PlayerBeforHP, Player, Player.Hit(monsters[i].SkillList[0], monsters[i].AttackPoint));
                 }
             }
             Messages.Instance().ShowBattleMonsterEndPhase();
@@ -802,7 +805,7 @@ namespace Sparta_TextRPG
             ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
 
 
-            if (consoleKeyInfo!=null) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
+            if (consoleKeyInfo != null) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
             {
                 sceneName = SceneName.BattleStart;
             }
@@ -815,13 +818,13 @@ namespace Sparta_TextRPG
         }
         public void BattlePlayerWin()
         {
-            Messages.Instance().ShowBattlePlayerWin(Dungeons[floor].monsters, Player.NowHP, Player , dorps);
+            Messages.Instance().ShowBattlePlayerWin(Dungeons[floor].monsters, Player.NowHP, Player, dorps);
 
             foreach (var monster in Dungeons[floor].monsters)
             {
                 //Player.AddExp(monster.Exp);
 
-                if(Player.AddExp(monster.Exp))
+                if (Player.AddExp(monster.Exp))
                 {
                     // 업했으면 씬을 레벨업 씬으로 이동
                     //sceneName = SceneName.LevelUp;
@@ -895,7 +898,7 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 1)
             {
-                
+
                 Potion hpPotion = player.Inventory.Potions.Find(p => p.PotionType == PotionType.HP);
 
                 if (hpPotion != null)
@@ -1060,7 +1063,7 @@ namespace Sparta_TextRPG
             else
             {
                 Messages.Instance().ErrorMessage();
-                sceneName = SceneName.QuestList; 
+                sceneName = SceneName.QuestList;
             }
         }
 
@@ -1161,7 +1164,7 @@ namespace Sparta_TextRPG
                 {
                     sceneName = SceneName.RestFail; // 휴식 실패
                 }
-            }                                                                   
+            }
             else
             {
                 Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
