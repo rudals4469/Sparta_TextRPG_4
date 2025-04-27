@@ -526,19 +526,6 @@ namespace Sparta_TextRPG
         {
             Console.WriteLine("[실패] 골드가 부족합니다. 아무 숫자를 눌러 상점으로 돌아가세요.");
         }
-        public void LevelUp(Player player)
-        {
-            Console.WriteLine("[Level Up]");
-            Console.WriteLine();
-            Console.WriteLine($"Lv. {player.Level}");
-            Console.WriteLine($"{player.Name} ({player.Class})");
-            Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
-            Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
-            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");
-            Console.WriteLine($"{"경험치",-5}: {player.Exp} / {player.MaxExp}");
-            Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
-            Console.WriteLine();
-        }
         public void ShowDungoun(List<Dungeon> dungouns)
         {
             Console.Write($"""
@@ -813,7 +800,7 @@ namespace Sparta_TextRPG
         {
             Console.Write(
                $"""
-               Battle!!
+               ┌──[Battle!!]────────────────────────────────────┐              
 
                """);
         }
@@ -821,30 +808,72 @@ namespace Sparta_TextRPG
         {
             if (Damage > 0)
             {
-                Console.WriteLine(
-              $"""
-               Lv. {monster.Level} {monster.MonsterName.ToString()} 의 공격!
-               {player.Name} 을(를) 맞췄습니다.  [데미지 : {Damage}]
+                string print = "";
 
-               Lv.{player.Level} {player.Name}
-               HP {beforHp} -> {player.NowHP};
+                string print2 = "";
 
-               """);
+                print = $"│ Lv. {monster.Level} {monster.MonsterName.ToString()} 의 공격!";
+                print2 = $"│{player.Name} 을(를) 맞췄습니다.  [데미지 : {Damage}]";
+                for (int i = GetStringWidth(print); i < 50; i++)
+                {
+                    print += " ";
+                }
+                for (int i = GetStringWidth(print2); i < 50; i++)
+                {
+                    print2 += " ";
+                }
+                Console.WriteLine($"{print}│");
+                Console.WriteLine($"{print2}│");
+
+
+                string print3 = $"│ Lv.{player.Level} {player.Name} ";
+                if (player.IsDead)
+                {
+                    print3 += $"HP {beforHp} -> Dead";
+                }
+                else
+                {
+                    print3 += $"HP {beforHp} -> {beforHp - Damage}";
+                }
+                for (int i = GetStringWidth(print3); i < 50; i++)
+                {
+                    print3 += " ";
+                }
+                Console.WriteLine($"{print3}│");
+
             }
             else
             {
                 Random random = new Random();
                 int n = random.Next(0, 100);
-                if(n % 5 == 0) Console.WriteLine($"{player.Name}이(가) {monster.Name}님의 공격을 \"훗\" 하고 피함");
+                string print = "";
+
+                if (n % 2 == 0)
+                {
+                    print += $"│ {player.Name}님이 {monster.Name}의 공격을 \"훗\" 하고 피함";
+                }
                 else
                 {
-                    Console.WriteLine($"{player.Name}가 슉 슈슉 슉 ");
-                    Console.WriteLine($"{monster.Name}의 공격이 빘나갔습니다");
+                    print += $"│ {player.Name}님이 {monster.Name}의 공격을 슉 슈슉 슉하고 피함";
+                }//회피 문구 추가하기
+
+                for (int i = GetStringWidth(print); i < 50; i++)
+                {
+                    print += " ";
                 }
+                Console.WriteLine($"{print}│");
+
             }
+
+
         }
         public void ShowBattleMonsterEndPhase()
         {
+            Console.WriteLine(
+                """                
+                └────────────────────────────────────────────────┘                    
+                """);
+
             Console.Write(
               $"""
                0. 전투 시작화면으로  
@@ -877,6 +906,19 @@ namespace Sparta_TextRPG
                 Console.Write($"{item.Text}");
             }
 
+        }
+        public void LevelUp(Player player)
+        {
+            Console.WriteLine("[Level Up]");
+            Console.WriteLine();
+            Console.WriteLine($"Lv. {player.Level}");
+            Console.WriteLine($"{player.Name} ({player.Class})");
+            Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
+            Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
+            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");
+            Console.WriteLine($"{"경험치",-5}: {player.Exp} / {player.MaxExp}");
+            Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
+            Console.WriteLine();
         }
         public void ShowBattlePlayerWinLest()
         {
