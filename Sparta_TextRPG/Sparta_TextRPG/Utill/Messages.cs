@@ -69,8 +69,7 @@ namespace Sparta_TextRPG
                 """);
         }
         public void ShowStartSetName()
-        {
-            Imgs.Instance().Onewin();
+        {            
             Console.Write($"""
                 ┌─────────────────────────────────────┐
                 │                                     │
@@ -132,20 +131,29 @@ namespace Sparta_TextRPG
 
             Console.WriteLine("\n┌ [상태 보기]───────────────┐");
             Console.WriteLine($"│ Lv. {player.Level,22}│");
-            string print = $"{player.Name,26}";
-            for (int i = GetStringWidth(print); i < 25; i++)
+
+            string text = $"{player.Name}";
+            string print = "";
+            for (int i = 0; i < 26 - GetStringWidth(text); i++)
             {
                 print += " ";
             }
+            print += text;
             Console.WriteLine($"│ {print}│");
             Console.WriteLine($"│ {"직  업"}:  {player.Class,15}│");
             Console.WriteLine($"│ {"공격력"}: {player.AttackPoint,18}│");
             Console.WriteLine($"│ {"방어력"}: {player.ArmorPoint,18}│");
-            print = $"{"체  력"}: {player.NowHP,12} / {player.MaxHP,2}";
-            for (int i = GetStringWidth(print); i < 25; i++)
+
+            text = $"{"체  력"}: ";
+            string text2 = $"{player.NowHP} / {player.MaxHP}";
+            print = "";
+            print += text; 
+            for (int i = GetStringWidth(text); i < 26- GetStringWidth(text2); i++)
             {
                 print += " ";
             }
+            print += text2;
+
             Console.WriteLine($"│ {print}│");
             Console.WriteLine($"│ {"경험치"}: {player.Exp,13} / {player.MaxExp}│");
             Console.WriteLine($"│ {"Gold"}: {player.Gold,15} Meso│");
@@ -153,19 +161,53 @@ namespace Sparta_TextRPG
 
 
             Console.WriteLine("\n┌ [인벤토리]───────────────────┐");
-            Console.Write($"│ - {"무기",-4} :");
-            if (player.Weapon != null)
-                Console.WriteLine($" {player.Weapon.Name,18}│"); // 무기 장착 칸
-            else Console.WriteLine($" {"",-10}        │");
-            Console.Write($"│ - {"방어구",-3} :");
-            if (player.Armor != null)
-                Console.WriteLine($" {player.Armor.Name,18}│");   // 방어구 장착 칸
-            else Console.WriteLine($" {"",-10}        │");
-            Console.Write($"│ - {"방패",-4} :");
-            if (player.Shield != null)
-                Console.WriteLine($" {player.Shield.Name,18}│");   // 방패 장착 칸
-            else Console.WriteLine($" {"",-10}        │");
+            text = $" - {"무기",-4} :";
 
+            if (player.Weapon != null) text2 = $" {player.Weapon.Text}";
+            else text2 = "";
+
+            print = "";
+            print += text;
+            print += text2;
+            for (int i = GetStringWidth(text); i < 30 - GetStringWidth(text2); i++)
+            {
+                print += " ";
+            }
+                    
+
+            Console.WriteLine($"│{print}│");
+
+            text = $" - {"방어구",-3} :";
+
+            if (player.Armor != null) text2 = $" {player.Armor.Text}";
+            else text2 = "";
+
+            print = "";
+            print += text;
+            print += text2;
+            for (int i = GetStringWidth(text); i < 30 - GetStringWidth(text2); i++)
+            {
+                print += " ";
+            }
+
+
+            Console.WriteLine($"│{print}│");
+
+            text = $" - {"방패",-4} :";
+
+            if (player.Shield != null) text2 = $" {player.Shield.Text}";
+            else text2 = "";
+
+            print = "";
+            print += text;
+            print += text2;
+            for (int i = GetStringWidth(text); i < 30 - GetStringWidth(text2); i++)
+            {
+                print += " ";
+            }
+
+
+            Console.WriteLine($"│{print}│");
             Console.WriteLine("└──────────────────────────────┘");
 
             Console.WriteLine("\n1. 인벤토리 보기");
@@ -500,7 +542,8 @@ namespace Sparta_TextRPG
 
             //foreach (var potion in potions)
             //{
-            //    Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
+            //    Console.WriteLine($"- {Count,-2} {potion.Text} |
+            //    {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
             //    Count++;
             //}
             var potionssearch = player.Inventory.Potions.OrderBy(p => p.PotionType);
@@ -525,19 +568,6 @@ namespace Sparta_TextRPG
         public void NotEnoughMoney()
         {
             Console.WriteLine("[실패] 골드가 부족합니다. 아무 숫자를 눌러 상점으로 돌아가세요.");
-        }
-        public void LevelUp(Player player)
-        {
-            Console.WriteLine("[Level Up]");
-            Console.WriteLine();
-            Console.WriteLine($"Lv. {player.Level}");
-            Console.WriteLine($"{player.Name} ({player.Class})");
-            Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
-            Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
-            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");
-            Console.WriteLine($"{"경험치",-5}: {player.Exp} / {player.MaxExp}");
-            Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
-            Console.WriteLine();
         }
         public void ShowDungoun(List<Dungeon> dungouns)
         {
@@ -813,7 +843,7 @@ namespace Sparta_TextRPG
         {
             Console.Write(
                $"""
-               Battle!!
+               ┌──[Battle!!]────────────────────────────────────┐              
 
                """);
         }
@@ -821,30 +851,72 @@ namespace Sparta_TextRPG
         {
             if (Damage > 0)
             {
-                Console.WriteLine(
-              $"""
-               Lv. {monster.Level} {monster.MonsterName.ToString()} 의 공격!
-               {player.Name} 을(를) 맞췄습니다.  [데미지 : {Damage}]
+                string print = "";
 
-               Lv.{player.Level} {player.Name}
-               HP {beforHp} -> {player.NowHP};
+                string print2 = "";
 
-               """);
+                print = $"│ Lv. {monster.Level} {monster.MonsterName.ToString()} 의 공격!";
+                print2 = $"│{player.Name} 을(를) 맞췄습니다.  [데미지 : {Damage}]";
+                for (int i = GetStringWidth(print); i < 50; i++)
+                {
+                    print += " ";
+                }
+                for (int i = GetStringWidth(print2); i < 50; i++)
+                {
+                    print2 += " ";
+                }
+                Console.WriteLine($"{print}│");
+                Console.WriteLine($"{print2}│");
+
+
+                string print3 = $"│ Lv.{player.Level} {player.Name} ";
+                if (player.IsDead)
+                {
+                    print3 += $"HP {beforHp} -> Dead";
+                }
+                else
+                {
+                    print3 += $"HP {beforHp} -> {beforHp - Damage}";
+                }
+                for (int i = GetStringWidth(print3); i < 50; i++)
+                {
+                    print3 += " ";
+                }
+                Console.WriteLine($"{print3}│");
+
             }
             else
             {
                 Random random = new Random();
                 int n = random.Next(0, 100);
-                if(n % 5 == 0) Console.WriteLine($"{player.Name}이(가) {monster.Name}님의 공격을 \"훗\" 하고 피함");
+                string print = "";
+
+                if (n % 2 == 0)
+                {
+                    print += $"│ {player.Name}님이 {monster.Name}의 공격을 \"훗\" 하고 피함";
+                }
                 else
                 {
-                    Console.WriteLine($"{player.Name}가 슉 슈슉 슉 ");
-                    Console.WriteLine($"{monster.Name}의 공격이 빘나갔습니다");
+                    print += $"│ {player.Name}님이 {monster.Name}의 공격을 슉 슈슉 슉하고 피함";
+                }//회피 문구 추가하기
+
+                for (int i = GetStringWidth(print); i < 50; i++)
+                {
+                    print += " ";
                 }
+                Console.WriteLine($"{print}│");
+
             }
+
+
         }
         public void ShowBattleMonsterEndPhase()
         {
+            Console.WriteLine(
+                """                
+                └────────────────────────────────────────────────┘                    
+                """);
+
             Console.Write(
               $"""
                0. 전투 시작화면으로  
@@ -877,6 +949,19 @@ namespace Sparta_TextRPG
                 Console.Write($"{item.Text}");
             }
 
+        }
+        public void LevelUp(Player player)
+        {
+            Console.WriteLine("[Level Up]");
+            Console.WriteLine();
+            Console.WriteLine($"Lv. {player.Level}");
+            Console.WriteLine($"{player.Name} ({player.Class})");
+            Console.WriteLine($"{"공격력",-5}: {player.AttackPoint}");
+            Console.WriteLine($"{"방어력",-5}: {player.ArmorPoint}");
+            Console.WriteLine($"{"체  력",-6}: {player.NowHP} / {player.MaxHP}");
+            Console.WriteLine($"{"경험치",-5}: {player.Exp} / {player.MaxExp}");
+            Console.WriteLine($"{"Gold",-8}: {player.Gold} Meso");
+            Console.WriteLine();
         }
         public void ShowBattlePlayerWinLest()
         {
