@@ -57,7 +57,7 @@ namespace Sparta_TextRPG
 
         private void Func()
         {
-            string musicPath = "Bgm\\MapleBgm.mp3";
+            string musicPath = "Bgm\\RealNewMapleBgm.mp3";
             if (!File.Exists(musicPath))
             {
                 Console.WriteLine("BGM 파일을 찾을 수 없습니다: " + musicPath);
