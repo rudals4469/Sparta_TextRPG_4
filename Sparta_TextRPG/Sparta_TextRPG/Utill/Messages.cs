@@ -500,7 +500,8 @@ namespace Sparta_TextRPG
 
             //foreach (var potion in potions)
             //{
-            //    Console.WriteLine($"- {Count,-2} {potion.Text} | {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
+            //    Console.WriteLine($"- {Count,-2} {potion.Text} |
+            //    {potion.Price,-5} Meso | {potion.HealPoint} 회복 ");
             //    Count++;
             //}
             var potionssearch = player.Inventory.Potions.OrderBy(p => p.PotionType);
