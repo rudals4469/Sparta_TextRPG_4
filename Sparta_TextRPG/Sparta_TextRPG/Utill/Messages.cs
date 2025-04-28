@@ -161,30 +161,53 @@ namespace Sparta_TextRPG
 
 
             Console.WriteLine("\n┌ [인벤토리]───────────────────┐");
-            print = "";
             text = $" - {"무기",-4} :";
 
-            for (int i = GetStringWidth(text) ; i < 10 ; i++)
+            if (player.Weapon != null) text2 = $" {player.Weapon.Text}";
+            else text2 = "";
+
+            print = "";
+            print += text;
+            print += text2;
+            for (int i = GetStringWidth(text); i < 30 - GetStringWidth(text2); i++)
             {
-                text += " ";
+                print += " ";
             }
-            
-            if (player.Weapon != null) text += $" {player.Weapon.Text}";
-            else text += $" {"",-10}        ";
-            Console.WriteLine($"│{text}│");
+                    
+
+            Console.WriteLine($"│{print}│");
+
+            text = $" - {"방어구",-3} :";
+
+            if (player.Armor != null) text2 = $" {player.Armor.Text}";
+            else text2 = "";
+
+            print = "";
+            print += text;
+            print += text2;
+            for (int i = GetStringWidth(text); i < 30 - GetStringWidth(text2); i++)
+            {
+                print += " ";
+            }
 
 
+            Console.WriteLine($"│{print}│");
 
-            Console.Write($"│ - {"방어구",-3} :");
-            if (player.Armor != null)
-                Console.WriteLine($" {player.Armor.Text}│");   // 방어구 장착 칸
-            else Console.WriteLine($" {"",-10}        │");
+            text = $" - {"방패",-4} :";
 
-            Console.Write($"│ - {"방패",-4} :");
-            if (player.Shield != null)
-                Console.WriteLine($" {player.Shield.Text}│");   // 방패 장착 칸
-            else Console.WriteLine($" {"",-10}        │");
+            if (player.Shield != null) text2 = $" {player.Shield.Text}";
+            else text2 = "";
 
+            print = "";
+            print += text;
+            print += text2;
+            for (int i = GetStringWidth(text); i < 30 - GetStringWidth(text2); i++)
+            {
+                print += " ";
+            }
+
+
+            Console.WriteLine($"│{print}│");
             Console.WriteLine("└──────────────────────────────┘");
 
             Console.WriteLine("\n1. 인벤토리 보기");
@@ -210,27 +233,30 @@ namespace Sparta_TextRPG
                 foreach (var weapon in player.Inventory.Weapon)
                 {
                     string prefix = weapon.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"│ - {prefix}{weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint,-21}│");
+                    Console.WriteLine($"- {prefix}{weapon.Text} | {weapon.Price,-5} Meso | 공격력 + {weapon.AttackPoint} ");
                 }
                 Console.WriteLine("├────────────────────────────────────────────────────────────────────┤");
                 Console.WriteLine("│ [방어구]                                                           │\n│                                                                    │");
 
+                Console.WriteLine("\n[방어구]\n");
                 foreach (var armor in player.Inventory.Armors)
                 {
                     string prefix = armor.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"│ - {prefix}{armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint,-21}│");
+                    Console.WriteLine($"- {prefix}{armor.Text} | {armor.Price,-5} Meso | 방어력 + {armor.ArmorPoint}");
                 }
                 Console.WriteLine("├────────────────────────────────────────────────────────────────────┤");
                 Console.WriteLine("│ [방패]                                                             │\n│                                                                    │");
 
+                Console.WriteLine("\n[방패]\n");
                 foreach (var shield in player.Inventory.Shild)
                 {
                     string prefix = shield.IsEquipped ? "[E] " : "[ ] ";
-                    Console.WriteLine($"│ - {prefix}{shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint,-10}│");
+                    Console.WriteLine($"- {prefix}{shield.Text} | {shield.Price,-5} Meso | 공격력 + {shield.ArmorPoint} 방어력 + {shield.AttackPoint}");
                 }
                 Console.WriteLine("├────────────────────────────────────────────────────────────────────┤");
                 Console.WriteLine("│ [포션]                                                             │\n│                                                                    │");
 
+                Console.WriteLine("\n[포션]\n");
 
                 var potions = from potion in player.Inventory.Potions
                               orderby potion.Name ascending
@@ -245,7 +271,7 @@ namespace Sparta_TextRPG
                               };
                 foreach (var potion in potions)
                 {
-                    Console.WriteLine($"│ -  {potion.Name,-18} | {potion.Text} | x{potion.Count,-24}│");
+                    Console.WriteLine($"-  {potion.Name,-18} | {potion.Text} | x{potion.Count}");
                 }
 
             }
