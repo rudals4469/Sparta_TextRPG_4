@@ -10,6 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
+using Sparta_TextRPG.Utill;
+using NAudio.Wave;
 
 namespace Sparta_TextRPG
 {
@@ -25,33 +27,71 @@ namespace Sparta_TextRPG
         private Quest selectedQuestTemp;
         private int selectedQuestIndex = 0;
         public int floor = 0;
-        SceneName sceneName = new SceneName();        
-
+        SceneName sceneName = new SceneName();
+        SceneName beforSceneInventore = new SceneName();
         public string inputName;
         public ClassName inputClassName;
         public Skill? Skill;
         public Monster TargetMonster;
         public Dictionary<string, Skill> AllSkill = new Dictionary<string, Skill>();
         public List<Item> dorps;
-        
+
         public MapleRPG()
         {
             init();
         }
         //가장 메인으로 돌아가는 함수
+
+        private void Func()
+        {
+            string musicPath = "Bgm\\MapleBgm.mp3";
+            if (!File.Exists(musicPath))
+            {
+                Console.WriteLine("BGM 파일을 찾을 수 없습니다: " + musicPath);
+            }
+            var waitHandle = new System.Threading.AutoResetEvent(false);
+
+            using (var audioFile = new AudioFileReader(musicPath))
+            using (var outputDevice = new WaveOutEvent())
+            {
+                outputDevice.Init(audioFile);
+                outputDevice.PlaybackStopped += (s, e) =>
+                {
+                    audioFile.Position = 0;
+                    waitHandle.Set();
+                };
+
+                outputDevice.Play();
+                waitHandle.WaitOne();
+
+                while (true)
+                {
+                    Thread.Sleep(1000);
+                }
+            }
+        }
         public void Program()
         {
             sceneName = SceneName.StartSetName;
-                while (true)
-                {
+            Imgs.Instance().Onewin();
+            Thread myThread = new Thread(Func);
+            bool thredStart = true;
+            while (true)
+            {
 
-                try {                    
+                try
+                {
                     Console.Clear();//새로운 문구를 출력전 이전문구 삭제
                     Messages.Instance().ConsoleSPMS();
 
                     switch (sceneName)
                     {
                         case SceneName.MainScene:
+                            if (thredStart)
+                            {
+                                myThread.Start();
+                                thredStart = false;
+                            }
                             MainScene();
                             break;
                         case SceneName.StartSetName:
@@ -153,6 +193,7 @@ namespace Sparta_TextRPG
 
             }
 
+            myThread.Abort();
         }
         public void init()
         {
@@ -196,7 +237,7 @@ namespace Sparta_TextRPG
             // 메이플 아이템들
             // 엘릭서 , hp , mp
 
-             
+
 
             //Armor(string name, string text, int price, ItemType type,int armorPoint , bool isEquipped)
             Armor zakumHelmet = new Armor("ZakumHelmet", "자쿰의 투구    ", 10000, ItemType.Armor, 5);
@@ -207,7 +248,7 @@ namespace Sparta_TextRPG
             // Armor 퀘스트 보상 전용 아이템
             Armor orangeMushroomHat = new Armor("OrangeMushroomHat", "주황버섯 모자", 300, ItemType.Armor, 1);
             Armor ironHogSteelArmor = new Armor("IronHogSteelArmor", "아이언호그 강철 갑옷", 1000, ItemType.Armor, 3);
-            
+
             //Weapon(string name, string text, int price, ItemType type, int attackPoint, bool isEquipped)
             //Absolute Labs
             Weapon WoodSword = new Weapon("WoodSword", "나무 검", 500, ItemType.Weapon, 2);
@@ -229,7 +270,7 @@ namespace Sparta_TextRPG
             Weapon Absoluteknuckles = new Weapon("Absoluteknuckles", "앱솔루트 너클  ", 5000, ItemType.Weapon, 8);
 
             // Weapon 퀘스트 보상 전용 아이템
-            Weapon DrakeKnife = new Weapon("DrakeKnife", "드레이크의 송곳니 칼    ", 800, ItemType.Weapon, 4);
+            Weapon DrakeKnife = new Weapon("DrakeKnife", "드레이크 송곳니 칼    ", 800, ItemType.Weapon, 4);
 
             // Shiled(string name, string text, int price, ItemType type, int attackPoint, int armorPoint, bool isEquipped)
             Shield potlid = new Shield("potlid", "냄비 뚜껑      ", 5000, ItemType.Shield, 8, 8);
@@ -237,8 +278,8 @@ namespace Sparta_TextRPG
 
 
             //Potion(string name, string text, int price, ItemType type, int HealPoint)
-            Potion HP = new Potion("HP", "체력회복 포션  ", 500, PotionType.HP, 100,ItemType.Potion);
-            Potion MP = new Potion("MP", "마나회복 포션  ", 500, PotionType.MP, 100,ItemType.Potion);
+            Potion HP = new Potion("HP", "체력회복 포션  ", 500, PotionType.HP, 100, ItemType.Potion);
+            Potion MP = new Potion("MP", "마나회복 포션  ", 500, PotionType.MP, 100, ItemType.Potion);
             Potion Alixir = new Potion("Alixir", "엘릭서         ", 1000, PotionType.Alixir, 500, ItemType.Potion);
 
             Shop.Inventory.Add(nomok);
@@ -273,7 +314,7 @@ namespace Sparta_TextRPG
             monsters.Add(new Monster(2, 8, 12, 10, 6, 1, 100, MonsterSkillset, 10, MonsterName.슬라임, MonsterDorpItems));
             monsters.Add(new Monster(2, 8, 8, 10, 6, 1, 100, MonsterSkillset, 20, MonsterName.옥토퍼스, MonsterDorpItems));
             monsters.Add(new Monster(3, 10, 15, 10, 10, 2, 200, MonsterSkillset, 10, MonsterName.리본돼지, MonsterDorpItems));
-            monsters.Add(new Monster(4, 12, 17,  10, 10, 2, 200, MonsterSkillset, 10, MonsterName.주황버섯, MonsterDorpItems));
+            monsters.Add(new Monster(4, 12, 17, 10, 10, 2, 200, MonsterSkillset, 10, MonsterName.주황버섯, MonsterDorpItems));
             monsters.Add(new Monster(4, 12, 12, 10, 10, 2, 200, MonsterSkillset, 20, MonsterName.페어리, MonsterDorpItems));
             monsters.Add(new Monster(5, 15, 20, 10, 12, 2, 200, MonsterSkillset, 10, MonsterName.예티, MonsterDorpItems));
             monsters.Add(new Monster(5, 15, 20, 10, 12, 2, 200, MonsterSkillset, 10, MonsterName.페페, MonsterDorpItems));
@@ -322,7 +363,7 @@ namespace Sparta_TextRPG
             {
                 new Quest(
                     "달팽이 처치하기",
-                    "시작할 때 받는 달팽이 사냥 퀘스트입니다.         │\n│  달팽이 3 마리를 처치하세요.                      │",
+                    "달팽이 3 마리를 처치하세요.",
                     new List<Item>(), // 아이템 보상
                     1000,             // 보상 골드
                     MonsterName.달팽이,    // 잡을 몬스터
@@ -364,7 +405,7 @@ namespace Sparta_TextRPG
                     7000,
                     MonsterName.드레이크,
                     2,
-                    7
+                    6
                 ),
                 new Quest(
                     "정체 불명의 비둘기 처치하기",
@@ -373,7 +414,7 @@ namespace Sparta_TextRPG
                     50000,
                     MonsterName.이름_모를_비둘기,
                     1,
-                    10
+                    9
                 )
             };
 
@@ -390,7 +431,11 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if (inputNum == 1) sceneName = SceneName.ShowStatus;
+            if (inputNum == 1)
+            {
+                sceneName = SceneName.ShowStatus;
+                beforSceneInventore = SceneName.MainScene;
+            }
             else if (inputNum == 2) sceneName = SceneName.ShowShop;
             else if (inputNum == 3) sceneName = SceneName.DungeonSelection;
             else if (inputNum == 4) sceneName = SceneName.NPC;
@@ -510,8 +555,7 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 0)
             {
-                sceneName = SceneName.MainScene;
-                if(false) sceneName = SceneName.DungeonSelection;
+                sceneName = beforSceneInventore;
             }
             else
             {
@@ -545,13 +589,14 @@ namespace Sparta_TextRPG
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
-            if(inputNum <= player.Inventory.Count() && inputNum > 0)
+            if (inputNum <= player.Inventory.Count() && inputNum > 0)
             {
                 //장착 매커니즘
-                player.Equiped(player.Inventory.GetItemByIndex(inputNum-1),player);
+                player.Equiped(player.Inventory.GetItemByIndex(inputNum - 1), player);
             }
             else if (inputNum == 0)
             {
+                beforSceneInventore = SceneName.ManageEquipment;
                 sceneName = SceneName.ShowInventory;
             }
 
@@ -562,7 +607,7 @@ namespace Sparta_TextRPG
         }
         public void ShowShop()
         {
-            Messages.Instance().ShowShop(Player,Shop);
+            Messages.Instance().ShowShop(Player, Shop);
 
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
@@ -591,9 +636,9 @@ namespace Sparta_TextRPG
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
-            if(inputNum <= Shop.Inventory.Count() && inputNum > 0)
+            if (inputNum <= Shop.Inventory.Count() && inputNum > 0)
             {
-                if(Shop.SellItem(Player, inputNum-1))
+                if (Shop.SellItem(Player, inputNum - 1))
                 {
                     sceneName = SceneName.BuyItem;
                 }
@@ -605,7 +650,7 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 0)
             {
-                sceneName= SceneName.ShowShop;
+                sceneName = SceneName.ShowShop;
             }
             else
             {
@@ -621,7 +666,7 @@ namespace Sparta_TextRPG
 
             if (inputNum <= Player.Inventory.Count() && inputNum > 0)
             {
-                Shop.BuyItem(Player, inputNum-1);
+                Shop.BuyItem(Player, inputNum - 1);
             }
             else if (inputNum == 0)
             {
@@ -640,7 +685,7 @@ namespace Sparta_TextRPG
             int inputNum = int.Parse(input);
 
             sceneName = SceneName.BuyItem;
-            
+
         }
         public void LevelUp()
         {
@@ -654,13 +699,13 @@ namespace Sparta_TextRPG
             string str = Console.ReadLine();
             int inputNum;
 
-            if(int.TryParse(str , out inputNum))
+            if (int.TryParse(str, out inputNum))
             {
-                if(inputNum == 0)
+                if (inputNum == 0)
                 {
                     sceneName = SceneName.MainScene;
                 }
-                else if(inputNum < Dungeons.Count+1)
+                else if (inputNum < Dungeons.Count + 1)
                 {
                     floor = inputNum - 1;
                     Dungeons[floor].DungeonReset();
@@ -668,9 +713,10 @@ namespace Sparta_TextRPG
                 }
                 else if (inputNum == Dungeons.Count + 1)
                 {
+                    beforSceneInventore = SceneName.DungeonSelection;
                     sceneName = SceneName.ShowStatus;
                 }
-                else if(inputNum == Dungeons.Count + 2)
+                else if (inputNum == Dungeons.Count + 2)
                 {
                     sceneName = SceneName.DrinkingPotion;
                     //여기서 표션 사용
@@ -683,8 +729,6 @@ namespace Sparta_TextRPG
         }
         public void BattleStart()
         {
-            Player.CoolDounSkill();
-
             Messages.Instance().ShowBattleStart(Dungeons[floor].monsters, Player);
             string str = Console.ReadLine();
             int num = int.Parse(str);
@@ -712,6 +756,7 @@ namespace Sparta_TextRPG
                     Messages.Instance().CoolTimeError();
                 }
             }
+            Player.CoolDounSkill();
 
         }
         public void BattleAttackPhase()// 던전에 이미 몬스터수가 정해짐
@@ -724,16 +769,16 @@ namespace Sparta_TextRPG
             {
                 sceneName = SceneName.BattleStart;
             }
-            else if (inputNum <= Dungeons[floor].monsters.Count + 1) 
+            else if (inputNum <= Dungeons[floor].monsters.Count + 1)
             {
                 TargetMonster = Dungeons[floor].monsters[inputNum - 1];
-                if(!TargetMonster.IsDead) sceneName = SceneName.BattleAttackMonster;
+                if (!TargetMonster.IsDead) sceneName = SceneName.BattleAttackMonster;
             }
             else
             {
                 Messages.Instance().ErrorMessage();
             }
-           
+
         }
         public void BattleAttackMonster()
         {
@@ -783,7 +828,7 @@ namespace Sparta_TextRPG
                 if (Dungeons[floor].monsters[i].IsDead == false)
                 {
                     int PlayerBeforHP = Player.NowHP;
-                    Messages.Instance().ShowBattleMonsterHitPhase(Dungeons[floor].monsters[i], PlayerBeforHP, Player, Player.Hit(monsters[i].SkillList[0], monsters[i].AttackPoint));                   
+                    Messages.Instance().ShowBattleMonsterHitPhase(Dungeons[floor].monsters[i], PlayerBeforHP, Player, Player.Hit(monsters[i].SkillList[0], monsters[i].AttackPoint));
                 }
             }
             Messages.Instance().ShowBattleMonsterEndPhase();
@@ -798,7 +843,7 @@ namespace Sparta_TextRPG
             ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
 
 
-            if (consoleKeyInfo!=null) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
+            if (consoleKeyInfo != null) // 반복문 종료 후 0 입력 시 다시 플레이어 공격 턴으로 이동
             {
                 sceneName = SceneName.BattleStart;
             }
@@ -811,13 +856,13 @@ namespace Sparta_TextRPG
         }
         public void BattlePlayerWin()
         {
-            Messages.Instance().ShowBattlePlayerWin(Dungeons[floor].monsters, Player.NowHP, Player , dorps);
+            Messages.Instance().ShowBattlePlayerWin(Dungeons[floor].monsters, Player.NowHP, Player, dorps);
 
             foreach (var monster in Dungeons[floor].monsters)
             {
                 //Player.AddExp(monster.Exp);
 
-                if(Player.AddExp(monster.Exp))
+                if (Player.AddExp(monster.Exp))
                 {
                     // 업했으면 씬을 레벨업 씬으로 이동
                     //sceneName = SceneName.LevelUp;
@@ -891,7 +936,7 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 1)
             {
-                
+
                 Potion hpPotion = player.Inventory.Potions.Find(p => p.PotionType == PotionType.HP);
 
                 if (hpPotion != null)
@@ -1039,25 +1084,28 @@ namespace Sparta_TextRPG
                 Messages.Instance().ErrorMessage();
             }
         }
-        public void AcceptingQuest()    // 퀘스트 수락할 때 메시지
+        public void AcceptingQuest()    // 퀘스트 수락 완료 창
         {
-            List<Quest> availableQuests = Quests.Where(q => !Player.ActiveQuests.Contains(q)).ToList();
-            Quest selectedQuest = availableQuests[selectedQuestIndex]; 
+            Quest selectedQuest = selectedQuestTemp;
             Player.ActiveQuests.Add(selectedQuest);
 
-            Messages.Instance().ShowAcceptingQuest(selectedQuest.Name);  // 퀘스트 이름 넘겨주기
+            Messages.Instance().ShowAcceptingQuest(selectedQuest.Name);
+
             string input = Console.ReadLine();
             int inputNum = int.Parse(input);
 
             if (inputNum == 0)
             {
-                sceneName = SceneName.QuestList; // 0번 입력 시 퀘스트 목록으로 돌아가기 
+                sceneName = SceneName.QuestList;
             }
             else
             {
-                Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
+                Messages.Instance().ErrorMessage();
+                sceneName = SceneName.QuestList;
             }
         }
+
+
         public void QuestCompleted()    // 퀘스트 완료 창
         {
             Quest completedQuest = selectedQuestTemp;
@@ -1154,7 +1202,7 @@ namespace Sparta_TextRPG
                 {
                     sceneName = SceneName.RestFail; // 휴식 실패
                 }
-            }                                                                   
+            }
             else
             {
                 Messages.Instance().ErrorMessage(); // 이외 숫자 입력시 에러 메시지 출력
