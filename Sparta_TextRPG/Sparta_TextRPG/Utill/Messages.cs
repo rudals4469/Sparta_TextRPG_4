@@ -138,6 +138,7 @@ namespace Sparta_TextRPG
             {
                 print += " ";
             }
+            print += text;
             Console.WriteLine($"│ {print}│");
             Console.WriteLine($"│ {"직  업"}:  {player.Class,15}│");
             Console.WriteLine($"│ {"공격력"}: {player.AttackPoint,18}│");
