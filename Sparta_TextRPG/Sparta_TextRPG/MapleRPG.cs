@@ -12,6 +12,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
 using Sparta_TextRPG.Utill;
 using NAudio.Wave;
+using System.Runtime.InteropServices;
 
 namespace Sparta_TextRPG
 {
@@ -36,8 +37,20 @@ namespace Sparta_TextRPG
         public Dictionary<string, Skill> AllSkill = new Dictionary<string, Skill>();
         public List<Item> dorps;
 
+        // 윈도우 핸들 가져오기
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern IntPtr GetConsoleWindow();
+        // 윈도우 위치 설정
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
         public MapleRPG()
         {
+            Console.SetCursorPosition(25, 17);
+            IntPtr consoleWindow = GetConsoleWindow();
+
+            // 위치 (100, 100), 크기 (800, 600)
+            MoveWindow(consoleWindow, 1120, 0, 800, 1050, true);
+
             init();
         }
         //가장 메인으로 돌아가는 함수
@@ -183,6 +196,9 @@ namespace Sparta_TextRPG
                             break;
                         case SceneName.RestFail:
                             RestFail();
+                            break;
+                        case SceneName.GameOver:
+                            Environment.Exit(0);
                             break;
                     }
                 }
@@ -596,7 +612,7 @@ namespace Sparta_TextRPG
             }
             else if (inputNum == 0)
             {
-                beforSceneInventore = SceneName.ManageEquipment;
+                //beforSceneInventore = SceneName.ManageEquipment;
                 sceneName = SceneName.ShowInventory;
             }
 
