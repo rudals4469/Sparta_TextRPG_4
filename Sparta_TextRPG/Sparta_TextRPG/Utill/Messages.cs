@@ -40,7 +40,8 @@ namespace Sparta_TextRPG
                   ██╔████╔██║███████║██████╔╝██║     █████╗      ███████╗   ██║   ██║   ██║██████╔╝ ╚████╔╝ 
                   ██║╚██╔╝██║██╔══██║██╔═══╝ ██║     ██╔══╝      ╚════██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝  
                   ██║ ╚═╝ ██║██║  ██║██║     ███████╗███████╗    ███████║   ██║   ╚██████╔╝██║  ██║   ██║   
-                  ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚══════╝╚══════╝    ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝                                                                      
+                  ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚══════╝╚══════╝    ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝                                                                                                           
+                
                 """);
         }
         public void ShowStart()
@@ -142,13 +143,17 @@ namespace Sparta_TextRPG
             Console.WriteLine($"│ {"직  업"}:  {player.Class,15}│");
             Console.WriteLine($"│ {"공격력"}: {player.AttackPoint,18}│");
             Console.WriteLine($"│ {"방어력"}: {player.ArmorPoint,18}│");
-            text = $"{"체  력"}: {player.NowHP} / {player.MaxHP}";
-            print = ""; 
-            for (int i = 0; i < 26- GetStringWidth(text); i++)
+
+            text = $"{"체  력"}: ";
+            string text2 = $"{player.NowHP} / {player.MaxHP}";
+            print = "";
+            print += text; 
+            for (int i = GetStringWidth(text); i < 26- GetStringWidth(text2); i++)
             {
                 print += " ";
             }
-            print += text;
+            print += text2;
+
             Console.WriteLine($"│ {print}│");
             Console.WriteLine($"│ {"경험치"}: {player.Exp,13} / {player.MaxExp}│");
             Console.WriteLine($"│ {"Gold"}: {player.Gold,15} Meso│");
@@ -156,22 +161,33 @@ namespace Sparta_TextRPG
 
 
             Console.WriteLine("\n┌ [인벤토리]───────────────────┐");
-            Console.Write($"│ - {"무기",-4} :");
-            if (player.Weapon != null)
-                Console.WriteLine($" {player.Weapon.Name,18}│"); // 무기 장착 칸
-            else Console.WriteLine($" {"",-10}        │");
+            print = "";
+            text = $" - {"무기",-4} :";
+
+            for (int i = GetStringWidth(text) ; i < 10 ; i++)
+            {
+                text += " ";
+            }
+            
+            if (player.Weapon != null) text += $" {player.Weapon.Text}";
+            else text += $" {"",-10}        ";
+            Console.WriteLine($"│{text}│");
+
+
+
             Console.Write($"│ - {"방어구",-3} :");
             if (player.Armor != null)
-                Console.WriteLine($" {player.Armor.Name,18}│");   // 방어구 장착 칸
+                Console.WriteLine($" {player.Armor.Text}│");   // 방어구 장착 칸
             else Console.WriteLine($" {"",-10}        │");
+
             Console.Write($"│ - {"방패",-4} :");
             if (player.Shield != null)
-                Console.WriteLine($" {player.Shield.Name,18}│");   // 방패 장착 칸
+                Console.WriteLine($" {player.Shield.Text}│");   // 방패 장착 칸
             else Console.WriteLine($" {"",-10}        │");
 
             Console.WriteLine("└──────────────────────────────┘");
 
-            Console.WriteLine("\n1. 인벤토리 보기\n");
+            Console.WriteLine("\n1. 인벤토리 보기");
             Exit();
         }
         public void ShowInventory(Player player)
@@ -235,7 +251,7 @@ namespace Sparta_TextRPG
             }
             Console.WriteLine("└────────────────────────────────────────────────────────────────────┘");
 
-            Console.WriteLine("\n1. 장착 관리\n");
+            Console.WriteLine("\n1. 장착 관리");
             Exit();
 
 
@@ -320,6 +336,9 @@ namespace Sparta_TextRPG
                 [아이템 목록]
 
                 """);
+
+
+
             Console.WriteLine("\n┌ [무기]──────────────────────────────────────────────────────┐");
             Console.WriteLine("│                                                             │");
             foreach (var weapon in shop.Inventory.Weapon)
@@ -1003,6 +1022,7 @@ namespace Sparta_TextRPG
 
 
                1. 퀘스트 관리
+
                2. 휴식하기
 
 
