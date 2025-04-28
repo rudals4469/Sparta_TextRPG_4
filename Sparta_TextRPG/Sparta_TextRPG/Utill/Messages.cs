@@ -157,17 +157,28 @@ namespace Sparta_TextRPG
 
 
             Console.WriteLine("\n┌ [인벤토리]───────────────────┐");
-            Console.Write($"│ - {"무기",-4} :");
-            if (player.Weapon != null)
-                Console.WriteLine($" {player.Weapon.Name,18}│"); // 무기 장착 칸
-            else Console.WriteLine($" {"",-10}        │");
+            print = "";
+            text = $" - {"무기",-4} :";
+            print + text;
+            for (int i = GetStringWidth(text) ; i < 10 ; i++)
+            {
+                text += " ";
+            }
+            
+            if (player.Weapon != null) text += $" {player.Weapon.Text}";
+            else text += $" {"",-10}        ";
+            Console.WriteLine($"│{text}│");
+
+
+
             Console.Write($"│ - {"방어구",-3} :");
             if (player.Armor != null)
-                Console.WriteLine($" {player.Armor.Name,18}│");   // 방어구 장착 칸
+                Console.WriteLine($" {player.Armor.Text}│");   // 방어구 장착 칸
             else Console.WriteLine($" {"",-10}        │");
+
             Console.Write($"│ - {"방패",-4} :");
             if (player.Shield != null)
-                Console.WriteLine($" {player.Shield.Name,18}│");   // 방패 장착 칸
+                Console.WriteLine($" {player.Shield.Text}│");   // 방패 장착 칸
             else Console.WriteLine($" {"",-10}        │");
 
             Console.WriteLine("└──────────────────────────────┘");
